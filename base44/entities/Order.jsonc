@@ -1,0 +1,122 @@
+{
+  "name": "Order",
+  "type": "object",
+  "properties": {
+    "order_number": {
+      "type": "string",
+      "description": "Human-readable order number e.g. 7G-1042"
+    },
+    "tracking_code": {
+      "type": "string",
+      "description": "Tracking code for shipment"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "qty": {
+            "type": "number"
+          },
+          "weight": {
+            "type": "number"
+          },
+          "image": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Ordered line items"
+    },
+    "subtotal": {
+      "type": "number",
+      "description": "Cart subtotal before shipping"
+    },
+    "shipping_cost": {
+      "type": "number",
+      "description": "Shipping cost in IRR"
+    },
+    "shipping_method": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "express"
+      ],
+      "description": "Shipping method chosen"
+    },
+    "grand_total": {
+      "type": "number",
+      "description": "Total including shipping"
+    },
+    "payment_method": {
+      "type": "string",
+      "enum": [
+        "online",
+        "cod"
+      ],
+      "description": "Payment method"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "shipped",
+        "delivered",
+        "cancelled"
+      ],
+      "default": "pending"
+    },
+    "full_name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "province": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "postal_code": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "order_number",
+    "tracking_code",
+    "items",
+    "grand_total"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

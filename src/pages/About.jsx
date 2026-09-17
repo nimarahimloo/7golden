@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import SectionHeader from '@/components/SectionHeader';
@@ -8,7 +8,9 @@ import { useScrollAnimation } from '@/components/useScrollAnimation';
 import { Image } from '@/components/ui/image';
 import { Award, Leaf, Globe, Users } from 'lucide-react';
 import Seo from '@/components/Seo';
+import BackButton from '@/components/BackButton';
 import { SITE_SEO } from '@/lib/seo';
+import PullToRefresh from '@/components/PullToRefresh';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -21,6 +23,11 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 
 export default function About() {
   const { lang, dir } = useApp();
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleRefresh = async () => {
+    setRefreshKey(k => k + 1);
+  };
 
   const milestones = [
     { year: lang === 'fa' ? '۱۳۷۷' : '1998', label: lang === 'fa' ? 'تأسیس در قزوین' : 'Founded in Qazvin' },
@@ -47,13 +54,19 @@ export default function About() {
         canonical={`${SITE_SEO.baseUrl}/about`}
       />
 
+      <PullToRefresh onRefresh={handleRefresh}>
       {/* Hero */}
-      <PageHero
-        image="https://7golden.co/wp-content/uploads/2022/09/about-p-2.png"
-        title={t(lang, 'about_title')}
-        subtitle={t(lang, 'about_sub')}
-        badge={lang === 'fa' ? 'داستان ما' : 'Our Story'}
-      />
+      <div className="relative">
+        <PageHero
+          image="https://7golden.co/wp-content/uploads/2022/09/about-p-2.png"
+          title={t(lang, 'about_title')}
+          subtitle={t(lang, 'about_sub')}
+          badge={lang === 'fa' ? 'داستان ما' : 'Our Story'}
+        />
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+          <BackButton to="/" className="text-white/80 hover:text-white" />
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
 
@@ -149,7 +162,8 @@ export default function About() {
       </div>
 
       {/* Licenses & Awards — dynamic */}
-      <AwardsSection />
+      <AwardsSection key={refreshKey} />
+      </PullToRefresh>
     </div>
   );
 }

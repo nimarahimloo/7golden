@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Calendar, ChevronLeft, Loader2, Tag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, ChevronLeft, Tag } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { categoryLabel } from '@/lib/i18n';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/api/content';
@@ -8,7 +8,9 @@ import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import Seo from '@/components/Seo';
 import LogoLoader from '@/components/LogoLoader';
-import { SITE_SEO, articleJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import BackButton from '@/components/BackButton';
+import PullToRefresh from '@/components/PullToRefresh';
+import { SITE_SEO, articleJsonLd } from '@/lib/seo';
 import ReactMarkdown from 'react-markdown';
 
 export default function BlogPost() {
@@ -22,25 +24,26 @@ export default function BlogPost() {
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const loadData = async () => {
+    try {
+      const p = await getBlogPostBySlug(slug);
+      setPost(p);
+      if (p) {
+        const all = await getBlogPosts();
+        setRelated(all.filter(x => x.slug !== p.slug).slice(0, 3));
+      }
+    } catch (e) {
+      // graceful
+    }
+  };
+
   useEffect(() => {
     let active = true;
     setLoading(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     (async () => {
-      try {
-        const p = await getBlogPostBySlug(slug);
-        if (!active) return;
-        setPost(p);
-        if (p) {
-          const all = await getBlogPosts();
-          if (!active) return;
-          setRelated(all.filter(x => x.slug !== p.slug).slice(0, 3));
-        }
-      } catch (e) {
-        // graceful
-      } finally {
-        if (active) setLoading(false);
-      }
+      await loadData();
+      if (active) setLoading(false);
     })();
     return () => { active = false; };
   }, [slug]);
@@ -80,8 +83,13 @@ export default function BlogPost() {
         jsonLd={articleJsonLd(post, lang)}
       />
 
+      <PullToRefresh onRefresh={loadData}>
       {/* ===== CINEMATIC HERO ===== */}
       <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden">
+        {/* Back button overlay */}
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+          <BackButton to="/blog" className="text-white/80 hover:text-white" />
+        </div>
         <img
           src={post.image}
           alt={title}
@@ -94,11 +102,11 @@ export default function BlogPost() {
         <div className="absolute inset-0 flex items-end">
           <div className="max-w-4xl mx-auto px-4 sm:px-8 pb-12 w-full text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+              <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
                 <Tag size={11} />
                 {category}
               </span>
-              <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+              <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
                 <Calendar size={11} />
                 {date}
               </span>
@@ -125,7 +133,7 @@ export default function BlogPost() {
           boxShadow: 'var(--shadow-lg)',
         }}>
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 font-body text-xs mb-8" style={{ color: 'var(--fg-muted)' }}>
+          <div className="flex items-center gap-2 font-body text-sm mb-8" style={{ color: 'var(--fg-muted)' }}>
             <Link to="/" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'خانه' : 'Home'}</Link>
             <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             <Link to="/blog" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'مجله' : 'Blog'}</Link>
@@ -165,11 +173,11 @@ export default function BlogPost() {
             </Link>
             <div className="flex items-center gap-2">
               <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'var(--accent)' }}>
-                <span className="font-heading font-black text-xs" style={{ color: 'hsl(var(--accent-foreground))' }}>7G</span>
+                <span className="font-heading font-black text-sm" style={{ color: 'hsl(var(--accent-foreground))' }}>7G</span>
               </div>
               <div>
-                <div className="font-body text-xs font-semibold" style={{ color: 'var(--fg)' }}>{isFA ? 'هفت‌طلایی' : '7Golden'}</div>
-                <div className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'تحریریه مجله' : 'Editorial'}</div>
+                <div className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{isFA ? 'هفت‌طلایی' : '7Golden'}</div>
+                <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'تحریریه مجله' : 'Editorial'}</div>
               </div>
             </div>
           </div>
@@ -189,6 +197,7 @@ export default function BlogPost() {
           </div>
         </section>
       )}
+      </PullToRefresh>
     </div>
   );
 }
@@ -206,10 +215,10 @@ function BlogCard({ post, delay = 0, isFA, headingFont, ArrowIcon }) {
           <Image src={post.image} alt={title} className="w-full h-full" fittingType="fill" style={{ transition: 'transform 0.8s ease' }} />
         </div>
         <div className="p-6">
-          <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{date}</span>
+          <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{date}</span>
           <h3 className="font-body font-extrabold text-base mt-2 mb-3 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }}>{title}</h3>
-          <p className="font-body text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>{excerpt}</p>
-          <span className="flex items-center gap-2 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+          <p className="font-body text-sm leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>{excerpt}</p>
+          <span className="flex items-center gap-2 font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
             {isFA ? 'ادامه مطلب' : 'Read more'}
             <ArrowIcon size={12} />
           </span>

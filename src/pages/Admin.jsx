@@ -8,6 +8,13 @@ import { useAuth } from '@/lib/AuthContext';
 import EntityCrud from '@/components/admin/EntityCrud';
 import SiteModeToggle from '@/components/admin/SiteModeToggle';
 import LogoLoader from '@/components/LogoLoader';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const SECTIONS = [
   { id: 'products', label: 'محصولات', labelEN: 'Products', icon: Package },
@@ -98,13 +105,14 @@ function AdminShell({ active, setActive, user, onLogout, children }) {
       {/* Sidebar */}
       <aside className="lg:w-64 lg:min-h-screen flex-shrink-0" style={{ background: 'hsl(var(--card))', borderBottom: '1px solid var(--border)' }}>
         <div className="lg:hidden border-b p-3" style={{ borderColor: 'var(--border)' }}>
-          <select
-            value={active}
-            onChange={e => setActive(e.target.value)}
-            className="w-full admin-input cursor-pointer"
-          >
-            {SECTIONS.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
-          </select>
+          <Select value={active} onValueChange={setActive}>
+            <SelectTrigger className="w-full admin-input cursor-pointer">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {SECTIONS.map(s => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Desktop sidebar */}

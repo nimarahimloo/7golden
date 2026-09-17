@@ -1,7 +1,5 @@
-// @ts-ignore
 import React from 'react';
 
-// @ts-ignore
 export default function CheckoutCard({ icon: Icon, title, headingFont, children }) {
   return (
     <div

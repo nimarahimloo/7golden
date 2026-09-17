@@ -1,3 +1,4 @@
+import React, { lazy, Suspense } from 'react';
 import { Toaster } from "@/components/ui/toaster"
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClientInstance } from '@/lib/query-client'
@@ -8,23 +9,23 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import { AppProvider } from '@/lib/AppContext';
 
-// Pages
-import Home from '@/pages/Home';
-import Shop from '@/pages/Shop';
-import ProductDetail from '@/pages/ProductDetail';
-import Checkout from '@/pages/Checkout';
-import About from '@/pages/About';
-import Awards from '@/pages/Awards';
-import Contact from '@/pages/Contact';
-import Blog from '@/pages/Blog';
-import Admin from '@/pages/Admin';
-import Account from '@/pages/Account';
-import BlogPost from '@/pages/BlogPost';
-import Login from '@/pages/Login';
-import Register from '@/pages/Register';
-import ForgotPassword from '@/pages/ForgotPassword';
-import ResetPassword from '@/pages/ResetPassword';
-import OAuthConsent from '@/pages/OAuthConsent';
+// Pages (lazy-loaded for code splitting)
+const Home = lazy(() => import('@/pages/Home'));
+const Shop = lazy(() => import('@/pages/Shop'));
+const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
+const Checkout = lazy(() => import('@/pages/Checkout'));
+const About = lazy(() => import('@/pages/About'));
+const Awards = lazy(() => import('@/pages/Awards'));
+const Contact = lazy(() => import('@/pages/Contact'));
+const Blog = lazy(() => import('@/pages/Blog'));
+const Admin = lazy(() => import('@/pages/Admin'));
+const Account = lazy(() => import('@/pages/Account'));
+const BlogPost = lazy(() => import('@/pages/BlogPost'));
+const Login = lazy(() => import('@/pages/Login'));
+const Register = lazy(() => import('@/pages/Register'));
+const ForgotPassword = lazy(() => import('@/pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
+const OAuthConsent = lazy(() => import('@/pages/OAuthConsent'));
 
 // Layout
 import Navbar from '@/components/Navbar';
@@ -35,13 +36,17 @@ import SupportChat from '@/components/SupportChat';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import PageTransition from '@/components/PageTransition';
 import LogoLoader from '@/components/LogoLoader';
+import BottomTabBar from '@/components/BottomTabBar';
+import GlobalGoldAmbient from '@/components/GlobalGoldAmbient';
 
 function AppLayout() {
   return (
     <>
+      <GlobalGoldAmbient />
       <ThemeTransition />
       <Navbar />
       <PageTransition>
+      <Suspense fallback={<LogoLoader />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
@@ -59,8 +64,11 @@ function AppLayout() {
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
+      </Suspense>
       </PageTransition>
       <Footer />
+      <div className="h-16 md:hidden" />
+      <BottomTabBar />
       <CartDrawer />
       <SupportChat />
     </>

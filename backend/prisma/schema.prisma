@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model BlogPost {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title_fa   String
+  title_en   String
+  excerpt_fa String?
+  excerpt_en String?
+  content    String?
+  date_fa    String?
+  date_en    String?
+  category   String?
+  image      String
+  published  Boolean  @default(true)
+  sort_order Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}

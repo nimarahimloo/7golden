@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { useApp } from '@/lib/AppContext';
 import { t, categoryLabel } from '@/lib/i18n';
 import { getBlogPosts } from '@/lib/api/content';
-import SectionHeader from '@/components/SectionHeader';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import { Image } from '@/components/ui/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
 import PageHero from '@/components/PageHero';
+import BackButton from '@/components/BackButton';
+import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 
@@ -30,17 +31,20 @@ export default function Blog() {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
 
+  const loadData = async () => {
+    try {
+      const items = await getBlogPosts();
+      setPosts(items);
+    } catch (e) {
+      // graceful
+    }
+  };
+
   useEffect(() => {
     let active = true;
     (async () => {
-      try {
-        const items = await getBlogPosts();
-        if (active) setPosts(items);
-      } catch (e) {
-        // graceful
-      } finally {
-        if (active) setLoading(false);
-      }
+      await loadData();
+      if (active) setLoading(false);
     })();
     return () => { active = false; };
   }, []);
@@ -60,13 +64,19 @@ export default function Blog() {
         canonical={`${SITE_SEO.baseUrl}/blog`}
       />
 
+      <PullToRefresh onRefresh={loadData}>
       {/* Hero */}
-      <PageHero
-        image="https://7golden.co/wp-content/uploads/2022/09/blog-new-3-min.jpg"
-        title={t(lang, 'blog_title')}
-        subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
-        badge={isFA ? 'وبلاگ' : 'Blog'}
-      />
+      <div className="relative">
+        <PageHero
+          image="https://7golden.co/wp-content/uploads/2022/09/blog-new-3-min.jpg"
+          title={t(lang, 'blog_title')}
+          subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
+          badge={isFA ? 'وبلاگ' : 'Blog'}
+        />
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+          <BackButton to="/" className="text-white/80 hover:text-white" />
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
 
@@ -184,6 +194,7 @@ export default function Blog() {
           </>
         )}
       </div>
+      </PullToRefresh>
     </div>
   );
 }

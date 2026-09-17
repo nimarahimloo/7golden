@@ -1,4 +1,3 @@
-// @ts-ignore
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { UploadCloud, Trash2, Pencil, X, Plus, Loader2, Save } from 'lucide-react';
@@ -12,7 +11,6 @@ import { UploadCloud, Trash2, Pencil, X, Plus, Loader2, Save } from 'lucide-reac
  *  - fields:   [{ key, label, type: 'text'|'number'|'boolean'|'textarea'|'image'|'select', options?, default? }]
  *  - defaultSort: field name to sort by
  */
-// @ts-ignore
 export default function EntityCrud({ entityName, columns, fields, defaultSort }) {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +24,6 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       const items = defaultSort
         ? await base44.entities[entityName].list(defaultSort, 200)
         : await base44.entities[entityName].list();
-      // @ts-ignore
       setRecords(items);
     } catch (e) {
       console.error(`Failed to load ${entityName}:`, e);
@@ -37,7 +34,6 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
 
   useEffect(() => { load(); }, []);
 
-  // @ts-ignore
   const handleSave = async (formData) => {
     setSaving(true);
     try {
@@ -52,14 +48,12 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       await load();
     } catch (e) {
       console.error(`Failed to save ${entityName}:`, e);
-      // @ts-ignore
       alert('خطا در ذخیره: ' + (e.message || 'نامشخص'));
     } finally {
       setSaving(false);
     }
   };
 
-  // @ts-ignore
   const handleDelete = async (id) => {
     if (!confirm('آیا از حذف این مورد مطمئن هستید؟')) return;
     try {
@@ -67,15 +61,12 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       await load();
     } catch (e) {
       console.error(`Failed to delete:`, e);
-      // @ts-ignore
       alert('خطا در حذف: ' + (e.message || 'نامشخص'));
     }
   };
 
-  // @ts-ignore
   const filtered = search
     ? records.filter(r =>
-        // @ts-ignore
         columns.some(c => {
           const val = c.render ? c.render(r) : r[c.key];
           return String(val || '').toLowerCase().includes(search.toLowerCase());
@@ -108,7 +99,6 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
           </span>
         </div>
         <button
-          // @ts-ignore
           onClick={() => setEditing(buildEmpty(fields))}
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-body font-semibold text-sm transition-all hover:scale-105 magnetic-btn"
           style={{ background: 'var(--accent)', color: '#fff' }}
@@ -124,9 +114,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
           <table className="admin-table">
             <thead>
               <tr>
-                {columns.map(
-// @ts-ignore
-                c => (
+                {columns.map(c => (
                   <th key={c.key}>{c.label}</th>
                 ))}
                 <th style={{ textAlign: 'center' }}>عملیات</th>
@@ -142,9 +130,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
               ) : (
                 filtered.map(r => (
                   <tr key={r.id}>
-                    {columns.map(
-// @ts-ignore
-                    c => (
+                    {columns.map(c => (
                       <td key={c.key}>
                         {c.render ? c.render(r) : (String(r[c.key] ?? '—'))}
                       </td>
@@ -182,7 +168,6 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
         <EditDrawer
           fields={fields}
           data={editing}
-          // @ts-ignore
           isNew={!editing.id}
           saving={saving}
           onSave={handleSave}
@@ -193,33 +178,23 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
   );
 }
 
-// @ts-ignore
 function buildEmpty(fields) {
   const obj = {};
-  // @ts-ignore
   fields.forEach(f => {
-    // @ts-ignore
     if (f.type === 'boolean') obj[f.key] = f.default ?? false;
-    // @ts-ignore
     else if (f.type === 'number') obj[f.key] = f.default ?? 0;
-    // @ts-ignore
     else if (f.type === 'select') obj[f.key] = f.default ?? '';
-    // @ts-ignore
     else if (f.type === 'array') obj[f.key] = f.default ?? [];
-    // @ts-ignore
     else obj[f.key] = f.default ?? '';
   });
   return obj;
 }
 
-// @ts-ignore
 function EditDrawer({ fields, data, isNew, saving, onSave, onClose }) {
   const [form, setForm] = useState({ ...data });
 
-  // @ts-ignore
   const setField = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
 
-  // @ts-ignore
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(form);
@@ -241,10 +216,7 @@ function EditDrawer({ fields, data, isNew, saving, onSave, onClose }) {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
-          {fields.map(
-// @ts-ignore
-          field => (
-            // @ts-ignore
+          {fields.map(field => (
             <FieldRenderer key={field.key} field={field} value={form[field.key]} onChange={v => setField(field.key, v)} />
           ))}
 
@@ -273,7 +245,6 @@ function EditDrawer({ fields, data, isNew, saving, onSave, onClose }) {
   );
 }
 
-// @ts-ignore
 function FieldRenderer({ field, value, onChange }) {
   if (field.type === 'image') {
     return <ImageUploadField field={field} value={value} onChange={onChange} />;
@@ -320,9 +291,7 @@ function FieldRenderer({ field, value, onChange }) {
           className="admin-input cursor-pointer"
         >
           <option value="">— انتخاب —</option>
-          {field.options?.map(
-// @ts-ignore
-          opt => (
+          {field.options?.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
         </select>
@@ -356,11 +325,9 @@ function FieldRenderer({ field, value, onChange }) {
   );
 }
 
-// @ts-ignore
 function ImageUploadField({ field, value, onChange }) {
   const [uploading, setUploading] = useState(false);
 
-  // @ts-ignore
   const handleFile = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;

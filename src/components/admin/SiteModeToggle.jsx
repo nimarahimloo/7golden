@@ -22,7 +22,6 @@ export default function SiteModeToggle() {
           site_mode: newMode,
         });
       }
-      // @ts-ignore
       await refreshSiteMode();
     } catch (e) {
       alert('خطا در تغییر حالت سایت: ' + (e.message || 'نامشخص'));

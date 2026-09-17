@@ -96,7 +96,7 @@ export default function PaymentGateway({ amount, lang, onSuccess, onClose }) {
               <p className="font-heading text-sm font-black" style={{ fontFamily: headingFont }}>
                 {isFA ? 'درگاه پرداخت امن' : 'Secure Payment Gateway'}
               </p>
-              <p className="font-body text-[10px] text-white/60">
+              <p className="font-body text-sm text-white/60">
                 {isFA ? 'تراکنش رمزنگاری‌شده SSL' : 'SSL Encrypted Transaction'}
               </p>
             </div>
@@ -182,7 +182,7 @@ export default function PaymentGateway({ amount, lang, onSuccess, onClose }) {
                   <CreditCard size={16} className="text-white" />
                 </div>
                 <div>
-                  <p className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'بانک صادرکننده' : 'Issuing Bank'}</p>
+                  <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'بانک صادرکننده' : 'Issuing Bank'}</p>
                   <p className="font-body text-sm font-bold" style={{ color: 'var(--fg)' }}>{bank.name}</p>
                 </div>
               </div>
@@ -266,7 +266,7 @@ export default function PaymentGateway({ amount, lang, onSuccess, onClose }) {
 
             <div className="flex items-center justify-center gap-2 mt-4">
               <ShieldCheck size={12} style={{ color: 'var(--fg-muted)' }} />
-              <p className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>
+              <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
                 {isFA ? 'پرداخت از طریق درگاه امن بانکی' : 'Payment via secure banking gateway'}
               </p>
             </div>

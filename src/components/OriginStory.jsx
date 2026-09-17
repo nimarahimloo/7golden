@@ -43,7 +43,7 @@ export default function OriginStory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-12 md:mb-16">
-          <span className="font-subheading text-xs uppercase block mb-3" style={{ color: '#D4AF37', fontFamily: subFont }}>
+          <span className="font-subheading text-xs uppercase block mb-3" style={{ color: '#E8C547', fontFamily: subFont }}>
             {isFA ? 'خاستگاه محصولات' : 'Product Origins'}
           </span>
           <h2 className="font-black mb-4 text-6xl md:text-6xl [font-family:'YekanBakh',_system-ui,_sans-serif]" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
@@ -80,7 +80,7 @@ function StoryBlock({ story, reversed, isFA, headingFont }) {
           {/* Region badge */}
           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
             <div className="glass-card px-4 py-2.5 rounded-2xl">
-              <span className="font-body text-[9px] uppercase block mb-0.5" style={{ color: '#D4AF37' }}>
+              <span className="font-body text-[9px] uppercase block mb-0.5" style={{ color: '#E8C547' }}>
                 {isFA ? 'خاستگاه' : 'Origin'}
               </span>
               <span className="font-heading font-extrabold text-sm text-white" style={{ fontFamily: headingFont }}>

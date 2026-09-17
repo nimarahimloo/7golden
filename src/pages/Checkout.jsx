@@ -6,6 +6,16 @@ import { t } from '@/lib/i18n';
 import { Image } from '@/components/ui/image';
 import PaymentGateway from '@/components/PaymentGateway';
 import CheckoutCard from '@/components/CheckoutCard';
+import BackButton from '@/components/BackButton';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { createOrder } from '@/lib/api/content';
+import { toast } from '@/components/ui/use-toast';
 
 const IRAN_PROVINCES_FA = [
   'تهران', 'قزوین', 'البرز', 'گیلان', 'مازندران', 'گلستان', 'اردبیل', 'آذربایجان شرقی', 'آذربایجان غربی',
@@ -25,6 +35,8 @@ export default function Checkout() {
     shipping: 'standard', payment: 'online',
   });
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [orderError, setOrderError] = useState(null);
 
   const isFA = lang === 'fa';
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
@@ -53,13 +65,45 @@ export default function Checkout() {
     else completeOrder();
   };
 
-  const completeOrder = () => {
-    setOrderNumber('7G-' + Math.floor(Math.random() * 900000 + 100000));
-    setTrackingCode(Math.floor(Math.random() * 90000000 + 10000000).toString());
-    setShowGateway(false);
-    clearCart();
-    setOrdered(true);
-    window.scrollTo(0, 0);
+  const completeOrder = async () => {
+    setSubmitting(true);
+    setOrderError(null);
+    try {
+      const orderData = {
+        order_number: '7G-' + Date.now().toString().slice(-6),
+        tracking_code: Date.now().toString().slice(-8),
+        items: cart.map(item => ({
+          name: isFA ? item.nameFA : item.nameEN,
+          price: item.price,
+          qty: item.qty,
+          weight: item.weight,
+          image: item.image,
+        })),
+        subtotal: cartTotal,
+        shipping_cost: shippingCost,
+        shipping_method: form.shipping,
+        grand_total: grandTotal,
+        payment_method: form.payment,
+        status: 'pending',
+        full_name: form.full_name,
+        phone: form.phone,
+        province: form.province,
+        address: form.address,
+        postal_code: form.postal_code,
+      };
+      const created = await createOrder(orderData);
+      setOrderNumber(created.order_number || orderData.order_number);
+      setTrackingCode(created.tracking_code || orderData.tracking_code);
+      setShowGateway(false);
+      clearCart();
+      setOrdered(true);
+      window.scrollTo(0, 0);
+    } catch (e) {
+      setOrderError(e?.message || (isFA ? 'خطا در ثبت سفارش' : 'Failed to place order'));
+      toast({ title: isFA ? 'خطا در ثبت سفارش' : 'Order failed', description: isFA ? 'لطفاً دوباره تلاش کنید' : 'Please try again', variant: 'destructive' });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const BackIcon = isFA ? ChevronLeft : ChevronRight;
@@ -84,7 +128,7 @@ export default function Checkout() {
             <Check size={52} style={{ color: '#22c55e' }} strokeWidth={3} />
           </div>
 
-          <span className="font-subheading text-xs uppercase block mb-3" style={{ color: 'var(--accent)', fontFamily: subFont }}>
+          <span className="font-subheading text-sm uppercase block mb-3" style={{ color: 'var(--accent)', fontFamily: subFont }}>
             {isFA ? 'سفارش ثبت شد' : 'Order Confirmed'}
           </span>
           <h1 className="font-heading text-3xl md:text-4xl font-black mb-3" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
@@ -200,12 +244,11 @@ export default function Checkout() {
       {/* Premium header */}
       <div className="pt-24 pb-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <Link to="/shop" className="inline-flex items-center gap-2 font-body text-xs mb-5 transition-all hover:gap-3" style={{ color: 'var(--fg-muted)' }}>
-            <BackIcon size={14} />
-            {t(lang, 'continue_shopping')}
-          </Link>
+          <div className="mb-5">
+            <BackButton to="/shop" />
+          </div>
           <div className="flex flex-col items-center text-center mb-8">
-            <span className="font-subheading text-xs uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
+            <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
               {isFA ? 'تسویه حساب' : 'Checkout'}
             </span>
             <h1 className="font-heading text-3xl md:text-4xl font-black" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
@@ -235,7 +278,7 @@ export default function Checkout() {
                   >
                     <step.icon size={16} />
                   </div>
-                  <span className="font-body text-xs font-semibold hidden sm:inline" style={{ color: 'var(--fg)' }}>{step.label}</span>
+                  <span className="font-body text-sm font-semibold hidden sm:inline" style={{ color: 'var(--fg)' }}>{step.label}</span>
                 </div>
                 {i < 2 && (
                   <div className="w-8 sm:w-16 h-px" style={{ background: 'linear-gradient(90deg, rgba(212,175,55,0.4), rgba(255,255,255,0.06))' }} />
@@ -257,7 +300,7 @@ export default function Checkout() {
             <CheckoutCard icon={User} title={t(lang, 'step_info')} headingFont={headingFont}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-body text-xs font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'full_name')}</label>
+                  <label className="font-body text-sm font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'full_name')}</label>
                   <input
                     type="text"
                     value={form.full_name}
@@ -268,7 +311,7 @@ export default function Checkout() {
                   />
                 </div>
                 <div>
-                  <label className="font-body text-xs font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'phone')}</label>
+                  <label className="font-body text-sm font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'phone')}</label>
                   <input
                     type="tel"
                     dir="ltr"
@@ -286,19 +329,21 @@ export default function Checkout() {
             <CheckoutCard icon={MapPin} title={t(lang, 'step_shipping')} headingFont={headingFont}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="font-body text-xs font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'province')}</label>
-                  <select
-                    value={form.province}
-                    onChange={e => set('province', e.target.value)}
-                    className="glass-input w-full px-4 py-3.5 rounded-xl font-body text-sm outline-none cursor-pointer"
-                    style={{ border: `1px solid ${errors.province ? '#ef4444' : 'rgba(255,255,255,0.06)'}`, color: 'var(--fg)' }}
-                  >
-                    <option value="">{isFA ? 'انتخاب استان' : 'Select province'}</option>
-                    {IRAN_PROVINCES_FA.map(p => <option key={p} value={p}>{p}</option>)}
-                  </select>
+                  <label className="font-body text-sm font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'province')}</label>
+                  <Select value={form.province || undefined} onValueChange={(v) => set('province', v)}>
+                    <SelectTrigger
+                      className="glass-input w-full px-4 py-3.5 rounded-xl font-body text-sm outline-none cursor-pointer"
+                      style={{ border: `1px solid ${errors.province ? '#ef4444' : 'rgba(255,255,255,0.06)'}`, color: 'var(--fg)' }}
+                    >
+                      <SelectValue placeholder={isFA ? 'انتخاب استان' : 'Select province'} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {IRAN_PROVINCES_FA.map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
-                  <label className="font-body text-xs font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'postal_code')}</label>
+                  <label className="font-body text-sm font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'postal_code')}</label>
                   <input
                     type="text"
                     dir="ltr"
@@ -310,7 +355,7 @@ export default function Checkout() {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="font-body text-xs font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'address')}</label>
+                  <label className="font-body text-sm font-semibold block mb-2" style={{ color: 'var(--fg)' }}>{t(lang, 'address')}</label>
                   <textarea
                     rows="3"
                     value={form.address}
@@ -324,7 +369,7 @@ export default function Checkout() {
 
               {/* Shipping method */}
               <div className="mt-5 pt-5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                <label className="font-body text-xs font-semibold block mb-3" style={{ color: 'var(--fg)' }}>
+                <label className="font-body text-sm font-semibold block mb-3" style={{ color: 'var(--fg)' }}>
                   {isFA ? 'روش ارسال' : 'Shipping Method'}
                 </label>
                 <div className="flex flex-col gap-3">
@@ -368,7 +413,7 @@ export default function Checkout() {
                         </div>
                         <div>
                           <span className="font-body text-sm font-semibold block" style={{ color: 'var(--fg)' }}>{opt.label}</span>
-                          <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{opt.sub}</span>
+                          <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{opt.sub}</span>
                         </div>
                       </div>
                       <span className="font-heading text-sm font-black" style={{ color: opt.free ? '#22c55e' : 'var(--accent)', fontFamily: headingFont }}>
@@ -407,12 +452,12 @@ export default function Checkout() {
                     </div>
                     <div>
                       <span className="font-body text-sm font-semibold block" style={{ color: 'var(--fg)' }}>{isFA ? 'پرداخت آنلاین' : 'Online Payment'}</span>
-                      <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'درگاه پرداخت امن (شبکه شتاب)' : 'Secure payment gateway'}</span>
+                      <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'درگاه پرداخت امن (شبکه شتاب)' : 'Secure payment gateway'}</span>
                     </div>
                   </div>
                   <div className="flex gap-1.5 items-center">
                     {['ملت', 'سامان', 'زرین‌پال'].map(b => (
-                      <span key={b} className="glass-pill text-[9px] px-2 py-1 rounded font-extrabold" style={{ color: 'var(--fg-muted)' }}>
+                      <span key={b} className="glass-pill text-sm px-2 py-1 rounded font-extrabold" style={{ color: 'var(--fg-muted)' }}>
                         {b}
                       </span>
                     ))}
@@ -443,7 +488,7 @@ export default function Checkout() {
                     </div>
                     <div>
                       <span className="font-body text-sm font-semibold block" style={{ color: 'var(--fg)' }}>{isFA ? 'پرداخت در محل' : 'Cash on Delivery'}</span>
-                      <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'پرداخت هنگام تحویل' : 'Pay when you receive'}</span>
+                      <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'پرداخت هنگام تحویل' : 'Pay when you receive'}</span>
                     </div>
                   </div>
                   <input type="radio" name="payment" value="cod" checked={form.payment === 'cod'} onChange={() => set('payment', 'cod')} className="sr-only" />
@@ -478,19 +523,19 @@ export default function Checkout() {
                     >
                       <Image src={item.image} alt={isFA ? item.nameFA : item.nameEN} className="w-full h-full" fittingType="fill" />
                       <span
-                        className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center font-body text-[10px] font-extrabold"
+                        className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center font-body text-sm font-extrabold"
                         style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))', boxShadow: '0 2px 8px rgba(212,175,55,0.3)' }}
                       >
                         {item.qty}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-body text-xs font-semibold truncate" style={{ color: 'var(--fg)' }}>{isFA ? item.nameFA : item.nameEN}</p>
-                      <p className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+                      <p className="font-body text-sm font-semibold truncate" style={{ color: 'var(--fg)' }}>{isFA ? item.nameFA : item.nameEN}</p>
+                      <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
                         {item.weight >= 1000 ? `${item.weight / 1000} ${t(lang, 'kg')}` : `${item.weight} ${t(lang, 'gr')}`}
                       </p>
                     </div>
-                    <span className="font-heading text-xs font-black" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
+                    <span className="font-heading text-sm font-black" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
                       {fmt(item.price * item.qty)}
                     </span>
                   </div>
@@ -521,30 +566,53 @@ export default function Checkout() {
                 </span>
               </div>
 
+              {/* Error / retry state */}
+              {orderError && (
+                <div className="mb-4 p-4 rounded-2xl flex items-center justify-between gap-3" style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                  <span className="font-body text-sm" style={{ color: '#ef4444' }}>{orderError}</span>
+                  <button
+                    onClick={completeOrder}
+                    disabled={submitting}
+                    className="px-4 py-2.5 rounded-full font-body text-sm font-semibold transition-all hover:scale-105 flex-shrink-0"
+                    style={{ background: '#ef4444', color: '#fff', minHeight: '44px' }}
+                  >
+                    {isFA ? 'تلاش مجدد' : 'Retry'}
+                  </button>
+                </div>
+              )}
+
               {/* CTA — liquid glass button */}
               <button
                 onClick={handlePlaceOrder}
-                className="w-full py-4 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                disabled={submitting}
+                className="w-full py-4 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] disabled:opacity-60"
                 style={{
                   background: 'var(--accent)',
                   color: 'hsl(var(--accent-foreground))',
                   boxShadow: '0 8px 32px rgba(212,175,55,0.3), inset 0 1px 1px rgba(255,255,255,0.2)',
                 }}
               >
-                {form.payment === 'online'
-                  ? (isFA ? `پرداخت ${fmt(grandTotal)} تومان` : `Pay ${fmt(grandTotal)} IRR`)
-                  : t(lang, 'place_order')}
+                {submitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: 'rgba(255,255,255,0.3)', borderTopColor: '#fff' }} />
+                    {isFA ? 'در حال ثبت...' : 'Submitting...'}
+                  </>
+                ) : (
+                  form.payment === 'online'
+                    ? (isFA ? `پرداخت ${fmt(grandTotal)} تومان` : `Pay ${fmt(grandTotal)} IRR`)
+                    : t(lang, 'place_order')
+                )}
               </button>
 
               {/* Trust badges — glass pills */}
               <div className="flex items-center justify-center gap-3 mt-5 flex-wrap">
-                <span className="glass-pill flex items-center gap-1.5 font-body text-[10px] px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
+                <span className="glass-pill flex items-center gap-1.5 font-body text-sm px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
                   <ShieldCheck size={12} style={{ color: 'var(--accent)' }} /> {isFA ? 'پرداخت امن' : 'Secure'}
                 </span>
-                <span className="glass-pill flex items-center gap-1.5 font-body text-[10px] px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
+                <span className="glass-pill flex items-center gap-1.5 font-body text-sm px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
                   <Truck size={12} style={{ color: 'var(--accent)' }} /> {isFA ? 'ارسال سریع' : 'Fast delivery'}
                 </span>
-                <span className="glass-pill flex items-center gap-1.5 font-body text-[10px] px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
+                <span className="glass-pill flex items-center gap-1.5 font-body text-sm px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
                   <RotateCcw size={12} style={{ color: 'var(--accent)' }} /> {isFA ? 'ضمانت بازگشت' : 'Return'}
                 </span>
               </div>

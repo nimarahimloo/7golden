@@ -1,46 +1,58 @@
 {
   "name": "BlogPost",
   "type": "object",
+  "title": "Blog Post",
+  "description": "Blog posts with bilingual support (Persian / English)",
   "properties": {
     "slug": {
-      "type": "string"
+      "type": "string",
+      "description": "URL-friendly unique identifier"
     },
     "title_fa": {
-      "type": "string"
+      "type": "string",
+      "description": "Title in Persian"
     },
     "title_en": {
-      "type": "string"
+      "type": "string",
+      "description": "Title in English"
     },
     "excerpt_fa": {
-      "type": "string"
+      "type": "string",
+      "description": "Short summary in Persian"
     },
     "excerpt_en": {
-      "type": "string"
+      "type": "string",
+      "description": "Short summary in English"
     },
     "content": {
       "type": "string",
-      "description": "Full article body (markdown or html)"
+      "description": "Full article body (markdown or HTML)"
     },
     "date_fa": {
-      "type": "string"
+      "type": "string",
+      "description": "Display date in Persian"
     },
     "date_en": {
-      "type": "string"
+      "type": "string",
+      "description": "Display date in English"
     },
     "category": {
       "type": "string",
-      "description": "news, education, etc."
+      "description": "Category (news, education, etc.)"
     },
     "image": {
-      "type": "string"
+      "type": "string",
+      "description": "Cover image URL"
     },
     "published": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "description": "Whether the post is publicly visible"
     },
     "sort_order": {
       "type": "number",
-      "default": 0
+      "default": 0,
+      "description": "Manual sort order (lower = higher priority)"
     }
   },
   "required": [
@@ -55,7 +67,7 @@
         "role": "admin"
       }
     },
-    "read": null,
+    "read": true,
     "update": {
       "user_condition": {
         "role": "admin"

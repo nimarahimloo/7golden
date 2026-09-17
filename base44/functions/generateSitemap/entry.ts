@@ -1,6 +1,6 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.44';
 
-const DOMAINS = ['https://7golden.co', 'https://7golden.ir' , "http://localhost:4400"];
+const DOMAINS = ['https://7golden.co', 'https://7golden.ir'];
 const STATIC_PAGES = [
   { path: '/', priority: '1.0', changefreq: 'daily' },
   { path: '/shop', priority: '0.9', changefreq: 'daily' },

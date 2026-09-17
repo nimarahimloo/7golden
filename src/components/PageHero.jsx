@@ -30,7 +30,7 @@ export default function PageHero({ image, title, subtitle, badge }) {
         {badge && (
           <span
             className="font-subheading text-[10px] sm:text-xs uppercase block mb-3 tracking-wider glass-card inline-block px-3.5 py-1.5 rounded-full"
-            style={{ color: '#D4AF37', fontFamily: subFont }}
+            style={{ color: '#E8C547', fontFamily: subFont }}
           >
             {badge}
           </span>

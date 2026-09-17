@@ -1,4 +1,3 @@
-// @ts-ignore
 import React, { useState, useEffect } from 'react';
 import { Award } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
@@ -18,7 +17,6 @@ export default function AwardsSection() {
     (async () => {
       try {
         const items = await getAwards();
-        // @ts-ignore
         if (active) setAwards(items);
       } catch (e) {
         // graceful
@@ -55,7 +53,6 @@ export default function AwardsSection() {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {awards.map((item, i) => (
-            // @ts-ignore
             <AwardCard key={item.id} item={item} delay={i * 100} isFA={isFA} headingFont={headingFont} />
           ))}
         </div>
@@ -64,7 +61,6 @@ export default function AwardsSection() {
   );
 }
 
-// @ts-ignore
 function AwardCard({ item, delay = 0, isFA, headingFont }) {
   const { ref, visible } = useScrollAnimation();
   const title = isFA ? item.titleFA : item.titleEN;
@@ -88,7 +84,6 @@ function AwardCard({ item, delay = 0, isFA, headingFont }) {
         {/* Image */}
         <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5" style={{ background: 'rgba(255,255,255,0.03)' }}>
           <Image
-            // @ts-ignore
             src={item.image}
             alt={title}
             className="w-full h-full transition-transform duration-700 group-hover:scale-105"

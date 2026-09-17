@@ -7,7 +7,7 @@ import TrustBadges from '@/components/TrustBadges';
 import FooterParticles from '@/components/FooterParticles';
 
 export default function Footer() {
-  const { lang, dir } = useApp();
+  const { lang, dir, theme } = useApp();
 
   const navLinks = [
     { href: '/', label: t(lang, 'home') },
@@ -20,7 +20,7 @@ export default function Footer() {
   return (
     <footer dir={dir} style={{ background: 'var(--bg-secondary)', position: 'relative', overflow: 'hidden' }}>
       <FooterParticles />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12" style={{ zIndex: 1 }}>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16" style={{ zIndex: 1, paddingBottom: 'calc(3rem + var(--safe-area-bottom))' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
           {/* Brand */}
@@ -28,6 +28,7 @@ export default function Footer() {
             <div className="mb-4">
               <img
                 src="https://7golden.co/wp-content/uploads/2023/08/logo-white.png"
+                style={{ filter: theme === 'light' ? 'brightness(0)' : 'none' }}
                 alt="7Golden"
                 className="h-14 w-auto object-contain mb-3"
               />
@@ -106,12 +107,12 @@ export default function Footer() {
         </div>
 
         {/* Trust Badges */}
-        <div className="mt-10 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        {/* <div className="mt-10 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <p className="font-heading font-black text-xs mb-4 text-center" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', opacity: 0.8 }}>
             مجوزها و نشان‌های اعتماد
           </p>
           <TrustBadges />
-        </div>
+        </div> */}
 
         {/* Bottom bar */}
         <div className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>

@@ -8,12 +8,14 @@ import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
 import ProductCard from '@/components/ProductCard';
 import HeroSlider from '@/components/HeroSlider';
+import GoldenEssence from '@/components/GoldenEssence';
 import OriginStory from '@/components/OriginStory';
 import ProductionGallery from '@/components/ProductionGallery';
 import PromoBanner from '@/components/PromoBanner';
 import Seo from '@/components/Seo';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
+import PullToRefresh from '@/components/PullToRefresh';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -35,30 +37,32 @@ export default function Home() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const loadData = async () => {
+    try {
+      const [prods, cats, gallery] = await Promise.all([
+        getProducts(),
+        getCategories(),
+        getGalleryImages(),
+      ]);
+      const withCounts = cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length }));
+      setProducts(prods);
+      setCategories(withCounts);
+      setGalleryImages(gallery);
+    } catch (e) {
+      // storefront degrades gracefully to empty sections
+    }
+  };
+
   useEffect(() => {
     let active = true;
     (async () => {
-      try {
-        const [prods, cats, gallery] = await Promise.all([
-          getProducts(),
-          getCategories(),
-          getGalleryImages(),
-        ]);
-        if (!active) return;
-        const withCounts = cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length }));
-        setProducts(prods);
-        setCategories(withCounts);
-        setGalleryImages(gallery);
-      } catch (e) {
-        // storefront degrades gracefully to empty sections
-      } finally {
-        if (active) setLoading(false);
-      }
+      await loadData();
+      if (active) setLoading(false);
     })();
     return () => { active = false; };
   }, []);
 
-  const featuredProducts = products.filter(p => p.featured);
+  // const featuredProducts = products.filter(p => p.featured);
   const allProducts = products.slice(0, 8);
 
   const trustBadges = [
@@ -73,7 +77,7 @@ export default function Home() {
   }
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)' }}>
+    <div dir={dir} style={{ position: 'relative', zIndex: 1 }}>
 
       <Seo
         title={isFA ? SITE_SEO.defaultTitleFA : SITE_SEO.defaultTitleEN}
@@ -89,27 +93,32 @@ export default function Home() {
         }}
       />
 
+      <PullToRefresh onRefresh={loadData}>
       {/* ===== HERO SLIDER — Cinematic full-screen ===== */}
       <HeroSlider />
+
+      {/* ===== GOLDEN ESSENCE — 3D luxury showcase ===== */}
+      <GoldenEssence />
 
       {/* ===== TRUST BADGES ===== */}
       <section className="border-b" style={{ borderColor: 'var(--border)', background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {trustBadges.map((badge, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 py-5 px-3"
-                style={{ borderRight: i < 3 ? '1px solid var(--border)' : 'none' }}
-              >
-                <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 glass-luxury">
-                  <badge.icon size={18} style={{ color: 'var(--accent)' }} />
+              <AnimatedSection key={i} delay={i * 100}>
+                <div
+                  className="flex items-center gap-3 py-5 px-3"
+                  style={{ borderRight: i < 3 ? '1px solid var(--border)' : 'none' }}
+                >
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 glass-luxury">
+                    <badge.icon size={18} style={{ color: 'var(--accent)' }} />
+                  </div>
+                  <div>
+                    <div className="font-body font-semibold text-sm" style={{ color: 'var(--fg)' }}>{t(lang, badge.key)}</div>
+                    <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, badge.descKey)}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-body font-semibold text-xs" style={{ color: 'var(--fg)' }}>{t(lang, badge.key)}</div>
-                  <div className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>{t(lang, badge.descKey)}</div>
-                </div>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
@@ -122,7 +131,7 @@ export default function Home() {
             <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
               {t(lang, 'categories_title')}
             </h2>
-            <Link to="/shop" className="font-body text-xs flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
+            <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
               {isFA ? 'مشاهده همه' : 'View All'}
               <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             </Link>
@@ -137,7 +146,7 @@ export default function Home() {
                     <h3 className="font-heading font-extrabold text-white text-sm md:text-lg mb-0.5" style={{ fontFamily: headingFont }}>
                       {isFA ? cat.nameFA : cat.nameEN}
                     </h3>
-                    <span className="font-body text-[10px] text-white/70">{cat.count} {t(lang, 'cat_products')}</span>
+                    <span className="font-body text-sm text-white/70">{cat.count} {t(lang, 'cat_products')}</span>
                   </div>
                 </Link>
               </AnimatedSection>
@@ -169,14 +178,14 @@ export default function Home() {
             <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
               {t(lang, 'products_title')}
             </h2>
-            <Link to="/shop" className="font-body text-xs flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
+            <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
               {isFA ? 'مشاهده همه' : 'View All'}
               <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
             {allProducts.map((product, i) => (
-              <AnimatedSection key={product.id} delay={(i % 4) * 80}>
+              <AnimatedSection key={product.id} delay={(i % 4) * 100} className="scale-in-wrap">
                 <ProductCard product={product} />
               </AnimatedSection>
             ))}
@@ -195,7 +204,7 @@ export default function Home() {
             </AnimatedSection>
             <AnimatedSection delay={150}>
               <div>
-                <span className="font-subheading text-xs uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
+                <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
                   {t(lang, 'about_sub')}
                 </span>
                 <h2 className="font-heading text-2xl md:text-3xl font-extrabold mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
@@ -219,7 +228,7 @@ export default function Home() {
         <img src="https://media.base44.com/images/public/6a9ea5d67a95141fb1f84b4a/4e88900f9_generated_image.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{ animation: 'kenBurns 10s ease-out forwards' }} />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%)' }} />
         <div className="relative z-10 py-14 md:py-20 text-center px-4">
-          <span className="font-subheading text-xs uppercase block mb-3 tracking-wider" style={{ color: '#D4AF37', fontFamily: subFont }}>
+          <span className="font-subheading text-sm uppercase block mb-3 tracking-wider" style={{ color: '#F0CE5A', fontFamily: subFont }}>
             {isFA ? 'هفت طلایی' : '7Golden'}
           </span>
           <h2 className="font-heading text-2xl md:text-5xl font-black text-white mb-4 gold-text-glow" style={{ fontFamily: headingFont }}>
@@ -228,12 +237,13 @@ export default function Home() {
           <p className="font-body text-white/70 text-sm mb-7 max-w-md mx-auto">
             {isFA ? 'ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان' : 'Free shipping on orders over 500,000 IRR'}
           </p>
-          <Link to="/shop" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-body font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl gold-border-luxury" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.95), rgba(184,148,42,0.95))', color: '#0D0D0D' }}>
+          <Link to="/shop" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-body font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl gold-border-luxury" style={{ background: 'linear-gradient(135deg, rgba(240,206,90,0.95), rgba(184,148,42,0.95))', color: '#0D0D0D' }}>
             {t(lang, 'shop')}
             <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
           </Link>
         </div>
       </section>
+      </PullToRefresh>
     </div>
   );
 }

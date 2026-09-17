@@ -5,7 +5,12 @@ const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   const [lang, setLang] = useState('fa');
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('7golden_theme');
+    if (saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  });
+  const [themeManual, setThemeManual] = useState(() => localStorage.getItem('7golden_theme_manual') === 'true');
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -31,7 +36,24 @@ export function AppProvider({ children }) {
       document.documentElement.classList.remove('dark');
     }
     localStorage.setItem('7golden_theme', theme);
+    // Update theme-color meta for mobile browser chrome
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', theme === 'dark' ? '#050402' : '#F9F7F2');
+    }
   }, [theme]);
+
+  // Follow system theme when user hasn't manually toggled
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e) => {
+      if (!themeManual) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, [themeManual]);
 
   useEffect(() => {
     localStorage.setItem('7golden_cart', JSON.stringify(cart));
@@ -54,7 +76,11 @@ export function AppProvider({ children }) {
     refreshSiteMode();
   }, []);
 
-  const toggleTheme = () => {};
+  const toggleTheme = () => {
+    setThemeManual(true);
+    localStorage.setItem('7golden_theme_manual', 'true');
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
   const toggleLang = () => setLang(prev => prev === 'fa' ? 'en' : 'fa');
 
   const addToCart = (product, qty = 1, weight = 500) => {

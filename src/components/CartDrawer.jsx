@@ -44,18 +44,18 @@ export default function CartDrawer() {
       <div
         className={`absolute top-0 bottom-0 w-full max-w-md flex flex-col ${isFA ? 'right-0' : 'left-0'}`}
         style={{
-          background: 'rgba(13, 13, 13, 0.52)',
+          background: 'var(--liquid-glass-strong-bg)',
           backdropFilter: 'blur(56px) saturate(260%)',
           WebkitBackdropFilter: 'blur(56px) saturate(260%)',
-          borderLeft: isFA ? 'none' : '1px solid rgba(255,255,255,0.08)',
-          borderRight: isFA ? '1px solid rgba(255,255,255,0.08)' : 'none',
+          borderLeft: isFA ? 'none' : '1px solid var(--surface-border)',
+          borderRight: isFA ? '1px solid var(--surface-border)' : 'none',
           boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.15), inset 0 -1px 1px rgba(0,0,0,0.15), -24px 0 80px rgba(0,0,0,0.5)',
         }}
       >
         {/* Header with specular highlight */}
         <div
           className="flex items-center justify-between px-6 py-5 relative"
-          style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+          style={{ borderBottom: '1px solid var(--surface-border)' }}
         >
           <div className="flex items-center gap-3">
             <div
@@ -74,7 +74,7 @@ export default function CartDrawer() {
               <h2 className="font-heading text-lg font-black leading-tight" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
                 {t(lang, 'cart_title')}
               </h2>
-              <p className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+              <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
                 {isFA ? `${cart.length} کالا در سبد` : `${cart.length} items in cart`}
               </p>
             </div>
@@ -90,7 +90,7 @@ export default function CartDrawer() {
 
         {/* Free shipping progress — glass track */}
         {cart.length > 0 && (
-          <div className="px-6 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="px-6 py-4" style={{ borderBottom: '1px solid var(--surface-border)' }}>
             <div className="flex items-center gap-2.5 mb-3">
               <div
                 className="w-8 h-8 rounded-full flex items-center justify-center"
@@ -102,7 +102,7 @@ export default function CartDrawer() {
               >
                 <Truck size={14} style={{ color: freeShippingUnlocked ? '#22c55e' : 'var(--accent)' }} />
               </div>
-              <p className="font-body text-xs flex-1" style={{ color: 'var(--fg-muted)' }}>
+              <p className="font-body text-sm flex-1" style={{ color: 'var(--fg-muted)' }}>
                 {freeShippingUnlocked
                   ? (isFA ? 'ارسال رایگان شما فعال شد' : 'Free shipping unlocked')
                   : (isFA ? `${fmt(remaining)} تومان تا ارسال رایگان` : `${fmt(remaining)} IRR to free shipping`)}
@@ -118,7 +118,7 @@ export default function CartDrawer() {
             </div>
             <div
               className="h-2 rounded-full overflow-hidden"
-              style={{ background: 'rgba(0,0,0,0.3)', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.4)' }}
+              style={{ background: 'var(--track-bg)', boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.4)' }}
             >
               <div
                 className="h-full rounded-full transition-all duration-700 ease-out"
@@ -126,7 +126,7 @@ export default function CartDrawer() {
                   width: `${progress}%`,
                   background: freeShippingUnlocked
                     ? 'linear-gradient(90deg, #22c55e, #4ade80)'
-                    : 'linear-gradient(90deg, #D4AF37, #C09B25)',
+                    : 'linear-gradient(90deg, #E8C547, #C09B25)',
                   boxShadow: freeShippingUnlocked ? '0 0 16px rgba(34,197,94,0.5)' : '0 0 16px rgba(212,175,55,0.5)',
                 }}
               />
@@ -141,10 +141,10 @@ export default function CartDrawer() {
               <div
                 className="w-24 h-24 rounded-3xl flex items-center justify-center"
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
+                  background: 'var(--surface-subtle)',
                   backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.08)',
+                  border: '1px solid var(--surface-border)',
+                  boxShadow: 'inset 0 1px 1px var(--surface-border)',
                 }}
               >
                 <ShoppingBag size={36} style={{ color: 'var(--fg-muted)' }} />
@@ -153,7 +153,7 @@ export default function CartDrawer() {
                 <p className="font-heading text-base font-black mb-1" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
                   {isFA ? 'سبد خرید خالی است' : 'Your cart is empty'}
                 </p>
-                <p className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+                <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
                   {isFA ? 'محصولات مورد علاقه را به سبد اضافه کنید' : 'Add your favorite products to cart'}
                 </p>
               </div>
@@ -177,11 +177,11 @@ export default function CartDrawer() {
                   key={item.key}
                   className="flex gap-3 p-3 rounded-2xl transition-all hover:scale-[1.01]"
                   style={{
-                    background: 'rgba(255,255,255,0.035)',
+                    background: 'var(--surface-subtle)',
                     backdropFilter: 'blur(20px) saturate(180%)',
                     WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                    border: '1px solid rgba(255,255,255,0.06)',
-                    boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.08), 0 4px 16px rgba(0,0,0,0.2)',
+                    border: '1px solid var(--surface-border)',
+                    boxShadow: 'inset 0 1px 1px var(--surface-border), 0 4px 16px var(--glass-input-bg)',
                     animation: `slideIn 0.4s cubic-bezier(0.16,1,0.3,1) ${idx * 0.06}s both`,
                   }}
                 >
@@ -189,7 +189,7 @@ export default function CartDrawer() {
                   <div
                     className="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0"
                     style={{
-                      background: 'rgba(0,0,0,0.2)',
+                      background: 'var(--glass-input-bg)',
                       boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.05)',
                     }}
                   >
@@ -202,14 +202,14 @@ export default function CartDrawer() {
                         <p className="font-body font-semibold text-sm truncate" style={{ color: 'var(--fg)' }}>
                           {isFA ? item.nameFA : item.nameEN}
                         </p>
-                        <p className="font-body text-xs mt-0.5" style={{ color: 'var(--fg-muted)' }}>
+                        <p className="font-body text-sm mt-0.5" style={{ color: 'var(--fg-muted)' }}>
                           {item.weight >= 1000 ? `${item.weight / 1000} ${t(lang, 'kg')}` : `${item.weight} ${t(lang, 'gr')}`}
                         </p>
                       </div>
                       <button
                         onClick={() => removeFromCart(item.key)}
                         className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center opacity-40 hover:opacity-100 transition-all"
-                        style={{ color: 'var(--fg-muted)', background: 'rgba(255,255,255,0.03)' }}
+                        style={{ color: 'var(--fg-muted)', background: 'var(--surface-subtle)' }}
                       >
                         <Trash2 size={13} />
                       </button>
@@ -219,9 +219,9 @@ export default function CartDrawer() {
                       <div
                         className="flex items-center rounded-full"
                         style={{
-                          background: 'rgba(0,0,0,0.2)',
+                          background: 'var(--glass-input-bg)',
                           backdropFilter: 'blur(12px)',
-                          border: '1px solid rgba(255,255,255,0.06)',
+                          border: '1px solid var(--surface-border)',
                           boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
                         }}
                       >
@@ -244,7 +244,7 @@ export default function CartDrawer() {
                       {/* Price */}
                       <span className="font-heading text-sm font-black" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
                         {fmt(item.price * item.qty)}
-                        <span className="text-[10px] ms-1 font-body" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'ت' : 'IRR'}</span>
+                        <span className="text-sm ms-1 font-body" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'ت' : 'IRR'}</span>
                       </span>
                     </div>
                   </div>
@@ -259,8 +259,8 @@ export default function CartDrawer() {
           <div
             className="px-6 py-5"
             style={{
-              borderTop: '1px solid rgba(255,255,255,0.06)',
-              background: 'rgba(0,0,0,0.25)',
+              borderTop: '1px solid var(--surface-border)',
+              background: 'var(--overlay-footer-bg)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
             }}
@@ -270,9 +270,9 @@ export default function CartDrawer() {
               <div
                 className="flex-1 flex items-center gap-2 px-3.5 py-3 rounded-xl"
                 style={{
-                  background: 'rgba(0,0,0,0.2)',
+                  background: 'var(--glass-input-bg)',
                   backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  border: '1px solid var(--surface-border)',
                   boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
                 }}
               >
@@ -283,14 +283,14 @@ export default function CartDrawer() {
                   onChange={e => { setPromo(e.target.value); setPromoApplied(false); }}
                   placeholder={t(lang, 'promo_code')}
                   disabled={promoApplied}
-                  className="flex-1 bg-transparent outline-none font-body text-xs"
+                  className="flex-1 bg-transparent outline-none font-body text-sm"
                   style={{ color: 'var(--fg)' }}
                 />
               </div>
               <button
                 onClick={applyPromo}
                 disabled={promoApplied || promo.trim().length < 3}
-                className="px-5 py-3 rounded-xl font-body text-xs font-semibold transition-all disabled:opacity-40"
+                className="px-5 py-3 rounded-xl font-body text-sm font-semibold transition-all disabled:opacity-40"
                 style={{
                   background: promoApplied ? 'rgba(34,197,94,0.12)' : 'var(--accent)',
                   color: promoApplied ? '#22c55e' : 'hsl(var(--accent-foreground))',
@@ -305,25 +305,25 @@ export default function CartDrawer() {
             {/* Price breakdown */}
             <div className="flex flex-col gap-2 mb-4">
               <div className="flex items-center justify-between">
-                <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'subtotal')}</span>
-                <span className="font-body text-xs font-semibold" style={{ color: 'var(--fg)' }}>{fmt(cartTotal)} {isFA ? 'ت' : 'IRR'}</span>
+                <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'subtotal')}</span>
+                <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{fmt(cartTotal)} {isFA ? 'ت' : 'IRR'}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'shipping_cost')}</span>
-                <span className="font-body text-xs font-semibold" style={{ color: shippingCost === 0 ? '#22c55e' : 'var(--fg)' }}>
+                <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'shipping_cost')}</span>
+                <span className="font-body text-sm font-semibold" style={{ color: shippingCost === 0 ? '#22c55e' : 'var(--fg)' }}>
                   {shippingCost === 0 ? t(lang, 'free') : `${fmt(shippingCost)} ${isFA ? 'ت' : 'IRR'}`}
                 </span>
               </div>
               {discount > 0 && (
                 <div className="flex items-center justify-between">
-                  <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'discount')}</span>
-                  <span className="font-body text-xs font-semibold" style={{ color: '#22c55e' }}>-{fmt(discount)} {isFA ? 'ت' : 'IRR'}</span>
+                  <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'discount')}</span>
+                  <span className="font-body text-sm font-semibold" style={{ color: '#22c55e' }}>-{fmt(discount)} {isFA ? 'ت' : 'IRR'}</span>
                 </div>
               )}
             </div>
 
             {/* Total */}
-            <div className="flex items-center justify-between mb-5 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="flex items-center justify-between mb-5 pt-3" style={{ borderTop: '1px solid var(--surface-border)' }}>
               <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{t(lang, 'cart_total')}</span>
               <span className="font-heading text-xl font-black" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
                 {fmt(grandTotal)} {isFA ? 'تومان' : 'IRR'}
@@ -347,10 +347,10 @@ export default function CartDrawer() {
 
             {/* Trust badges — glass pills */}
             <div className="flex items-center justify-center gap-3 mt-4">
-              <span className="glass-pill flex items-center gap-1.5 font-body text-[10px] px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
+              <span className="glass-pill flex items-center gap-1.5 font-body text-sm px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
                 <ShieldCheck size={12} style={{ color: 'var(--accent)' }} /> {isFA ? 'پرداخت امن' : 'Secure'}
               </span>
-              <span className="glass-pill flex items-center gap-1.5 font-body text-[10px] px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
+              <span className="glass-pill flex items-center gap-1.5 font-body text-sm px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
                 <Truck size={12} style={{ color: 'var(--accent)' }} /> {isFA ? 'ارسال سریع' : 'Fast delivery'}
               </span>
             </div>

@@ -1,14 +1,17 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
+// Enhanced gold dust particles for the footer — 120 particles, many bright,
+// some with shimmer, creating a rich luxury sparkle.
 export default function FooterParticles() {
   const particles = useMemo(() =>
-    Array.from({ length: 60 }, (_, i) => ({
+    Array.from({ length: 120 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
-      size: 1.5 + Math.random() * 5,
-      duration: 5 + Math.random() * 10,
-      delay: Math.random() * 8,
-      bright: Math.random() > 0.7,
+      size: 1.5 + Math.random() * 6,
+      duration: 4 + Math.random() * 12,
+      delay: Math.random() * 10,
+      bright: Math.random() > 0.5,
+      shimmer: Math.random() > 0.7,
     })), []
   );
 
@@ -17,7 +20,7 @@ export default function FooterParticles() {
       {particles.map(p => (
         <div
           key={p.id}
-          className="gold-particle"
+          className={`gold-particle ${p.shimmer ? 'shimmer-line' : ''}`}
           style={{
             left: `${p.left}%`,
             bottom: '-10px',
@@ -26,8 +29,8 @@ export default function FooterParticles() {
             animationDuration: `${p.duration}s`,
             animationDelay: `${p.delay}s`,
             ...(p.bright ? {
-              background: 'radial-gradient(circle, rgba(245,230,184,1) 0%, rgba(212,175,55,0) 70%)',
-              boxShadow: '0 0 8px rgba(212,175,55,0.6)',
+              background: 'radial-gradient(circle, rgba(255,245,210,1) 0%, rgba(232,197,71,0) 70%)',
+              boxShadow: '0 0 10px rgba(232,197,71,0.7)',
             } : {}),
           }}
         />

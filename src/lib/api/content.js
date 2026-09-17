@@ -1,7 +1,3 @@
-// Storefront data-access layer.
-// All pages should import from here instead of touching entities or static
-// data directly. Returns view-model objects shaped to match the existing
-// storefront components (camelCase fields, id === slug for routing compat).
 import { base44 } from '@/api/base44Client';
 
 function normalizeProduct(r) {
@@ -161,4 +157,13 @@ export async function getSiteSettings() {
 export async function getSiteMode() {
   const settings = await getSiteSettings();
   return settings?.site_mode || 'store';
+}
+
+export async function createOrder(orderData) {
+  return base44.entities.Order.create(orderData);
+}
+
+export async function getOrders() {
+  const items = await base44.entities.Order.filter({}, '-created_date', 100);
+  return items;
 }

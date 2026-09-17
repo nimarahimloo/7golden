@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useApp } from '@/lib/AppContext';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 
@@ -17,7 +17,7 @@ export default function ProductionGallery({ images }) {
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4" style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)' }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4" style={{ background: 'rgba(232,197,71,0.08)', border: '1px solid rgba(232,197,71,0.2)' }}>
               <span className="w-1.5 h-1.5 rounded-full float-orb" style={{ background: 'var(--accent)' }} />
               <span className="font-subheading text-[10px] sm:text-xs uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
                 {isFA ? 'فرآیند تولید' : 'Production Process'}
@@ -110,7 +110,7 @@ function GalleryTile({ image, index, isFA, headingFont, onOpen }) {
       <div className="gallery-gold-ring" />
       <div className="gallery-overlay">
         <div>
-          <span className="font-subheading text-[10px] uppercase tracking-wider block mb-1" style={{ color: '#D4AF37' }}>
+          <span className="font-subheading text-[10px] uppercase tracking-wider block mb-1" style={{ color: '#E8C547' }}>
             {isFA ? 'هفت‌طلایی' : '7Golden'}
           </span>
           <h3 className="font-heading font-extrabold text-white text-sm md:text-base leading-tight" style={{ fontFamily: headingFont }}>

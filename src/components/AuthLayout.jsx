@@ -1,7 +1,5 @@
-// @ts-ignore
 import React from "react";
 
-// @ts-ignore
 export default function AuthLayout({ icon: Icon, title, subtitle, footer, children }) {
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12" dir="rtl" style={{ background: 'var(--bg)' }}>

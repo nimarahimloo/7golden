@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Truck, ShieldCheck, CreditCard, Headphones, SlidersHorizontal, X, ChevronLeft, Loader2 } from 'lucide-react';
+import { Truck, ShieldCheck, CreditCard, Headphones, SlidersHorizontal, X } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import { getProducts, getCategories } from '@/lib/api/content';
@@ -8,8 +8,16 @@ import ProductCard from '@/components/ProductCard';
 import LogoLoader from '@/components/LogoLoader';
 import ShopFilters from '@/components/ShopFilters';
 import PageHero from '@/components/PageHero';
+import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export default function Shop() {
   const { lang, dir } = useApp();
@@ -20,23 +28,26 @@ export default function Shop() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const isFA = lang === 'fa';
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
 
+  const loadData = async () => {
+    try {
+      const [prods, cats] = await Promise.all([getProducts(), getCategories()]);
+      setProducts(prods);
+      setCategories(cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length })));
+    } catch (e) {
+      // graceful degradation
+    }
+  };
+
   useEffect(() => {
     let active = true;
     (async () => {
-      try {
-        const [prods, cats] = await Promise.all([getProducts(), getCategories()]);
-        if (!active) return;
-        setProducts(prods);
-        setCategories(cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length })));
-      } catch (e) {
-        // graceful degradation
-      } finally {
-        if (active) setLoading(false);
-      }
+      await loadData();
+      if (active) setLoading(false);
     })();
     return () => { active = false; };
   }, []);
@@ -62,6 +73,12 @@ export default function Shop() {
     else if (sort === 'newest') list.reverse();
     return list;
   }, [products, activeCategory, sort, filters]);
+
+  const visibleProducts = filtered.slice(0, visibleCount);
+
+  useEffect(() => {
+    setVisibleCount(12);
+  }, [activeCategory, sort, filters]);
 
   const sortOptions = [
     { value: 'popular', label: t(lang, 'popular') },
@@ -99,6 +116,7 @@ export default function Shop() {
         canonical={`${SITE_SEO.baseUrl}/shop`}
       />
 
+      <PullToRefresh onRefresh={loadData}>
       {/* ===== HERO ===== */}
       <PageHero
         image={heroImage}
@@ -108,10 +126,9 @@ export default function Shop() {
       />
 
       {/* ===== CATEGORY CARDS — Visual selector ===== */}
-      <section className="px-4 sm:px-6 py-5">
+      {/* <section className="px-4 sm:px-6 py-5">
         <div className="max-w-7xl mx-auto">
           <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
-            {/* "All" card */}
             <button
               onClick={() => setCategory('all')}
               className="flex-shrink-0 w-28 sm:w-36 rounded-2xl overflow-hidden transition-all relative group"
@@ -135,7 +152,6 @@ export default function Shop() {
                 </div>
               </div>
             </button>
-            {/* Category cards */}
             {categories.map(cat => (
               <button
                 key={cat.id}
@@ -157,17 +173,17 @@ export default function Shop() {
                     <span className="font-heading text-xs sm:text-sm font-extrabold text-white block" style={{ fontFamily: headingFont }}>
                       {isFA ? cat.nameFA : cat.nameEN}
                     </span>
-                    <span className="font-body text-[10px] text-white/70">{cat.count} {t(lang, 'cat_products')}</span>
+                    <span className="font-body text-sm text-white/70">{cat.count} {t(lang, 'cat_products')}</span>
                   </div>
                 </div>
               </button>
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== STICKY TOOLBAR ===== */}
-      <div className="sticky top-16 z-30" style={{ background: 'hsl(var(--card))', borderBottom: '1px solid var(--border)' }}>
+      {/* <div className="sticky top-16 z-30" style={{ background: 'hsl(var(--card))', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-body text-sm font-extrabold" style={{ color: 'var(--fg)' }}>
@@ -186,10 +202,10 @@ export default function Shop() {
                 <X size={12} />
               </button>
             )}
-          </div>
-          <div className="flex items-center gap-2">
+          </div> */}
+          {/* <div className="flex items-center gap-2"> */}
             {/* Mobile filter button */}
-            <button
+            {/* <button
               onClick={() => setMobileFilterOpen(true)}
               className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-full font-body text-xs font-semibold transition-all relative"
               style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)' }}
@@ -197,23 +213,26 @@ export default function Shop() {
               <SlidersHorizontal size={14} />
               {isFA ? 'فیلتر' : 'Filter'}
               {activeFilterCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center font-body text-[9px] font-extrabold" style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}>
+                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center font-body text-sm font-extrabold" style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}>
                   {activeFilterCount}
                 </span>
               )}
-            </button>
+            </button> */}
             {/* Sort dropdown */}
-            <select
-              value={sort}
-              onChange={e => setSort(e.target.value)}
-              className="px-3 py-2 rounded-full font-body text-xs font-semibold outline-none cursor-pointer"
-              style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)' }}
-            >
-              {sortOptions.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-            </select>
-          </div>
-        </div>
-      </div>
+            {/* <Select value={sort} onValueChange={setSort}>
+              <SelectTrigger
+                className="px-3 py-2 rounded-full font-body text-xs font-semibold cursor-pointer w-auto min-w-[130px] h-auto"
+                style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)' }}
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {sortOptions.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}
+              </SelectContent>
+            </Select> */}
+          {/* </div> */}
+        {/* </div>
+      </div> */}
 
       {/* ===== MAIN: Sidebar + Grid ===== */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
@@ -222,22 +241,35 @@ export default function Shop() {
           {/* Desktop sidebar */}
           <aside className="hidden lg:block">
             <div className="sticky top-32 p-5 rounded-2xl" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
-              <div className="flex items-center gap-2 mb-5 pb-4" style={{ borderBottom: '1px solid var(--border)' }}>
+              {/* <div className="flex items-center gap-2 mb-5 pb-4" style={{ borderBottom: '1px solid var(--border)' }}>
                 <SlidersHorizontal size={16} style={{ color: 'var(--accent)' }} />
                 <h2 className="font-body font-extrabold text-sm" style={{ color: 'var(--fg)' }}>
                   {isFA ? 'فیلترها' : 'Filters'}
                 </h2>
-              </div>
-              <ShopFilters lang={lang} filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} />
+              </div> */}
+              {/* <ShopFilters lang={lang} filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} /> */}
             </div>
           </aside>
 
           {/* Product grid */}
           <div>
             {filtered.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
-                {filtered.map(product => <ProductCard key={product.id} product={product} />)}
-              </div>
+              <>
+                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+                  {visibleProducts.map(product => <ProductCard key={product.id} product={product} />)}
+                </div>
+                {visibleCount < filtered.length && (
+                  <div className="flex justify-center mt-6">
+                    <button
+                      onClick={() => setVisibleCount(c => c + 12)}
+                      className="px-6 py-3 rounded-full font-body text-sm font-semibold transition-all hover:scale-105"
+                      style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)', minHeight: '44px' }}
+                    >
+                      {isFA ? `نمایش بیشتر (${filtered.length - visibleCount} مورد)` : `Load More (${filtered.length - visibleCount} left)`}
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4" style={{ background: 'hsl(var(--muted))' }}>
@@ -258,6 +290,7 @@ export default function Shop() {
           </div>
         </div>
       </div>
+      </PullToRefresh>
 
       {/* ===== MOBILE FILTER SHEET ===== */}
       {mobileFilterOpen && (
@@ -310,7 +343,7 @@ export default function Shop() {
                 </div>
                 <div>
                   <div className="font-body font-semibold text-xs" style={{ color: 'var(--fg)' }}>{t(lang, badge.key)}</div>
-                  <div className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>{t(lang, badge.descKey)}</div>
+                  <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, badge.descKey)}</div>
                 </div>
               </div>
             ))}

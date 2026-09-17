@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Award, Trophy, Globe, Leaf, ShieldCheck, ArrowLeft } from 'lucide-react';
+import { Award, Trophy, Globe, Leaf, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '@/lib/AppContext';
 import { getAwards } from '@/lib/api/content';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import PageHero from '@/components/PageHero';
-import SectionHeader from '@/components/SectionHeader';
 import LogoLoader from '@/components/LogoLoader';
+import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
+import PullToRefresh from '@/components/PullToRefresh';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -27,17 +28,20 @@ export default function Awards() {
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const loadData = async () => {
+    try {
+      const items = await getAwards();
+      setAwards(items);
+    } catch (e) {
+      // graceful
+    }
+  };
+
   useEffect(() => {
     let active = true;
     (async () => {
-      try {
-        const items = await getAwards();
-        if (active) setAwards(items);
-      } catch (e) {
-        // graceful
-      } finally {
-        if (active) setLoading(false);
-      }
+      await loadData();
+      if (active) setLoading(false);
     })();
     return () => { active = false; };
   }, []);
@@ -58,13 +62,19 @@ export default function Awards() {
         canonical={`${SITE_SEO.baseUrl}/awards`}
       />
 
+      <PullToRefresh onRefresh={loadData}>
       {/* Hero */}
-      <PageHero
-        image="https://7golden.co/wp-content/uploads/2022/09/about-p-2.png"
-        title={isFA ? 'جوایز و افتخارات' : 'Awards & Honors'}
-        subtitle={isFA ? 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی' : 'Certified quality, recognized excellence'}
-        badge={isFA ? 'اعتبار و افتخارات' : 'Excellence'}
-      />
+      <div className="relative">
+        <PageHero
+          image="https://7golden.co/wp-content/uploads/2022/09/about-p-2.png"
+          title={isFA ? 'جوایز و افتخارات' : 'Awards & Honors'}
+          subtitle={isFA ? 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی' : 'Certified quality, recognized excellence'}
+          badge={isFA ? 'اعتبار و افتخارات' : 'Excellence'}
+        />
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+          <BackButton to="/" className="text-white/80 hover:text-white" />
+        </div>
+      </div>
 
       {/* Stats Bar */}
       <section className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
@@ -158,6 +168,7 @@ export default function Awards() {
           </div>
         </AnimatedSection>
       </div>
+      </PullToRefresh>
     </div>
   );
 }

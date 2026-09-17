@@ -63,8 +63,10 @@ export default function SupportChat() {
       {!open && (
         <button
           onClick={handleOpen}
-          className="fixed bottom-6 left-6 z-50 w-14 h-14 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+          className="fixed z-50 w-14 h-14 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
           style={{
+            bottom: 'calc(1.5rem + var(--safe-area-bottom))',
+            left: 'calc(1.5rem + var(--safe-area-left))',
             background: 'var(--accent)',
             color: 'hsl(var(--accent-foreground))',
             boxShadow: '0 8px 32px rgba(212,175,55,0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
@@ -79,18 +81,20 @@ export default function SupportChat() {
       {/* Chat panel */}
       {open && (
         <div
-          className="fixed bottom-6 left-6 z-50 w-[calc(100vw-3rem)] max-w-sm rounded-3xl flex flex-col overflow-hidden"
+          className="fixed z-50 w-[calc(100vw-3rem)] max-w-sm rounded-3xl flex flex-col overflow-hidden"
           style={{
+            bottom: 'calc(1.5rem + var(--safe-area-bottom))',
+            left: 'calc(1.5rem + var(--safe-area-left))',
             height: 'min(60vh, 520px)',
-            background: 'rgba(13,13,13,0.52)',
+            background: 'var(--liquid-glass-strong-bg)',
             backdropFilter: 'blur(56px) saturate(260%)',
             WebkitBackdropFilter: 'blur(56px) saturate(260%)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            border: '1px solid var(--liquid-glass-strong-border)',
             boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.15), 0 24px 64px rgba(0,0,0,0.4)',
           }}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid var(--surface-border)' }}>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.25)' }}>
                 <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
@@ -129,9 +133,9 @@ export default function SupportChat() {
                 <div
                   className="max-w-[80%] px-4 py-2.5 rounded-2xl"
                   style={{
-                    background: msg.role === 'user' ? 'var(--accent)' : 'rgba(255,255,255,0.04)',
+                    background: msg.role === 'user' ? 'var(--accent)' : 'var(--surface-subtle)',
                     color: msg.role === 'user' ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
-                    border: msg.role === 'user' ? 'none' : '1px solid rgba(255,255,255,0.06)',
+                    border: msg.role === 'user' ? 'none' : '1px solid var(--surface-border)',
                     boxShadow: msg.role === 'user' ? '0 4px 16px rgba(212,175,55,0.2)' : 'inset 0 1px 1px rgba(255,255,255,0.05)',
                   }}
                 >
@@ -152,7 +156,7 @@ export default function SupportChat() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="px-4 py-3 rounded-2xl" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="px-4 py-3 rounded-2xl" style={{ background: 'var(--surface-subtle)', border: '1px solid var(--surface-border)' }}>
                   <div className="flex gap-1">
                     <span className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: 'var(--accent)', animationDelay: '0ms' }} />
                     <span className="w-1.5 h-1.5 rounded-full animate-bounce" style={{ background: 'var(--accent)', animationDelay: '150ms' }} />
@@ -165,7 +169,7 @@ export default function SupportChat() {
           </div>
 
           {/* Input */}
-          <div className="px-4 py-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="px-4 py-3" style={{ borderTop: '1px solid var(--surface-border)' }}>
             <div className="flex items-center gap-2">
               <input
                 type="text"
@@ -176,8 +180,8 @@ export default function SupportChat() {
                 disabled={loading || starting}
                 className="flex-1 px-4 py-2.5 rounded-full text-xs font-body outline-none transition-all"
                 style={{
-                  background: 'rgba(0,0,0,0.2)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'var(--glass-input-bg)',
+                  border: '1px solid var(--surface-border)',
                   color: 'var(--fg)',
                   boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
                 }}

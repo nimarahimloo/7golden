@@ -27,7 +27,7 @@ export default function SectionHeader({ title, subtitle, align = 'center' }) {
       </h2>
       {align === 'center' ? (
         <div className="mt-5">
-          <PatternDivider />
+          {/* <PatternDivider /> */}
         </div>
       ) : (
         <div className="w-12 h-0.5 mt-4" style={{ background: 'var(--accent)', margin: '1rem 0 0' }} />

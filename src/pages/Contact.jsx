@@ -3,11 +3,13 @@ import { MapPin, Phone, Mail, Clock, Send, Instagram, MessageCircle, CheckCircle
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import PageHero from '@/components/PageHero';
+import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
+import PullToRefresh from '@/components/PullToRefresh';
 
 export default function Contact() {
-  const { lang, dir } = useApp();
+  const { lang, dir, refreshSiteMode } = useApp();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
 
@@ -35,13 +37,19 @@ export default function Contact() {
         canonical={`${SITE_SEO.baseUrl}/contact`}
       />
 
+      <PullToRefresh onRefresh={refreshSiteMode}>
       {/* Hero */}
-      <PageHero
-        image="https://7golden.co/wp-content/uploads/2022/09/about-p-3.png"
-        title={t(lang, 'contact_title')}
-        subtitle="همیشه در دسترس شما هستیم"
-        badge="تماس با ما"
-      />
+      <div className="relative">
+        <PageHero
+          image="https://7golden.co/wp-content/uploads/2022/09/about-p-3.png"
+          title={t(lang, 'contact_title')}
+          subtitle="همیشه در دسترس شما هستیم"
+          badge="تماس با ما"
+        />
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+          <BackButton to="/" className="text-white/80 hover:text-white" />
+        </div>
+      </div>
 
       {/* Contact Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-12">
@@ -248,6 +256,7 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      </PullToRefresh>
     </div>
   );
 }

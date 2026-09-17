@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Iranian eight-pointed star (ستاره هشت‌ضلعی) decorative divider
 export function PatternDivider({ className = '', width = 140 }) {
   return (
     <div className={`flex items-center justify-center ${className}`}>

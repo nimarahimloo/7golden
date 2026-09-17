@@ -18,7 +18,7 @@ export default function PageTransition({ children }) {
           <div
             className="h-full"
             style={{
-              background: 'linear-gradient(90deg, transparent, #D4AF37 30%, #F5E6B8 50%, #D4AF37 70%, transparent)',
+              background: 'linear-gradient(90deg, transparent, #E8C547 30%, #F5E6B8 50%, #E8C547 70%, transparent)',
               animation: 'loadingBar 0.6s ease-out forwards',
               boxShadow: '0 0 12px rgba(212,175,55,0.5)',
             }}
