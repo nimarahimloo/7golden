@@ -1,0 +1,88 @@
+{
+  "name": "SiteSettings",
+  "type": "object",
+  "properties": {
+    "site_name_fa": {
+      "type": "string"
+    },
+    "site_name_en": {
+      "type": "string"
+    },
+    "site_mode": {
+      "type": "string",
+      "enum": [
+        "store",
+        "corporate"
+      ],
+      "default": "store",
+      "description": "Site mode: store (e-commerce with prices/cart) or corporate (showcase only, no prices)"
+    },
+    "default_seo_title_fa": {
+      "type": "string"
+    },
+    "default_seo_title_en": {
+      "type": "string"
+    },
+    "default_seo_desc_fa": {
+      "type": "string"
+    },
+    "default_seo_desc_en": {
+      "type": "string"
+    },
+    "og_image": {
+      "type": "string"
+    },
+    "logo_url": {
+      "type": "string"
+    },
+    "contact_phone": {
+      "type": "string"
+    },
+    "contact_mobile": {
+      "type": "string"
+    },
+    "contact_email": {
+      "type": "string"
+    },
+    "hq_address_fa": {
+      "type": "string"
+    },
+    "hq_address_en": {
+      "type": "string"
+    },
+    "tehran_address_fa": {
+      "type": "string"
+    },
+    "tehran_address_en": {
+      "type": "string"
+    },
+    "working_hours_fa": {
+      "type": "string"
+    },
+    "working_hours_en": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "site_name_fa",
+    "site_name_en"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": null,
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

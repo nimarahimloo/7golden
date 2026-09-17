@@ -1,0 +1,144 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ShoppingBag, Menu, User, LayoutDashboard, Languages } from 'lucide-react';
+import { useApp } from '@/lib/AppContext';
+import { useAuth } from '@/lib/AuthContext';
+import { t } from '@/lib/i18n';
+import MobileMenu from '@/components/MobileMenu';
+
+export default function Navbar() {
+  const { lang, cartCount, setCartOpen, dir, isStoreMode, toggleLang } = useApp();
+  const { isAuthenticated, user } = useAuth();
+  const isAdmin = user?.role === 'admin';
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  const navLinks = [
+    { href: '/', label: t(lang, 'home') },
+    { href: '/shop', label: t(lang, 'shop') },
+    { href: '/about', label: t(lang, 'about') },
+    { href: '/awards', label: t(lang, 'awards') },
+    { href: '/blog', label: t(lang, 'blog') },
+    { href: '/contact', label: t(lang, 'contact') },
+  ];
+
+  return (
+    <>
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 glass transition-all duration-500"
+        style={{
+          borderBottom: '1px solid var(--border)',
+          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.08)' : 'none',
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
+
+            {/* Logo */}
+            <Link to="/" className="flex items-center group">
+              <img
+                src="https://7golden.co/wp-content/uploads/2023/08/logo-white.png"
+                alt="7Golden"
+                className="h-9 md:h-11 w-auto object-contain transition-all group-hover:opacity-90"
+              />
+            </Link>
+
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center gap-8">
+              {navLinks.map(link => (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className="font-body text-sm transition-colors duration-200 relative group"
+                  style={{ color: location.pathname === link.href ? 'var(--accent)' : 'var(--fg)', opacity: location.pathname === link.href ? 1 : 0.75 }}
+                >
+                  {link.label}
+                  <span
+                    className="absolute -bottom-1 left-0 right-0 h-px transition-transform duration-300 origin-center scale-x-0 group-hover:scale-x-100"
+                    style={{ background: 'var(--accent)' }}
+                  />
+                </Link>
+              ))}
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              {/* Admin panel */}
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="hidden sm:flex w-10 h-10 rounded-full items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
+                  style={{ color: 'var(--accent)' }}
+                  aria-label="پنل مدیریت"
+                >
+                  <LayoutDashboard size={16} />
+                </Link>
+              )}
+
+              {/* Language switcher */}
+              <button
+                onClick={toggleLang}
+                className="hidden sm:flex w-10 h-10 rounded-full items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
+                style={{ color: 'var(--fg)' }}
+                aria-label="Switch language"
+              >
+                <Languages size={16} />
+              </button>
+
+              {/* Account / Login */}
+              <Link
+                to={isAuthenticated ? '/account' : '/login'}
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
+                style={{ color: 'var(--fg)' }}
+                aria-label={isAuthenticated ? 'پنل کاربری' : 'ورود'}
+              >
+                <User size={16} />
+              </Link>
+
+              {/* Cart — only in store mode */}
+              {isStoreMode && (
+                <button
+                  onClick={() => setCartOpen(true)}
+                  className="relative w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
+                  style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}
+                  aria-label={t(lang, 'cart')}
+                >
+                  <ShoppingBag size={16} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center" style={{ background: '#ef4444', color: '#fff' }}>
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
+              )}
+
+              {/* Mobile menu trigger */}
+              <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="md:hidden w-10 h-10 rounded-full glass-card flex items-center justify-center transition-all active:scale-90"
+                style={{ color: 'var(--fg)', border: 'none' }}
+                aria-label="Menu"
+              >
+                <Menu size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile glass menu */}
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+    </>
+  );
+}
