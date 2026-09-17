@@ -20,7 +20,6 @@ import {
 } from '@/components/ui/select';
 
 export default function Shop() {
-  const { lang, dir } = useApp();
   const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState('popular');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
@@ -30,7 +29,7 @@ export default function Shop() {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(12);
 
-  const isFA = lang === 'fa';
+  const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
 
   const loadData = async () => {
@@ -81,10 +80,10 @@ export default function Shop() {
   }, [activeCategory, sort, filters]);
 
   const sortOptions = [
-    { value: 'popular', label: t(lang, 'popular') },
-    { value: 'price_low', label: t(lang, 'price_low') },
-    { value: 'price_high', label: t(lang, 'price_high') },
-    { value: 'newest', label: t(lang, 'newest') },
+    { value: 'popular', label: t('popular') },
+    { value: 'price_low', label: t('price_low') },
+    { value: 'price_high', label: t('price_high') },
+    { value: 'newest', label: t('newest') },
   ];
 
   const trustBadges = [
@@ -97,7 +96,7 @@ export default function Shop() {
   const heroImage = activeCat
     ? activeCat.image
     : 'https://7golden.co/wp-content/uploads/2023/08/IMG_2279-scaled-e1693054143453.jpg';
-  const heroTitle = activeCat ? (isFA ? activeCat.nameFA : activeCat.nameEN) : t(lang, 'shop');
+  const heroTitle = activeCat ? (isFA ? activeCat.nameFA : activeCat.nameEN) : t('shop');
   const heroDesc = activeCat ? (isFA ? activeCat.descFA : activeCat.descEN) : (isFA ? 'مجموعه کامل محصولات هفت‌طلایی' : 'The complete 7Golden collection');
 
   const activeFilterCount = filters.priceRanges.length + (filters.inStock ? 1 : 0) + (filters.featured ? 1 : 0);
@@ -107,11 +106,11 @@ export default function Shop() {
   }
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
-        title={lang === 'fa' ? `${SITE_SEO.siteNameFA} — فروشگاه خشکبار` : `${SITE_SEO.siteNameEN} — Shop`}
-        description={lang === 'fa' ? SITE_SEO.defaultDescriptionFA : SITE_SEO.defaultDescriptionEN}
+        title={true ? `${SITE_SEO.siteNameFA} — فروشگاه خشکبار` : `${SITE_SEO.siteNameEN} — Shop`}
+        description={true ? SITE_SEO.defaultDescriptionFA : SITE_SEO.defaultDescriptionEN}
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/shop`}
       />
@@ -148,7 +147,7 @@ export default function Shop() {
                   </span>
                 </div>
                 <div className="absolute bottom-0 inset-x-0 p-2 text-center" style={{ background: 'rgba(0,0,0,0.6)' }}>
-                  <span className="font-body text-xs font-semibold text-white">{t(lang, 'all')}</span>
+                  <span className="font-body text-xs font-semibold text-white">{t('all')}</span>
                 </div>
               </div>
             </button>
@@ -173,7 +172,7 @@ export default function Shop() {
                     <span className="font-heading text-xs sm:text-sm font-extrabold text-white block" style={{ fontFamily: headingFont }}>
                       {isFA ? cat.nameFA : cat.nameEN}
                     </span>
-                    <span className="font-body text-sm text-white/70">{cat.count} {t(lang, 'cat_products')}</span>
+                    <span className="font-body text-sm text-white/70">{cat.count} {t('cat_products')}</span>
                   </div>
                 </div>
               </button>
@@ -247,7 +246,7 @@ export default function Shop() {
                   {isFA ? 'فیلترها' : 'Filters'}
                 </h2>
               </div> */}
-              {/* <ShopFilters lang={lang} filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} /> */}
+              {/* <ShopFilters filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} /> */}
             </div>
           </aside>
 
@@ -294,7 +293,7 @@ export default function Shop() {
 
       {/* ===== MOBILE FILTER SHEET ===== */}
       {mobileFilterOpen && (
-        <div className="fixed inset-0 z-[100] lg:hidden" dir={dir}>
+        <div className="fixed inset-0 z-[100] lg:hidden" dir="rtl">
           <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setMobileFilterOpen(false)} />
           <div className={`absolute bottom-0 inset-x-0 rounded-t-3xl max-h-[80vh] flex flex-col ${isFA ? '' : ''}`} style={{ background: 'var(--bg)' }}>
             {/* Handle */}
@@ -312,7 +311,7 @@ export default function Shop() {
             </div>
             {/* Content */}
             <div className="flex-1 overflow-y-auto px-5 py-5">
-              <ShopFilters lang={lang} filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} />
+              <ShopFilters filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} />
             </div>
             {/* Footer */}
             <div className="px-5 py-4" style={{ borderTop: '1px solid var(--border)' }}>
@@ -342,8 +341,8 @@ export default function Shop() {
                   <badge.icon size={18} style={{ color: 'var(--accent)' }} />
                 </div>
                 <div>
-                  <div className="font-body font-semibold text-xs" style={{ color: 'var(--fg)' }}>{t(lang, badge.key)}</div>
-                  <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, badge.descKey)}</div>
+                  <div className="font-body font-semibold text-xs" style={{ color: 'var(--fg)' }}>{t(badge.key)}</div>
+                  <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(badge.descKey)}</div>
                 </div>
               </div>
             ))}

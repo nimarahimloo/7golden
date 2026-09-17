@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Home, ShoppingBag, Info, BookOpen, Mail, Award, Languages } from 'lucide-react';
+import { X, Home, ShoppingBag, Info, BookOpen, Mail, Award } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 
 export default function MobileMenu({ open, onClose }) {
-  const { lang, dir, cartCount, setCartOpen, toggleLang } = useApp();
+  const { cartCount, setCartOpen } = useApp();
   const location = useLocation();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
 
   const links = [
-    { href: '/', label: t(lang, 'home'), icon: Home, desc: isFA ? 'صفحه اصلی' : 'Main page' },
-    { href: '/shop', label: t(lang, 'shop'), icon: ShoppingBag, desc: isFA ? 'محصولات هفت‌طلایی' : 'Our products' },
-    { href: '/about', label: t(lang, 'about'), icon: Info, desc: isFA ? 'داستان ما' : 'Our story' },
-    { href: '/awards', label: t(lang, 'awards'), icon: Award, desc: isFA ? 'مجوزها و جوایز' : 'Awards & licenses' },
-    { href: '/blog', label: t(lang, 'blog'), icon: BookOpen, desc: isFA ? 'اخبار و مطالب' : 'News & articles' },
-    { href: '/contact', label: t(lang, 'contact'), icon: Mail, desc: isFA ? 'تماس با ما' : 'Get in touch' },
+    { href: '/', label: t('home'), icon: Home, desc: isFA ? 'صفحه اصلی' : 'Main page' },
+    { href: '/shop', label: t('shop'), icon: ShoppingBag, desc: isFA ? 'محصولات هفت‌طلایی' : 'Our products' },
+    { href: '/about', label: t('about'), icon: Info, desc: isFA ? 'داستان ما' : 'Our story' },
+    { href: '/awards', label: t('awards'), icon: Award, desc: isFA ? 'مجوزها و جوایز' : 'Awards & licenses' },
+    { href: '/blog', label: t('blog'), icon: BookOpen, desc: isFA ? 'اخبار و مطالب' : 'News & articles' },
+    { href: '/contact', label: t('contact'), icon: Mail, desc: isFA ? 'تماس با ما' : 'Get in touch' },
   ];
 
   return (
@@ -44,7 +44,7 @@ export default function MobileMenu({ open, onClose }) {
           boxShadow: '0 24px 60px rgba(0,0,0,0.12)',
           minHeight: '100vh',
         }}
-        dir={dir}
+        dir="rtl"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 h-16">
@@ -107,18 +107,7 @@ export default function MobileMenu({ open, onClose }) {
 
         {/* Bottom actions — glass cards */}
         <div className="px-4 pt-2 pb-6">
-          <div className="grid grid-cols-2 gap-2.5">
-            {/* Language toggle */}
-            <button
-              onClick={() => { onClose(); toggleLang(); }}
-              className="glass-card flex flex-col items-center gap-1.5 py-4 transition-all active:scale-95"
-              style={{ color: 'var(--fg)' }}
-            >
-              <Languages size={20} style={{ color: 'var(--accent)' }} />
-              <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg-muted)' }}>
-                {isFA ? 'English' : 'فارسی'}
-              </span>
-            </button>
+          <div className="grid grid-cols-1 gap-2.5">
             {/* Cart */}
             <button
               onClick={() => { onClose(); setCartOpen(true); }}

@@ -29,14 +29,14 @@ function detectBank(num) {
   return null;
 }
 
-export default function PaymentGateway({ amount, lang, onSuccess, onClose }) {
+export default function PaymentGateway({ amount, onSuccess, onClose }) {
   const [cardNumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvv2, setCvv2] = useState('');
   const [processing, setProcessing] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const isFA = lang === 'fa';
+  const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
 
   const formatCard = (val) => {

@@ -15,11 +15,10 @@ import {
 } from '@/components/ui/alert-dialog';
 import { toast } from '@/components/ui/use-toast';
 import PullToRefresh from '@/components/PullToRefresh';
-import { useApp } from '@/lib/AppContext';
 import { getOrders } from '@/lib/api/content';
 
 export default function Account() {
-  const { dir } = useApp();
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('profile');
@@ -123,7 +122,7 @@ export default function Account() {
   };
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '5rem' }}>
+    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '5rem' }}>
       <PullToRefresh onRefresh={loadUser}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back button */}

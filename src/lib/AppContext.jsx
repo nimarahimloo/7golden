@@ -4,7 +4,6 @@ import { getSiteSettings } from '@/lib/api/content';
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  const [lang, setLang] = useState('fa');
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem('7golden_theme');
     if (saved) return saved;
@@ -16,7 +15,6 @@ export function AppProvider({ children }) {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
 
-  const dir = lang === 'fa' ? 'rtl' : 'ltr';
   const isStoreMode = siteMode === 'store';
 
   useEffect(() => {
@@ -25,9 +23,9 @@ export function AppProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('dir', dir);
-    document.documentElement.setAttribute('lang', lang);
-  }, [lang, dir]);
+    document.documentElement.setAttribute('dir', 'rtl');
+    document.documentElement.setAttribute('lang', 'fa');
+  }, []);
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -81,7 +79,6 @@ export function AppProvider({ children }) {
     localStorage.setItem('7golden_theme_manual', 'true');
     setTheme(prev => prev === 'dark' ? 'light' : 'dark');
   };
-  const toggleLang = () => setLang(prev => prev === 'fa' ? 'en' : 'fa');
 
   const addToCart = (product, qty = 1, weight = 500) => {
     setCart(prev => {
@@ -111,7 +108,6 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      lang, toggleLang, dir,
       theme, toggleTheme, isTransitioning,
       cart, addToCart, removeFromCart, updateQty, clearCart,
       cartOpen, setCartOpen,

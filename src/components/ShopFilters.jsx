@@ -1,8 +1,8 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 
-export default function ShopFilters({ lang, filters, setFilters, categories = [], activeCategory = 'all', onCategoryChange }) {
-  const isFA = lang === 'fa';
+export default function ShopFilters({ filters, setFilters, categories = [], activeCategory = 'all', onCategoryChange }) {
+  const isFA = true;
 
   const priceRanges = [
     { id: 'under-500', label: isFA ? 'زیر ۵۰۰ هزار' : 'Under 500K', min: 0, max: 500000 },

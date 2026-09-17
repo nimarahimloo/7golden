@@ -33,8 +33,7 @@ const SLIDES = [
 ];
 
 export default function HeroSlider() {
-  const { lang } = useApp();
-  const isFA = lang === 'fa';
+  const isFA = true;
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStart, setTouchStart] = useState(null);

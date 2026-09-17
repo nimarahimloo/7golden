@@ -23,8 +23,7 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 }
 
 export default function Blog() {
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
+  const isFA = true;
   const ArrowIcon = isFA ? ArrowLeft : ArrowRight;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
   const [posts, setPosts] = useState([]);
@@ -55,7 +54,7 @@ export default function Blog() {
   const rest = filtered.slice(1);
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
         title={isFA ? `مجله ${SITE_SEO.siteNameFA} — اخبار و آموزش` : `${SITE_SEO.siteNameEN} Blog — News & Education`}
@@ -69,7 +68,7 @@ export default function Blog() {
       <div className="relative">
         <PageHero
           image="https://7golden.co/wp-content/uploads/2022/09/blog-new-3-min.jpg"
-          title={t(lang, 'blog_title')}
+          title={t('blog_title')}
           subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
           badge={isFA ? 'وبلاگ' : 'Blog'}
         />
@@ -115,7 +114,7 @@ export default function Blog() {
                       border: `1px solid ${activeCategory === cat ? 'var(--accent)' : 'var(--border)'}`,
                     }}
                   >
-                    {categoryLabel(lang, cat)}
+                    {categoryLabel(cat)}
                   </button>
                 ))}
               </div>
@@ -149,7 +148,7 @@ export default function Blog() {
                         {isFA ? featured.date : featured.dateEN}
                       </span>
                       <span className="flex items-center gap-2 font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
-                        {t(lang, 'read_more')}
+                        {t('read_more')}
                         <ArrowIcon size={14} />
                       </span>
                     </div>
@@ -183,7 +182,7 @@ export default function Blog() {
                         {isFA ? post.excerptFA : post.excerptEN}
                       </p>
                       <span className="flex items-center gap-2 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
-                        {t(lang, 'read_more')}
+                        {t('read_more')}
                         <ArrowIcon size={12} />
                       </span>
                     </div>

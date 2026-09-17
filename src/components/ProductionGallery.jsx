@@ -3,9 +3,8 @@ import { useApp } from '@/lib/AppContext';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 export default function ProductionGallery({ images }) {
-  const { lang } = useApp();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
   const [lightbox, setLightbox] = useState(null);
   const containerRef = useRef(null);
 

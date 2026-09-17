@@ -40,14 +40,13 @@ export const ORGANIZATION_JSONLD = {
   },
 };
 
-export function productJsonLd(product, lang) {
+export function productJsonLd(product) {
   if (!product) return null;
-  const isFA = lang === 'fa';
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: isFA ? product.nameFA : product.nameEN,
-    description: isFA ? product.descFA : product.descEN,
+    name: product.nameFA,
+    description: product.descFA,
     image: product.image,
     sku: product.slug,
     brand: { '@type': 'Brand', name: '7Golden' },
@@ -61,14 +60,13 @@ export function productJsonLd(product, lang) {
   };
 }
 
-export function articleJsonLd(post, lang) {
+export function articleJsonLd(post) {
   if (!post) return null;
-  const isFA = lang === 'fa';
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: isFA ? post.titleFA : post.titleEN,
-    description: isFA ? post.excerptFA : post.excerptEN,
+    headline: post.titleFA,
+    description: post.excerptFA,
     image: post.image,
     datePublished: post.dateEN,
     author: { '@type': 'Organization', name: '7Golden' },

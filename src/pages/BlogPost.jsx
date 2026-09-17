@@ -15,8 +15,7 @@ import ReactMarkdown from 'react-markdown';
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
+  const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
   const ArrowIcon = isFA ? ArrowLeft : ArrowRight;
 
@@ -54,7 +53,7 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20" style={{ background: 'var(--bg)' }} dir={dir}>
+      <div className="min-h-screen flex items-center justify-center pt-20" style={{ background: 'var(--bg)' }} dir="rtl">
         <div className="text-center">
           <p className="font-body text-lg mb-4" style={{ color: 'var(--fg-muted)' }}>
             {isFA ? 'مقاله یافت نشد' : 'Article not found'}
@@ -70,17 +69,17 @@ export default function BlogPost() {
   const title = isFA ? post.titleFA : post.titleEN;
   const excerpt = isFA ? post.excerptFA : post.excerptEN;
   const date = isFA ? post.date : post.dateEN;
-  const category = categoryLabel(lang, post.category);
+  const category = categoryLabel(post.category);
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Seo
         title={`${title} | ${isFA ? SITE_SEO.siteNameFA : SITE_SEO.siteNameEN}`}
         description={excerpt}
         image={post.image}
         type="article"
         canonical={`${SITE_SEO.baseUrl}/blog/${post.slug}`}
-        jsonLd={articleJsonLd(post, lang)}
+        jsonLd={articleJsonLd(post)}
       />
 
       <PullToRefresh onRefresh={loadData}>

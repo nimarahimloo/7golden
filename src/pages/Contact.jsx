@@ -9,7 +9,7 @@ import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
 
 export default function Contact() {
-  const { lang, dir, refreshSiteMode } = useApp();
+  const { refreshSiteMode } = useApp();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
 
@@ -28,11 +28,11 @@ export default function Contact() {
   ];
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
-        title={lang === 'fa' ? `تماس با ${SITE_SEO.siteNameFA}` : `Contact ${SITE_SEO.siteNameEN}`}
-        description={lang === 'fa' ? 'با خشکبار هفت‌طلایی در تماس باشید — تلفن، ایمیل و آدرس دفتر مرکزی قزوین.' : 'Get in touch with 7Golden — phone, email, and headquarters address in Qazvin, Iran.'}
+        title={true ? `تماس با ${SITE_SEO.siteNameFA}` : `Contact ${SITE_SEO.siteNameEN}`}
+        description={true ? 'با خشکبار هفت‌طلایی در تماس باشید — تلفن، ایمیل و آدرس دفتر مرکزی قزوین.' : 'Get in touch with 7Golden — phone, email, and headquarters address in Qazvin, Iran.'}
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/contact`}
       />
@@ -42,7 +42,7 @@ export default function Contact() {
       <div className="relative">
         <PageHero
           image="https://7golden.co/wp-content/uploads/2022/09/about-p-3.png"
-          title={t(lang, 'contact_title')}
+          title={t('contact_title')}
           subtitle="همیشه در دسترس شما هستیم"
           badge="تماس با ما"
         />
@@ -103,10 +103,10 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                      {t(lang, 'hq_title')}
+                      {t('hq_title')}
                     </h3>
                     <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      {t(lang, 'hq_address')}
+                      {t('hq_address')}
                     </p>
                   </div>
                 </div>
@@ -123,10 +123,10 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                      {t(lang, 'tehran_title')}
+                      {t('tehran_title')}
                     </h3>
                     <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      {t(lang, 'tehran_address')}
+                      {t('tehran_address')}
                     </p>
                   </div>
                 </div>
@@ -197,15 +197,15 @@ export default function Contact() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <h3 className="font-heading text-xl font-black mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                    {t(lang, 'send_message')}
+                    {t('send_message')}
                   </h3>
                   <p className="font-body text-xs mb-2" style={{ color: 'var(--fg-muted)' }}>
                     فرم زیر را پر کنید — تیم پشتیبانی ما پاسخگوست است.
                   </p>
                   {[
-                    { key: 'name', type: 'text', label: t(lang, 'name') },
-                    { key: 'email', type: 'email', label: t(lang, 'email') },
-                    { key: 'phone', type: 'tel', label: t(lang, 'phone') },
+                    { key: 'name', type: 'text', label: t('name') },
+                    { key: 'email', type: 'email', label: t('email') },
+                    { key: 'phone', type: 'tel', label: t('phone') },
                   ].map(f => (
                     <div key={f.key}>
                       <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{f.label}</label>
@@ -224,7 +224,7 @@ export default function Contact() {
                     </div>
                   ))}
                   <div>
-                    <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{t(lang, 'message')}</label>
+                    <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{t('message')}</label>
                     <textarea
                       rows={4}
                       value={form.message}
@@ -248,7 +248,7 @@ export default function Contact() {
                     }}
                   >
                     <Send size={16} />
-                    {t(lang, 'send_message')}
+                    {t('send_message')}
                   </button>
                 </form>
               )}

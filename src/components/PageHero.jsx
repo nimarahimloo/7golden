@@ -2,16 +2,15 @@ import React from 'react';
 import { useApp } from '@/lib/AppContext';
 
 export default function PageHero({ image, title, subtitle, badge }) {
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
-  const subFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
+  const subFont = 'Kalameh, serif';
 
   return (
     <section
       className="relative w-full overflow-hidden"
       style={{ height: '52vh', minHeight: '340px', maxHeight: '520px', marginTop: '4rem' }}
-      dir={dir}
+      dir="rtl"
     >
       {/* Image */}
       <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" style={{ animation: 'kenBurns 8s ease-out forwards' }} />
