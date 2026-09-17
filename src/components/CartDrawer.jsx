@@ -8,15 +8,15 @@ import { Image } from '@/components/ui/image';
 const FREE_SHIPPING_THRESHOLD = 500000;
 
 export default function CartDrawer() {
-  const { lang, cart, cartOpen, setCartOpen, removeFromCart, updateQty, cartTotal, dir } = useApp();
+  const { cart, cartOpen, setCartOpen, removeFromCart, updateQty, cartTotal } = useApp();
   const [promo, setPromo] = useState('');
   const [promoApplied, setPromoApplied] = useState(false);
 
   if (!cartOpen) return null;
 
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
-  const ArrowIcon = isFA ? ArrowLeft : ArrowRight;
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
+  const ArrowIcon = ArrowLeft;
 
   const shippingCost = cartTotal === 0 || cartTotal >= FREE_SHIPPING_THRESHOLD ? 0 : 45000;
   const discount = promoApplied ? Math.round(cartTotal * 0.1) : 0;
@@ -32,7 +32,7 @@ export default function CartDrawer() {
   };
 
   return (
-    <div className="fixed inset-0 z-[100]" dir={dir}>
+    <div className="fixed inset-0 z-[100]" dir="rtl">
       {/* Overlay with depth blur */}
       <div
         className="absolute inset-0 transition-opacity duration-500"
@@ -72,7 +72,7 @@ export default function CartDrawer() {
             </div>
             <div>
               <h2 className="font-heading text-lg font-black leading-tight" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-                {t(lang, 'cart_title')}
+                {t('cart_title')}
               </h2>
               <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
                 {isFA ? `${cart.length} کالا در سبد` : `${cart.length} items in cart`}
@@ -167,7 +167,7 @@ export default function CartDrawer() {
                   boxShadow: '0 8px 24px rgba(212,175,55,0.3)',
                 }}
               >
-                {t(lang, 'shop')}
+                {t('shop')}
               </Link>
             </div>
           ) : (
@@ -203,7 +203,7 @@ export default function CartDrawer() {
                           {isFA ? item.nameFA : item.nameEN}
                         </p>
                         <p className="font-body text-sm mt-0.5" style={{ color: 'var(--fg-muted)' }}>
-                          {item.weight >= 1000 ? `${item.weight / 1000} ${t(lang, 'kg')}` : `${item.weight} ${t(lang, 'gr')}`}
+                          {item.weight >= 1000 ? `${item.weight / 1000} ${t('kg')}` : `${item.weight} ${t('gr')}`}
                         </p>
                       </div>
                       <button
@@ -281,7 +281,7 @@ export default function CartDrawer() {
                   type="text"
                   value={promo}
                   onChange={e => { setPromo(e.target.value); setPromoApplied(false); }}
-                  placeholder={t(lang, 'promo_code')}
+                  placeholder={t('promo_code')}
                   disabled={promoApplied}
                   className="flex-1 bg-transparent outline-none font-body text-sm"
                   style={{ color: 'var(--fg)' }}
@@ -298,25 +298,25 @@ export default function CartDrawer() {
                   boxShadow: promoApplied ? 'none' : '0 4px 16px rgba(212,175,55,0.2)',
                 }}
               >
-                {promoApplied ? (isFA ? 'اعمال شد ✓' : 'Applied ✓') : t(lang, 'apply_code')}
+                {promoApplied ? (isFA ? 'اعمال شد ✓' : 'Applied ✓') : t('apply_code')}
               </button>
             </div>
 
             {/* Price breakdown */}
             <div className="flex flex-col gap-2 mb-4">
               <div className="flex items-center justify-between">
-                <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'subtotal')}</span>
+                <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t('subtotal')}</span>
                 <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{fmt(cartTotal)} {isFA ? 'ت' : 'IRR'}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'shipping_cost')}</span>
+                <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t('shipping_cost')}</span>
                 <span className="font-body text-sm font-semibold" style={{ color: shippingCost === 0 ? '#22c55e' : 'var(--fg)' }}>
-                  {shippingCost === 0 ? t(lang, 'free') : `${fmt(shippingCost)} ${isFA ? 'ت' : 'IRR'}`}
+                  {shippingCost === 0 ? t('free') : `${fmt(shippingCost)} ${isFA ? 'ت' : 'IRR'}`}
                 </span>
               </div>
               {discount > 0 && (
                 <div className="flex items-center justify-between">
-                  <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'discount')}</span>
+                  <span className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t('discount')}</span>
                   <span className="font-body text-sm font-semibold" style={{ color: '#22c55e' }}>-{fmt(discount)} {isFA ? 'ت' : 'IRR'}</span>
                 </div>
               )}
@@ -324,7 +324,7 @@ export default function CartDrawer() {
 
             {/* Total */}
             <div className="flex items-center justify-between mb-5 pt-3" style={{ borderTop: '1px solid var(--surface-border)' }}>
-              <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{t(lang, 'cart_total')}</span>
+              <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{t('cart_total')}</span>
               <span className="font-heading text-xl font-black" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
                 {fmt(grandTotal)} {isFA ? 'تومان' : 'IRR'}
               </span>
@@ -341,7 +341,7 @@ export default function CartDrawer() {
                 boxShadow: '0 8px 32px rgba(212,175,55,0.3), inset 0 1px 1px rgba(255,255,255,0.2)',
               }}
             >
-              {t(lang, 'checkout')}
+              {t('checkout')}
               <ArrowIcon size={16} />
             </Link>
 

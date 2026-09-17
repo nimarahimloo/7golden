@@ -3,11 +3,10 @@ import { useApp } from '@/lib/AppContext';
 import { PatternDivider } from '@/components/IranianPattern';
 
 export default function SectionHeader({ title, subtitle, align = 'center' }) {
-  const { lang } = useApp();
   const textAlign = align === 'center' ? 'text-center' : align === 'start' ? 'text-start' : 'text-end';
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
-  const subFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
+  const subFont = 'Kalameh, serif';
 
   return (
     <div className={`mb-12 ${textAlign}`}>

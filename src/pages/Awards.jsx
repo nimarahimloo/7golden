@@ -22,9 +22,8 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 }
 
 export default function Awards() {
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +53,7 @@ export default function Awards() {
   ];
 
   return (
-    <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Seo
         title={isFA ? `جوایز و افتخارات ${SITE_SEO.siteNameFA} — مجوزها و گواهینامه‌ها` : `Awards & Honors — ${SITE_SEO.siteNameEN}`}
         description={isFA ? 'مجوزها، گواهینامه‌ها و افتخارات هفت‌طلایی — تأییدکننده کیفیت و استانداردهای بین‌المللی محصولات.' : 'Licenses, certifications and awards of 7Golden — certifying international quality standards.'}

@@ -33,13 +33,12 @@ const STORIES = [
 
 
 export default function OriginStory() {
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
-  const subFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
+  const subFont = 'Kalameh, serif';
 
   return (
-    <section className="py-16 md:py-24" style={{ background: 'var(--bg)' }} dir={dir}>
+    <section className="py-16 md:py-24" style={{ background: 'var(--bg)' }} dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-12 md:mb-16">

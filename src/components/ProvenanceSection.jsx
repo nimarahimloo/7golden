@@ -14,7 +14,7 @@ const REGIONS = [
   { nameFA: 'بیرجند', nameEN: 'Birjand', specialtyFA: 'کشمش طلایی', specialtyEN: 'Golden Raisins', coord: '۳۲٫۹°N' },
 ];
 
-function RegionCard({ region, index, lang }) {
+function RegionCard({ region, index }) {
   const { ref, visible } = useScrollAnimation();
   return (
     <div
@@ -29,7 +29,7 @@ function RegionCard({ region, index, lang }) {
       <div className="flex items-start justify-between mb-6">
         <span
           className="font-heading text-3xl font-bold opacity-15"
-          style={{ color: 'var(--accent)', fontFamily: lang === 'fa' ? 'Peyda, serif' : 'Georgia, serif' }}
+          style={{ color: 'var(--accent)', fontFamily: true ? 'Peyda, serif' : 'Georgia, serif' }}
         >
           {String(index + 1).padStart(2, '0')}
         </span>
@@ -37,16 +37,16 @@ function RegionCard({ region, index, lang }) {
       </div>
       <h3
         className="font-heading text-xl md:text-2xl font-bold mb-1"
-        style={{ color: 'var(--fg)', fontFamily: lang === 'fa' ? 'Peyda, serif' : 'Georgia, serif' }}
+        style={{ color: 'var(--fg)', fontFamily: true ? 'Peyda, serif' : 'Georgia, serif' }}
       >
-        {lang === 'fa' ? region.nameFA : region.nameEN}
+        {true ? region.nameFA : region.nameEN}
       </h3>
       <p className="font-body text-sm mb-4" style={{ color: 'var(--accent)' }}>
-        {lang === 'fa' ? region.specialtyFA : region.specialtyEN}
+        {true ? region.specialtyFA : region.specialtyEN}
       </p>
       <div className="flex items-center gap-2 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
         <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
-          {lang === 'fa' ? region.coord : region.coord.replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))}
+          {true ? region.coord : region.coord.replace(/[۰-۹]/g, d => String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))}
         </span>
       </div>
     </div>
@@ -54,31 +54,31 @@ function RegionCard({ region, index, lang }) {
 }
 
 export default function ProvenanceSection() {
-  const { lang } = useApp();
+
   return (
     <section className="section-padding">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <span
             className="font-subheading text-xs uppercase block mb-3"
-            style={{ color: 'var(--accent)', fontFamily: lang === 'fa' ? 'Kalameh, serif' : 'Georgia, serif' }}
+            style={{ color: 'var(--accent)', fontFamily: true ? 'Kalameh, serif' : 'Georgia, serif' }}
           >
-            {t(lang, 'provenance_sub')}
+            {t('provenance_sub')}
           </span>
           <h2
             className="font-heading text-3xl md:text-4xl font-bold mb-4"
-            style={{ color: 'var(--fg)', fontFamily: lang === 'fa' ? 'Peyda, serif' : 'Georgia, serif' }}
+            style={{ color: 'var(--fg)', fontFamily: true ? 'Peyda, serif' : 'Georgia, serif' }}
           >
-            {t(lang, 'provenance_title')}
+            {t('provenance_title')}
           </h2>
           <p className="font-body text-base max-w-xl mx-auto" style={{ color: 'var(--fg-muted)' }}>
-            {t(lang, 'provenance_desc')}
+            {t('provenance_desc')}
           </p>
           <div className="mt-6"><PatternDivider /></div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {REGIONS.map((region, i) => (
-            <RegionCard key={i} region={region} index={i} lang={lang} />
+            <RegionCard key={i} region={region} index={i} />
           ))}
         </div>
       </div>

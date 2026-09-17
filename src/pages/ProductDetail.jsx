@@ -39,8 +39,8 @@ function TasteBar({ label, value }) {
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const { lang, dir, addToCart, isStoreMode } = useApp();
-  const isFA = lang === 'fa';
+  const { addToCart, isStoreMode } = useApp();
+  const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
 
   const [product, setProduct] = useState(null);
@@ -152,7 +152,7 @@ export default function ProductDetail() {
 
   return (
     <PullToRefresh onRefresh={loadData}>
-      <div dir={dir} style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+      <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
         <Seo
           title={seoTitle}
@@ -162,7 +162,7 @@ export default function ProductDetail() {
           type="product"
           // @ts-ignore
           canonical={`${SITE_SEO.baseUrl}/product/${product.slug || product.id}`}
-          jsonLd={productJsonLd(product, lang)}
+          jsonLd={productJsonLd(product)}
         />
 
         {/* Breadcrumb */}
@@ -171,9 +171,9 @@ export default function ProductDetail() {
             <BackButton to="/shop" />
           </div>
           <div className="flex items-center gap-2 font-body text-xs glass-pill inline-flex px-3 py-1.5 rounded-full" style={{ color: 'var(--fg-muted)' }}>
-            <Link to="/" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'home')}</Link>
+            <Link to="/" style={{ color: 'var(--fg-muted)' }}>{t('home')}</Link>
             <span style={{ color: 'var(--fg-muted)' }}>/</span>
-            <Link to="/shop" style={{ color: 'var(--fg-muted)' }}>{t(lang, 'shop')}</Link>
+            <Link to="/shop" style={{ color: 'var(--fg-muted)' }}>{t('shop')}</Link>
             <span style={{ color: 'var(--fg-muted)' }}>/</span>
             <span style={{ color: 'var(--fg)' }} className="truncate">{name}</span>
           </div>
@@ -308,7 +308,7 @@ export default function ProductDetail() {
                                 boxShadow: selectedWeight === w ? '0 4px 16px rgba(232,197,71,0.2), inset 0 1px 1px rgba(255,255,255,0.2)' : 'inset 0 1px 2px rgba(0,0,0,0.3)',
                               }}
                             >
-                              {w >= 1000 ? `${w / 1000} ${t(lang, 'kg')}` : `${w} ${t(lang, 'gr')}`}
+                              {w >= 1000 ? `${w / 1000} ${t('kg')}` : `${w} ${t('gr')}`}
                             </button>
                           ))}
                       </div>
@@ -339,7 +339,7 @@ export default function ProductDetail() {
                       }}
                     >
                       {added ? <Check size={18} /> : <ShoppingBag size={18} />}
-                      {added ? 'افزوده شد' : t(lang, 'add_to_cart')}
+                      {added ? 'افزوده شد' : t('add_to_cart')}
                     </button>
                   </div>
                 </>
@@ -445,7 +445,7 @@ export default function ProductDetail() {
                 style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))', boxShadow: '0 4px 16px rgba(232,197,71,0.3), inset 0 1px 1px rgba(255,255,255,0.2)' }}
               >
                 <ShoppingBag size={16} />
-                {t(lang, 'add_to_cart')}
+                {t('add_to_cart')}
               </button>
             </div>
           </div>

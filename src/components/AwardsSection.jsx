@@ -6,9 +6,8 @@ import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 export default function AwardsSection() {
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,7 +29,7 @@ export default function AwardsSection() {
   if (loading || awards.length === 0) return null;
 
   return (
-    <section dir={dir} className="section-padding relative overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
+    <section dir="rtl" className="section-padding relative overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
       <div className="section-glow" />
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
         {/* Header */}

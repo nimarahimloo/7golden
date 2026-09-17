@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-export default function CollapsibleSection({ title, icon: Icon, children, defaultOpen = false, lang }) {
+export default function CollapsibleSection({ title, icon: Icon, children, defaultOpen = false }) {
   const [open, setOpen] = useState(defaultOpen);
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Kalameh, serif';
 
   return (
     <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--border)', background: 'hsl(var(--card))' }}>

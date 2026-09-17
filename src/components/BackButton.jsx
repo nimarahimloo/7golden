@@ -5,9 +5,8 @@ import { useApp } from '@/lib/AppContext';
 
 export default function BackButton({ to, fallback = '/', className = '' }) {
   const navigate = useNavigate();
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
-  const isRTL = dir === 'rtl';
+  const isFA = true;
+  const isRTL = true;
 
   const handleBack = () => {
     if (window.history.length > 1) {

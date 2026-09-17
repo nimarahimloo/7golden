@@ -12,10 +12,9 @@ import { useApp } from '@/lib/AppContext';
 export default function GoldenEssence() {
   const mountRef = useRef(null);
   const [loaded, setLoaded] = useState(false);
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
-  const subFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
+  const isFA = true;
+  const headingFont = 'Peyda, serif';
+  const subFont = 'Kalameh, serif';
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -280,7 +279,7 @@ export default function GoldenEssence() {
         background: 'radial-gradient(ellipse at center, #0a0703 0%, #020100 70%)',
         height: 'clamp(420px, 60vh, 640px)',
       }}
-      dir={dir}
+      dir="rtl"
     >
       <div
         ref={mountRef}

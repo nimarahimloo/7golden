@@ -33,8 +33,7 @@ function getTabForPath(pathname) {
 export default function BottomTabBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { lang } = useApp();
-  const isFA = lang === 'fa';
+  const isFA = true;
 
   // Per-tab navigation stacks — each tab remembers where the user left off.
   const tabStacks = useRef({});

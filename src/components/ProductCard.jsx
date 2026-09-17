@@ -7,11 +7,11 @@ import { Image } from '@/components/ui/image';
 import { useParallax } from '@/components/useParallax';
 
 export default function ProductCard({ product }) {
-  const { lang, addToCart, isStoreMode } = useApp();
+  const { addToCart, isStoreMode } = useApp();
   const [adding, setAdding] = useState(false);
   const { ref: parallaxRef, offset } = useParallax(0.12);
 
-  const isFA = lang === 'fa';
+  const isFA = true;
   const name = isFA ? product.nameFA : product.nameEN;
   // const badge = isFA ? product.badge : product.badgeEN;
   // const origin = isFA ? product.originFA : product.originEN;
@@ -91,7 +91,7 @@ export default function ProductCard({ product }) {
             [isFA ? 'left' : 'right']: '0.75rem',
           }}
         >
-          {t(lang, 'out_of_stock')}
+          {t('out_of_stock')}
         </span>
       )}
 
@@ -127,7 +127,7 @@ export default function ProductCard({ product }) {
                   disabled={!product.inStock || adding}
                   className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-40 flex-shrink-0"
                   style={{ background: '#F0CE5A', color: '#0D0D0D', boxShadow: '0 4px 16px rgba(232,197,71,0.3)' }}
-                  aria-label={t(lang, 'add_to_cart')}
+                  aria-label={t('add_to_cart')}
                 >
                   <ShoppingBag size={16} />
                 </button>

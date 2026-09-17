@@ -8,7 +8,7 @@ import MobileMenu from '@/components/MobileMenu';
 import NavbarParticles from '@/components/NavbarParticles';
 
 export default function Navbar() {
-  const { lang, cartCount, setCartOpen, dir, isStoreMode, toggleLang, theme, toggleTheme } = useApp();
+  const { cartCount, setCartOpen, isStoreMode, theme, toggleTheme } = useApp();
   const { isAuthenticated, user } = useAuth();
   const isAdmin = user?.role === 'admin';
   const [scrolled, setScrolled] = useState(false);
@@ -26,12 +26,12 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const navLinks = [
-    { href: '/', label: t(lang, 'home') },
-    { href: '/shop', label: t(lang, 'shop') },
-    { href: '/about', label: t(lang, 'about') },
-    { href: '/awards', label: t(lang, 'awards') },
-    { href: '/blog', label: t(lang, 'blog') },
-    { href: '/contact', label: t(lang, 'contact') },
+    { href: '/', label: t('home') },
+    { href: '/shop', label: t('shop') },
+    { href: '/about', label: t('about') },
+    { href: '/awards', label: t('awards') },
+    { href: '/blog', label: t('blog') },
+    { href: '/contact', label: t('contact') },
   ];
 
   return (
@@ -129,7 +129,7 @@ export default function Navbar() {
                   onClick={() => setCartOpen(true)}
                   className="relative w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
                   style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}
-                  aria-label={t(lang, 'cart')}
+                  aria-label={t('cart')}
                 >
                   <ShoppingBag size={16} />
                   {cartCount > 0 && (

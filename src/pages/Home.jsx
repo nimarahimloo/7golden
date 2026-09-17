@@ -27,8 +27,7 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 }
 
 export default function Home() {
-  const { lang, dir } = useApp();
-  const isFA = lang === 'fa';
+  const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
   const subFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
 
@@ -77,7 +76,7 @@ export default function Home() {
   }
 
   return (
-    <div dir={dir} style={{ position: 'relative', zIndex: 1 }}>
+    <div dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
 
       <Seo
         title={isFA ? SITE_SEO.defaultTitleFA : SITE_SEO.defaultTitleEN}
@@ -114,8 +113,8 @@ export default function Home() {
                     <badge.icon size={18} style={{ color: 'var(--accent)' }} />
                   </div>
                   <div>
-                    <div className="font-body font-semibold text-sm" style={{ color: 'var(--fg)' }}>{t(lang, badge.key)}</div>
-                    <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(lang, badge.descKey)}</div>
+                    <div className="font-body font-semibold text-sm" style={{ color: 'var(--fg)' }}>{t(badge.key)}</div>
+                    <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(badge.descKey)}</div>
                   </div>
                 </div>
               </AnimatedSection>
@@ -129,7 +128,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-              {t(lang, 'categories_title')}
+              {t('categories_title')}
             </h2>
             <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
               {isFA ? 'مشاهده همه' : 'View All'}
@@ -146,7 +145,7 @@ export default function Home() {
                     <h3 className="font-heading font-extrabold text-white text-sm md:text-lg mb-0.5" style={{ fontFamily: headingFont }}>
                       {isFA ? cat.nameFA : cat.nameEN}
                     </h3>
-                    <span className="font-body text-sm text-white/70">{cat.count} {t(lang, 'cat_products')}</span>
+                    <span className="font-body text-sm text-white/70">{cat.count} {t('cat_products')}</span>
                   </div>
                 </Link>
               </AnimatedSection>
@@ -176,7 +175,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-              {t(lang, 'products_title')}
+              {t('products_title')}
             </h2>
             <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
               {isFA ? 'مشاهده همه' : 'View All'}
@@ -205,13 +204,13 @@ export default function Home() {
             <AnimatedSection delay={150}>
               <div>
                 <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
-                  {t(lang, 'about_sub')}
+                  {t('about_sub')}
                 </span>
                 <h2 className="font-heading text-2xl md:text-3xl font-extrabold mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-                  {t(lang, 'about_title')}
+                  {t('about_title')}
                 </h2>
                 <p className="font-body text-sm leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>
-                  {t(lang, 'about_body')}
+                  {t('about_body')}
                 </p>
                 <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-body font-semibold text-sm transition-all hover:scale-105" style={{ border: '1.5px solid var(--accent)', color: 'var(--accent)' }}>
                   {isFA ? 'بیشتر بدانید' : 'Learn More'}
@@ -238,7 +237,7 @@ export default function Home() {
             {isFA ? 'ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان' : 'Free shipping on orders over 500,000 IRR'}
           </p>
           <Link to="/shop" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-body font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl gold-border-luxury" style={{ background: 'linear-gradient(135deg, rgba(240,206,90,0.95), rgba(184,148,42,0.95))', color: '#0D0D0D' }}>
-            {t(lang, 'shop')}
+            {t('shop')}
             <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
           </Link>
         </div>
