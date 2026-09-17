@@ -34,8 +34,8 @@ export default function Footer() {
             </div>
             <p className="font-body text-sm leading-relaxed mb-4" style={{ color: 'var(--fg)', opacity: 0.65 }}>
               {true
-                ? 'از سال ۱۳۷۷، پیشرو در تولید و فرآوری خشکبار ایران — مستقیم از باغستان‌های قزوین و کرمان.'
-                : 'Since 1998, leading the way in Iranian dried fruit processing — direct from Qazvin and Kerman orchards.'}
+                ? 'از سال ۱۳۷۷، تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی.'
+                : 'Since 1998, producer and exporter of hazelnut kernels, pistachio slices and almond kernels for the chocolate, confectionery and ice-cream industry.'}
             </p>
             {/* Social */}
             <div className="flex gap-3">
@@ -113,7 +113,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <p className="font-body text-xs" style={{ color: 'var(--fg)', opacity: 0.5 }}>
-            © {new Date().getFullYear()} {true ? 'خشکبار هفت‌طلایی' : '7Golden Dried Fruits'} — {t('footer_rights')}
+            © {new Date().getFullYear()} {true ? 'بازرگانی هفت‌طلایی' : '7Golden Trading Co.'} — {t('footer_rights')}
           </p>
           <div className="flex gap-4">
             <a href="#" className="font-body text-xs transition-colors hover:opacity-100" style={{ color: 'var(--fg)', opacity: 0.5 }}>

@@ -13,13 +13,13 @@ import { AppProvider } from '@/lib/AppContext';
 const Home = lazy(() => import('@/pages/Home'));
 const Shop = lazy(() => import('@/pages/Shop'));
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
-const Checkout = lazy(() => import('@/pages/Checkout'));
+// const Checkout = lazy(() => import('@/pages/Checkout')); // retail — disabled
 const About = lazy(() => import('@/pages/About'));
 const Awards = lazy(() => import('@/pages/Awards'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const Admin = lazy(() => import('@/pages/Admin'));
-const Account = lazy(() => import('@/pages/Account'));
+// const Account = lazy(() => import('@/pages/Account')); // retail — disabled
 const BlogPost = lazy(() => import('@/pages/BlogPost'));
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
@@ -30,7 +30,7 @@ const OAuthConsent = lazy(() => import('@/pages/OAuthConsent'));
 // Layout
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import CartDrawer from '@/components/CartDrawer';
+// import CartDrawer from '@/components/CartDrawer'; // retail cart — disabled
 import SupportChat from '@/components/SupportChat';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import PageTransition from '@/components/PageTransition';
@@ -49,11 +49,11 @@ function AppLayout() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetail />} />
-        <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
+        {/* Retail routes disabled — 7Golden has no online checkout or customer account area. */}
+        {/* <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/login" replace />} />}>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/account" element={<Account />} />
-
-        </Route>
+        </Route> */}
         <Route path="/about" element={<About />} />
         <Route path="/awards" element={<Awards />} />
         <Route path="/contact" element={<Contact />} />
@@ -67,7 +67,7 @@ function AppLayout() {
       <Footer />
       <div className="h-16 md:hidden" />
       <BottomTabBar />
-      <CartDrawer />
+      {/* <CartDrawer /> — retail cart drawer, disabled */}
       <SupportChat />
     </>
   );

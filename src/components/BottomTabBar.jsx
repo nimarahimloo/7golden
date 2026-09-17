@@ -1,24 +1,24 @@
 import React, { useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home as HomeIcon, ShoppingBag, FileText, Mail, User } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
+import { Home as HomeIcon, Package, Info, FileText, Mail } from 'lucide-react';
 
+// Tabs are business-facing only — no shop/account tabs.
 const TABS = [
   { path: '/', icon: HomeIcon, labelFA: 'خانه', labelEN: 'Home' },
-  { path: '/shop', icon: ShoppingBag, labelFA: 'فروشگاه', labelEN: 'Shop' },
-  { path: '/blog', icon: FileText, labelFA: 'وبلاگ', labelEN: 'Blog' },
+  { path: '/shop', icon: Package, labelFA: 'محصولات', labelEN: 'Products' },
+  { path: '/about', icon: Info, labelFA: 'درباره ما', labelEN: 'About' },
+  { path: '/blog', icon: FileText, labelFA: 'مجله', labelEN: 'Journal' },
   { path: '/contact', icon: Mail, labelFA: 'تماس', labelEN: 'Contact' },
-  { path: '/account', icon: User, labelFA: 'حساب', labelEN: 'Account' },
 ];
 
 // Map any pathname to its owning bottom-tab.
-// Product detail and checkout belong to the Shop tab.
+// Product detail belongs to the Products tab; awards sit under About.
 const TAB_PREFIXES = [
   { path: '/', prefixes: ['/'] },
-  { path: '/shop', prefixes: ['/shop', '/product', '/checkout'] },
+  { path: '/shop', prefixes: ['/shop', '/product'] },
+  { path: '/about', prefixes: ['/about', '/awards'] },
   { path: '/blog', prefixes: ['/blog'] },
   { path: '/contact', prefixes: ['/contact'] },
-  { path: '/account', prefixes: ['/account'] },
 ];
 
 function getTabForPath(pathname) {

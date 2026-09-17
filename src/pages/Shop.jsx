@@ -1,36 +1,29 @@
-import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Truck, ShieldCheck, CreditCard, Headphones, SlidersHorizontal, X } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { BadgeCheck, ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import { getProducts, getCategories } from '@/lib/api/content';
 import ProductCard from '@/components/ProductCard';
 import LogoLoader from '@/components/LogoLoader';
-import ShopFilters from '@/components/ShopFilters';
 import PageHero from '@/components/PageHero';
 import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
+import { Image } from '@/components/ui/image';
 
+/**
+ * Products page — the business catalogue.
+ * Replaces the old retail shop: no prices, no filters, no cart, no sorting.
+ * Three flagship products are presented first, then the rest of the range.
+ */
 export default function Shop() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [sort, setSort] = useState('popular');
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({ priceRanges: [], inStock: false, featured: false });
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [visibleCount, setVisibleCount] = useState(12);
 
   const isFA = true;
-  const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
+  const headingFont = 'Peyda, serif';
 
   const loadData = async () => {
     try {
@@ -51,304 +44,122 @@ export default function Shop() {
     return () => { active = false; };
   }, []);
 
-  const activeCategory = searchParams.get('category') || 'all';
-  const activeCat = categories.find(c => c.id === activeCategory);
-
-  const setCategory = (cat) => {
-    if (cat === 'all') setSearchParams({});
-    else setSearchParams({ category: cat });
-  };
-
-  const filtered = useMemo(() => {
-    let list = [...products];
-    if (activeCategory !== 'all') list = list.filter(p => p.category === activeCategory);
-    if (filters.priceRanges.length > 0) {
-      list = list.filter(p => filters.priceRanges.some(r => p.price >= r.min && p.price < r.max));
-    }
-    if (filters.inStock) list = list.filter(p => p.inStock);
-    if (filters.featured) list = list.filter(p => p.featured);
-    if (sort === 'price_low') list.sort((a, b) => a.price - b.price);
-    else if (sort === 'price_high') list.sort((a, b) => b.price - a.price);
-    else if (sort === 'newest') list.reverse();
-    return list;
-  }, [products, activeCategory, sort, filters]);
-
-  const visibleProducts = filtered.slice(0, visibleCount);
-
-  useEffect(() => {
-    setVisibleCount(12);
-  }, [activeCategory, sort, filters]);
-
-  const sortOptions = [
-    { value: 'popular', label: t('popular') },
-    { value: 'price_low', label: t('price_low') },
-    { value: 'price_high', label: t('price_high') },
-    { value: 'newest', label: t('newest') },
-  ];
-
-  const trustBadges = [
-    { icon: Truck, key: 'trust_1_title', descKey: 'trust_1_desc' },
-    { icon: ShieldCheck, key: 'trust_2_title', descKey: 'trust_2_desc' },
-    { icon: CreditCard, key: 'trust_3_title', descKey: 'trust_3_desc' },
-    { icon: Headphones, key: 'trust_4_title', descKey: 'trust_4_desc' },
-  ];
-
-  const heroImage = activeCat
-    ? activeCat.image
-    : 'https://7golden.co/wp-content/uploads/2023/08/IMG_2279-scaled-e1693054143453.jpg';
-  const heroTitle = activeCat ? (isFA ? activeCat.nameFA : activeCat.nameEN) : t('shop');
-  const heroDesc = activeCat ? (isFA ? activeCat.descFA : activeCat.descEN) : (isFA ? 'مجموعه کامل محصولات هفت‌طلایی' : 'The complete 7Golden collection');
-
-  const activeFilterCount = filters.priceRanges.length + (filters.inStock ? 1 : 0) + (filters.featured ? 1 : 0);
-
   if (loading) {
     return <LogoLoader />;
   }
+
+  const imageFor = (slug) => categories.find(c => c.slug === slug)?.image || null;
+  const firstProductFor = (slug) => products.find(p => p.category === slug);
+  const mainSlugs = MAIN_PRODUCTS.map(p => p.category);
+  const otherProducts = products.filter(p => !mainSlugs.includes(p.category));
 
   return (
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
-        title={true ? `${SITE_SEO.siteNameFA} — فروشگاه خشکبار` : `${SITE_SEO.siteNameEN} — Shop`}
-        description={true ? SITE_SEO.defaultDescriptionFA : SITE_SEO.defaultDescriptionEN}
+        title={`${SITE_SEO.siteNameFA} — محصولات: فندق، پسته و بادام`}
+        description={SITE_SEO.defaultDescriptionFA}
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/shop`}
       />
 
       <PullToRefresh onRefresh={loadData}>
-      {/* ===== HERO ===== */}
-      <PageHero
-        image={heroImage}
-        title={heroTitle}
-        subtitle={heroDesc}
-        badge={isFA ? 'فروشگاه' : 'Shop'}
-      />
+        {/* ===== HERO ===== */}
+        <PageHero
+          image="https://7golden.co/wp-content/uploads/2023/08/IMG_2279-scaled-e1693054143453.jpg"
+          title={t('products_title')}
+          subtitle="پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی"
+          badge={isFA ? 'محصولات' : 'Products'}
+        />
 
-      {/* ===== CATEGORY CARDS — Visual selector ===== */}
-      {/* <section className="px-4 sm:px-6 py-5">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
-            <button
-              onClick={() => setCategory('all')}
-              className="flex-shrink-0 w-28 sm:w-36 rounded-2xl overflow-hidden transition-all relative group"
-              style={{
-                border: activeCategory === 'all' ? '2px solid var(--accent)' : '1px solid var(--border)',
-                opacity: activeCategory === 'all' ? 1 : 0.7,
-                boxShadow: activeCategory === 'all' ? '0 0 20px rgba(212,175,55,0.25)' : 'none',
-              }}
-            >
-              <div className="aspect-square relative" style={{ background: activeCategory === 'all' ? 'rgba(212,175,55,0.12)' : 'hsl(var(--muted))' }}>
-                {activeCategory === 'all' && (
-                  <div className="absolute inset-0" style={{ background: 'radial-gradient(circle at center, rgba(212,175,55,0.15) 0%, transparent 70%)' }} />
-                )}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-heading text-3xl font-extrabold" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
-                    {products.length}
-                  </span>
-                </div>
-                <div className="absolute bottom-0 inset-x-0 p-2 text-center" style={{ background: 'rgba(0,0,0,0.6)' }}>
-                  <span className="font-body text-xs font-semibold text-white">{t('all')}</span>
-                </div>
-              </div>
-            </button>
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => setCategory(cat.id)}
-                className="flex-shrink-0 w-28 sm:w-36 rounded-2xl overflow-hidden transition-all relative group"
-                style={{
-                  border: activeCategory === cat.id ? '2px solid var(--accent)' : '1px solid var(--border)',
-                  opacity: activeCategory === cat.id ? 1 : 0.85,
-                  boxShadow: activeCategory === cat.id ? '0 0 20px rgba(212,175,55,0.25)' : 'none',
-                }}
-              >
-                <div className="aspect-square relative">
-                  <img src={cat.image} alt={isFA ? cat.nameFA : cat.nameEN} className="w-full h-full object-cover" />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)' }} />
-                  {activeCategory === cat.id && (
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.3) 0%, transparent 50%, rgba(212,175,55,0.15) 100%)' }} />
-                  )}
-                  <div className="absolute bottom-0 inset-x-0 p-2 text-center">
-                    <span className="font-heading text-xs sm:text-sm font-extrabold text-white block" style={{ fontFamily: headingFont }}>
-                      {isFA ? cat.nameFA : cat.nameEN}
-                    </span>
-                    <span className="font-body text-sm text-white/70">{cat.count} {t('cat_products')}</span>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* ===== STICKY TOOLBAR ===== */}
-      {/* <div className="sticky top-16 z-30" style={{ background: 'hsl(var(--card))', borderBottom: '1px solid var(--border)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-body text-sm font-extrabold" style={{ color: 'var(--fg)' }}>
-              {filtered.length}
-            </span>
-            <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
-              {isFA ? 'محصول' : 'products'}
-            </span>
-            {activeCategory !== 'all' && activeCat && (
-              <button
-                onClick={() => setCategory('all')}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full font-body text-xs font-semibold transition-all hover:scale-105"
-                style={{ background: 'rgba(212,175,55,0.15)', color: 'var(--accent)', border: '1px solid rgba(212,175,55,0.3)' }}
-              >
-                {isFA ? activeCat.nameFA : activeCat.nameEN}
-                <X size={12} />
-              </button>
-            )}
-          </div> */}
-          {/* <div className="flex items-center gap-2"> */}
-            {/* Mobile filter button */}
-            {/* <button
-              onClick={() => setMobileFilterOpen(true)}
-              className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-full font-body text-xs font-semibold transition-all relative"
-              style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)' }}
-            >
-              <SlidersHorizontal size={14} />
-              {isFA ? 'فیلتر' : 'Filter'}
-              {activeFilterCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center font-body text-sm font-extrabold" style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}>
-                  {activeFilterCount}
-                </span>
-              )}
-            </button> */}
-            {/* Sort dropdown */}
-            {/* <Select value={sort} onValueChange={setSort}>
-              <SelectTrigger
-                className="px-3 py-2 rounded-full font-body text-xs font-semibold cursor-pointer w-auto min-w-[130px] h-auto"
-                style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)' }}
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {sortOptions.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}
-              </SelectContent>
-            </Select> */}
-          {/* </div> */}
-        {/* </div>
-      </div> */}
-
-      {/* ===== MAIN: Sidebar + Grid ===== */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 lg:gap-8">
-
-          {/* Desktop sidebar */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-32 p-5 rounded-2xl" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
-              {/* <div className="flex items-center gap-2 mb-5 pb-4" style={{ borderBottom: '1px solid var(--border)' }}>
-                <SlidersHorizontal size={16} style={{ color: 'var(--accent)' }} />
-                <h2 className="font-body font-extrabold text-sm" style={{ color: 'var(--fg)' }}>
-                  {isFA ? 'فیلترها' : 'Filters'}
-                </h2>
-              </div> */}
-              {/* <ShopFilters filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} /> */}
-            </div>
-          </aside>
-
-          {/* Product grid */}
-          <div>
-            {filtered.length > 0 ? (
-              <>
-                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
-                  {visibleProducts.map(product => <ProductCard key={product.id} product={product} />)}
-                </div>
-                {visibleCount < filtered.length && (
-                  <div className="flex justify-center mt-6">
-                    <button
-                      onClick={() => setVisibleCount(c => c + 12)}
-                      className="px-6 py-3 rounded-full font-body text-sm font-semibold transition-all hover:scale-105"
-                      style={{ background: 'hsl(var(--muted))', color: 'var(--fg)', border: '1px solid var(--border)', minHeight: '44px' }}
-                    >
-                      {isFA ? `نمایش بیشتر (${filtered.length - visibleCount} مورد)` : `Load More (${filtered.length - visibleCount} left)`}
-                    </button>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-20 text-center">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4" style={{ background: 'hsl(var(--muted))' }}>
-                  <SlidersHorizontal size={28} style={{ color: 'var(--fg-muted)' }} />
-                </div>
-                <p className="font-body text-base mb-2" style={{ color: 'var(--fg)' }}>
-                  {isFA ? 'محصولی با این فیلترها یافت نشد' : 'No products match these filters'}
-                </p>
-                <button
-                  onClick={() => { setFilters({ priceRanges: [], inStock: false, featured: false }); setCategory('all'); }}
-                  className="font-body text-sm font-semibold py-2 px-5 rounded-full transition-all"
-                  style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}
+        {/* ===== FLAGSHIP PRODUCTS ===== */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {MAIN_PRODUCTS.map(product => {
+              const image = imageFor(product.category);
+              const first = firstProductFor(product.category);
+              return (
+                <Link
+                  key={product.category}
+                  to={first ? `/product/${first.id}` : '/shop'}
+                  className="group rounded-2xl overflow-hidden block transition-all duration-300 hover:shadow-2xl"
+                  style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}
                 >
-                  {isFA ? 'پاک کردن همه' : 'Clear all'}
-                </button>
-              </div>
-            )}
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    {image ? (
+                      <Image src={image} alt={product.nameFA} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" fittingType="fill" />
+                    ) : (
+                      <div className="w-full h-full" style={{ background: 'hsl(var(--muted))' }} />
+                    )}
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)' }} />
+                    <span className="absolute bottom-4 right-4 font-heading font-black text-2xl text-white" style={{ fontFamily: headingFont }}>
+                      {product.nameFA}
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: 'Kalameh, serif' }}>
+                      {product.tagline}
+                    </span>
+                    <dl className="flex flex-col gap-2 mb-4">
+                      {product.specs.slice(0, 2).map(spec => (
+                        <div key={spec.label} className="flex items-start gap-2">
+                          <dt className="font-body text-xs flex-shrink-0 w-20" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
+                          <dd className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg)' }}>{spec.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <span className="inline-flex items-center gap-2 font-body text-sm font-semibold transition-all group-hover:gap-3" style={{ color: 'var(--accent)' }}>
+                      مشاهده مشخصات کامل
+                      <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* ===== OTHER PRODUCTS ===== */}
+        {otherProducts.length > 0 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+            <h2 className="font-heading text-lg md:text-2xl font-extrabold mb-5" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+              سایر محصولات
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
+              {otherProducts.map(product => <ProductCard key={product.id} product={product} />)}
+            </div>
+          </section>
+        )}
+
+        {/* ===== STANDARDS ===== */}
+        <section className="border-t" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <h2 className="font-heading text-lg md:text-xl font-extrabold mb-5" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+              گواهینامه‌ها و استانداردهای صادراتی
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {CERTIFICATES.map(item => (
+                <div
+                  key={item}
+                  className="flex items-start gap-3 px-4 py-3.5 rounded-xl"
+                  style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}
+                >
+                  <BadgeCheck size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--accent)' }} />
+                  <span className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg)' }}>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </PullToRefresh>
 
-      {/* ===== MOBILE FILTER SHEET ===== */}
-      {mobileFilterOpen && (
-        <div className="fixed inset-0 z-[100] lg:hidden" dir="rtl">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setMobileFilterOpen(false)} />
-          <div className={`absolute bottom-0 inset-x-0 rounded-t-3xl max-h-[80vh] flex flex-col ${isFA ? '' : ''}`} style={{ background: 'var(--bg)' }}>
-            {/* Handle */}
-            <div className="pt-3 pb-1 flex justify-center">
-              <div className="w-10 h-1 rounded-full" style={{ background: 'var(--border)' }} />
-            </div>
-            {/* Header */}
-            <div className="flex items-center justify-between px-5 py-3" style={{ borderBottom: '1px solid var(--border)' }}>
-              <h2 className="font-heading text-lg font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-                {isFA ? 'فیلترها' : 'Filters'}
-              </h2>
-              <button onClick={() => setMobileFilterOpen(false)} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'hsl(var(--muted))' }}>
-                <X size={16} style={{ color: 'var(--fg)' }} />
-              </button>
-            </div>
-            {/* Content */}
-            <div className="flex-1 overflow-y-auto px-5 py-5">
-              <ShopFilters filters={filters} setFilters={setFilters} categories={categories} activeCategory={activeCategory} onCategoryChange={setCategory} />
-            </div>
-            {/* Footer */}
-            <div className="px-5 py-4" style={{ borderTop: '1px solid var(--border)' }}>
-              <button
-                onClick={() => setMobileFilterOpen(false)}
-                className="w-full py-3.5 rounded-2xl font-body font-semibold text-sm transition-all"
-                style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}
-              >
-                {isFA ? `نمایش ${filtered.length} محصول` : `Show ${filtered.length} products`}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ===== TRUST BADGES ===== */}
-      <section className="border-t" style={{ background: 'hsl(var(--card))', borderColor: 'var(--border)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4">
-            {trustBadges.map((badge, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 py-2 px-3"
-                style={{ borderRight: i < 3 ? '1px solid var(--border)' : 'none' }}
-              >
-                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'hsl(var(--muted))' }}>
-                  <badge.icon size={18} style={{ color: 'var(--accent)' }} />
-                </div>
-                <div>
-                  <div className="font-body font-semibold text-xs" style={{ color: 'var(--fg)' }}>{t(badge.key)}</div>
-                  <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(badge.descKey)}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ---------------------------------------------------------------------
+          RETAIL SHOP UI — DISABLED
+          The old page had a category chip selector, a sticky toolbar with
+          price sorting, a filter sidebar/sheet (ShopFilters) and retail trust
+          badges (fast shipping / secure payment / support). All of it is gone
+          because 7Golden does not sell online.
+          --------------------------------------------------------------------- */}
     </div>
   );
 }

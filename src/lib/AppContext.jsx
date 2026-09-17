@@ -1,14 +1,23 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getSiteSettings } from '@/lib/api/content';
+// import { getSiteSettings } from '@/lib/api/content';
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
 
-  const isStoreMode = siteMode === 'store';
+  // ---------------------------------------------------------------------------
+  // RETAIL LOGIC DISABLED
+  // 7Golden is presented as a B2B trading / export company, not a nut shop.
+  // The storefront mode (retail prices, cart, checkout) is intentionally pinned
+  // to corporate so nothing retail-facing can render. The original site-mode
+  // state is kept commented below — restore it to bring the shop back.
+  // ---------------------------------------------------------------------------
+  // const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
+  // const isStoreMode = siteMode === 'store';
+  const siteMode = 'corporate';
+  const isStoreMode = false;
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('7golden_cart') || '[]');
@@ -29,22 +38,20 @@ export function AppProvider({ children }) {
     localStorage.setItem('7golden_cart', JSON.stringify(cart));
   }, [cart]);
 
-  // Load site mode from settings
-  const refreshSiteMode = async () => {
-    try {
-      const settings = await getSiteSettings();
-      if (settings?.site_mode) {
-        setSiteMode(settings.site_mode);
-        localStorage.setItem('7golden_site_mode', settings.site_mode);
-      }
-    } catch (e) {
-      // keep current mode
-    }
-  };
-
-  useEffect(() => {
-    refreshSiteMode();
-  }, []);
+  // Load site mode from settings — disabled, the site is corporate-only.
+  // const refreshSiteMode = async () => {
+  //   try {
+  //     const settings = await getSiteSettings();
+  //     if (settings?.site_mode) {
+  //       setSiteMode(settings.site_mode);
+  //       localStorage.setItem('7golden_site_mode', settings.site_mode);
+  //     }
+  //   } catch (e) {
+  //     // keep current mode
+  //   }
+  // };
+  // Kept as a no-op so existing callers (admin toggle, pull-to-refresh) still work.
+  const refreshSiteMode = async () => {};
 
   const addToCart = (product, qty = 1, weight = 500) => {
     setCart(prev => {

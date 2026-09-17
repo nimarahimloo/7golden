@@ -1,18 +1,17 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Home, ShoppingBag, Info, BookOpen, Mail, Award } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
+import { X, Home, Package, Info, BookOpen, Mail, Award } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
 export default function MobileMenu({ open, onClose }) {
-  const { cartCount, setCartOpen } = useApp();
+  // const { cartCount, setCartOpen } = useApp(); // retail cart — disabled
   const location = useLocation();
   const isFA = true;
   const headingFont = 'Peyda, serif';
 
   const links = [
     { href: '/', label: t('home'), icon: Home, desc: isFA ? 'صفحه اصلی' : 'Main page' },
-    { href: '/shop', label: t('shop'), icon: ShoppingBag, desc: isFA ? 'محصولات هفت‌طلایی' : 'Our products' },
+    { href: '/shop', label: t('shop'), icon: Package, desc: isFA ? 'پسته، بادام و فندق' : 'Pistachio, almond & hazelnut' },
     { href: '/about', label: t('about'), icon: Info, desc: isFA ? 'داستان ما' : 'Our story' },
     { href: '/awards', label: t('awards'), icon: Award, desc: isFA ? 'مجوزها و جوایز' : 'Awards & licenses' },
     { href: '/blog', label: t('blog'), icon: BookOpen, desc: isFA ? 'اخبار و مطالب' : 'News & articles' },
@@ -105,32 +104,22 @@ export default function MobileMenu({ open, onClose }) {
           })}
         </div>
 
-        {/* Bottom actions — glass cards */}
+        {/* Bottom action — business contact. Retail cart entry point is disabled. */}
         <div className="px-4 pt-2 pb-6">
-          <div className="grid grid-cols-1 gap-2.5">
-            {/* Cart */}
-            <button
-              onClick={() => { onClose(); setCartOpen(true); }}
-              className="glass-card flex flex-col items-center gap-1.5 py-4 transition-all active:scale-95 relative"
-              style={{ color: 'var(--fg)' }}
-            >
-              <div className="relative">
-                <ShoppingBag size={20} style={{ color: 'var(--accent)' }} />
-                {cartCount > 0 && (
-                  <span
-                    className="absolute -top-1.5 -right-2 w-4 h-4 rounded-full flex items-center justify-center font-body text-sm font-bold"
-                    style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}
-                  >
-                    {cartCount}
-                  </span>
-                )}
-              </div>
-              <span className="font-body text-sm font-semibold" style={{ color: 'var(--fg-muted)' }}>
-                سبد خرید
-              </span>
-            </button>
-          </div>
+          <Link
+            to="/contact"
+            onClick={onClose}
+            className="glass-card flex items-center justify-center gap-2 py-4 transition-all active:scale-95"
+            style={{ color: 'var(--accent)' }}
+          >
+            <Mail size={18} />
+            <span className="font-body text-sm font-semibold">تماس با واحد بازرگانی</span>
+          </Link>
         </div>
+
+        {/* Retail cart button — disabled
+        <button onClick={() => { onClose(); setCartOpen(true); }}>سبد خرید</button>
+        */}
       </div>
     </>
   );
