@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Phone, Mail, Clock, MapPin } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import TrustBadges from '@/components/TrustBadges';
 import FooterParticles from '@/components/FooterParticles';
 
 export default function Footer() {
-  const { theme } = useApp();
-
   const navLinks = [
     { href: '/', label: t('home') },
     { href: '/shop', label: t('shop') },
@@ -28,7 +25,6 @@ export default function Footer() {
             <div className="mb-4">
               <img
                 src="https://7golden.co/wp-content/uploads/2023/08/logo-white.png"
-                style={{ filter: theme === 'light' ? 'brightness(0)' : 'none' }}
                 alt="7Golden"
                 className="h-14 w-auto object-contain mb-3"
               />

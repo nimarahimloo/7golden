@@ -8,7 +8,7 @@ import MobileMenu from '@/components/MobileMenu';
 import NavbarParticles from '@/components/NavbarParticles';
 
 export default function Navbar() {
-  const { cartCount, setCartOpen, isStoreMode, theme, toggleTheme } = useApp();
+  const { cartCount, setCartOpen, isStoreMode } = useApp();
   const { isAuthenticated, user } = useAuth();
   const isAdmin = user?.role === 'admin';
   const [scrolled, setScrolled] = useState(false);
@@ -55,7 +55,6 @@ export default function Navbar() {
                 src="/logo.png"
                 alt="7Golden"
                 className="h-16 md:h-20 w-auto object-contain transition-all group-hover:opacity-90"
-                // style={{ filter: theme === 'light' ? 'brightness(0)' : 'none' }}
               />
             </Link>
 
@@ -102,16 +101,6 @@ export default function Navbar() {
                 aria-label="Switch language"
               >
                 <Languages size={16} />
-              </button> */}
-
-              {/* Theme toggle */}
-              {/* <button
-                onClick={toggleTheme}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
-                style={{ color: 'var(--fg)' }}
-                aria-label={theme === 'dark' ? 'حالت روشن' : 'Dark mode'}
-              >
-                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
               </button> */}
 
               {/* Account / Login */}

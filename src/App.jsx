@@ -31,7 +31,6 @@ const OAuthConsent = lazy(() => import('@/pages/OAuthConsent'));
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
-import ThemeTransition from '@/components/ThemeTransition';
 import SupportChat from '@/components/SupportChat';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import PageTransition from '@/components/PageTransition';
@@ -43,7 +42,6 @@ function AppLayout() {
   return (
     <>
       <GlobalGoldAmbient />
-      <ThemeTransition />
       <Navbar />
       <PageTransition>
       <Suspense fallback={<LogoLoader />}>

@@ -4,15 +4,8 @@ import { getSiteSettings } from '@/lib/api/content';
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('7golden_theme');
-    if (saved) return saved;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  });
-  const [themeManual, setThemeManual] = useState(() => localStorage.getItem('7golden_theme_manual') === 'true');
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
 
   const isStoreMode = siteMode === 'store';
@@ -27,31 +20,10 @@ export function AppProvider({ children }) {
     document.documentElement.setAttribute('lang', 'fa');
   }, []);
 
+  // The site is dark-only: the root always carries the dark class.
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('7golden_theme', theme);
-    // Update theme-color meta for mobile browser chrome
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'dark' ? '#050402' : '#F9F7F2');
-    }
-  }, [theme]);
-
-  // Follow system theme when user hasn't manually toggled
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (e) => {
-      if (!themeManual) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, [themeManual]);
+    document.documentElement.classList.add('dark');
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('7golden_cart', JSON.stringify(cart));
@@ -73,12 +45,6 @@ export function AppProvider({ children }) {
   useEffect(() => {
     refreshSiteMode();
   }, []);
-
-  const toggleTheme = () => {
-    setThemeManual(true);
-    localStorage.setItem('7golden_theme_manual', 'true');
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
 
   const addToCart = (product, qty = 1, weight = 500) => {
     setCart(prev => {
@@ -108,7 +74,6 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      theme, toggleTheme, isTransitioning,
       cart, addToCart, removeFromCart, updateQty, clearCart,
       cartOpen, setCartOpen,
       cartCount, cartTotal,

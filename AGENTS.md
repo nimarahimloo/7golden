@@ -33,4 +33,10 @@ npx skills add base44/skills
 - Reuse the existing SDK client and Vite plugin patterns before adding new Base44 integration paths.
 - Run the relevant checks from `package.json` before finishing code changes.
 
+## Project Conventions
+
+- **Fonts are local, never CDN.** All `@font-face` rules live at the top of `src/index.css` and point at flat `.woff2` files in `public/fonts/` (e.g. `/fonts/PeydaWeb-Regular.woff2`). Families: `Peyda` (headings), `Kalameh` (subheadings), `YekanBakh` (body). Source font archives live in `public/fonts/Peyda/` and `public/fonts/Kalameh/`; YekanBakh was fetched once from the former jsDelivr CDN and is now committed flat. Do not reintroduce external font/CDN links.
+- **Dark mode is the only theme.** The root `<html>` always carries `class="dark"`; the palette lives on `:root` in `src/index.css` (no separate light block, no `.dark` overrides). `AppContext` has no `theme`/`toggleTheme`. Do not add theme switching back.
+- `docker-compose.base44.yml` runs the Vite dev server from the mounted source on host port 3000. The dev server proxies `/api` to the Base44 cloud backend; a 500 from the SDK app-state check is expected when only the frontend runs locally and does not break rendering.
+
 

@@ -2,47 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== FONT IMPORTS (CDN: jsdelivr persian-fonts-cdn) ===== */
+/* ===== FONT IMPORTS (local — served from /public/fonts) ===== */
 
 /* --- Peyda --- */
 @font-face {
   font-family: 'Peyda';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/peyda/PeydaWeb-Regular.woff2') format('woff2');
+  src: url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/peyda/PeydaWeb-Medium.woff2') format('woff2');
+  src: url('/fonts/PeydaWeb-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/peyda/PeydaWeb-SemiBold.woff2') format('woff2');
+  src: url('/fonts/PeydaWeb-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/peyda/PeydaWeb-Bold.woff2') format('woff2');
+  src: url('/fonts/PeydaWeb-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/peyda/PeydaWeb-ExtraBold.woff2') format('woff2');
+  src: url('/fonts/PeydaWeb-ExtraBold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/peyda/PeydaWeb-Black.woff2') format('woff2');
+  src: url('/fonts/PeydaWeb-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -51,28 +51,28 @@
 /* --- Kalameh --- */
 @font-face {
   font-family: 'Kalameh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/kalameh/KalamehWeb(FaNum)-Regular.woff2') format('woff2');
+  src: url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/kalameh/KalamehWeb(FaNum)-Medium.woff2') format('woff2');
+  src: url('/fonts/KalamehWebFaNum-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/kalameh/KalamehWeb(FaNum)-SemiBold.woff2') format('woff2');
+  src: url('/fonts/KalamehWebFaNum-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/kalameh/KalamehWeb(FaNum)-Bold.woff2') format('woff2');
+  src: url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -81,81 +81,30 @@
 /* --- YekanBakh --- */
 @font-face {
   font-family: 'YekanBakh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/yekan-bakh/YekanBakhFaNum-Regular.woff2') format('woff2');
+  src: url('/fonts/YekanBakhFaNum-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'YekanBakh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/yekan-bakh/YekanBakhFaNum-SemiBold.woff2') format('woff2');
+  src: url('/fonts/YekanBakhFaNum-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'YekanBakh';
-  src: url('https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/fonts/yekan-bakh/YekanBakhFaNum-Bold.woff2') format('woff2');
+  src: url('/fonts/YekanBakhFaNum-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* ===== CSS VARIABLES ===== */
+/* ===== CSS VARIABLES (dark-only — single theme) ===== */
 @layer base {
   :root {
-    --bg: #F9F7F2;
-    --bg-secondary: #F0EDE4;
-    --fg: #1A1A1A;
-    --fg-muted: #5C5346;
-    --accent: #8C6239;
-    --accent-hover: #7A5430;
-    --accent-gold: #8C6239;
-    --border: rgba(140, 98, 57, 0.15);
-    --card-bg: rgba(255,255,255,0.7);
-    --glass: rgba(255, 255, 255, 0.55);
-    --glass-strong: rgba(255, 255, 255, 0.68);
-    --liquid-glass-bg: rgba(255, 255, 255, 0.55);
-    --liquid-glass-border: rgba(140, 98, 57, 0.12);
-    --liquid-glass-strong-bg: rgba(255, 255, 255, 0.68);
-    --liquid-glass-strong-border: rgba(140, 98, 57, 0.15);
-    --glass-input-bg: rgba(0, 0, 0, 0.04);
-    --glass-input-border: rgba(140, 98, 57, 0.12);
-    --glass-pill-bg: rgba(255, 255, 255, 0.5);
-    --glass-pill-border: rgba(140, 98, 57, 0.1);
-    --surface-subtle: rgba(0, 0, 0, 0.03);
-    --surface-border: rgba(140, 98, 57, 0.1);
-    --bottom-bar-bg: rgba(249, 247, 242, 0.72);
-    --bottom-bar-border: rgba(140, 98, 57, 0.12);
-    --track-bg: rgba(140, 98, 57, 0.1);
-    --overlay-footer-bg: rgba(255, 255, 255, 0.4);
-    --shadow: 0 8px 40px rgba(26,26,26,0.08);
-    --shadow-lg: 0 24px 80px rgba(26,26,26,0.12);
-
-    --background: 0 0% 4%;
-    --foreground: 0 0% 9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 28 43% 38%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 40 20% 90%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 40 20% 94%;
-    --muted-foreground: 25 15% 40%;
-    --accent-hsl: 28 43% 38%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 28 20% 85%;
-    --input: 28 20% 85%;
-    --ring: 28 43% 38%;
-    --radius: 0.75rem;
-  }
-
-  .dark {
-    /* Dark Mode - Nocturnal Orchard (deep luxury) */
+    /* Nocturnal Orchard — deep luxury dark palette */
     --bg: #020100;
     --bg-secondary: #060402;
     --fg: #FFF;
@@ -203,6 +152,7 @@
     --border: 48 50% 18%;
     --input: 48 50% 18%;
     --ring: 48 82% 64%;
+    --radius: 0.75rem;
   }
 }
 
@@ -919,7 +869,7 @@ textarea {
 }
 
 /* ===== GOLD AURORA AMBIENT BACKGROUND ===== */
-html.dark body::before {
+body::before {
   content: '';
   position: fixed;
   inset: 0;
