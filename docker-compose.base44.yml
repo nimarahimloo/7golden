@@ -11,6 +11,11 @@ services:
       - ./.env.base44-defaults
       - /run/base44/app.env
     environment:
+      # The managed VITE_BASE44_APP_BASE_URL points at a local Base44 backend
+      # (http://localhost:4400) that is never started in this sandbox, so the
+      # Vite /api proxy fails with ECONNREFUSED and the app's app-state check
+      # returns 500. The app's real backend is the hosted Base44 API — pin it.
+      VITE_BASE44_APP_BASE_URL: "https://base44.app"
       # Vite >= 6.1 appends this to allowedHosts (platform sets it).
       __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS: "${__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS:-}"
     command: sh -c "npm install --no-audit --no-fund && npx vite --host 0.0.0.0 --port 5173"
