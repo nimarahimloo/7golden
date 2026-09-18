@@ -56,72 +56,83 @@ export default function HeroSlider() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: '100vh', maxHeight: '650px', minHeight: '560px' }}
+      style={{ background: 'transparent' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {SLIDES.map((s, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity ease-in-out"
-          style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-        >
-          <img
-            src={s.image}
-            alt={isFA ? s.titleFA : s.titleEN}
-            className="w-full h-full object-cover"
-            // style={{ animation: i === current ? 'kenBurns 8s ease-out forwards' : 'none' }}
-          />
-          <div className="absolute inset-0 cinematic-overlay" />
-        </div>
-      ))}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 pt-24 md:pt-32 pb-12 md:pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
 
-      {/* Content */}
-      <div className="absolute inset-0 z-10 flex items-end">
-        <div className="w-full px-5 sm:px-8 lg:px-16 pb-20 md:pb-28">
-          <div className="" key={current}>
-          
-            <h1
-              className="text-5xl sm:text-5xl md:text-7xl font-black leading-[1.1] mb-5"
-            >
-              {isFA ? slide.titleFA : slide.titleEN}
-            </h1>
-            <p
-              className="text-rise font-body text-sm md:text-lg mb-8 max-w-lg"
-              style={{ color: 'rgba(255,255,255,0.85)', textShadow: '0 2px 12px rgba(0,0,0,0.5)', animationDelay: '0.4s' }}
-            >
-              {isFA ? slide.subFA : slide.subEN}
-            </p>
+          {/* Image — large, one side */}
+          <div
+            className="order-1 md:order-2 relative rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[6/5]"
+            style={{ background: 'var(--bg-secondary)', boxShadow: 'var(--soft-shadow)', border: '1px solid var(--hairline)' }}
+          >
+            {SLIDES.map((s, i) => (
+              <img
+                key={i}
+                src={s.image}
+                alt={isFA ? s.titleFA : s.titleEN}
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+                style={{ opacity: i === current ? 1 : 0 }}
+              />
+            ))}
           </div>
+
+          {/* Text — one short block */}
+          <div className="order-2 md:order-1">
+            <span className="eyebrow block mb-5">{slide.badge}</span>
+            <h1
+              key={`t${current}`}
+              className="text-rise text-3xl sm:text-4xl md:text-5xl font-black leading-[1.3] mb-9"
+              style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif' }}
+            >
+              <span className="header-gold-sheen">{isFA ? slide.titleFA : slide.titleEN}</span>
+            </h1>
+
+            {/* Controls */}
+            <div className="flex items-center gap-5">
+              <div className="flex gap-2">
+                <button
+                  onClick={prev}
+                  className="w-11 h-11 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+                  style={{ border: '1px solid var(--hairline)', color: 'var(--accent)', background: 'rgba(255,255,255,0.04)' }}
+                  aria-label="Previous"
+                >
+                  <ChevronRight size={18} />
+                </button>
+                <button
+                  onClick={next}
+                  className="w-11 h-11 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+                  style={{ border: '1px solid var(--hairline)', color: 'var(--accent)', background: 'rgba(255,255,255,0.04)' }}
+                  aria-label="Next"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+              </div>
+
+              <div className="flex gap-2">
+                {SLIDES.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    className="transition-all duration-300 rounded-full"
+                    style={{
+                      width: i === current ? '30px' : '8px',
+                      height: '8px',
+                      background: i === current ? 'var(--accent)' : 'rgba(240,206,90,0.22)',
+                    }}
+                    aria-label={`Slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-
-      {/* Desktop arrows */}
-      <button onClick={prev} className="hidden md:flex absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-luxury items-center justify-center transition-all hover:scale-110" style={{ left: '1.5rem', color: '#F0CE5A' }}>
-        <ChevronLeft size={20} />
-      </button>
-      <button onClick={next} className="hidden md:flex absolute top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-luxury items-center justify-center transition-all hover:scale-110" style={{ right: '1.5rem', color: '#F0CE5A' }}>
-        <ChevronRight size={20} />
-      </button>
-
-      {/* Dots */}
-      <div className="absolute bottom-7 md:bottom-9 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className="transition-all duration-300 rounded-full"
-            style={{
-              width: i === current ? '32px' : '8px',
-              height: '8px',
-              background: i === current ? '#F0CE5A' : 'rgba(255,255,255,0.35)',
-            }}
-          />
-        ))}
-      </div>
-
     </section>
   );
 }

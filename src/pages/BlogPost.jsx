@@ -110,7 +110,7 @@ export default function BlogPost() {
                 {date}
               </span>
             </div>
-            <h1 className="font-heading font-black text-2xl md:text-4xl lg:text-5xl leading-tight gold-text-glow" style={{ color: '#fff', fontFamily: headingFont }}>
+            <h1 className="font-heading font-black text-2xl md:text-4xl lg:text-5xl leading-tight header-gold-sheen" style={{ fontFamily: headingFont }}>
               {title}
             </h1>
             {excerpt && (

@@ -1,23 +1,49 @@
 import { useRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import * as THREE from 'three';
-import { useApp } from '@/lib/AppContext';
 
 /**
- * GoldenEssence — A unique 3D luxury showcase scene built with Three.js.
- * Floating golden nut sculptures (organic icosahedrons) with metallic gold
- * material, orbiting around a central "essence" shape, enveloped in a flowing
- * golden particle aura. Dynamic studio lighting creates shifting highlights
- * that convey pure luxury. Responds to mouse/touch with parallax camera.
+ * GoldenEssence — the site's ambient 3D backdrop, built with Three.js.
+ *
+ * A fixed, non-interactive layer that lives behind the page content: floating
+ * golden nut sculptures (organic icosahedrons) with a metallic gold material
+ * orbit a central "essence" shape inside a slow golden particle aura. The page
+ * scrolls over it, so it reads as a cinematic golden atmosphere rather than a
+ * separate section.
+ *
+ * It is mounted by the home page only and rendered through a portal onto
+ * <body>, so no transformed/positioned ancestor can break its `fixed` layer.
+ *
+ * Performance: the render loop idles while the tab is hidden, the particle
+ * count drops on mobile, and visitors who prefer reduced motion get a static
+ * gold wash instead of WebGL.
  */
+
+function StaticGoldWash() {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        inset: 0,
+        background:
+          'radial-gradient(ellipse 70% 55% at 50% 28%, rgba(240,206,90,0.16) 0%, transparent 62%),' +
+          'radial-gradient(ellipse 60% 45% at 12% 82%, rgba(240,206,90,0.09) 0%, transparent 65%),' +
+          'radial-gradient(ellipse 55% 40% at 88% 68%, rgba(240,206,90,0.07) 0%, transparent 65%)',
+      }}
+    />
+  );
+}
+
 export default function GoldenEssence() {
   const mountRef = useRef(null);
-  const [loaded, setLoaded] = useState(false);
-  const isFA = true;
-  const headingFont = 'Peyda, serif';
-  const subFont = 'Kalameh, serif';
+  const [reducedMotion] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (reducedMotion) return;
     const mount = mountRef.current;
     if (!mount) return;
 
@@ -26,7 +52,7 @@ export default function GoldenEssence() {
     // --- Scene ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, mount.clientWidth / mount.clientHeight, 0.1, 100);
-    camera.position.set(0, 0, 13);
+    camera.position.set(0, 0, 16);
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
     renderer.setSize(mount.clientWidth, mount.clientHeight);
@@ -38,19 +64,19 @@ export default function GoldenEssence() {
     // --- Lights — golden studio ---
     scene.add(new THREE.AmbientLight(0x1a1208, 0.4));
 
-    const keyLight = new THREE.PointLight(0xF0CE5A, 3.5, 35);
+    const keyLight = new THREE.PointLight(0xF0CE5A, 3.5, 40);
     keyLight.position.set(6, 5, 6);
     scene.add(keyLight);
 
-    const fillLight = new THREE.PointLight(0x3a2a18, 1.2, 30);
+    const fillLight = new THREE.PointLight(0x3a2a18, 1.2, 34);
     fillLight.position.set(-6, -4, 5);
     scene.add(fillLight);
 
-    const rimLight = new THREE.PointLight(0xFFE8A0, 2.5, 25);
+    const rimLight = new THREE.PointLight(0xFFE8A0, 2.5, 30);
     rimLight.position.set(0, 2, -9);
     scene.add(rimLight);
 
-    const accentLight = new THREE.PointLight(0xD4A040, 1.8, 20);
+    const accentLight = new THREE.PointLight(0xD4A040, 1.8, 24);
     accentLight.position.set(-3, 6, 3);
     scene.add(accentLight);
 
@@ -102,7 +128,7 @@ export default function GoldenEssence() {
     });
 
     // --- Golden particle aura ---
-    const particleCount = isMobile ? 250 : 600;
+    const particleCount = isMobile ? 200 : 500;
     const pPositions = new Float32Array(particleCount * 3);
     const pPhases = new Float32Array(particleCount);
     const pRadii = new Float32Array(particleCount);
@@ -151,28 +177,20 @@ export default function GoldenEssence() {
     const particles = new THREE.Points(pGeo, pMat);
     scene.add(particles);
 
-    // --- Interaction ---
+    // --- Interaction — the layer ignores the pointer, so we track the window ---
     let mx = 0, my = 0;
     const onMouse = (e) => {
-      const rect = mount.getBoundingClientRect();
-      mx = (e.clientX - rect.left) / rect.width - 0.5;
-      my = (e.clientY - rect.top) / rect.height - 0.5;
+      mx = e.clientX / window.innerWidth - 0.5;
+      my = e.clientY / window.innerHeight - 0.5;
     };
-    mount.addEventListener('mousemove', onMouse, { passive: true });
+    window.addEventListener('mousemove', onMouse, { passive: true });
 
-    let touchX = 0, touchY = 0;
-    const onTouch = (e) => {
-      if (e.touches.length > 0) {
-        const rect = mount.getBoundingClientRect();
-        touchX = (e.touches[0].clientX - rect.left) / rect.width - 0.5;
-        touchY = (e.touches[0].clientY - rect.top) / rect.height - 0.5;
-      }
-    };
-    mount.addEventListener('touchmove', onTouch, { passive: true });
-
-    // --- Animation ---
+    // --- Animation — idles while the tab is hidden ---
     let frameId = null;
-    let isActive = false;
+    let isActive = !document.hidden;
+    const onVisibility = () => { isActive = !document.hidden; };
+    document.addEventListener('visibilitychange', onVisibility);
+
     const clock = new THREE.Clock();
 
     const animate = () => {
@@ -180,8 +198,6 @@ export default function GoldenEssence() {
       if (!isActive) return;
 
       const t = clock.getElapsedTime();
-      const tx = mx || touchX;
-      const ty = my || touchY;
 
       // Central nut — slow rotation + float
       centralNut.rotation.x += 0.0025;
@@ -211,8 +227,8 @@ export default function GoldenEssence() {
       pGeo.attributes.position.needsUpdate = true;
 
       // Camera parallax
-      camera.position.x += (tx * 3.5 - camera.position.x) * 0.03;
-      camera.position.y += (-ty * 2.5 - camera.position.y) * 0.03;
+      camera.position.x += (mx * 3.5 - camera.position.x) * 0.03;
+      camera.position.y += (-my * 2.5 - camera.position.y) * 0.03;
       camera.lookAt(0, 0, 0);
 
       // Dynamic lighting — shifting highlights
@@ -223,29 +239,11 @@ export default function GoldenEssence() {
 
       renderer.render(scene, camera);
     };
-
-    // --- Visibility-based start/stop ---
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const wasActive = isActive;
-        isActive = entry.isIntersecting;
-        if (isActive && !wasActive) {
-          if (!frameId) animate();
-          setLoaded(true);
-        } else if (!isActive && wasActive) {
-          if (frameId) {
-            cancelAnimationFrame(frameId);
-            frameId = null;
-          }
-        }
-      },
-      { threshold: 0.05 }
-    );
-    observer.observe(mount);
+    animate();
 
     // --- Resize ---
     const onResize = () => {
-      if (!mount.clientWidth) return;
+      if (!mount.clientWidth || !mount.clientHeight) return;
       camera.aspect = mount.clientWidth / mount.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(mount.clientWidth, mount.clientHeight);
@@ -255,10 +253,9 @@ export default function GoldenEssence() {
     // --- Cleanup ---
     return () => {
       if (frameId) cancelAnimationFrame(frameId);
-      observer.disconnect();
-      mount.removeEventListener('mousemove', onMouse);
-      mount.removeEventListener('touchmove', onTouch);
+      window.removeEventListener('mousemove', onMouse);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
       if (renderer.domElement.parentNode === mount) {
         mount.removeChild(renderer.domElement);
       }
@@ -270,56 +267,27 @@ export default function GoldenEssence() {
       pTexture.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [reducedMotion]);
 
-  return (
-    <section
-      className="relative w-full overflow-hidden"
+  return createPortal(
+    <div
+      aria-hidden="true"
       style={{
-        background: 'radial-gradient(ellipse at center, #0a0703 0%, #020100 70%)',
-        height: 'clamp(420px, 60vh, 640px)',
+        position: 'fixed',
+        inset: 0,
+        zIndex: 0,
+        pointerEvents: 'none',
+        overflow: 'hidden',
       }}
-      dir="rtl"
     >
-      <div
-        ref={mountRef}
-        style={{ position: 'absolute', inset: 0, zIndex: 1 }}
-      />
-
-      {/* <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 2,
-          background: 'radial-gradient(ellipse at center, transparent 30%, rgba(2,1,0,0.5) 80%, rgba(2,1,0,0.85) 100%)',
-        }}
-      /> */}
-
-      {/* Text overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6" style={{ zIndex: 3, pointerEvents: 'none' }}>
-        <h2
-          className={`font-heading text-6xl sm:text-4xl md:text-5xl font-black leading-[1.15] mb-4 gold-text-glow ${loaded ? 'text-reveal' : 'opacity-0'}`}
-          style={{ color: '#fff', fontFamily: headingFont, animationDelay: '0.5s' }}
-        >
-          {isFA ? 'از باغ تا میز شما' : 'From Orchard to Your Table'}
-        </h2>
-        <p
-          className={`font-body text-sm sm:text-base max-w-md leading-relaxed ${loaded ? 'text-rise' : 'opacity-0'}`}
-          style={{ color: 'rgba(255,255,255,0.7)', animationDelay: '0.8s' }}
-        >
-          {isFA
-            ? 'هر دانه، اثری از طلای طبیعت — انتخاب‌دست‌چین، خالص، و بی‌نظیر'
-            : 'Every seed, a trace of nature\'s gold — hand-selected, pure, and unparalleled'}
-        </p>
-      </div>
-
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{
-          zIndex: 2,
-          height: '80px',
-          background: 'linear-gradient(to bottom, transparent, var(--bg))',
-        }}
-      />
-    </section>
+      <StaticGoldWash />
+      {!reducedMotion && (
+        <div
+          ref={mountRef}
+          style={{ position: 'absolute', inset: 0, opacity: 0.6 }}
+        />
+      )}
+    </div>,
+    document.body
   );
 }
