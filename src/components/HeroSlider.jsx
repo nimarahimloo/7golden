@@ -89,7 +89,7 @@ export default function HeroSlider() {
               className="text-rise text-3xl sm:text-4xl md:text-5xl font-black leading-[1.3] mb-9"
               style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif' }}
             >
-              {isFA ? slide.titleFA : slide.titleEN}
+              <span className="header-gold-sheen">{isFA ? slide.titleFA : slide.titleEN}</span>
             </h1>
 
             {/* Controls */}

@@ -934,6 +934,87 @@ body::before {
    now resolve to the single dark palette declared on :root.
    =================================================================== */
 
+/* ===================================================================
+   GOLD HEADER ANIMATIONS
+   Subtle, slow gold motion for page / section / site headers — one
+   shared set of utilities so every public page reads the same.
+   =================================================================== */
+
+/* Slow gold glint that sweeps across a heading without recolouring it */
+@keyframes headerGoldSheen {
+  0% { background-position: 150% center; }
+  100% { background-position: -50% center; }
+}
+.header-gold-sheen {
+  background: linear-gradient(100deg, #FFFFFF 0%, #FFFFFF 40%, #F7E6AE 50%, #FFFFFF 60%, #FFFFFF 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: headerGoldSheen 7s linear infinite;
+}
+
+/* Thin gold rule that draws in under a heading, then shimmers */
+@keyframes headerRuleIn {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+.header-gold-rule {
+  position: relative;
+  height: 1px;
+  width: 96px;
+  overflow: hidden;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  transform-origin: center;
+  animation: headerRuleIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.header-gold-rule::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 245, 210, 0.9), transparent);
+  transform: translateX(-100%);
+  animation: shimmerSlide 3.5s ease-in-out infinite;
+}
+
+/* Navbar bottom hairline — a slow gold shimmer across the site header */
+.nav-gold-sheen {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(240, 206, 90, 0.4), transparent);
+}
+.nav-gold-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 245, 210, 0.95), transparent);
+  transform: translateX(-100%);
+  animation: shimmerSlide 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-gold-sheen {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: inherit;
+  }
+  .header-gold-rule,
+  .header-gold-rule::after,
+  .nav-gold-sheen::after {
+    animation: none;
+  }
+  .header-gold-rule::after {
+    display: none;
+  }
+}
+
 /* Small Latin eyebrow label that sits above section headings */
 .eyebrow {
   font-family: 'Kalameh', serif;

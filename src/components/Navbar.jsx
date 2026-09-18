@@ -141,6 +141,7 @@ export default function Navbar() {
           </div>
         </div>
         <NavbarParticles />
+        <div className="nav-gold-sheen" />
       </nav>
 
       {/* Mobile glass menu */}
