@@ -74,7 +74,7 @@ export function articleJsonLd(post) {
     publisher: {
       '@type': 'Organization',
       name: '7Golden',
-      logo: { '@type': 'ImageObject', url: 'https://7golden.co/wp-content/uploads/2023/08/logo-white.png' },
+      logo: { '@type': 'ImageObject', url: '/logo.png' },
     },
   };
 }

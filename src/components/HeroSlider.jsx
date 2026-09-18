@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
-import { t } from '@/lib/i18n';
-// import GoldDustField from '@/components/GoldDustField';
 
 const SLIDES = [
   {
@@ -81,9 +77,6 @@ export default function HeroSlider() {
           <div className="absolute inset-0 cinematic-overlay" />
         </div>
       ))}
-
-      {/* Gold dust — Three.js 3D particle field */}
-      {/* <GoldDustField /> */}
 
       {/* Content */}
       <div className="absolute inset-0 z-10 flex items-end">

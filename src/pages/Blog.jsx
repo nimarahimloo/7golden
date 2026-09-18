@@ -67,14 +67,11 @@ export default function Blog() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="https://7golden.co/wp-content/uploads/2022/09/blog-new-3-min.jpg"
+          image="/banner/HeroBanner.jpg"
           title={t('blog_title')}
           subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
           badge={isFA ? 'وبلاگ' : 'Blog'}
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-          <BackButton to="/" className="text-white/80 hover:text-white" />
-        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-16">

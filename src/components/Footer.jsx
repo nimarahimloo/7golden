@@ -24,7 +24,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="mb-4">
               <img
-                src="https://7golden.co/wp-content/uploads/2023/08/logo-white.png"
+                src="/logo.png"
                 alt="7Golden"
                 className="h-14 w-auto object-contain mb-3"
               />

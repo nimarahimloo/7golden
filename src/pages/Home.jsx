@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Truck, ShieldCheck, CreditCard, Headphones, ChevronLeft } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
+import { ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import { getProducts, getCategories, getGalleryImages } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
@@ -10,8 +9,6 @@ import ProductCard from '@/components/ProductCard';
 import HeroSlider from '@/components/HeroSlider';
 import GoldenEssence from '@/components/GoldenEssence';
 import OriginStory from '@/components/OriginStory';
-import ProductionGallery from '@/components/ProductionGallery';
-// import PromoBanner from '@/components/PromoBanner'; // retail free-shipping banner — disabled
 import MainProducts from '@/components/MainProducts';
 import ProductionCapacity from '@/components/ProductionCapacity';
 import ExportMarkets from '@/components/ExportMarkets';
@@ -65,17 +62,7 @@ export default function Home() {
     return () => { active = false; };
   }, []);
 
-  // const featuredProducts = products.filter(p => p.featured);
   const allProducts = products.slice(0, 8);
-
-  // Retail trust badges (fast shipping / secure payment / support) — disabled.
-  // They are replaced by the export-standards and production-capacity sections.
-  // const trustBadges = [
-  //   { icon: Truck, key: 'trust_1_title', descKey: 'trust_1_desc' },
-  //   { icon: ShieldCheck, key: 'trust_2_title', descKey: 'trust_2_desc' },
-  //   { icon: CreditCard, key: 'trust_3_title', descKey: 'trust_3_desc' },
-  //   { icon: Headphones, key: 'trust_4_title', descKey: 'trust_4_desc' },
-  // ];
 
   if (loading) {
     return <LogoLoader />;
@@ -112,59 +99,7 @@ export default function Home() {
       <ProductionCapacity />
 
       {/* ===== EXPORT & GLOBAL MARKETS ===== */}
-      <ExportMarkets />
-
-      {/* ===== RETAIL TRUST BADGES — disabled (fast shipping / secure payment / returns)
-      <section className="border-b" style={{ borderColor: 'var(--border)', background: 'var(--bg-secondary)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4">
-            {trustBadges.map((badge, i) => (
-              <AnimatedSection key={i} delay={i * 100}>
-                <div className="flex items-center gap-3 py-5 px-3">
-                  <badge.icon size={18} style={{ color: 'var(--accent)' }} />
-                  <div>
-                    <div>{t(badge.key)}</div>
-                    <div>{t(badge.descKey)}</div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
-
-      {/* ===== RETAIL CATEGORY GRID — disabled, replaced by the flagship product sections above
-      <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-3 gap-3 md:gap-5">
-            {categories.map((cat, i) => (
-              <AnimatedSection key={cat.slug} delay={i * 80}>
-                <Link to={`/shop?category=${cat.slug}`}>
-                  <Image src={cat.image} alt={cat.nameFA} className="w-full h-full object-cover" fittingType="fill" />
-                  <h3>{cat.nameFA}</h3>
-                  <span>{cat.count} {t('cat_products')}</span>
-                </Link>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
-
-      {/* ===== RETAIL FREE-SHIPPING PROMO — disabled
-      <PromoBanner
-        image="https://media.base44.com/images/public/6a9ea5d67a95141fb1f84b4a/04ad74413_generated_image.png"
-        badge="ارسال رایگان"
-        title="ارسال رایگان به سراسر ایران"
-        subtitle="برای سفارش‌های بالای ۵۰۰٬۰۰۰ تومان — تحویل ۲۴ تا ۴۸ ساعته"
-        cta="مشاهده محصولات"
-        to="/shop"
-      />
-      */}
-
-      {/* ===== PRODUCTION GALLERY ===== */}
-      <ProductionGallery images={galleryImages} />
+      {/* <ExportMarkets /> */}
 
       {/* ===== ORIGIN STORY ===== */}
       <OriginStory />
@@ -202,10 +137,10 @@ export default function Home() {
             </AnimatedSection>
             <AnimatedSection delay={150}>
               <div>
-                <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
+                <span className="font-subheading text-sm uppercase block mb-2">
                   {t('about_sub')}
                 </span>
-                <h2 className="font-heading text-2xl md:text-3xl font-extrabold mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+                <h2 className="text-2xl md:text-3xl font-extrabold mb-4">
                   {t('about_title')}
                 </h2>
                 <p className="font-body text-sm leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>
@@ -221,8 +156,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== BUSINESS CTA — replaces the retail "order today" banner ===== */}
-      <BusinessCTA />
       </PullToRefresh>
     </div>
   );
