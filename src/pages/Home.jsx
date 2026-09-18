@@ -2,17 +2,15 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
-import { getProducts, getCategories, getGalleryImages } from '@/lib/api/content';
+import { getProducts, getCategories } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
-import ProductCardLight from '@/components/ProductCardLight';
+import ProductCardRound from '@/components/ProductCardRound';
 import HeroSlider from '@/components/HeroSlider';
 import GoldenEssence from '@/components/GoldenEssence';
 import OriginStory from '@/components/OriginStory';
 import MainProducts from '@/components/MainProducts';
 import ProductionCapacity from '@/components/ProductionCapacity';
-import ExportMarkets from '@/components/ExportMarkets';
-import BusinessCTA from '@/components/BusinessCTA';
 import Seo from '@/components/Seo';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
@@ -30,24 +28,20 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 export default function Home() {
   const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
-  const subFont = isFA ? 'Kalameh, serif' : 'Georgia, serif';
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [galleryImages, setGalleryImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     try {
-      const [prods, cats, gallery] = await Promise.all([
+      const [prods, cats] = await Promise.all([
         getProducts(),
         getCategories(),
-        getGalleryImages(),
       ]);
       const withCounts = cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length }));
       setProducts(prods);
       setCategories(withCounts);
-      setGalleryImages(gallery);
     } catch (e) {
       // storefront degrades gracefully to empty sections
     }
@@ -69,7 +63,7 @@ export default function Home() {
   }
 
   return (
-    <div className="home-light" dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
+    <div dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
 
       <Seo
         title={isFA ? SITE_SEO.defaultTitleFA : SITE_SEO.defaultTitleEN}
@@ -85,12 +79,12 @@ export default function Home() {
         }}
       />
 
-      <PullToRefresh onRefresh={loadData}>
-      {/* ===== HERO — light two-column intro ===== */}
-      <HeroSlider />
-
-      {/* ===== GALLERY — 3D luxury showcase ===== */}
+      {/* ===== AMBIENT 3D GOLD BACKDROP — fixed behind the whole page ===== */}
       <GoldenEssence />
+
+      <PullToRefresh onRefresh={loadData}>
+      {/* ===== HERO — image-led intro ===== */}
+      <HeroSlider />
 
       {/* ===== MAIN PRODUCTS — pistachio, almond, hazelnut ===== */}
       <MainProducts categories={categories} products={products} />
@@ -105,7 +99,7 @@ export default function Home() {
       <OriginStory />
 
       {/* ===== ALL PRODUCTS ===== */}
-      <section className="py-14 md:py-20" style={{ background: 'var(--bg)' }}>
+      <section className="py-14 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-end justify-between gap-4 mb-6">
             <div>
@@ -123,36 +117,33 @@ export default function Home() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-9 md:gap-x-10 md:gap-y-14">
             {allProducts.map((product, i) => (
               <AnimatedSection key={product.id} delay={(i % 4) * 100} className="scale-in-wrap">
-                <ProductCardLight product={product} />
+                <ProductCardRound product={product} />
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== ABOUT TEASER ===== */}
-      <section className="py-14 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
+      {/* ===== ABOUT TEASER — image and name only ===== */}
+      <section className="py-14 md:py-20" style={{ background: 'rgba(6, 4, 2, 0.55)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
             <AnimatedSection>
-              <div className="rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[16/10]" style={{ boxShadow: '0 24px 60px rgba(28,26,23,0.13)' }}>
+              <div
+                className="rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[16/10]"
+                style={{ boxShadow: 'var(--soft-shadow)', border: '1px solid var(--hairline)' }}
+              >
                 <Image src="https://media.base44.com/images/public/6a9ea5d67a95141fb1f84b4a/2409232f9_generated_image.png" alt="About 7Golden" className="w-full h-full object-cover" fittingType="fill" />
               </div>
             </AnimatedSection>
             <AnimatedSection delay={150}>
               <div>
                 <span className="eyebrow block mb-3">COMPANY</span>
-                <span className="font-subheading text-sm block mb-3" style={{ color: 'var(--brass)', fontFamily: subFont }}>
-                  {t('about_sub')}
-                </span>
-                <h2 className="text-2xl md:text-4xl font-extrabold mb-4" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
+                <h2 className="text-2xl md:text-4xl font-extrabold mb-7" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
                   {t('about_title')}
                 </h2>
-                <hr className="hairline mb-5" />
-                <p className="font-body text-sm leading-relaxed mb-7" style={{ color: 'var(--fg-muted)' }}>
-                  {t('about_body')}
-                </p>
-                <Link to="/about" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body font-semibold text-sm transition-all hover:scale-105" style={{ background: 'var(--brass)', color: '#fff' }}>
+                <hr className="hairline mb-7" />
+                <Link to="/about" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body font-semibold text-sm transition-all hover:scale-105" style={{ background: 'var(--accent)', color: '#0D0D0D' }}>
                   {isFA ? 'بیشتر بدانید' : 'Learn More'}
                   <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
                 </Link>

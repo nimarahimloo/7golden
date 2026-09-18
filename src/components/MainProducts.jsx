@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
 import { MAIN_PRODUCTS } from '@/lib/corporate-content';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
@@ -16,11 +15,11 @@ function AnimatedSection({ children, className = '', delay = 0 }) {
 
 /**
  * The three flagship products (pistachio, almond, hazelnut) presented as
- * alternating full-width sections with technical specifications.
+ * full-width image bands. The picture carries the section — only the product
+ * name sits on it; the technical specifications live on the product page.
  * Images come from the matching Category entity, so they stay editable in the CMS.
  */
 export default function MainProducts({ categories = [], products = [] }) {
-  const isFA = true;
   const headingFont = 'Peyda, serif';
 
   const imageFor = (slug) => categories.find(c => c.slug === slug)?.image || null;
@@ -31,38 +30,32 @@ export default function MainProducts({ categories = [], products = [] }) {
   };
 
   return (
-    <section className="py-14 md:py-20" style={{ background: 'var(--bg)' }}>
+    <section className="py-14 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Section header */}
+        {/* Section header — heading kept for structure and SEO */}
         <div className="max-w-2xl mb-8 md:mb-12">
           <span className="eyebrow block mb-3">MAIN PRODUCTS</span>
-          <h2 className="font-heading text-2xl md:text-4xl font-extrabold mb-4" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
+          <h2 className="font-heading text-2xl md:text-4xl font-extrabold" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
             سه ستون تولید هفت‌طلایی
           </h2>
-          <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-            تمرکز ما بر سه محصول راهبردی است: پسته، بادام و فندق. هر سه با گریدبندی مشخص،
-            بسته‌بندی صنعتی و ظرفیت تأمین مستمر برای صنایع شکلات، قنادی و بستنی عرضه می‌شوند.
-          </p>
           <hr className="hairline mt-8" />
         </div>
 
-        {/* Wide, image-led product bands — the picture carries the section,
-            the caption card stays down to a label, a name and one short line.
-            Full specifications live on the product page. */}
-        <div className="flex flex-col gap-6 md:gap-10">
+        {/* Image-led product bands — the picture fills the frame, the caption
+            stays down to a label and the product name. */}
+        <div className="flex flex-col gap-5 md:gap-8">
           {MAIN_PRODUCTS.map((product, i) => {
             const image = imageFor(product.category);
-            const reversed = i % 2 === 1;
             return (
               <AnimatedSection key={product.category} delay={i * 80}>
                 <Link
                   to={linkFor(product.category)}
-                  className="group grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden"
-                  style={{ background: '#fff', boxShadow: '0 18px 50px rgba(28,26,23,0.07)' }}
+                  className="group relative block rounded-3xl overflow-hidden"
+                  style={{ border: '1px solid var(--hairline)' }}
                 >
                   <div
-                    className={`relative lg:col-span-8 min-h-[220px] lg:min-h-[300px] overflow-hidden ${reversed ? 'lg:order-2' : ''}`}
+                    className="relative w-full aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] overflow-hidden"
                     style={{ background: 'var(--bg-secondary)' }}
                   >
                     {image && (
@@ -75,25 +68,25 @@ export default function MainProducts({ categories = [], products = [] }) {
                         />
                       </div>
                     )}
-                  </div>
 
-                  <div className={`lg:col-span-4 flex flex-col justify-center p-6 md:p-9 ${reversed ? 'lg:order-1' : ''}`}>
-                    <span className="eyebrow block mb-3">{product.category}</span>
-                    <h3 className="font-heading text-xl md:text-2xl font-extrabold" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
-                      {product.nameFA}
-                    </h3>
-                    <hr className="hairline my-4" />
-                    <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      {product.tagline}
-                    </p>
+                    {/* Dark base so the name stays readable over any photo */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          'linear-gradient(to top, rgba(2,1,0,0.92) 0%, rgba(2,1,0,0.4) 45%, rgba(2,1,0,0.05) 100%)',
+                      }}
+                    />
 
-                    <span
-                      className="inline-flex items-center gap-2 font-body text-sm font-semibold mt-6 transition-all group-hover:gap-3"
-                      style={{ color: 'var(--brass)' }}
-                    >
-                      مشاهده مشخصات کامل
-                      <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-                    </span>
+                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                      <span className="eyebrow block mb-2">{product.category}</span>
+                      <h3
+                        className="font-heading text-2xl md:text-4xl font-black"
+                        style={{ color: 'var(--ink)', fontFamily: headingFont }}
+                      >
+                        {product.nameFA}
+                      </h3>
+                    </div>
                   </div>
                 </Link>
               </AnimatedSection>

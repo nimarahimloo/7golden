@@ -56,7 +56,7 @@ export default function HeroSlider() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ background: 'var(--bg)' }}
+      style={{ background: 'transparent' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={onTouchStart}
@@ -68,7 +68,7 @@ export default function HeroSlider() {
           {/* Image — large, one side */}
           <div
             className="order-1 md:order-2 relative rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[6/5]"
-            style={{ background: 'var(--bg-secondary)', boxShadow: 'var(--soft-shadow)' }}
+            style={{ background: 'var(--bg-secondary)', boxShadow: 'var(--soft-shadow)', border: '1px solid var(--hairline)' }}
           >
             {SLIDES.map((s, i) => (
               <img
@@ -86,18 +86,11 @@ export default function HeroSlider() {
             <span className="eyebrow block mb-5">{slide.badge}</span>
             <h1
               key={`t${current}`}
-              className="text-rise text-3xl sm:text-4xl md:text-5xl font-black leading-[1.3] mb-5"
+              className="text-rise text-3xl sm:text-4xl md:text-5xl font-black leading-[1.3] mb-9"
               style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif' }}
             >
               {isFA ? slide.titleFA : slide.titleEN}
             </h1>
-            <p
-              key={`s${current}`}
-              className="text-rise font-body text-sm md:text-base leading-relaxed max-w-md mb-9"
-              style={{ color: 'var(--fg-muted)', animationDelay: '0.15s' }}
-            >
-              {isFA ? slide.subFA : slide.subEN}
-            </p>
 
             {/* Controls */}
             <div className="flex items-center gap-5">
@@ -105,7 +98,7 @@ export default function HeroSlider() {
                 <button
                   onClick={prev}
                   className="w-11 h-11 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
-                  style={{ border: '1px solid var(--hairline)', color: 'var(--ink)', background: '#fff' }}
+                  style={{ border: '1px solid var(--hairline)', color: 'var(--accent)', background: 'rgba(255,255,255,0.04)' }}
                   aria-label="Previous"
                 >
                   <ChevronRight size={18} />
@@ -113,7 +106,7 @@ export default function HeroSlider() {
                 <button
                   onClick={next}
                   className="w-11 h-11 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
-                  style={{ border: '1px solid var(--hairline)', color: 'var(--ink)', background: '#fff' }}
+                  style={{ border: '1px solid var(--hairline)', color: 'var(--accent)', background: 'rgba(255,255,255,0.04)' }}
                   aria-label="Next"
                 >
                   <ChevronLeft size={18} />
@@ -129,7 +122,7 @@ export default function HeroSlider() {
                     style={{
                       width: i === current ? '30px' : '8px',
                       height: '8px',
-                      background: i === current ? 'var(--brass)' : 'rgba(28,26,23,0.18)',
+                      background: i === current ? 'var(--accent)' : 'rgba(240,206,90,0.22)',
                     }}
                     aria-label={`Slide ${i + 1}`}
                   />
