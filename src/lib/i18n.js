@@ -2,23 +2,25 @@ export const translations = {
   fa: {
     // Nav
     home: "خانه",
-    shop: "فروشگاه",
+    shop: "محصولات",
     about: "درباره ما",
     awards: "جوایز",
     contact: "تماس با ما",
     blog: "مجله",
-    cart: "سبد خرید",
     search: "جستجو",
-    
+    // Retail storefront keys are disabled — 7Golden is positioned as a B2B
+    // trading / export company, so cart, checkout and retail pricing are gone.
+    // cart: "سبد خرید",
+
     // Hero
-    hero_tagline: "طعم واقعی باغستان‌های ایران",
-    hero_sub: "بزرگ‌ترین تولیدکننده مغز فندق و خلال پسته در ایران",
+    hero_tagline: "تولید، فرآوری و صادرات فندق، پسته و بادام",
+    hero_sub: "تأمین‌کننده صنعتی مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی",
     hero_cta: "مشاهده محصولات",
     hero_scroll: "کشف کنید",
     
     // Categories
-    categories_title: "دسته‌بندی محصولات",
-    categories_sub: "از باغستان‌های اصیل ایران",
+    categories_title: "محصولات اصلی",
+    categories_sub: "پسته، بادام و فندق",
     cat_nuts: "آجیل",
     cat_dried_fruits: "میوه خشک",
     cat_snacks: "تنقلات",
@@ -36,15 +38,15 @@ export const translations = {
     cat_snacks_desc: "ترکیب‌های خوشمزه برای هر لحظه",
     
     // Products
-    products_title: "محصولات برگزیده",
-    products_sub: "انتخاب‌های ممتاز هفت‌طلایی",
-    add_to_cart: "افزودن به سبد",
+    products_title: "محصولات",
+    products_sub: "پسته، بادام و فندق — تولید و تأمین صنعتی",
     add_collection: "افزودن به مجموعه",
-    view_product: "مشاهده محصول",
-    out_of_stock: "ناموجود",
-    in_stock: "موجود",
-    per_kg: "هر کیلوگرم",
-    toman: "تومان",
+    view_product: "مشاهده مشخصات",
+    // add_to_cart: "افزودن به سبد",
+    // out_of_stock: "ناموجود",
+    // in_stock: "موجود",
+    // per_kg: "هر کیلوگرم",
+    // toman: "تومان",
     
     // Product Detail
     taste_profile: "پروفایل طعم",
@@ -54,49 +56,49 @@ export const translations = {
     sweet: "شیرین",
     earthy: "خاکی",
     nutty: "آجیلی",
-    qty: "تعداد",
-    weight: "وزن",
-    gr: "گرم",
-    kg: "کیلوگرم",
+    // qty: "تعداد",
+    // weight: "وزن",
+    // gr: "گرم",
+    // kg: "کیلوگرم",
     
     // Why Us
     why_title: "چرا هفت‌طلایی؟",
-    why_sub: "تفاوتی که احساس می‌کنید",
+    why_sub: "تفاوت یک تأمین‌کننده صنعتی",
     why_1_title: "تأمین مستقیم از کشاورز",
-    why_1_desc: "بدون واسطه، مستقیماً از باغ‌داران قزوین — سود بیشتر برای کشاورز، قیمت مناسب‌تر برای شما",
-    why_2_title: "کیفیت تضمین‌شده",
-    why_2_desc: "هر محصول پیش از ارسال کنترل کیفی می‌شود",
-    why_3_title: "ارسال سریع",
-    why_3_desc: "تحویل در سراسر ایران ظرف ۲۴ تا ۴۸ ساعت",
+    why_1_desc: "بدون واسطه، مستقیماً از باغ‌داران قزوین — سود بیشتر برای کشاورز، قیمت مناسب‌تر برای خریدار عمده",
+    why_2_title: "کنترل کیفی آزمایشگاهی",
+    why_2_desc: "پایش رطوبت، آفلاتوکسین و سلامت محصول پیش از ارسال هر محموله",
+    why_3_title: "ظرفیت تأمین مستمر",
+    why_3_desc: "خطوط فرآوری و انبار اختصاصی برای قراردادهای بلندمدت",
     why_4_title: "بیش از ۲۵ سال تجربه",
-    why_4_desc: "از سال ۱۳۷۷، پیشرو در فرآوری خشکبار ایران",
+    why_4_desc: "از سال ۱۳۷۷، پیشرو در تولید و فرآوری فندق، پسته و بادام",
     
     // Testimonials
     reviews_title: "نظرات مشتریان",
     
-    // Cart
-    cart_title: "سبد خرید",
-    cart_empty: "سبد خرید شما خالی است",
-    cart_total: "جمع کل",
-    checkout: "تسویه حساب",
-    continue_shopping: "ادامه خرید",
-    remove: "حذف",
-    
+    // --- Retail cart & checkout: disabled (no online sales) ---
+    // cart_title: "سبد خرید",
+    // cart_empty: "سبد خرید شما خالی است",
+    // cart_total: "جمع کل",
+    // checkout: "تسویه حساب",
+    // continue_shopping: "ادامه خرید",
+    // remove: "حذف",
+
     // Checkout
-    checkout_title: "تسویه حساب",
-    step_info: "اطلاعات",
-    step_shipping: "ارسال",
-    step_payment: "پرداخت",
-    full_name: "نام و نام خانوادگی",
+    // checkout_title: "تسویه حساب",
+    // step_info: "اطلاعات",
+    // step_shipping: "ارسال",
+    // step_payment: "پرداخت",
+    // full_name: "نام و نام خانوادگی",
     phone: "شماره موبایل",
     email: "ایمیل",
-    address: "آدرس",
-    city: "شهر",
-    postal_code: "کد پستی",
-    next: "مرحله بعد",
-    prev: "مرحله قبل",
-    place_order: "ثبت سفارش",
-    order_summary: "خلاصه سفارش",
+    // address: "آدرس",
+    // city: "شهر",
+    // postal_code: "کد پستی",
+    // next: "مرحله بعد",
+    // prev: "مرحله قبل",
+    // place_order: "ثبت سفارش",
+    // order_summary: "خلاصه سفارش",
     
     // About
     about_title: "داستان هفت‌طلایی",
@@ -118,7 +120,7 @@ export const translations = {
     name: "نام",
     
     // Footer
-    footer_tagline: "خشکبار برتر ایران",
+    footer_tagline: "تولید، فرآوری و صادرات فندق، پسته و بادام",
     footer_rights: "تمامی حقوق محفوظ است",
     quick_links: "دسترسی سریع",
     newsletter: "خبرنامه",
@@ -181,27 +183,27 @@ export const translations = {
     bestsellers_title: "پرفروش‌ترین‌ها",
     bestsellers_sub: "محبوب‌ترین انتخاب‌های مشتریان",
     
-    // Trust badges
-    trust_1_title: "ارسال سریع",
-    trust_1_desc: "تحویل در ۲۴ تا ۴۸ ساعت",
-    trust_2_title: "ضمانت کیفیت",
-    trust_2_desc: "بازگشت وجه در صورت نارضایتی",
-    trust_3_title: "پرداخت امن",
-    trust_3_desc: "درگاه پرداخت معتبر شبکه شتاب",
-    trust_4_title: "پشتیبانی",
+    // Corporate trust points — replaced the retail shipping / payment badges
+    trust_1_title: "صادرات به ۱۵+ کشور",
+    trust_1_desc: "بازارهای منطقه و اروپا",
+    trust_2_title: "استانداردهای بین‌المللی",
+    trust_2_desc: "ISO 22000 و HACCP",
+    trust_3_title: "تأمین عمده",
+    trust_3_desc: "پیش‌فاکتور و قرارداد بلندمدت",
+    trust_4_title: "واحد بازرگانی",
     trust_4_desc: "۹ صبح تا ۹ شب",
 
-    // Cart & Checkout extras
-    promo_code: "کد تخفیف",
-    apply_code: "اعمال",
-    subtotal: "جمع کالا",
-    shipping_cost: "هزینه ارسال",
-    discount: "تخفیف",
-    free: "رایگان",
-    province: "استان",
-    order_number: "شماره سفارش",
-    tracking_code: "کد رهگیری",
-    estimated_delivery: "تحویل تخمینی",
+    // --- Retail cart & checkout extras: disabled ---
+    // promo_code: "کد تخفیف",
+    // apply_code: "اعمال",
+    // subtotal: "جمع کالا",
+    // shipping_cost: "هزینه ارسال",
+    // discount: "تخفیف",
+    // free: "رایگان",
+    // province: "استان",
+    // order_number: "شماره سفارش",
+    // tracking_code: "کد رهگیری",
+    // estimated_delivery: "تحویل تخمینی",
   },
 };
 

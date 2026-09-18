@@ -3,6 +3,7 @@ import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import SectionHeader from '@/components/SectionHeader';
 import AwardsSection from '@/components/AwardsSection';
+import ProductionCapacity from '@/components/ProductionCapacity';
 import PageHero from '@/components/PageHero';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import { Image } from '@/components/ui/image';
@@ -48,8 +49,8 @@ export default function About() {
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
-        title={true ? `درباره ${SITE_SEO.siteNameFA} — خشکبار برتر ایران` : `About ${SITE_SEO.siteNameEN} — Iran's Finest`}
-        description={true ? 'از سال ۱۳۷۷، پیشرو در تولید و فرآوری خشکبار ایران — مستقیم از باغستان‌های قزوین و کرمان.' : 'Since 1998, leading the way in Iranian dried fruit processing — direct from Gazvin and Kerman orchards.'}
+        title={true ? `درباره ${SITE_SEO.siteNameFA} — تولیدکننده و صادرکننده فندق، پسته و بادام` : `About ${SITE_SEO.siteNameEN} — Producer & Exporter`}
+        description={true ? 'از سال ۱۳۷۷، تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی — تأمین مستقیم از باغستان‌های قزوین.' : 'Since 1998, producer and exporter of hazelnut kernels, pistachio slices and almond kernels — sourced directly from Qazvin orchards.'}
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/about`}
       />
@@ -160,6 +161,9 @@ export default function About() {
           </div>
         </section>
       </div>
+
+      {/* Production & processing capacity — scale for business buyers */}
+      <ProductionCapacity />
 
       {/* Licenses & Awards — dynamic */}
       <AwardsSection key={refreshKey} />

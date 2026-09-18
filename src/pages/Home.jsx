@@ -11,7 +11,11 @@ import HeroSlider from '@/components/HeroSlider';
 import GoldenEssence from '@/components/GoldenEssence';
 import OriginStory from '@/components/OriginStory';
 import ProductionGallery from '@/components/ProductionGallery';
-import PromoBanner from '@/components/PromoBanner';
+// import PromoBanner from '@/components/PromoBanner'; // retail free-shipping banner — disabled
+import MainProducts from '@/components/MainProducts';
+import ProductionCapacity from '@/components/ProductionCapacity';
+import ExportMarkets from '@/components/ExportMarkets';
+import BusinessCTA from '@/components/BusinessCTA';
 import Seo from '@/components/Seo';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
@@ -64,12 +68,14 @@ export default function Home() {
   // const featuredProducts = products.filter(p => p.featured);
   const allProducts = products.slice(0, 8);
 
-  const trustBadges = [
-    { icon: Truck, key: 'trust_1_title', descKey: 'trust_1_desc' },
-    { icon: ShieldCheck, key: 'trust_2_title', descKey: 'trust_2_desc' },
-    { icon: CreditCard, key: 'trust_3_title', descKey: 'trust_3_desc' },
-    { icon: Headphones, key: 'trust_4_title', descKey: 'trust_4_desc' },
-  ];
+  // Retail trust badges (fast shipping / secure payment / support) — disabled.
+  // They are replaced by the export-standards and production-capacity sections.
+  // const trustBadges = [
+  //   { icon: Truck, key: 'trust_1_title', descKey: 'trust_1_desc' },
+  //   { icon: ShieldCheck, key: 'trust_2_title', descKey: 'trust_2_desc' },
+  //   { icon: CreditCard, key: 'trust_3_title', descKey: 'trust_3_desc' },
+  //   { icon: Headphones, key: 'trust_4_title', descKey: 'trust_4_desc' },
+  // ];
 
   if (loading) {
     return <LogoLoader />;
@@ -99,22 +105,26 @@ export default function Home() {
       {/* ===== GOLDEN ESSENCE — 3D luxury showcase ===== */}
       <GoldenEssence />
 
-      {/* ===== TRUST BADGES ===== */}
+      {/* ===== MAIN PRODUCTS — pistachio, almond, hazelnut ===== */}
+      <MainProducts categories={categories} products={products} />
+
+      {/* ===== PRODUCTION & PROCESSING CAPACITY ===== */}
+      <ProductionCapacity />
+
+      {/* ===== EXPORT & GLOBAL MARKETS ===== */}
+      <ExportMarkets />
+
+      {/* ===== RETAIL TRUST BADGES — disabled (fast shipping / secure payment / returns)
       <section className="border-b" style={{ borderColor: 'var(--border)', background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {trustBadges.map((badge, i) => (
               <AnimatedSection key={i} delay={i * 100}>
-                <div
-                  className="flex items-center gap-3 py-5 px-3"
-                  style={{ borderRight: i < 3 ? '1px solid var(--border)' : 'none' }}
-                >
-                  <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 glass-luxury">
-                    <badge.icon size={18} style={{ color: 'var(--accent)' }} />
-                  </div>
+                <div className="flex items-center gap-3 py-5 px-3">
+                  <badge.icon size={18} style={{ color: 'var(--accent)' }} />
                   <div>
-                    <div className="font-body font-semibold text-sm" style={{ color: 'var(--fg)' }}>{t(badge.key)}</div>
-                    <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{t(badge.descKey)}</div>
+                    <div>{t(badge.key)}</div>
+                    <div>{t(badge.descKey)}</div>
                   </div>
                 </div>
               </AnimatedSection>
@@ -122,39 +132,27 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
 
-      {/* ===== CATEGORIES ===== */}
+      {/* ===== RETAIL CATEGORY GRID — disabled, replaced by the flagship product sections above
       <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-              {t('categories_title')}
-            </h2>
-            <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
-              {isFA ? 'مشاهده همه' : 'View All'}
-              <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-            </Link>
-          </div>
           <div className="grid grid-cols-3 gap-3 md:gap-5">
             {categories.map((cat, i) => (
               <AnimatedSection key={cat.slug} delay={i * 80}>
-                <Link to={`/shop?category=${cat.slug}`} className="group relative rounded-xl overflow-hidden aspect-square md:aspect-[4/3] block transition-all duration-300 hover:shadow-lg" style={{ boxShadow: 'var(--shadow)' }}>
-                  <Image src={cat.image} alt={isFA ? cat.nameFA : cat.nameEN} className="w-full h-full object-cover" fittingType="fill" />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%)' }} />
-                  <div className="absolute bottom-0 p-3 md:p-4 w-full">
-                    <h3 className="font-heading font-extrabold text-white text-sm md:text-lg mb-0.5" style={{ fontFamily: headingFont }}>
-                      {isFA ? cat.nameFA : cat.nameEN}
-                    </h3>
-                    <span className="font-body text-sm text-white/70">{cat.count} {t('cat_products')}</span>
-                  </div>
+                <Link to={`/shop?category=${cat.slug}`}>
+                  <Image src={cat.image} alt={cat.nameFA} className="w-full h-full object-cover" fittingType="fill" />
+                  <h3>{cat.nameFA}</h3>
+                  <span>{cat.count} {t('cat_products')}</span>
                 </Link>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
+      */}
 
-      {/* ===== PROMO BANNER 1 ===== */}
+      {/* ===== RETAIL FREE-SHIPPING PROMO — disabled
       <PromoBanner
         image="https://media.base44.com/images/public/6a9ea5d67a95141fb1f84b4a/04ad74413_generated_image.png"
         badge="ارسال رایگان"
@@ -163,6 +161,7 @@ export default function Home() {
         cta="مشاهده محصولات"
         to="/shop"
       />
+      */}
 
       {/* ===== PRODUCTION GALLERY ===== */}
       <ProductionGallery images={galleryImages} />
@@ -175,7 +174,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-              {t('products_title')}
+              محصولات هفت‌طلایی
             </h2>
             <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
               {isFA ? 'مشاهده همه' : 'View All'}
@@ -222,26 +221,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CTA ===== */}
-      <section className="relative overflow-hidden">
-        <img src="https://media.base44.com/images/public/6a9ea5d67a95141fb1f84b4a/4e88900f9_generated_image.png" alt="" className="absolute inset-0 w-full h-full object-cover" style={{ animation: 'kenBurns 10s ease-out forwards' }} />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%)' }} />
-        <div className="relative z-10 py-14 md:py-20 text-center px-4">
-          <span className="font-subheading text-sm uppercase block mb-3 tracking-wider" style={{ color: '#F0CE5A', fontFamily: subFont }}>
-            {isFA ? 'هفت طلایی' : '7Golden'}
-          </span>
-          <h2 className="font-heading text-2xl md:text-5xl font-black text-white mb-4 gold-text-glow" style={{ fontFamily: headingFont }}>
-            {isFA ? 'همین امروز سفارش دهید' : 'Order Today'}
-          </h2>
-          <p className="font-body text-white/70 text-sm mb-7 max-w-md mx-auto">
-            {isFA ? 'ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان' : 'Free shipping on orders over 500,000 IRR'}
-          </p>
-          <Link to="/shop" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-body font-semibold text-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl gold-border-luxury" style={{ background: 'linear-gradient(135deg, rgba(240,206,90,0.95), rgba(184,148,42,0.95))', color: '#0D0D0D' }}>
-            {t('shop')}
-            <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-          </Link>
-        </div>
-      </section>
+      {/* ===== BUSINESS CTA — replaces the retail "order today" banner ===== */}
+      <BusinessCTA />
       </PullToRefresh>
     </div>
   );

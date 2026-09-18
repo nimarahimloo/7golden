@@ -6,16 +6,16 @@
 export const SITE_SEO = {
   siteNameFA: 'هفت‌طلایی',
   siteNameEN: '7Golden',
-  defaultTitleFA: 'هفت‌طلایی — خشکبار برتر ایران | 7Golden Premium Dried Fruits',
-  defaultTitleEN: "7Golden — Iran's Finest Dried Fruits & Nuts",
-  defaultDescriptionFA: 'فروشگاه اینترنتی خشکبار هفت‌طلایی — مغز فندق، پسته قزوین، بادام و محصولات خشکبار با بالاترین کیفیت. ارسال سراسری ایران.',
-  defaultDescriptionEN: 'Premium Iranian dried fruits and nuts — hazelnuts, Qazvin pistachios, almonds. Direct from orchards. Nationwide delivery.',
+  defaultTitleFA: 'هفت‌طلایی — تولید، فرآوری و صادرات فندق، پسته و بادام',
+  defaultTitleEN: '7Golden — Producer & Exporter of Hazelnut, Pistachio and Almond',
+  defaultDescriptionFA: 'بازرگانی هفت‌طلایی — تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی. تأمین عمده و قرارداد بلندمدت.',
+  defaultDescriptionEN: 'Producer and exporter of hazelnut kernels, pistachio slices and almond kernels for the chocolate, confectionery and ice-cream industry. Bulk supply and long-term contracts.',
   ogImage: 'https://7golden.co/wp-content/uploads/2022/09/about-p-3.png',
   baseUrl: 'https://7golden.co',
   baseUrlIr: 'https://7golden.ir',
   twitterHandle: '@7golden',
-  keywordsFA: 'خشکبار, فندق, پسته, بادام, خشکبار هفت طلایی, 7golden, آجیل, مغز فندق, پسته قزوین, خرید خشکبار',
-  keywordsEN: 'dried fruits, hazelnuts, pistachios, almonds, 7golden, Iranian nuts, Qazvin pistachio, buy dried fruits, premium nuts',
+  keywordsFA: 'بازرگانی, صادرات فندق, صادرات پسته, صادرات بادام, مغز فندق, خلال پسته, مغز بادام, تأمین عمده, هفت طلایی, 7golden',
+  keywordsEN: 'hazelnut exporter, pistachio exporter, almond exporter, bulk nuts supplier, hazelnut kernels, pistachio slices, Iranian nuts, 7golden, B2B nuts',
 };
 
 export const ORGANIZATION_JSONLD = {
@@ -51,12 +51,13 @@ export function productJsonLd(product) {
     sku: product.slug,
     brand: { '@type': 'Brand', name: '7Golden' },
     category: product.category,
-    offers: {
-      '@type': 'Offer',
-      price: product.price,
-      priceCurrency: 'IRR',
-      availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-    },
+    // Retail price offers removed — 7Golden is B2B only and does not publish prices.
+    // offers: {
+    //   '@type': 'Offer',
+    //   price: product.price,
+    //   priceCurrency: 'IRR',
+    //   availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    // },
   };
 }
 

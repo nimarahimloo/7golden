@@ -1,21 +1,23 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getSiteSettings } from '@/lib/api/content';
+// import { getSiteSettings } from '@/lib/api/content';
 
 const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('7golden_theme');
-    if (saved) return saved;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  });
-  const [themeManual, setThemeManual] = useState(() => localStorage.getItem('7golden_theme_manual') === 'true');
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
 
-  const isStoreMode = siteMode === 'store';
+  // ---------------------------------------------------------------------------
+  // RETAIL LOGIC DISABLED
+  // 7Golden is presented as a B2B trading / export company, not a nut shop.
+  // The storefront mode (retail prices, cart, checkout) is intentionally pinned
+  // to corporate so nothing retail-facing can render. The original site-mode
+  // state is kept commented below — restore it to bring the shop back.
+  // ---------------------------------------------------------------------------
+  // const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
+  // const isStoreMode = siteMode === 'store';
+  const siteMode = 'corporate';
+  const isStoreMode = false;
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('7golden_cart') || '[]');
@@ -27,58 +29,29 @@ export function AppProvider({ children }) {
     document.documentElement.setAttribute('lang', 'fa');
   }, []);
 
+  // The site is dark-only: the root always carries the dark class.
   useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('7golden_theme', theme);
-    // Update theme-color meta for mobile browser chrome
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'dark' ? '#050402' : '#F9F7F2');
-    }
-  }, [theme]);
-
-  // Follow system theme when user hasn't manually toggled
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (e) => {
-      if (!themeManual) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, [themeManual]);
+    document.documentElement.classList.add('dark');
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('7golden_cart', JSON.stringify(cart));
   }, [cart]);
 
-  // Load site mode from settings
-  const refreshSiteMode = async () => {
-    try {
-      const settings = await getSiteSettings();
-      if (settings?.site_mode) {
-        setSiteMode(settings.site_mode);
-        localStorage.setItem('7golden_site_mode', settings.site_mode);
-      }
-    } catch (e) {
-      // keep current mode
-    }
-  };
-
-  useEffect(() => {
-    refreshSiteMode();
-  }, []);
-
-  const toggleTheme = () => {
-    setThemeManual(true);
-    localStorage.setItem('7golden_theme_manual', 'true');
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
+  // Load site mode from settings — disabled, the site is corporate-only.
+  // const refreshSiteMode = async () => {
+  //   try {
+  //     const settings = await getSiteSettings();
+  //     if (settings?.site_mode) {
+  //       setSiteMode(settings.site_mode);
+  //       localStorage.setItem('7golden_site_mode', settings.site_mode);
+  //     }
+  //   } catch (e) {
+  //     // keep current mode
+  //   }
+  // };
+  // Kept as a no-op so existing callers (admin toggle, pull-to-refresh) still work.
+  const refreshSiteMode = async () => {};
 
   const addToCart = (product, qty = 1, weight = 500) => {
     setCart(prev => {
@@ -108,7 +81,6 @@ export function AppProvider({ children }) {
 
   return (
     <AppContext.Provider value={{
-      theme, toggleTheme, isTransitioning,
       cart, addToCart, removeFromCart, updateQty, clearCart,
       cartOpen, setCartOpen,
       cartCount, cartTotal,

@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, ChevronLeft } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
+import { ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import { Image } from '@/components/ui/image';
 import { useParallax } from '@/components/useParallax';
 
 export default function ProductCard({ product }) {
-  const { addToCart, isStoreMode } = useApp();
-  const [adding, setAdding] = useState(false);
   const { ref: parallaxRef, offset } = useParallax(0.12);
 
   const isFA = true;
@@ -17,13 +14,20 @@ export default function ProductCard({ product }) {
   // const origin = isFA ? product.originFA : product.originEN;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
 
-  const handleAdd = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setAdding(true);
-    // addToCart(product, 1, 500);
-    setTimeout(() => setAdding(false), 1200);
-  };
+  // ---------------------------------------------------------------------------
+  // RETAIL LOGIC DISABLED — no add-to-cart on the card.
+  // 7Golden sells to businesses, so cards lead to the technical product page
+  // instead of a cart. Original store handler kept commented below.
+  // ---------------------------------------------------------------------------
+  // const { addToCart, isStoreMode } = useApp();
+  // const [adding, setAdding] = useState(false);
+  // const handleAdd = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setAdding(true);
+  //   addToCart(product, 1, 500);
+  //   setTimeout(() => setAdding(false), 1200);
+  // };
 
   return (
     <Link
@@ -81,7 +85,7 @@ export default function ProductCard({ product }) {
         </span>
       )} */}
 
-      {/* Out of stock */}
+      {/* Out of stock — retail indicator, disabled
       {isStoreMode && !product.inStock && (
         <span
           className="absolute top-3 z-10 font-body text-sm font-extrabold px-2.5 py-1 rounded-full"
@@ -93,7 +97,7 @@ export default function ProductCard({ product }) {
         >
           {t('out_of_stock')}
         </span>
-      )}
+      )} */}
 
       {/* Bottom content — frosted glass panel with depth */}
       <div
@@ -110,31 +114,38 @@ export default function ProductCard({ product }) {
         >
           {name}
         </h3>
+
+        {/* RETAIL PRICE + ADD TO CART — disabled (B2B site, no online sales)
         <div className="overflow-hidden transition-all duration-500 max-h-0 group-hover:max-h-32 opacity-0 group-hover:opacity-100">
           <div className="flex items-center justify-between gap-2">
-            {isStoreMode ? (
-              <>
-                <div className="flex flex-col">
-                  <span className="font-heading font-extrabold text-base" style={{ color: '#F0CE5A', fontFamily: headingFont }}>
-                    {product.priceDisplay}
-                  </span>
-                  <span className="font-body text-sm text-white/50">
-                    {isFA ? 'تومان / کیلو' : 'IRR / kg'}
-                  </span>
-                </div>
-                <button
-                  onClick={handleAdd}
-                  disabled={!product.inStock || adding}
-                  className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-40 flex-shrink-0"
-                  style={{ background: '#F0CE5A', color: '#0D0D0D', boxShadow: '0 4px 16px rgba(232,197,71,0.3)' }}
-                  aria-label={t('add_to_cart')}
-                >
-                  <ShoppingBag size={16} />
-                </button>
-              </>
-            ) : (
-             <></>
-            )}
+            <div className="flex flex-col">
+              <span className="font-heading font-extrabold text-base" style={{ color: '#F0CE5A', fontFamily: headingFont }}>
+                {product.priceDisplay}
+              </span>
+              <span className="font-body text-sm text-white/50">
+                {isFA ? 'تومان / کیلو' : 'IRR / kg'}
+              </span>
+            </div>
+            <button
+              onClick={handleAdd}
+              disabled={!product.inStock || adding}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-40 flex-shrink-0"
+              style={{ background: '#F0CE5A', color: '#0D0D0D', boxShadow: '0 4px 16px rgba(232,197,71,0.3)' }}
+              aria-label={t('add_to_cart')}
+            >
+              <ShoppingBag size={16} />
+            </button>
+          </div>
+        </div>
+        */}
+
+        {/* Business action — technical product page */}
+        <div className="overflow-hidden transition-all duration-500 max-h-0 group-hover:max-h-20 opacity-0 group-hover:opacity-100">
+          <div className="flex items-center gap-1.5 pt-1.5">
+            <span className="font-body text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
+              {t('view_product')}
+            </span>
+            <ChevronLeft size={13} style={{ color: '#F0CE5A', transform: isFA ? 'scaleX(-1)' : 'none' }} />
           </div>
         </div>
       </div>
