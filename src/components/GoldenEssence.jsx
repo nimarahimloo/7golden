@@ -276,7 +276,7 @@ export default function GoldenEssence() {
     <section
       className="relative w-full overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse at center, #0a0703 0%, #020100 70%)',
+        background: 'var(--sage-bg)',
         height: 'clamp(420px, 60vh, 640px)',
       }}
       dir="rtl"
@@ -296,15 +296,19 @@ export default function GoldenEssence() {
 
       {/* Text overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6" style={{ zIndex: 3, pointerEvents: 'none' }}>
+        <span className={`eyebrow block mb-4 ${loaded ? 'text-rise' : 'opacity-0'}`} style={{ animationDelay: '0.4s' }}>
+          GALLERY
+        </span>
         <h2
-          className={`font-heading text-6xl sm:text-4xl md:text-5xl font-black leading-[1.15] mb-4 gold-text-glow ${loaded ? 'text-reveal' : 'opacity-0'}`}
-          style={{ color: '#fff', fontFamily: headingFont, animationDelay: '0.5s' }}
+          className={`font-heading text-4xl sm:text-4xl md:text-5xl font-black leading-[1.2] mb-4 ${loaded ? 'text-reveal' : 'opacity-0'}`}
+          style={{ color: 'var(--ink)', fontFamily: headingFont, animationDelay: '0.5s' }}
         >
           {isFA ? 'از باغ تا میز شما' : 'From Orchard to Your Table'}
         </h2>
+        <hr className="hairline w-24 mb-4" />
         <p
           className={`font-body text-sm sm:text-base max-w-md leading-relaxed ${loaded ? 'text-rise' : 'opacity-0'}`}
-          style={{ color: 'rgba(255,255,255,0.7)', animationDelay: '0.8s' }}
+          style={{ color: 'var(--fg-muted)', animationDelay: '0.8s' }}
         >
           {isFA
             ? 'هر دانه، اثری از طلای طبیعت — انتخاب‌دست‌چین، خالص، و بی‌نظیر'

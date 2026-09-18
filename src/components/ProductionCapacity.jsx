@@ -44,7 +44,7 @@ export default function ProductionCapacity() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
           {CAPACITY_STATS.map((stat, i) => (
             <AnimatedSection key={stat.label} delay={i * 100}>
-              <div className="p-5 md:p-6 rounded-2xl h-full" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
+              <div className="p-5 md:p-6 rounded-2xl h-full" style={{ background: 'hsl(var(--card))', boxShadow: 'var(--soft-shadow, none)' }}>
                 <div className="flex items-baseline gap-1.5 mb-2">
                   <span className="font-heading font-black text-2xl md:text-4xl" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
                     {stat.value}
@@ -65,7 +65,7 @@ export default function ProductionCapacity() {
             <AnimatedSection key={note} delay={i * 80}>
               <div
                 className="flex items-start gap-3 px-4 py-3.5 rounded-xl h-full"
-                style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}
+                style={{ background: 'hsl(var(--card))', boxShadow: 'var(--soft-shadow, none)' }}
               >
                 <span className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ background: 'var(--accent)' }} />
                 <span className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg)' }}>{note}</span>

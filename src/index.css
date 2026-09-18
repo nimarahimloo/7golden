@@ -920,3 +920,62 @@ body::before {
   pointer-events: none;
   z-index: 1;
 }
+
+/* ===================================================================
+   HOME PAGE — "LIGHT & AIRY" SCOPED THEME
+   The site's single theme is dark. The home page opts into a light
+   palette by re-declaring the tokens on its own root element, so every
+   shared component it renders (MainProducts, ProductionCapacity, …)
+   turns light on the home page while keeping the dark theme on the
+   other pages. Never move these tokens to :root.
+   =================================================================== */
+.home-light {
+  --bg: #F6F2EA;
+  --bg-secondary: #EFE9DD;
+  --fg: #1C1A17;
+  --fg-muted: #6E6659;
+  --accent: #B8862B;
+  --accent-hover: #9C7020;
+  --accent-gold: #B8862B;
+  --card-bg: #FFFFFF;
+  --card: 40 30% 99%;
+  --muted: 40 20% 94%;
+  --background: 40 30% 96%;
+  --foreground: 40 10% 10%;
+  --border: 40 14% 85%;
+  --input: 40 14% 85%;
+  --ring: 36 62% 44%;
+  --surface-subtle: rgba(28, 26, 23, 0.03);
+  --glass-input-bg: rgba(255, 255, 255, 0.75);
+  --glass-input-border: rgba(28, 26, 23, 0.12);
+  --glass-pill-bg: rgba(28, 26, 23, 0.04);
+  --glass-pill-border: rgba(28, 26, 23, 0.1);
+
+  /* Home-only extras */
+  --ink: #1C1A17;
+  --brass: #B8862B;
+  --sage: #8C9A6B;
+  --sage-bg: #E7EDE3;
+  --hairline: rgba(28, 26, 23, 0.14);
+  --soft-shadow: 0 24px 60px rgba(28, 26, 23, 0.1);
+
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* Small Latin eyebrow label that sits above every home heading */
+.home-light .eyebrow {
+  font-family: 'Kalameh', serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+/* Thin hairline rule used to separate home blocks */
+.home-light .hairline {
+  height: 1px;
+  border: 0;
+  background: var(--hairline);
+}

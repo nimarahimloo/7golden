@@ -38,19 +38,18 @@ export default function OriginStory() {
   const subFont = 'Kalameh, serif';
 
   return (
-    <section className="py-16 md:py-24" style={{ background: 'var(--bg)' }} dir="rtl">
+    <section className="py-16 md:py-24" style={{ background: 'var(--bg-secondary)' }} dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-12 md:mb-16">
-          <span className="font-subheading text-xs uppercase block mb-3" style={{ color: '#E8C547', fontFamily: subFont }}>
+        <div className="max-w-2xl mb-10 md:mb-16">
+          <span className="eyebrow block mb-3">ORIGIN</span>
+          <span className="font-subheading text-xs uppercase block mb-3" style={{ color: 'var(--brass)', fontFamily: subFont }}>
             {isFA ? 'خاستگاه محصولات' : 'Product Origins'}
           </span>
-          <h2 className="font-black mb-4 text-6xl md:text-6xl [font-family:'YekanBakh',_system-ui,_sans-serif]" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+          <h2 className="font-heading text-2xl md:text-4xl font-extrabold" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
             {isFA ? 'از باغ تا میز شما' : 'From Orchard to Your Table'}
           </h2>
-          
-
-          
+          <hr className="hairline mt-6" />
         </div>
 
         {/* Stories */}
@@ -74,15 +73,15 @@ function StoryBlock({ story, reversed, isFA, headingFont }) {
     <div ref={ref} className={`fade-up ${visible ? 'visible' : ''} grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center`}>
       {/* Image */}
       <div className={reversed ? 'md:order-2' : ''}>
-        <div className="relative rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[16/10]" style={{ boxShadow: '0 24px 80px rgba(0,0,0,0.4)' }}>
+        <div className="relative rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[16/10]" style={{ boxShadow: '0 24px 60px rgba(28,26,23,0.13)' }}>
           <img src={story.image} alt={isFA ? story.nameFA : story.nameEN} className="w-full h-full object-cover" style={{ animation: 'kenBurns 8s ease-out forwards' }} />
           {/* Region badge */}
           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-            <div className="glass-card px-4 py-2.5 rounded-2xl">
-              <span className="font-body text-[9px] uppercase block mb-0.5" style={{ color: '#E8C547' }}>
+            <div className="px-4 py-2.5 rounded-2xl" style={{ background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+              <span className="font-body text-[9px] uppercase block mb-0.5" style={{ color: 'var(--brass)' }}>
                 {isFA ? 'خاستگاه' : 'Origin'}
               </span>
-              <span className="font-heading font-extrabold text-sm text-white" style={{ fontFamily: headingFont }}>
+              <span className="font-heading font-extrabold text-sm" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
                 {isFA ? story.regionFA : story.regionEN}
               </span>
             </div>
@@ -91,10 +90,11 @@ function StoryBlock({ story, reversed, isFA, headingFont }) {
       </div>
       {/* Text */}
       <div className={reversed ? 'md:order-1' : ''}>
-        <h3 className="font-heading text-xl md:text-3xl font-black mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+        <h3 className="font-heading text-xl md:text-3xl font-black mb-4" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
           {isFA ? story.nameFA : story.nameEN}
         </h3>
-        <p className="font-body text-sm md:text-base leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+        <hr className="hairline w-16 mb-5" />
+        <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
           {isFA ? story.storyFA : story.storyEN}
         </p>
       </div>

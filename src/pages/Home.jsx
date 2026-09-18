@@ -5,7 +5,7 @@ import { t } from '@/lib/i18n';
 import { getProducts, getCategories, getGalleryImages } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
-import ProductCard from '@/components/ProductCard';
+import ProductCardLight from '@/components/ProductCardLight';
 import HeroSlider from '@/components/HeroSlider';
 import GoldenEssence from '@/components/GoldenEssence';
 import OriginStory from '@/components/OriginStory';
@@ -69,7 +69,7 @@ export default function Home() {
   }
 
   return (
-    <div dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
+    <div className="home-light" dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
 
       <Seo
         title={isFA ? SITE_SEO.defaultTitleFA : SITE_SEO.defaultTitleEN}
@@ -86,10 +86,10 @@ export default function Home() {
       />
 
       <PullToRefresh onRefresh={loadData}>
-      {/* ===== HERO SLIDER — Cinematic full-screen ===== */}
+      {/* ===== HERO — light two-column intro ===== */}
       <HeroSlider />
 
-      {/* ===== GOLDEN ESSENCE — 3D luxury showcase ===== */}
+      {/* ===== GALLERY — 3D luxury showcase ===== */}
       <GoldenEssence />
 
       {/* ===== MAIN PRODUCTS — pistachio, almond, hazelnut ===== */}
@@ -105,21 +105,25 @@ export default function Home() {
       <OriginStory />
 
       {/* ===== ALL PRODUCTS ===== */}
-      <section className="pb-8 md:pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-heading text-lg md:text-2xl font-extrabold" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-              محصولات هفت‌طلایی
-            </h2>
-            <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
+      <section className="py-14 md:py-20" style={{ background: 'var(--bg)' }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-4 mb-6">
+            <div>
+              <span className="eyebrow block mb-3">PRODUCTS</span>
+              <h2 className="font-heading text-2xl md:text-4xl font-extrabold" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
+                محصولات هفت‌طلایی
+              </h2>
+            </div>
+            <Link to="/shop" className="font-body text-sm flex items-center gap-1 transition-all hover:gap-2 whitespace-nowrap" style={{ color: 'var(--brass)' }}>
               {isFA ? 'مشاهده همه' : 'View All'}
               <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+          <hr className="hairline mb-8 md:mb-12" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-9 md:gap-x-10 md:gap-y-14">
             {allProducts.map((product, i) => (
               <AnimatedSection key={product.id} delay={(i % 4) * 100} className="scale-in-wrap">
-                <ProductCard product={product} />
+                <ProductCardLight product={product} />
               </AnimatedSection>
             ))}
           </div>
@@ -127,26 +131,28 @@ export default function Home() {
       </section>
 
       {/* ===== ABOUT TEASER ===== */}
-      <section className="py-10 md:py-14" style={{ background: 'var(--bg-secondary)' }}>
+      <section className="py-14 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
             <AnimatedSection>
-              <div className="rounded-2xl overflow-hidden aspect-[4/3] md:aspect-[16/10]">
+              <div className="rounded-3xl overflow-hidden aspect-[4/3] md:aspect-[16/10]" style={{ boxShadow: '0 24px 60px rgba(28,26,23,0.13)' }}>
                 <Image src="https://media.base44.com/images/public/6a9ea5d67a95141fb1f84b4a/2409232f9_generated_image.png" alt="About 7Golden" className="w-full h-full object-cover" fittingType="fill" />
               </div>
             </AnimatedSection>
             <AnimatedSection delay={150}>
               <div>
-                <span className="font-subheading text-sm uppercase block mb-2">
+                <span className="eyebrow block mb-3">COMPANY</span>
+                <span className="font-subheading text-sm block mb-3" style={{ color: 'var(--brass)', fontFamily: subFont }}>
                   {t('about_sub')}
                 </span>
-                <h2 className="text-2xl md:text-3xl font-extrabold mb-4">
+                <h2 className="text-2xl md:text-4xl font-extrabold mb-4" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
                   {t('about_title')}
                 </h2>
-                <p className="font-body text-sm leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>
+                <hr className="hairline mb-5" />
+                <p className="font-body text-sm leading-relaxed mb-7" style={{ color: 'var(--fg-muted)' }}>
                   {t('about_body')}
                 </p>
-                <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-body font-semibold text-sm transition-all hover:scale-105" style={{ border: '1.5px solid var(--accent)', color: 'var(--accent)' }}>
+                <Link to="/about" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body font-semibold text-sm transition-all hover:scale-105" style={{ background: 'var(--brass)', color: '#fff' }}>
                   {isFA ? 'بیشتر بدانید' : 'Learn More'}
                   <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
                 </Link>

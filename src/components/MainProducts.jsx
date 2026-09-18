@@ -31,84 +31,71 @@ export default function MainProducts({ categories = [], products = [] }) {
   };
 
   return (
-    <section className="py-12 md:py-16" style={{ background: 'var(--bg)' }}>
+    <section className="py-14 md:py-20" style={{ background: 'var(--bg)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
-        <div className="max-w-2xl mb-10 md:mb-14">
-          <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: 'Kalameh, serif' }}>
-            محصولات اصلی
-          </span>
-          <h2 className="font-heading text-2xl md:text-4xl font-extrabold mb-3" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+        <div className="max-w-2xl mb-8 md:mb-12">
+          <span className="eyebrow block mb-3">MAIN PRODUCTS</span>
+          <h2 className="font-heading text-2xl md:text-4xl font-extrabold mb-4" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
             سه ستون تولید هفت‌طلایی
           </h2>
           <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
             تمرکز ما بر سه محصول راهبردی است: پسته، بادام و فندق. هر سه با گریدبندی مشخص،
             بسته‌بندی صنعتی و ظرفیت تأمین مستمر برای صنایع شکلات، قنادی و بستنی عرضه می‌شوند.
           </p>
+          <hr className="hairline mt-8" />
         </div>
 
-        {/* Alternating product sections */}
-        <div className="flex flex-col gap-10 md:gap-16">
+        {/* Wide, image-led product bands — the picture carries the section,
+            the caption card stays down to a label, a name and one short line.
+            Full specifications live on the product page. */}
+        <div className="flex flex-col gap-6 md:gap-10">
           {MAIN_PRODUCTS.map((product, i) => {
             const image = imageFor(product.category);
             const reversed = i % 2 === 1;
             return (
-              <AnimatedSection key={product.category} delay={i * 100}>
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10 items-center`}>
-                  <div className={reversed ? 'lg:order-2' : ''}>
-                    <div className="rounded-2xl overflow-hidden aspect-[4/3] relative" style={{ border: '1px solid var(--border)' }}>
-                      {image ? (
-                        <Image src={image} alt={product.nameFA} className="w-full h-full object-cover" fittingType="fill" />
-                      ) : (
-                        <div className="w-full h-full" style={{ background: 'hsl(var(--muted))' }} />
-                      )}
-                      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%)' }} />
-                      <span className="absolute bottom-4 font-heading font-black text-2xl md:text-3xl text-white" style={{ fontFamily: headingFont, right: '1rem' }}>
-                        {product.nameFA}
-                      </span>
-                    </div>
+              <AnimatedSection key={product.category} delay={i * 80}>
+                <Link
+                  to={linkFor(product.category)}
+                  className="group grid grid-cols-1 lg:grid-cols-12 rounded-3xl overflow-hidden"
+                  style={{ background: '#fff', boxShadow: '0 18px 50px rgba(28,26,23,0.07)' }}
+                >
+                  <div
+                    className={`relative lg:col-span-8 min-h-[220px] lg:min-h-[300px] overflow-hidden ${reversed ? 'lg:order-2' : ''}`}
+                    style={{ background: 'var(--bg-secondary)' }}
+                  >
+                    {image && (
+                      <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
+                        <Image
+                          src={image}
+                          alt={product.nameFA}
+                          className="w-full h-full"
+                          fittingType="fill"
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  <div className={reversed ? 'lg:order-1' : ''}>
-                    <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: 'Kalameh, serif' }}>
-                      {product.tagline}
-                    </span>
-                    <h3 className="font-heading text-xl md:text-2xl font-extrabold mb-3" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+                  <div className={`lg:col-span-4 flex flex-col justify-center p-6 md:p-9 ${reversed ? 'lg:order-1' : ''}`}>
+                    <span className="eyebrow block mb-3">{product.category}</span>
+                    <h3 className="font-heading text-xl md:text-2xl font-extrabold" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
                       {product.nameFA}
                     </h3>
-                    <p className="font-body text-sm leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>
-                      {product.descFA}
+                    <hr className="hairline my-4" />
+                    <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+                      {product.tagline}
                     </p>
 
-                    {/* Spec table */}
-                    <dl className="rounded-2xl overflow-hidden mb-5" style={{ border: '1px solid var(--border)' }}>
-                      {product.specs.map((spec, si) => (
-                        <div
-                          key={spec.label}
-                          className="flex items-start gap-3 px-4 py-3"
-                          style={{ borderTop: si === 0 ? 'none' : '1px solid var(--border)', background: si % 2 ? 'hsl(var(--card))' : 'transparent' }}
-                        >
-                          <dt className="font-body text-xs font-semibold flex-shrink-0 w-28" style={{ color: 'var(--accent)' }}>
-                            {spec.label}
-                          </dt>
-                          <dd className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg)' }}>
-                            {spec.value}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
-
-                    <Link
-                      to={linkFor(product.category)}
-                      className="inline-flex items-center gap-2 font-body text-sm font-semibold transition-all hover:gap-3"
-                      style={{ color: 'var(--accent)' }}
+                    <span
+                      className="inline-flex items-center gap-2 font-body text-sm font-semibold mt-6 transition-all group-hover:gap-3"
+                      style={{ color: 'var(--brass)' }}
                     >
                       مشاهده مشخصات کامل
                       <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-                    </Link>
+                    </span>
                   </div>
-                </div>
+                </Link>
               </AnimatedSection>
             );
           })}
