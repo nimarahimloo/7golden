@@ -11,6 +11,8 @@ import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
+import Reveal from '@/components/story/Reveal';
+import CountUp from '@/components/story/CountUp';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -78,19 +80,24 @@ export default function Awards() {
       {/* Stats Bar */}
       <section className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
             {stats.map((s, i) => (
-              <AnimatedSection key={i} delay={i * 100} className="text-center">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3 glass-orb">
-                  <s.icon size={22} style={{ color: 'var(--accent)' }} />
+              <Reveal key={i} delay={i * 100} className="text-center">
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                  style={{ background: 'rgba(227,194,99,0.1)', border: '1px solid var(--hairline-strong)' }}
+                >
+                  <s.icon size={20} style={{ color: 'var(--gold-2)' }} />
                 </div>
-                <div className="font-heading font-black text-2xl md:text-3xl gold-shimmer" style={{ fontFamily: headingFont }}>
-                  {s.value}
-                </div>
-                <div className="font-body text-xs mt-1" style={{ color: 'var(--fg-muted)' }}>
+                <CountUp
+                  value={s.value}
+                  className="display-md block"
+                  style={{ color: 'var(--gold-2)' }}
+                />
+                <div className="font-body text-xs mt-2" style={{ color: 'var(--fg-muted)' }}>
                   {s.label}
                 </div>
-              </AnimatedSection>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -105,7 +112,7 @@ export default function Awards() {
               <Award size={13} />
               {isFA ? 'گواهینامه‌ها و مجوزها' : 'Certificates & Licenses'}
             </span>
-            <h2 className="font-heading font-black text-2xl md:text-4xl leading-tight mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+            <h2 className="display-lg leading-tight mb-4" style={{ color: 'var(--ink)' }}>
               {isFA ? 'کیفیتی که تأیید شده است' : 'Quality That Is Certified'}
             </h2>
             <p className="font-body text-sm max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
@@ -180,14 +187,14 @@ function AwardCardLarge({ item, delay = 0, isFA, headingFont }) {
   return (
     <div
       ref={ref}
-      className={`fade-up ${visible ? 'visible' : ''} group relative rounded-3xl overflow-hidden product-card-luxury`}
+      className={`reveal reveal-up ${visible ? 'is-visible' : ''} group relative rounded-3xl overflow-hidden gold-frame`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div
         className="rounded-3xl p-5 transition-all duration-500 h-full"
         style={{
-          background: 'var(--card-bg)',
-          border: '1px solid var(--border)',
+          background: 'var(--panel)',
+          border: '1px solid var(--hairline)',
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
         }}

@@ -58,26 +58,22 @@ export default function Navbar() {
               />
             </Link>
 
-            {/* Desktop Nav */}
-            {/* <div className="hidden md:flex items-center gap-8">
-              {navLinks.map(link => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="font-body text-lg md:text:sm transition-all duration-300 relative group px-3.5 py-2"
-                  style={{
-                    color: location.pathname === link.href ? 'var(--accent)' : 'var(--fg)',
-                    opacity: location.pathname === link.href ? 1 : 0.75,
-                  }}
-                >
-                  {link.label}
-                  <span
-                    className="absolute -bottom-1 left-1/2 w-6 h-px -translate-x-1/2 transition-all duration-300 origin-center scale-x-0 group-hover:scale-x-100"
-                    style={{ background: 'var(--accent)' }}
-                  />
-                </Link>
-              ))}
-            </div> */}
+            {/* Desktop Nav — gold underline marks the current page */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map(link => {
+                const active = location.pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className={`nav-link ${active ? 'is-active' : ''}`}
+                    style={{ color: active ? 'var(--gold-2)' : 'var(--fg)', opacity: active ? 1 : 0.72 }}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
 
             {/* Actions */}
             <div className="flex items-center gap-2">

@@ -58,7 +58,7 @@ export default function Contact() {
             <a
               key={i}
               href={card.href || undefined}
-              className="rounded-2xl p-4 md:p-5 liquid-glass-strong transition-all duration-300 hover:scale-[1.03] group"
+              className="rounded-2xl p-4 md:p-5 panel gold-frame transition-all duration-300 group"
             >
               <div
                 className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
@@ -87,7 +87,7 @@ export default function Contact() {
 
           {/* Addresses */}
           <div>
-            <h2 className="font-heading text-xl md:text-2xl font-black mb-6" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
+            <h2 className="display-md mb-6" style={{ color: 'var(--ink)' }}>
               آدرس‌های ما
             </h2>
 
@@ -175,7 +175,7 @@ export default function Contact() {
 
           {/* Form */}
           <div>
-            <div className="p-8 rounded-3xl liquid-glass-strong">
+            <div className="p-8 rounded-3xl panel-strong">
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div

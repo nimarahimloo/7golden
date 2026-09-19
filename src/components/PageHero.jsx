@@ -1,58 +1,55 @@
 import React from 'react';
-import { useApp } from '@/lib/AppContext';
+import { useParallax } from '@/components/useParallax';
 
-export default function PageHero({ image, title, subtitle, badge }) {
-  const isFA = true;
-  const headingFont = 'Peyda, serif';
-  const subFont = 'Kalameh, serif';
+/**
+ * PageHero — the opening frame of every inner page.
+ * Full-bleed, parallaxed media with the page title in gold display type,
+ * closing on a hairline so the chapter bands below feel like a continuation
+ * of the same story. Same props as before: image, title, subtitle, badge.
+ */
+export default function PageHero({ image, title, subtitle, badge, height = '72svh' }) {
+  const { ref, offset } = useParallax(0.22);
+  const shift = Math.max(-70, Math.min(70, offset));
 
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: '52vh', minHeight: '340px', maxHeight: '520px', marginTop: '4rem' }}
+      style={{ height, minHeight: '440px' }}
       dir="rtl"
     >
-      <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
+      <div ref={ref} className="absolute inset-0">
+        <img
+          src={image}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ transform: `translate3d(0, ${shift}px, 0) scale(1.25)` }}
+        />
+      </div>
 
-      <div className="absolute inset-0" style={{
-        background: `linear-gradient(to bottom,
-          rgba(0,0,0,0.25) 0%,
-          rgba(0,0,0,0.45) 35%,
-          rgba(0,0,0,0.65) 65%,
-          var(--bg) 100%)`,
-      }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(to top, var(--bg) 0%, rgba(7,6,4,0.86) 30%, rgba(7,6,4,0.42) 70%, rgba(7,6,4,0.72) 100%)',
+        }}
+      />
 
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 z-10" style={{ paddingBottom: '3rem' }}>
+      <div className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-14 md:pb-20">
         {badge && (
-          <span
-            className="font-subheading inline-block mb-4 px-4 py-1.5 rounded-full"
-            style={{
-              color: 'var(--accent)',
-              background: 'rgba(240,206,90,0.08)',
-              border: '1px solid rgba(240,206,90,0.22)',
-              fontFamily: subFont,
-              fontSize: '0.75rem',
-            }}
-          >
-            {badge}
-          </span>
+          <span className="eyebrow block mb-5">{badge}</span>
         )}
-        <h1
-          className="font-heading font-black text-3xl md:text-5xl header-gold-sheen mb-4"
-          style={{ fontFamily: headingFont, filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.6))' }}
-        >
-          {title}
+        <h1 className="display-xl max-w-4xl" style={{ color: 'var(--ink)' }}>
+          <span className="gold-text">{title}</span>
         </h1>
-        <div className="header-gold-rule" />
         {subtitle && (
-          <p
-            className="font-body text-sm md:text-base mt-5 max-w-xl mx-auto"
-            style={{ color: 'var(--fg-muted)', fontFamily: subFont }}
-          >
+          <p className="font-body text-sm md:text-base mt-6 max-w-xl leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
             {subtitle}
           </p>
         )}
+        <div
+          className="mt-9 h-px w-full"
+          style={{ background: 'linear-gradient(90deg, var(--hairline-strong), rgba(227,194,99,0.03))' }}
+        />
       </div>
     </section>
   );

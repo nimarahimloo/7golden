@@ -1,26 +1,17 @@
 import React, { useState } from 'react';
-import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
-import SectionHeader from '@/components/SectionHeader';
 import AwardsSection from '@/components/AwardsSection';
 import ProductionCapacity from '@/components/ProductionCapacity';
 import PageHero from '@/components/PageHero';
-import { useScrollAnimation } from '@/components/useScrollAnimation';
-import { Image } from '@/components/ui/image';
 import { Award, Leaf, Globe, Users } from 'lucide-react';
 import Seo from '@/components/Seo';
 import BackButton from '@/components/BackButton';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
 
-function AnimatedSection({ children, className = '', delay = 0 }) {
-  const { ref, visible } = useScrollAnimation();
-  return (
-    <div ref={ref} className={`fade-up ${visible ? 'visible' : ''} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
-  );
-}
+import StoryChapter from '@/components/story/StoryChapter';
+import Reveal from '@/components/story/Reveal';
+import ParallaxMedia from '@/components/story/ParallaxMedia';
 
 export default function About() {
 
@@ -31,142 +22,148 @@ export default function About() {
   };
 
   const milestones = [
-    { year: true ? '۱۳۷۷' : '1998', label: true ? 'تأسیس در قزوین' : 'Founded in Qazvin' },
-    { year: true ? '۱۳۸۵' : '2006', label: true ? 'اولین صادرات' : 'First Export' },
-    { year: true ? '۱۳۹۰' : '2011', label: true ? 'گسترش به تهران' : 'Expansion to Tehran' },
-    { year: true ? '۱۳۹۶' : '2017', label: true ? 'ثبت شرکت رسمی' : 'Official Incorporation' },
-    { year: true ? '۱۴۰۰' : '2021', label: true ? 'صادرات به ۱۵ کشور' : 'Exports to 15 Countries' },
+    { year: '۱۳۷۷', label: 'تأسیس در قزوین' },
+    { year: '۱۳۸۵', label: 'اولین صادرات' },
+    { year: '۱۳۹۰', label: 'گسترش به تهران' },
+    { year: '۱۳۹۶', label: 'ثبت شرکت رسمی' },
+    { year: '۱۴۰۰', label: 'صادرات به ۱۵ کشور' },
   ];
 
   const values = [
-    { icon: Leaf, title: true ? 'کیفیت ارگانیک' : 'Organic Quality', desc: true ? 'محصولاتمان را مستقیم از کشاورزان متعهد تأمین می‌کنیم.' : 'We source directly from committed farmers.' },
-    { icon: Award, title: true ? 'استانداردهای بین‌المللی' : 'International Standards', desc: true ? 'تمام محصولات صادراتی مطابق با الزامات اتحادیه اروپا.' : 'All export products meet EU requirements.' },
-    { icon: Globe, title: true ? 'دسترس جهانی' : 'Global Reach', desc: true ? 'ارسال به امارات، قطر، عمان، عراق و کشورهای اروپایی.' : 'Shipping to UAE, Qatar, Oman, Iraq and European countries.' },
-    { icon: Users, title: true ? 'تیم متعهد' : 'Committed Team', desc: true ? 'بیش از ۵۰ متخصص جوان و متعهد.' : 'Over 50 young and dedicated professionals.' },
+    { icon: Leaf, title: 'کیفیت ارگانیک', desc: 'محصولاتمان را مستقیم از کشاورزان متعهد تأمین می‌کنیم.' },
+    { icon: Award, title: 'استانداردهای بین‌المللی', desc: 'تمام محصولات صادراتی مطابق با الزامات اتحادیه اروپا.' },
+    { icon: Globe, title: 'دسترس جهانی', desc: 'ارسال به امارات، قطر، عمان، عراق و کشورهای اروپایی.' },
+    { icon: Users, title: 'تیم متعهد', desc: 'بیش از ۵۰ متخصص جوان و متعهد.' },
   ];
 
   return (
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
-        title={true ? `درباره ${SITE_SEO.siteNameFA} — تولیدکننده و صادرکننده فندق، پسته و بادام` : `About ${SITE_SEO.siteNameEN} — Producer & Exporter`}
-        description={true ? 'از سال ۱۳۷۷، تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی — تأمین مستقیم از باغستان‌های قزوین.' : 'Since 1998, producer and exporter of hazelnut kernels, pistachio slices and almond kernels — sourced directly from Qazvin orchards.'}
+        title={`درباره ${SITE_SEO.siteNameFA} — تولیدکننده و صادرکننده فندق، پسته و بادام`}
+        description="از سال ۱۳۷۷، تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی — تأمین مستقیم از باغستان‌های قزوین."
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/about`}
       />
 
       <PullToRefresh onRefresh={handleRefresh}>
-      {/* Hero */}
-      <div className="relative">
-        <PageHero
-          image="https://7golden.co/wp-content/uploads/2022/09/about-p-2.png"
-          title={t('about_title')}
-          subtitle={t('about_sub')}
-          badge={true ? 'داستان ما' : 'Our Story'}
-        />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-          <BackButton to="/" className="text-white/80 hover:text-white" />
+        {/* Hero */}
+        <div className="relative">
+          <PageHero
+            image="/banner/Hero-main.jpg"
+            title={t('about_title')}
+            subtitle={t('about_sub')}
+            badge="داستان ما"
+          />
+          <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+            <BackButton to="/" className="text-white/80 hover:text-white" />
+          </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
-
-        {/* Story */}
-        <section className="section-padding grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <AnimatedSection>
-            <span className="font-subheading text-xs uppercase block mb-3" style={{ color: 'var(--accent)', fontFamily: true ? 'Kalameh, serif' : 'Georgia, serif' }}>
-              {true ? 'داستان ما' : 'Our Story'}
-            </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-extrabold mb-6 leading-tight" style={{ color: 'var(--fg)', fontFamily: true ? 'Peyda, serif' : 'Georgia, serif' }}>
-              {true ? 'از کارگاهی کوچک تا رهبر صنعت' : 'From Small Workshop to Industry Leader'}
-            </h2>
-            <p className="font-body text-sm leading-relaxed mb-4" style={{ color: 'var(--fg-muted)' }}>
-              {true
-                ? 'این مجموعه فعالیت جدی خود را در سال ۱۳۷۷ در کارگاهی بسیار کوچک آغاز نمود و به تدریج با کسب تجربیات بیشتر و بهره‌گیری از دانش و توانمندی نیروهای جوان و متعهد و پس از عبور از فراز و نشیب‌های فراوان موفق به کسب جایگاه قابل توجهی در زمینه تولید و فرآوری فندق و پسته و خشکبار شد.'
-                : '7Golden began its journey in 1998 in a small workshop in Qazvin. Over the years, through accumulated expertise and the dedication of young, committed professionals, the company overcame numerous challenges to become a prominent name in hazelnut, pistachio, and dried fruit processing.'}
-            </p>
-            <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-              {true
-                ? 'در حال حاضر با کشورهای امارات، قطر، عمان، عراق، افغانستان و بصورت واسطه‌ای برخی از کشورهای اروپایی همکاری دارد. بالای ۵ درصد سود به کشاورز می‌رسد و با حذف واسطه می‌توانیم محصول با کیفیت و قیمت مناسب‌تری عرضه کنیم.'
-                : 'Today, 7Golden exports to the UAE, Qatar, Oman, Iraq, Afghanistan, and indirectly to several European markets. By eliminating middlemen, we ensure farmers receive fair value while customers enjoy premium quality at competitive prices.'}
-            </p>
-          </AnimatedSection>
-          <AnimatedSection delay={200}>
-            <div className="rounded-3xl overflow-hidden aspect-[4/3]">
-              <Image
-                src="https://7golden.co/wp-content/uploads/2022/09/about-p-3.png"
-                alt="Our facility"
-                className="w-full h-full object-cover"
-                fittingType="fill"
+        {/* ===== CHAPTER 01 — the story ===== */}
+        <section className="chapter">
+          <div className="chapter-shell grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div>
+              <StoryChapter
+                index="01"
+                eyebrow="OUR STORY"
+                title="از کارگاهی کوچک تا رهبر صنعت"
               />
+              <Reveal delay={140}>
+                <p className="font-body text-sm leading-relaxed mt-6 mb-4" style={{ color: 'var(--fg-muted)' }}>
+                  این مجموعه فعالیت جدی خود را در سال ۱۳۷۷ در کارگاهی بسیار کوچک آغاز نمود و به تدریج با کسب تجربیات بیشتر و بهره‌گیری از دانش و توانمندی نیروهای جوان و متعهد و پس از عبور از فراز و نشیب‌های فراوان موفق به کسب جایگاه قابل توجهی در زمینه تولید و فرآوری فندق و پسته و خشکبار شد.
+                </p>
+              </Reveal>
+              <Reveal delay={220}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+                  در حال حاضر با کشورهای امارات، قطر، عمان، عراق، افغانستان و بصورت واسطه‌ای برخی از کشورهای اروپایی همکاری دارد. بالای ۵ درصد سود به کشاورز می‌رسد و با حذف واسطه می‌توانیم محصول با کیفیت و قیمت مناسب‌تری عرضه کنیم.
+                </p>
+              </Reveal>
             </div>
-          </AnimatedSection>
-        </section>
 
-        {/* Gallery */}
-        <section className="pb-16">
-          <div className="grid grid-cols-2 gap-4">
-            <AnimatedSection>
-              <div className="rounded-2xl overflow-hidden aspect-[4/3]">
-                <Image src="https://7golden.co/wp-content/uploads/2022/09/about-p-1.png" alt="7Golden facility" className="w-full h-full object-cover" fittingType="fill" />
-              </div>
-            </AnimatedSection>
-            <AnimatedSection delay={150}>
-              <div className="rounded-2xl overflow-hidden aspect-[4/3]">
-                <Image src="https://7golden.co/wp-content/uploads/2022/09/about-p-4.png" alt="7Golden production" className="w-full h-full object-cover" fittingType="fill" />
-              </div>
-            </AnimatedSection>
+            <ParallaxMedia
+              src="/gallery/AQ8A1499AQ8A1499.JPG"
+              alt="7Golden facility"
+              ratio="aspect-[4/3]"
+              className="rounded-3xl"
+            />
           </div>
         </section>
 
-        {/* Timeline */}
-        <section className="pb-16">
-          <AnimatedSection>
-            <SectionHeader title={true ? 'خط زمانی ما' : 'Our Timeline'} subtitle={true ? 'سفر هفت‌طلایی' : '7Golden Journey'} />
-          </AnimatedSection>
-          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="absolute top-5 left-0 right-0 h-px hidden md:block" style={{ background: 'var(--border)' }} />
-            {milestones.map((m, i) => (
-              <AnimatedSection key={i} delay={i * 100} className="relative flex flex-col items-center text-center z-10">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center font-body font-extrabold text-xs mb-3"
-                  style={{ background: 'var(--accent)', color: '#fff' }}
-                >
-                  {i + 1}
-                </div>
-                <span className="font-heading font-extrabold text-sm block" style={{ color: 'var(--accent)', fontFamily: true ? 'Peyda, serif' : 'Georgia, serif' }}>{m.year}</span>
-                <span className="font-body text-xs mt-1" style={{ color: 'var(--fg-muted)' }}>{m.label}</span>
-              </AnimatedSection>
-            ))}
+        {/* ===== CHAPTER 02 — timeline ===== */}
+        <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>
+          <div className="chapter-shell">
+            <StoryChapter
+              index="02"
+              eyebrow="JOURNEY"
+              title="خط زمانی هفت‌طلایی"
+              className="mb-14"
+            />
+
+            <div className="relative">
+              {/* gold rail */}
+              <div
+                className="absolute top-0 bottom-0 w-px hidden md:block"
+                style={{ right: '6.5rem', background: 'linear-gradient(to bottom, transparent, var(--hairline-strong) 12%, var(--hairline-strong) 88%, transparent)' }}
+              />
+              <div className="flex flex-col gap-10 md:gap-14">
+                {milestones.map((m, i) => (
+                  <Reveal key={m.year} delay={i * 90} variant="left">
+                    <div className="flex items-center gap-6 md:gap-10">
+                      <span className="outline-num text-3xl md:text-5xl leading-none flex-shrink-0" style={{ minWidth: '5rem', textAlign: 'left' }}>
+                        {m.year}
+                      </span>
+                      <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(227,194,99,0.7)' }} />
+                      <span className="font-body text-sm md:text-base" style={{ color: 'var(--fg)' }}>{m.label}</span>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Values */}
-        <section className="pb-20">
-          <AnimatedSection>
-            <SectionHeader title={true ? 'ارزش‌های ما' : 'Our Values'} subtitle={true ? 'چرا هفت‌طلایی؟' : 'Why 7Golden?'} />
-          </AnimatedSection>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((v, i) => (
-              <AnimatedSection key={i} delay={i * 100}>
-                <div className="p-6 rounded-3xl h-full" style={{ background: 'var(--card-bg)', border: '1px solid var(--border)' }}>
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: 'var(--accent)', color: '#fff' }}>
-                    <v.icon size={20} />
+        {/* ===== CHAPTER 03 — gallery ===== */}
+        <section className="chapter">
+          <div className="chapter-shell grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+            <ParallaxMedia src="/gallery/AQ8A1505AQ8A1505.JPG" alt="7Golden production" ratio="aspect-[4/3]" className="rounded-3xl" />
+            <ParallaxMedia src="/gallery/AQ8A1524AQ8A1524.JPG" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
+          </div>
+        </section>
+
+        {/* ===== CHAPTER 04 — values ===== */}
+        <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>
+          <div className="chapter-shell">
+            <StoryChapter
+              index="03"
+              eyebrow="VALUES"
+              title="چرا هفت‌طلایی؟"
+              className="mb-12"
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {values.map((v, i) => (
+                <Reveal key={v.title} delay={i * 90}>
+                  <div className="gold-frame panel p-6 rounded-3xl h-full">
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
+                      style={{ background: 'rgba(227,194,99,0.1)', border: '1px solid var(--hairline-strong)' }}
+                    >
+                      <v.icon size={20} style={{ color: 'var(--gold-2)' }} />
+                    </div>
+                    <h3 className="display-sm mb-2" style={{ color: 'var(--fg)' }}>{v.title}</h3>
+                    <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>{v.desc}</p>
                   </div>
-                  <h3 className="font-body font-extrabold text-sm mb-2" style={{ color: 'var(--fg)', fontFamily: true ? 'Peyda, serif' : 'Georgia, serif' }}>{v.title}</h3>
-                  <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>{v.desc}</p>
-                </div>
-              </AnimatedSection>
-            ))}
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
-      </div>
 
-      {/* Production & processing capacity — scale for business buyers */}
-      <ProductionCapacity />
+        {/* Production & processing capacity — scale for business buyers */}
+        <ProductionCapacity />
 
-      {/* Licenses & Awards — dynamic */}
-      <AwardsSection key={refreshKey} />
+        {/* Licenses & Awards — dynamic */}
+        <AwardsSection key={refreshKey} />
       </PullToRefresh>
     </div>
   );

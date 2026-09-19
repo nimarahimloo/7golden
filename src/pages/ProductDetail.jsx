@@ -232,11 +232,11 @@ export default function ProductDetail() {
             <div className="flex flex-col gap-5">
               {/* Name */}
               <div>
-                <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: 'Kalameh, serif' }}>
+                <span className="eyebrow block mb-3">
                   {CATEGORY_NAMES[product.category] || 'محصول'} — {origin}
                 </span>
-                <h1 className="font-heading text-3xl md:text-4xl font-black leading-tight" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-                  {name}
+                <h1 className="display-lg leading-tight" style={{ color: 'var(--ink)' }}>
+                  <span className="gold-text">{name}</span>
                 </h1>
               </div>
 
@@ -252,7 +252,7 @@ export default function ProductDetail() {
                   ------------------------------------------------------------------ */}
 
               {/* Business inquiry CTA — the single action on this page */}
-              <div className="p-5 rounded-2xl flex flex-col gap-3" style={liquidGlass}>
+              <div className="p-5 rounded-2xl flex flex-col gap-3 panel">
                 <div className="flex items-center gap-2">
                   <Phone size={16} style={{ color: 'var(--accent)' }} />
                   <span className="font-heading font-extrabold text-sm" style={{ color: 'var(--fg)' }}>
@@ -279,9 +279,9 @@ export default function ProductDetail() {
               </div>
 
               {/* Technical specifications */}
-              <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
-                <div className="px-4 py-3" style={{ background: 'rgba(232,197,71,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                  <span className="font-heading font-extrabold text-sm" style={{ color: 'var(--accent)', fontFamily: headingFont }}>
+              <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--hairline)' }}>
+                <div className="px-4 py-3" style={{ background: 'rgba(227,194,99,0.07)', borderBottom: '1px solid var(--hairline)' }}>
+                  <span className="font-heading font-extrabold text-sm" style={{ color: 'var(--gold-2)', fontFamily: headingFont }}>
                     مشخصات فنی
                   </span>
                 </div>
@@ -289,7 +289,7 @@ export default function ProductDetail() {
                   <div
                     key={spec.label}
                     className="flex items-start gap-3 px-4 py-3"
-                    style={{ borderTop: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.05)' }}
+                    style={{ borderTop: i === 0 ? 'none' : '1px solid var(--hairline)' }}
                   >
                     <spec.icon size={15} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--accent)' }} />
                     <span className="font-body text-xs font-semibold flex-shrink-0 w-24" style={{ color: 'var(--fg-muted)' }}>

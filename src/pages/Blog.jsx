@@ -119,7 +119,7 @@ export default function Blog() {
 
             {/* Featured post */}
             <AnimatedSection className="mb-12">
-              <Link to={`/blog/${featured.slug}`} className="group block rounded-3xl overflow-hidden" style={{ border: '1px solid var(--border)' }}>
+              <Link to={`/blog/${featured.slug}`} className="group block rounded-3xl overflow-hidden gold-frame" style={{ border: '1px solid var(--hairline)' }}>
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                   <div className="aspect-[4/3] lg:aspect-auto lg:min-h-[360px] overflow-hidden">
                     <Image
@@ -158,7 +158,7 @@ export default function Blog() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {rest.map((post, i) => (
                 <AnimatedSection key={post.id} delay={i * 100}>
-                  <Link to={`/blog/${post.slug}`} className="group block rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2" style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', boxShadow: 'var(--shadow)' }}>
+                  <Link to={`/blog/${post.slug}`} className="group block rounded-3xl overflow-hidden gold-frame" style={{ background: 'var(--panel)', border: '1px solid var(--hairline)', boxShadow: 'var(--soft-shadow)' }}>
                     <div className="aspect-[4/3] overflow-hidden">
                       <Image
                         src={post.image}
