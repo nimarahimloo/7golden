@@ -110,8 +110,8 @@ export default function BlogPost() {
                 {date}
               </span>
             </div>
-            <h1 className="font-heading font-black text-2xl md:text-4xl lg:text-5xl leading-tight header-gold-sheen" style={{ fontFamily: headingFont }}>
-              {title}
+            <h1 className="display-lg leading-tight" style={{ color: 'var(--ink)' }}>
+              <span className="gold-text">{title}</span>
             </h1>
             {excerpt && (
               <p className="font-body text-sm md:text-base mt-5 max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
@@ -125,8 +125,8 @@ export default function BlogPost() {
       {/* ===== ARTICLE BODY ===== */}
       <article className="max-w-3xl mx-auto px-4 sm:px-8 py-14 md:py-20 -mt-10 relative z-10">
         <div className="rounded-3xl p-8 md:p-14" style={{
-          background: 'var(--card-bg)',
-          border: '1px solid var(--border)',
+          background: 'var(--panel-strong)',
+          border: '1px solid var(--hairline)',
           backdropFilter: 'blur(32px) saturate(200%)',
           WebkitBackdropFilter: 'blur(32px) saturate(200%)',
           boxShadow: 'var(--shadow-lg)',

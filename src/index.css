@@ -105,13 +105,20 @@
 @layer base {
   :root {
     /* Nocturnal Orchard — deep luxury dark palette */
-    --bg: #020100;
-    --bg-secondary: #060402;
+    --bg: #070604;
+    --bg-secondary: #0C0A07;
     --fg: #FFF;
     --fg-muted: #B8AC92;
-    --accent: #F0CE5A;
-    --accent-hover: #E8C547;
-    --accent-gold: #F0CE5A;
+    --accent: #E3C263;
+    --accent-hover: #F3DA8C;
+    --accent-gold: #E3C263;
+
+    /* Gold ramp — the scroll-story layer reads these for gradients,
+       numerals, rails and hairlines. */
+    --gold-1: #F7E3A1;
+    --gold-2: #E3C263;
+    --gold-3: #A9832F;
+    --gold-4: #5C4413;
     --border: rgba(240, 206, 90, 0.18);
     --card-bg: rgba(8, 6, 3, 0.82);
     --glass: rgba(6, 4, 2, 0.5);
@@ -135,9 +142,14 @@
 
     /* Aliases the section components read on every page (dark & gold theme) */
     --ink: #FFFFFF;
-    --brass: #F0CE5A;
-    --hairline: rgba(240, 206, 90, 0.18);
+    --brass: #E3C263;
+    --hairline: rgba(227, 194, 99, 0.18);
+    --hairline-strong: rgba(227, 194, 99, 0.34);
     --soft-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+
+    /* Surfaces for the scroll-story bands */
+    --panel: rgba(12, 10, 6, 0.6);
+    --panel-strong: rgba(9, 7, 4, 0.82);
 
     --background: 40 30% 2%;
     --foreground: 40 20% 88%;

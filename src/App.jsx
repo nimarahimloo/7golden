@@ -37,11 +37,13 @@ import PageTransition from '@/components/PageTransition';
 import LogoLoader from '@/components/LogoLoader';
 import BottomTabBar from '@/components/BottomTabBar';
 import GlobalGoldAmbient from '@/components/GlobalGoldAmbient';
+import ScrollProgress from '@/components/story/ScrollProgress';
 
 function AppLayout() {
   return (
     <>
       <GlobalGoldAmbient />
+      <ScrollProgress />
       <Navbar />
       <PageTransition>
       <Suspense fallback={<LogoLoader />}>
