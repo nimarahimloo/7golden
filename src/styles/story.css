@@ -15,6 +15,7 @@
   line-height: 1;
   letter-spacing: -0.02em;
 }
+
 .display-lg {
   font-family: 'Peyda', serif;
   font-weight: 800;
@@ -22,12 +23,14 @@
   line-height: 1.06;
   letter-spacing: -0.01em;
 }
+
 .display-md {
   font-family: 'Peyda', serif;
   font-weight: 800;
   font-size: clamp(1.4rem, 3.2vw, 2.35rem);
   line-height: 1.18;
 }
+
 .display-sm {
   font-family: 'Kalameh', serif;
   font-weight: 600;
@@ -45,8 +48,11 @@
   color: transparent;
   animation: goldFlow 9s linear infinite;
 }
+
 @keyframes goldFlow {
-  to { background-position: 220% center; }
+  to {
+    background-position: 220% center;
+  }
 }
 
 /* Outlined numeral — chapter counters and stat indexes */
@@ -67,11 +73,28 @@
     transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
     clip-path 1.1s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal-up { transform: translateY(44px); }
-.reveal-left { transform: translateX(-40px); }
-.reveal-right { transform: translateX(40px); }
-.reveal-scale { transform: scale(0.94); }
-.reveal-clip { clip-path: inset(0 0 100% 0); transform: none; }
+
+.reveal-up {
+  transform: translateY(44px);
+}
+
+.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal-scale {
+  transform: scale(0.94);
+}
+
+.reveal-clip {
+  clip-path: inset(0 0 100% 0);
+  transform: none;
+}
+
 .reveal.is-visible {
   opacity: 1;
   transform: none;
@@ -85,16 +108,23 @@
   position: relative;
   padding: clamp(3.5rem, 8vw, 7rem) 0;
 }
+
 .chapter-shell {
   max-width: 80rem;
   margin: 0 auto;
   padding-inline: 1.25rem;
 }
+
 @media (min-width: 640px) {
-  .chapter-shell { padding-inline: 2rem; }
+  .chapter-shell {
+    padding-inline: 2rem;
+  }
 }
+
 @media (min-width: 1024px) {
-  .chapter-shell { padding-inline: 2.5rem; }
+  .chapter-shell {
+    padding-inline: 2.5rem;
+  }
 }
 
 /* Thin gold rule that grows out of the start edge */
@@ -106,7 +136,10 @@
   transform: scaleX(0);
   transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.rule-grow.is-visible { transform: scaleX(1); }
+
+.rule-grow.is-visible {
+  transform: scaleX(1);
+}
 
 /* ---------------------------------------------------------------
    SURFACES
@@ -117,6 +150,7 @@
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
+
 .panel-strong {
   background: var(--panel-strong);
   border: 1px solid var(--hairline);
@@ -129,6 +163,7 @@
   position: relative;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
 }
+
 .gold-frame::after {
   content: '';
   position: absolute;
@@ -143,8 +178,14 @@
   transition: opacity 0.6s ease;
   pointer-events: none;
 }
-.gold-frame:hover { transform: translateY(-6px); }
-.gold-frame:hover::after { opacity: 1; }
+
+.gold-frame:hover {
+  transform: translateY(-6px);
+}
+
+.gold-frame:hover::after {
+  opacity: 1;
+}
 
 /* ---------------------------------------------------------------
    PARALLAX MEDIA
@@ -156,6 +197,7 @@
   border: 1px solid var(--hairline);
   background: var(--bg-secondary);
 }
+
 .media-frame img {
   position: absolute;
   inset: 0;
@@ -164,6 +206,7 @@
   object-fit: cover;
   will-change: transform;
 }
+
 .media-scrim {
   position: absolute;
   inset: 0;
@@ -174,7 +217,10 @@
 /* ---------------------------------------------------------------
    STICKY SCENE — the scroll-story core
    --------------------------------------------------------------- */
-.scene-track { position: relative; }
+.scene-track {
+  position: relative;
+}
+
 .scene-viewport {
   position: sticky;
   top: 0;
@@ -182,29 +228,31 @@
   min-height: 560px;
   overflow: hidden;
 }
+
 .scene-media {
   position: absolute;
   inset: 0;
   transition: opacity 1s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
+
 .scene-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .scene-scrim {
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(to left, rgba(7, 6, 4, 0.94) 0%, rgba(7, 6, 4, 0.72) 38%, rgba(7, 6, 4, 0.25) 70%, rgba(7, 6, 4, 0.5) 100%),
-    linear-gradient(to top, rgba(7, 6, 4, 0.95) 0%, transparent 45%);
+  inset: 0
 }
+
 .scene-rail {
   display: flex;
   align-items: center;
   gap: 0.65rem;
 }
+
 .scene-rail-dot {
   width: 34px;
   height: 2px;
@@ -212,6 +260,7 @@
   overflow: hidden;
   position: relative;
 }
+
 .scene-rail-dot span {
   position: absolute;
   inset: 0;
@@ -220,7 +269,10 @@
   transform: scaleX(0);
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.scene-rail-dot.is-done span { transform: scaleX(1); }
+
+.scene-rail-dot.is-done span {
+  transform: scaleX(1);
+}
 
 /* ---------------------------------------------------------------
    MARQUEE BAND
@@ -231,15 +283,22 @@
   border-block: 1px solid var(--hairline);
   padding: 1.1rem 0;
 }
+
 .marquee-track {
   display: flex;
   width: max-content;
   gap: 3rem;
   animation: marqueeSlide 34s linear infinite;
 }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 @keyframes marqueeSlide {
-  to { transform: translateX(50%); }
+  to {
+    transform: translateX(50%);
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -258,10 +317,12 @@
   color: #14100A;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
+
 .btn-gold:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 40px rgba(227, 194, 99, 0.28);
 }
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;
@@ -275,6 +336,7 @@
   border: 1px solid var(--hairline-strong);
   transition: background 0.35s ease, transform 0.35s ease;
 }
+
 .btn-ghost:hover {
   background: rgba(227, 194, 99, 0.08);
   transform: translateY(-2px);
@@ -290,7 +352,10 @@
   font-weight: 600;
   transition: gap 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.link-gold:hover { gap: 0.85rem; }
+
+.link-gold:hover {
+  gap: 0.85rem;
+}
 
 /* Desktop nav item — gold underline grows from the centre */
 .nav-link {
@@ -300,6 +365,7 @@
   font-size: 0.875rem;
   transition: color 0.3s ease, opacity 0.3s ease;
 }
+
 .nav-link::after {
   content: '';
   position: absolute;
@@ -312,6 +378,7 @@
   transform-origin: center;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .nav-link:hover::after,
 .nav-link.is-active::after {
   transform: translateX(-50%) scaleX(1);
@@ -342,6 +409,7 @@
   position: relative;
   overflow: hidden;
 }
+
 .scroll-cue::after {
   content: '';
   position: absolute;
@@ -352,32 +420,52 @@
   background: #FFF6D8;
   animation: cueDrop 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
+
 @keyframes cueDrop {
-  0% { transform: translateY(-20px); opacity: 0; }
-  35% { opacity: 1; }
-  100% { transform: translateY(64px); opacity: 0; }
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(64px);
+    opacity: 0;
+  }
 }
 
 /* ---------------------------------------------------------------
    DEPTH PARALLAX — multi-layer scene
    --------------------------------------------------------------- */
-.depth-scene { position: relative; }
+.depth-scene {
+  position: relative;
+}
+
 .depth-layer {
   position: absolute;
   inset: 0;
   will-change: transform;
 }
+
 .depth-layer img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .depth-back {
   filter: blur(14px) brightness(0.6) saturate(1.2);
   transform: scale(1.35);
   opacity: 0.85;
 }
-.depth-mid img { filter: saturate(1.05) contrast(1.04); }
+
+.depth-mid img {
+  filter: saturate(1.05) contrast(1.04);
+}
+
 .depth-scrim {
   position: absolute;
   inset: 0;
@@ -386,6 +474,7 @@
     linear-gradient(to top, rgba(7, 6, 4, 0.92) 0%, rgba(7, 6, 4, 0.28) 55%, rgba(7, 6, 4, 0.55) 100%),
     radial-gradient(ellipse at 30% 40%, transparent 30%, rgba(7, 6, 4, 0.5) 100%);
 }
+
 .depth-beam {
   position: absolute;
   top: -10%;
@@ -399,6 +488,7 @@
   pointer-events: none;
   will-change: transform;
 }
+
 .depth-foreground {
   position: absolute;
   inset: 0;
@@ -417,6 +507,7 @@
   padding: clamp(3rem, 7vw, 6rem) 0;
   text-align: center;
 }
+
 .mask-word {
   font-family: 'Peyda', serif;
   font-weight: 900;
@@ -436,6 +527,7 @@
   -webkit-text-stroke: 1px rgba(227, 194, 99, 0.22);
   filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.6));
 }
+
 .mask-word.is-static {
   -webkit-text-fill-color: var(--gold-2);
   color: var(--gold-2);
@@ -446,7 +538,10 @@
 /* ---------------------------------------------------------------
    HORIZONTAL SCROLL — pinned film strip
    --------------------------------------------------------------- */
-.hscroll-track { position: relative; }
+.hscroll-track {
+  position: relative;
+}
+
 .hscroll-sticky {
   position: sticky;
   top: 0;
@@ -456,28 +551,33 @@
   align-items: center;
   overflow: hidden;
 }
+
 .hscroll-strip {
   display: flex;
   width: max-content;
   padding-inline: clamp(1.25rem, 5vw, 4rem);
   will-change: transform;
 }
+
 .hscroll-card {
   flex: 0 0 auto;
   height: 62vh;
   max-height: 560px;
   min-height: 360px;
 }
+
 .hscroll-fallback {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 2rem 1.25rem;
   -webkit-overflow-scrolling: touch;
 }
+
 .hscroll-fallback .hscroll-strip {
   transform: none !important;
   padding: 0;
 }
+
 .hscroll-fallback .hscroll-card {
   height: auto;
   min-height: 0;
@@ -488,24 +588,91 @@
    REDUCED MOTION — everything degrades to a static, readable page
    --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; clip-path: none; transition: none; }
-  .rule-grow { transform: scaleX(1); transition: none; }
-  .gold-text { animation: none; -webkit-text-fill-color: var(--gold-2); color: var(--gold-2); }
-  .marquee-track { animation: none; }
-  .scroll-cue::after { animation: none; }
-  .scene-media { transition: opacity 0.2s linear; }
-  .scene-track { height: auto !important; }
-  .scene-viewport { position: static; height: auto; min-height: 0; }
-  .scene-media { position: relative; height: 60vh; }
-  .scene-media[data-inactive='true'] { display: none; }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+
+  .rule-grow {
+    transform: scaleX(1);
+    transition: none;
+  }
+
+  .gold-text {
+    animation: none;
+    -webkit-text-fill-color: var(--gold-2);
+    color: var(--gold-2);
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .scroll-cue::after {
+    animation: none;
+  }
+
+  .scene-media {
+    transition: opacity 0.2s linear;
+  }
+
+  .scene-track {
+    height: auto !important;
+  }
+
+  .scene-viewport {
+    position: static;
+    height: auto;
+    min-height: 0;
+  }
+
+  .scene-media {
+    position: relative;
+    height: 60vh;
+  }
+
+  .scene-media[data-inactive='true'] {
+    display: none;
+  }
+
   /* depth parallax — flatten to a single readable image */
-  .depth-back { display: none; }
-  .depth-layer { transform: none !important; }
-  .depth-beam { display: none; }
-  .depth-foreground { transform: none; }
+  .depth-back {
+    display: none;
+  }
+
+  .depth-layer {
+    transform: none !important;
+  }
+
+  .depth-beam {
+    display: none;
+  }
+
+  .depth-foreground {
+    transform: none;
+  }
+
   /* horizontal scroll — ordinary scroller */
-  .hscroll-track { height: auto !important; }
-  .hscroll-sticky { position: static; height: auto; min-height: 0; display: block; }
-  .hscroll-strip { transform: none !important; }
-  .hscroll-card { height: auto; min-height: 0; max-height: none; }
+  .hscroll-track {
+    height: auto !important;
+  }
+
+  .hscroll-sticky {
+    position: static;
+    height: auto;
+    min-height: 0;
+    display: block;
+  }
+
+  .hscroll-strip {
+    transform: none !important;
+  }
+
+  .hscroll-card {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
 }

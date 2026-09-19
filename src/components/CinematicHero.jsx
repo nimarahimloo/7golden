@@ -13,7 +13,7 @@ import CountUp from '@/components/story/CountUp';
 export default function CinematicHero({
   video = '/9a4201778861aaa70701702683a138d9-0.mp4',
   poster = '/banner/Hero.jpg',
-  eyebrow = '7GOLDEN · QAZVIN, IRAN',
+  eyebrow = '',
   title,
   titleAccent,
   lead,
@@ -37,7 +37,6 @@ export default function CinematicHero({
       style={{ height: '100svh', minHeight: '620px' }}
       dir="rtl"
     >
-      {/* ---- media ---- */}
       <div
         className="absolute inset-0"
         style={{ transform: `translate3d(0, ${scrollY * 0.28}px, 0) scale(1.12)` }}
