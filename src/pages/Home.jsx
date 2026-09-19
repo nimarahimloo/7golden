@@ -4,7 +4,6 @@ import { ChevronLeft } from 'lucide-react';
 import { getProducts, getCategories } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
-import ProductCardRound from '@/components/ProductCardRound';
 import GoldenEssence from '@/components/GoldenEssence';
 import Seo from '@/components/Seo';
 import { Image } from '@/components/ui/image';
@@ -17,6 +16,9 @@ import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import CountUp from '@/components/story/CountUp';
 import Marquee from '@/components/story/Marquee';
+import DepthParallax from '@/components/story/DepthParallax';
+import MaskText from '@/components/story/MaskText';
+import HorizontalScroll from '@/components/story/HorizontalScroll';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS } from '@/lib/corporate-content';
 
@@ -157,7 +159,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CHAPTER 03 — origin story ===== */}
+      {/* ===== CHAPTER 03 — origin story (multi-layer depth parallax) ===== */}
       <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.55)' }}>
         <div className="chapter-shell">
           <StoryChapter
@@ -167,22 +169,17 @@ export default function Home() {
             align="center"
             className="mb-12 md:mb-16"
           />
-          <Reveal variant="clip">
-            <ParallaxMedia
-              src="/banner/Hero-main.jpg"
-              alt="Iranian orchards"
-              ratio="aspect-[4/3] md:aspect-[21/9]"
-              speed={0.2}
-              className="rounded-3xl"
-            >
-              <div className="absolute inset-0 flex items-end p-6 md:p-12">
-                <div>
-                  <span className="eyebrow block mb-2">SINCE 1998</span>
-                  <span className="display-md" style={{ color: 'var(--ink)' }}>تأمین مستقیم از کشاورز</span>
-                </div>
-              </div>
-            </ParallaxMedia>
-          </Reveal>
+          <DepthParallax
+            src="/banner/Hero-main.jpg"
+            alt="Iranian orchards"
+            ratio="aspect-[4/3] md:aspect-[21/9]"
+            className="rounded-3xl"
+          >
+            <div>
+              <span className="eyebrow block mb-2">SINCE 1998</span>
+              <span className="display-md" style={{ color: 'var(--ink)' }}>تأمین مستقیم از کشاورز</span>
+            </div>
+          </DepthParallax>
 
           <Reveal delay={120} className="mt-12 text-center">
             <Link to="/about" className="btn-ghost">
@@ -193,8 +190,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== CHAPTER 04 — the full range ===== */}
-      <section className="chapter">
+      {/* ===== SIGNATURE BAND — image-filled word ===== */}
+      <MaskText
+        image="/banner/Hero-main.jpg"
+        text="7GOLDEN"
+        eyebrow="EST. ۱۳۷۷ · QAZVIN"
+      />
+
+      {/* ===== CHAPTER 04 — the full range (pinned horizontal film strip) ===== */}
+      <section className="chapter pb-0">
         <div className="chapter-shell">
           <div className="flex items-end justify-between gap-4 mb-10">
             <StoryChapter
@@ -208,16 +212,31 @@ export default function Home() {
               <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             </Link>
           </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-9 md:gap-x-10 md:gap-y-14">
-            {allProducts.map((product, i) => (
-              <Reveal key={product.id} delay={(i % 4) * 90} variant="scale">
-                <ProductCardRound product={product} />
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
+
+      <HorizontalScroll
+        items={allProducts}
+        itemWidth={300}
+        gap={32}
+        renderItem={(product) => (
+          <Link to={`/product/${product.id}`} className="hscroll-tile group block h-full">
+            <div className="relative h-full rounded-full overflow-hidden gold-frame" style={{ aspectRatio: '1 / 1', maxWidth: 300, margin: '0 auto' }}>
+              <img
+                src={product.image}
+                alt={product.nameFA}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.85), transparent 55%)' }} />
+              <div className="absolute bottom-0 inset-x-0 p-5 text-center">
+                <span className="eyebrow block mb-1.5">{product.category.toUpperCase()}</span>
+                <span className="display-sm" style={{ color: 'var(--ink)' }}>{product.nameFA}</span>
+              </div>
+            </div>
+          </Link>
+        )}
+      />
 
       {/* ===== CLOSING FRAME — consultation ===== */}
       <section className="relative overflow-hidden" style={{ minHeight: '62vh' }}>

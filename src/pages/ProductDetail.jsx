@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MapPin, ChevronLeft, Package, Award, Leaf, Boxes, Phone, BadgeCheck, Factory } from 'lucide-react';
-import { t } from '@/lib/i18n';
 import { getProductBySlug, getProducts } from '@/lib/api/content';
 import ProductCard from '@/components/ProductCard';
 import { Image } from '@/components/ui/image';
@@ -11,6 +10,8 @@ import LogoLoader from '@/components/LogoLoader';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, productJsonLd } from '@/lib/seo';
 import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
+import PageHero from '@/components/PageHero';
+import Reveal from '@/components/story/Reveal';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -130,10 +131,10 @@ export default function ProductDetail() {
   ];
 
   const liquidGlass = {
-    background: 'rgba(18,18,18,0.38)',
+    background: 'var(--panel-strong)',
     backdropFilter: 'blur(48px) saturate(240%)',
     WebkitBackdropFilter: 'blur(48px) saturate(240%)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    border: '1px solid var(--hairline)',
     boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.12)',
   };
 
@@ -157,8 +158,17 @@ export default function ProductDetail() {
           ...
         </div> */}
 
+        {/* Hero — synced with the scroll-story opening frame */}
+        <PageHero
+          image={product.image}
+          title={name}
+          subtitle={origin}
+          badge={CATEGORY_NAMES[product.category] || 'محصول'}
+        />
+
         {/* Main PDP */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-6 pt-32">
+        <div className="chapter pt-12 md:pt-16">
+          <div className="chapter-shell">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
             {/* Left: Image Gallery */}
@@ -176,7 +186,7 @@ export default function ProductDetail() {
                         className="w-20 h-20 rounded-2xl overflow-hidden cursor-pointer transition-all"
                         style={{
                           // @ts-ignore
-                          border: (mainImage || product.image) === img ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,0.06)',
+                          border: (mainImage || product.image) === img ? '2px solid var(--accent)' : '1px solid var(--hairline)',
                           // @ts-ignore
                           opacity: (mainImage || product.image) === img ? 1 : 0.5,
                           background: 'rgba(0,0,0,0.2)',
@@ -213,7 +223,7 @@ export default function ProductDetail() {
                       className="flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden cursor-pointer transition-all"
                       style={{
                         // @ts-ignore
-                        border: (mainImage || product.image) === img ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,0.06)',
+                        border: (mainImage || product.image) === img ? '2px solid var(--accent)' : '1px solid var(--hairline)',
                         // @ts-ignore
                         opacity: (mainImage || product.image) === img ? 1 : 0.5,
                         background: 'rgba(0,0,0,0.2)',
@@ -231,14 +241,14 @@ export default function ProductDetail() {
             {/* Right: Details */}
             <div className="flex flex-col gap-5">
               {/* Name */}
-              <div>
+              <Reveal variant="up">
                 <span className="eyebrow block mb-3">
                   {CATEGORY_NAMES[product.category] || 'محصول'} — {origin}
                 </span>
                 <h1 className="display-lg leading-tight" style={{ color: 'var(--ink)' }}>
                   <span className="gold-text">{name}</span>
                 </h1>
-              </div>
+              </Reveal>
 
               {/* Short description */}
               <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>{desc}</p>
@@ -252,6 +262,7 @@ export default function ProductDetail() {
                   ------------------------------------------------------------------ */}
 
               {/* Business inquiry CTA — the single action on this page */}
+              <Reveal variant="up" delay={120}>
               <div className="p-5 rounded-2xl flex flex-col gap-3 panel">
                 <div className="flex items-center gap-2">
                   <Phone size={16} style={{ color: 'var(--accent)' }} />
@@ -271,14 +282,16 @@ export default function ProductDetail() {
                   <Link
                     to="/contact"
                     className="flex-1 py-3.5 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
-                    style={{ background: 'rgba(0,0,0,0.2)', color: 'var(--fg)', border: '1px solid rgba(255,255,255,0.06)' }}
+                    style={{ background: 'rgba(0,0,0,0.2)', color: 'var(--fg)', border: '1px solid var(--hairline)' }}
                   >
                     {isFA ? 'ارسال درخواست همکاری' : 'Send an inquiry'}
                   </Link>
                 </div>
               </div>
+              </Reveal>
 
               {/* Technical specifications */}
+              <Reveal variant="up" delay={160}>
               <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--hairline)' }}>
                 <div className="px-4 py-3" style={{ background: 'rgba(227,194,99,0.07)', borderBottom: '1px solid var(--hairline)' }}>
                   <span className="font-heading font-extrabold text-sm" style={{ color: 'var(--gold-2)', fontFamily: headingFont }}>
@@ -302,10 +315,12 @@ export default function ProductDetail() {
                 ))}
               </div>
 
+              </Reveal>
+
               {/* Standards strip — replaces the retail shipping/payment badges */}
-              <div className="grid grid-cols-2 gap-3 py-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="grid grid-cols-2 gap-3 py-4" style={{ borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)' }}>
                 {CERTIFICATES.slice(0, 2).map(item => (
-                  <div key={item} className="flex items-start gap-2.5 p-3 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                  <div key={item} className="flex items-start gap-2.5 p-3 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--hairline)' }}>
                     <BadgeCheck size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--accent)' }} />
                     <span className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg)' }}>{item}</span>
                   </div>
@@ -333,6 +348,7 @@ export default function ProductDetail() {
               </div>
             </div>
           )}
+          </div>
         </div>
 
         {/* Sticky mobile add-to-cart bar — retail only, disabled

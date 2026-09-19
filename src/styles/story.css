@@ -359,6 +359,132 @@
 }
 
 /* ---------------------------------------------------------------
+   DEPTH PARALLAX — multi-layer scene
+   --------------------------------------------------------------- */
+.depth-scene { position: relative; }
+.depth-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+.depth-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.depth-back {
+  filter: blur(14px) brightness(0.6) saturate(1.2);
+  transform: scale(1.35);
+  opacity: 0.85;
+}
+.depth-mid img { filter: saturate(1.05) contrast(1.04); }
+.depth-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(7, 6, 4, 0.92) 0%, rgba(7, 6, 4, 0.28) 55%, rgba(7, 6, 4, 0.55) 100%),
+    radial-gradient(ellipse at 30% 40%, transparent 30%, rgba(7, 6, 4, 0.5) 100%);
+}
+.depth-beam {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 50%;
+  width: 38%;
+  margin-left: -19%;
+  background: linear-gradient(100deg, transparent, rgba(255, 245, 210, 0.16) 45%, rgba(255, 245, 210, 0.22) 50%, rgba(255, 245, 210, 0.16) 55%, transparent);
+  filter: blur(28px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform;
+}
+.depth-foreground {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  will-change: transform;
+  z-index: 3;
+}
+
+/* ---------------------------------------------------------------
+   MASK TEXT — image-filled display word
+   --------------------------------------------------------------- */
+.mask-band {
+  position: relative;
+  padding: clamp(3rem, 7vw, 6rem) 0;
+  text-align: center;
+}
+.mask-word {
+  font-family: 'Peyda', serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 16vw, 13rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin: 0;
+  /* the image is clipped to the text glyphs */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  background-size: cover;
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  /* a faint gold stroke keeps the word legible over busy images */
+  -webkit-text-stroke: 1px rgba(227, 194, 99, 0.22);
+  filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.6));
+}
+.mask-word.is-static {
+  -webkit-text-fill-color: var(--gold-2);
+  color: var(--gold-2);
+  background: none;
+  -webkit-text-stroke: 0;
+}
+
+/* ---------------------------------------------------------------
+   HORIZONTAL SCROLL — pinned film strip
+   --------------------------------------------------------------- */
+.hscroll-track { position: relative; }
+.hscroll-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hscroll-strip {
+  display: flex;
+  width: max-content;
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
+  will-change: transform;
+}
+.hscroll-card {
+  flex: 0 0 auto;
+  height: 62vh;
+  max-height: 560px;
+  min-height: 360px;
+}
+.hscroll-fallback {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2rem 1.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+.hscroll-fallback .hscroll-strip {
+  transform: none !important;
+  padding: 0;
+}
+.hscroll-fallback .hscroll-card {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+}
+
+/* ---------------------------------------------------------------
    REDUCED MOTION — everything degrades to a static, readable page
    --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -372,4 +498,14 @@
   .scene-viewport { position: static; height: auto; min-height: 0; }
   .scene-media { position: relative; height: 60vh; }
   .scene-media[data-inactive='true'] { display: none; }
+  /* depth parallax — flatten to a single readable image */
+  .depth-back { display: none; }
+  .depth-layer { transform: none !important; }
+  .depth-beam { display: none; }
+  .depth-foreground { transform: none; }
+  /* horizontal scroll — ordinary scroller */
+  .hscroll-track { height: auto !important; }
+  .hscroll-sticky { position: static; height: auto; min-height: 0; display: block; }
+  .hscroll-strip { transform: none !important; }
+  .hscroll-card { height: auto; min-height: 0; max-height: none; }
 }

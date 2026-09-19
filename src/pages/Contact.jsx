@@ -7,6 +7,7 @@ import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
+import Reveal from '@/components/story/Reveal';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
@@ -55,16 +56,16 @@ export default function Contact() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {contactCards.map((card, i) => (
+            <Reveal key={i} delay={i * 80} variant="up">
             <a
-              key={i}
               href={card.href || undefined}
-              className="rounded-2xl p-4 md:p-5 panel gold-frame transition-all duration-300 group"
+              className="rounded-2xl p-4 md:p-5 panel gold-frame transition-all duration-300 group block h-full"
             >
               <div
                 className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
                 style={{
-                  background: 'rgba(212,175,55,0.12)',
-                  border: '1px solid rgba(212,175,55,0.25)',
+                  background: 'rgba(227,194,99,0.12)',
+                  border: '1px solid var(--hairline-strong)',
                 }}
               >
                 <card.icon size={18} style={{ color: 'var(--accent)' }} />
@@ -77,6 +78,7 @@ export default function Contact() {
                 {card.value}
               </p>
             </a>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -97,7 +99,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.25)' }}
+                    style={{ background: 'rgba(227,194,99,0.12)', border: '1px solid var(--hairline-strong)' }}
                   >
                     <MapPin size={20} style={{ color: 'var(--accent)' }} />
                   </div>
@@ -117,7 +119,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid rgba(212,175,55,0.25)' }}
+                    style={{ background: 'rgba(227,194,99,0.12)', border: '1px solid var(--hairline-strong)' }}
                   >
                     <MapPin size={20} style={{ color: 'var(--accent)' }} />
                   </div>
@@ -144,28 +146,28 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <Instagram size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="tel:+989121823438"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <Phone size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="mailto:info@7golden.co"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <Mail size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="#"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
                 </a>
@@ -216,7 +218,7 @@ export default function Contact() {
                         className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none transition-all"
                         style={{
                           background: 'rgba(0,0,0,0.2)',
-                          border: '1px solid rgba(255,255,255,0.08)',
+                          border: '1px solid var(--hairline)',
                           color: 'var(--fg)',
                           boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
                         }}
@@ -232,7 +234,7 @@ export default function Contact() {
                       className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none resize-none transition-all"
                       style={{
                         background: 'rgba(0,0,0,0.2)',
-                        border: '1px solid rgba(255,255,255,0.08)',
+                        border: '1px solid var(--hairline)',
                         color: 'var(--fg)',
                         boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
                       }}
