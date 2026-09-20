@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useApp } from '@/lib/AppContext';
 import { t, categoryLabel } from '@/lib/i18n';
 import { getBlogPosts } from '@/lib/api/content';
-import { useScrollAnimation } from '@/components/useScrollAnimation';
 import { Image } from '@/components/ui/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
@@ -13,14 +12,11 @@ import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 
-function AnimatedSection({ children, className = '', delay = 0 }) {
-  const { ref, visible } = useScrollAnimation();
-  return (
-    <div ref={ref} className={`fade-up ${visible ? 'visible' : ''} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
-  );
-}
+import Reveal from '@/components/story/Reveal';
+import StoryChapter from '@/components/story/StoryChapter';
+import ParallaxMedia from '@/components/story/ParallaxMedia';
+import DepthParallax from '@/components/story/DepthParallax';
+import Marquee from '@/components/story/Marquee';
 
 export default function Blog() {
   const isFA = true;
@@ -67,129 +63,165 @@ export default function Blog() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/HeroBanner.jpg"
+          image="/gallery/AQ8A1530AQ8A1530.JPG"
           title={t('blog_title')}
           subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
           badge={isFA ? 'وبلاگ' : 'Blog'}
         />
+        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+          <BackButton to="/" className="text-white/80 hover:text-white" />
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
-
-        {loading ? (
-          <LogoLoader fullScreen={false} />
-        ) : posts.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-              {isFA ? 'به‌زودی مطالب جدید منتشر خواهد شد.' : 'New articles coming soon.'}
-            </p>
-          </div>
-        ) : (
-          <>
-            {/* Category filter */}
-            {categories.length > 1 && (
-              <div className="flex flex-wrap gap-2 mb-10 justify-center">
-                <button
-                  onClick={() => setActiveCategory('all')}
-                  className="px-4 py-2 rounded-full font-body text-sm font-semibold transition-all"
-                  style={{
-                    background: activeCategory === 'all' ? 'var(--accent)' : 'transparent',
-                    color: activeCategory === 'all' ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
-                    border: `1px solid ${activeCategory === 'all' ? 'var(--accent)' : 'var(--border)'}`,
-                  }}
-                >
-                  {isFA ? 'همه' : 'All'}
-                </button>
-                {categories.map(cat => (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className="px-4 py-2 rounded-full font-body text-sm font-semibold transition-all"
-                    style={{
-                      background: activeCategory === cat ? 'var(--accent)' : 'transparent',
-                      color: activeCategory === cat ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
-                      border: `1px solid ${activeCategory === cat ? 'var(--accent)' : 'var(--border)'}`,
-                    }}
-                  >
-                    {categoryLabel(cat)}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            {/* Featured post */}
-            <AnimatedSection className="mb-12">
-              <Link to={`/blog/${featured.slug}`} className="group block rounded-3xl overflow-hidden gold-frame" style={{ border: '1px solid var(--hairline)' }}>
-                <div className="grid grid-cols-1 lg:grid-cols-2">
-                  <div className="aspect-[4/3] lg:aspect-auto lg:min-h-[360px] overflow-hidden">
-                    <Image
-                      src={featured.image}
-                      alt={isFA ? featured.titleFA : featured.titleEN}
-                      className="w-full h-full"
-                      fittingType="fill"
-                      style={{ transition: 'transform 0.8s ease', transform: 'scale(1)' }}
-                    />
-                  </div>
-                  <div className="p-8 md:p-12 flex flex-col justify-center" style={{ background: 'var(--card-bg)' }}>
-                    <span className="font-subheading text-xs uppercase tracking-wider mb-3 block" style={{ color: 'var(--accent)', fontFamily: isFA ? 'Kalameh, serif' : 'Georgia, serif' }}>
-                      {isFA ? 'ویژه' : 'Featured'}
+      {/* ===== Featured post — cinematic depth parallax ===== */}
+      {!loading && posts.length > 0 && featured && (
+        <section className="chapter">
+          <div className="chapter-shell">
+            <StoryChapter
+              index="01"
+              eyebrow="FEATURED"
+              title={isFA ? 'مطلب ویژه' : 'Featured'}
+              className="mb-10"
+            />
+            <Reveal variant="up">
+            <Link to={`/blog/${featured.slug}`} className="group block">
+              <DepthParallax
+                src={featured.image}
+                alt={isFA ? featured.titleFA : featured.titleEN}
+                ratio="aspect-[4/3] md:aspect-[21/9]"
+                className="rounded-3xl"
+              >
+                <div>
+                  <span className="eyebrow block mb-3">{isFA ? 'ویژه' : 'Featured'}</span>
+                  <h2 className="display-md mb-3" style={{ color: 'var(--ink)' }}>
+                    {isFA ? featured.titleFA : featured.titleEN}
+                  </h2>
+                  <p className="font-body text-sm leading-relaxed max-w-xl" style={{ color: 'var(--fg-muted)' }}>
+                    {isFA ? featured.excerptFA : featured.excerptEN}
+                  </p>
+                  <div className="flex items-center gap-2 mt-5">
+                    <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+                      {isFA ? featured.date : featured.dateEN}
                     </span>
-                    <h2 className="font-heading text-2xl md:text-3xl font-extrabold mb-4 leading-tight" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-                      {isFA ? featured.titleFA : featured.titleEN}
-                    </h2>
-                    <p className="font-body text-sm leading-relaxed mb-6" style={{ color: 'var(--fg-muted)' }}>
-                      {isFA ? featured.excerptFA : featured.excerptEN}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
-                        {isFA ? featured.date : featured.dateEN}
-                      </span>
-                      <span className="flex items-center gap-2 font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
-                        {t('read_more')}
-                        <ArrowIcon size={14} />
-                      </span>
-                    </div>
+                    <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                      {t('read_more')}
+                      <ArrowIcon size={14} />
+                    </span>
                   </div>
                 </div>
-              </Link>
-            </AnimatedSection>
+              </DepthParallax>
+            </Link>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
-            {/* Grid */}
+      {/* ===== Category filter ===== */}
+      {!loading && posts.length > 0 && categories.length > 1 && (
+        <div className="chapter-shell pb-4">
+          <div className="flex flex-wrap gap-2 justify-center">
+            <button
+              onClick={() => setActiveCategory('all')}
+              className="px-4 py-2 rounded-full font-body text-sm font-semibold transition-all"
+              style={{
+                background: activeCategory === 'all' ? 'var(--accent)' : 'transparent',
+                color: activeCategory === 'all' ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
+                border: `1px solid ${activeCategory === 'all' ? 'var(--accent)' : 'var(--hairline)'}`,
+              }}
+            >
+              {isFA ? 'همه' : 'All'}
+            </button>
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className="px-4 py-2 rounded-full font-body text-sm font-semibold transition-all"
+                style={{
+                  background: activeCategory === cat ? 'var(--accent)' : 'transparent',
+                  color: activeCategory === cat ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
+                  border: `1px solid ${activeCategory === cat ? 'var(--accent)' : 'var(--hairline)'}`,
+                }}
+              >
+                {categoryLabel(cat)}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ===== Grid — cinematic cards ===== */}
+      <div className="chapter pt-8">
+        <div className="chapter-shell">
+          {loading ? (
+            <LogoLoader fullScreen={false} />
+          ) : posts.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+                {isFA ? 'به‌زودی مطالب جدید منتشر خواهد شد.' : 'New articles coming soon.'}
+              </p>
+            </div>
+          ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {rest.map((post, i) => (
-                <AnimatedSection key={post.id} delay={i * 100}>
-                  <Link to={`/blog/${post.slug}`} className="group block rounded-3xl overflow-hidden gold-frame" style={{ background: 'var(--panel)', border: '1px solid var(--hairline)', boxShadow: 'var(--soft-shadow)' }}>
-                    <div className="aspect-[4/3] overflow-hidden">
+                <Reveal key={post.id} delay={(i % 3) * 100} variant="up">
+                  <Link to={`/blog/${post.slug}`} className="group block blog-cine-card" style={{ aspectRatio: '3 / 4' }}>
+                    <div className="blog-cine-card-image absolute inset-0">
                       <Image
                         src={post.image}
                         alt={isFA ? post.titleFA : post.titleEN}
                         className="w-full h-full"
                         fittingType="fill"
-                        style={{ transition: 'transform 0.8s ease' }}
                       />
                     </div>
-                    <div className="p-6">
-                      <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+                    <div className="blog-cine-overlay" />
+                    <div className="blog-cine-content">
+                      <span className="font-body text-xs block mb-2" style={{ color: 'var(--fg-muted)' }}>
                         {isFA ? post.date : post.dateEN}
                       </span>
-                      <h3 className="font-body font-extrabold text-base mt-2 mb-3 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+                      <h3 className="display-sm mb-2" style={{ color: 'var(--ink)' }}>
                         {isFA ? post.titleFA : post.titleEN}
                       </h3>
-                      <p className="font-body text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>
+                      <p className="font-body text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>
                         {isFA ? post.excerptFA : post.excerptEN}
                       </p>
-                      <span className="flex items-center gap-2 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                      <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
                         {t('read_more')}
                         <ArrowIcon size={12} />
                       </span>
                     </div>
                   </Link>
-                </AnimatedSection>
+                </Reveal>
               ))}
             </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
+
+      {/* ===== Closing parallax band ===== */}
+      {!loading && posts.length > 0 && (
+        <section className="closing-band" style={{ minHeight: '40vh' }}>
+          <div className="closing-band-bg">
+            <img src="/gallery/AQ8A1542AQ8A1542.JPG" alt="" />
+          </div>
+          <div className="relative z-10 chapter-shell py-20 text-center">
+            <Reveal variant="up">
+              <span className="eyebrow block mb-5">EXPLORE</span>
+            </Reveal>
+            <Reveal variant="up" delay={80}>
+              <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
+                <span className="gold-text">دنیای خشکبار</span>
+              </h2>
+            </Reveal>
+            <Reveal variant="up" delay={160} className="mt-8">
+              <Link to="/shop" className="btn-gold inline-flex">
+                {isFA ? 'مشاهده محصولات' : 'View products'}
+              </Link>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      <Marquee items={['پسته', 'بادام', 'فندق', 'صادرات', 'کیفیت', 'صنایع غذایی']} />
       </PullToRefresh>
     </div>
   );

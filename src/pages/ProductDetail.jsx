@@ -12,6 +12,10 @@ import { SITE_SEO, productJsonLd } from '@/lib/seo';
 import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/story/Reveal';
+import StoryChapter from '@/components/story/StoryChapter';
+import ParallaxMedia from '@/components/story/ParallaxMedia';
+import DepthParallax from '@/components/story/DepthParallax';
+import Marquee from '@/components/story/Marquee';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -329,6 +333,27 @@ export default function ProductDetail() {
             </div>
           </div>
 
+          {/* ===== Parallax image band — the product in its natural context ===== */}
+          <div className="mt-16 mb-4">
+            <StoryChapter
+              eyebrow="ORIGIN"
+              title="خاستگاه و فرآوری"
+              align="center"
+              className="mb-10"
+            />
+            <DepthParallax
+              src="/gallery/AQ8A1499AQ8A1499.JPG"
+              alt="7Golden orchard"
+              ratio="aspect-[4/3] md:aspect-[21/9]"
+              className="rounded-3xl"
+            >
+              <div>
+                <span className="eyebrow block mb-2">FROM ORCHARD</span>
+                <span className="display-md" style={{ color: 'var(--ink)' }}>از باغستان تا صنعت</span>
+              </div>
+            </DepthParallax>
+          </div>
+
           {/* Related Products */}
           {related.length > 0 && (
             <div className="mt-16">
@@ -355,6 +380,8 @@ export default function ProductDetail() {
         {isStoreMode && (
           <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden">...</div>
         )} */}
+
+        <Marquee items={CERTIFICATES.map(c => c.split('—')[0].trim())} />
       </div>
     </PullToRefresh >
   );
