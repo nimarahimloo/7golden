@@ -182,6 +182,27 @@ export default function Shop() {
           </div>
         </section>
 
+        {/* ===== B2B INQUIRY CTA ===== */}
+        <section className="closing-band" style={{ minHeight: '50vh' }}>
+          <div className="closing-band-bg">
+            <img src="/banner/Hero-Banner-5.jpg" alt="" />
+          </div>
+          <div className="relative z-10 chapter-shell py-20 md:py-28">
+            <StoryChapter
+              eyebrow="TRADE DESK"
+              title="درخواست پیش‌فاکتور و نمونه محصول"
+              lead="تیم بازرگانی ما آماده ارائه کاتالوگ کامل، نمونه و شرایط صادراتی است."
+            />
+            <Reveal delay={160} className="mt-10 flex flex-wrap gap-3">
+              <Link to="/contact" className="btn-gold">
+                {isFA ? 'ارسال درخواست' : 'Send inquiry'}
+                <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+              </Link>
+              <a href="tel:+989121823438" className="btn-ghost">{isFA ? 'تماس مستقیم' : 'Call us'}</a>
+            </Reveal>
+          </div>
+        </section>
+
         <Marquee items={CERTIFICATES.map(c => c.split('—')[0].trim())} />
       </PullToRefresh>
     </div>

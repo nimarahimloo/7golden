@@ -19,6 +19,7 @@ import Marquee from '@/components/story/Marquee';
 import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
 import HorizontalScroll from '@/components/story/HorizontalScroll';
+import ExportProcess from '@/components/story/ExportProcess';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS } from '@/lib/corporate-content';
 
@@ -217,20 +218,22 @@ export default function Home() {
 
         <HorizontalScroll
           items={allProducts}
-          itemWidth={300}
-          gap={32}
+          itemWidth={280}
+          gap={28}
           renderItem={(product) => (
-            <Link to={`/product/${product.id}`} className="hscroll-tile group block h-full">
-              <div className="relative rounded-full overflow-hidden" style={{ aspectRatio: '1 / 1', maxWidth: 300, margin: '0 auto' }}>
-                <img
-                  src={product.image}
-                  alt={product.nameFA}
-                  loading="lazy"
-                  className="absolute inset-0 w-full object-contain transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.85), transparent 55%)' }} /> */}
-                <div className="absolute bottom-0 inset-x-0 p-5 text-center">
-                  <span className="eyebrow block mb-1.5">{product.category.toUpperCase()}</span>
+            <Link to={`/product/${product.id}`} className="hscroll-tile block h-full">
+              <div className="film-card h-full" style={{ aspectRatio: '3 / 4' }}>
+                <div className="film-card-image absolute inset-0">
+                  <img
+                    src={product.image}
+                    alt={product.nameFA}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="film-card-overlay" />
+                <div className="film-card-content">
+                  <span className="eyebrow block mb-2">{product.category.toUpperCase()}</span>
                   <span className="display-sm" style={{ color: 'var(--ink)' }}>{product.nameFA}</span>
                 </div>
               </div>
@@ -238,12 +241,28 @@ export default function Home() {
           )}
         />
 
+        {/* ===== CHAPTER 05 — the export journey (pinned process rail) ===== */}
+        <section className="chapter pb-0">
+          <div className="chapter-shell">
+            <StoryChapter
+              index="05"
+              eyebrow="PROCESS"
+              title="از باغستان تا مقصد صادراتی"
+              lead="زنجیره تأمین هفت‌طلایی — از برداشت مستقیم تا تحویل زمان‌بندی‌شده."
+            />
+          </div>
+        </section>
+        <ExportProcess />
+
         {/* ===== CLOSING FRAME — consultation ===== */}
-        <section className="relative overflow-hidden" style={{ minHeight: '62vh' }}>
+        <section className="closing-band" style={{ minHeight: '62vh' }}>
+          <div className="closing-band-bg">
+            <img src="/banner/Hero-main.jpg" alt="" />
+          </div>
           <div className="relative z-10 chapter-shell py-24 md:py-32">
             <StoryChapter
               eyebrow="CONTACT"
-              title="با هفت‌طلایی هفت روز هفته را طلایی سپری کنید"
+              title="شریک صادراتی شما در صنعت خشکبار"
               lead="برای دریافت کاتالوگ، نمونه محصول و شرایط صادراتی با تیم بازرگانی ما در تماس باشید."
             />
             <Reveal delay={160} className="mt-10 flex flex-wrap gap-3">

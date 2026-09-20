@@ -42,7 +42,7 @@ export default function Contact() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="https://7golden.co/wp-content/uploads/2022/09/about-p-3.png"
+          image="/banner/Hero-Banner-3.jpg"
           title={t('contact_title')}
           subtitle="همیشه در دسترس شما هستیم"
           badge="تماس با ما"
@@ -202,7 +202,7 @@ export default function Contact() {
                     {t('send_message')}
                   </h3>
                   <p className="font-body text-xs mb-2" style={{ color: 'var(--fg-muted)' }}>
-                    فرم زیر را پر کنید — تیم پشتیبانی ما پاسخگوست است.
+                    فرم زیر را پر کنید — تیم پشتیبانی ما پاسخگوست.
                   </p>
                   {[
                     { key: 'name', type: 'text', label: t('name') },
