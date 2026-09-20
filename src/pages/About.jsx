@@ -12,6 +12,8 @@ import PullToRefresh from '@/components/PullToRefresh';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
+import DepthParallax from '@/components/story/DepthParallax';
+import Marquee from '@/components/story/Marquee';
 
 export default function About() {
 
@@ -123,11 +125,27 @@ export default function About() {
           </div>
         </section>
 
-        {/* ===== CHAPTER 03 — gallery ===== */}
+        {/* ===== CHAPTER 03 — gallery (cinematic depth parallax) ===== */}
         <section className="chapter">
+          <div className="chapter-shell">
+            <DepthParallax
+              src="/gallery/AQ8A1505AQ8A1505.JPG"
+              alt="7Golden production line"
+              ratio="aspect-[4/3] md:aspect-[21/9]"
+              className="rounded-3xl"
+            >
+              <div>
+                <span className="eyebrow block mb-2">PRODUCTION</span>
+                <span className="display-md" style={{ color: 'var(--ink)' }}>خطوط فرآوری صنعتی</span>
+              </div>
+            </DepthParallax>
+          </div>
+        </section>
+
+        <section className="chapter pt-0">
           <div className="chapter-shell grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-            <ParallaxMedia src="/gallery/AQ8A1505AQ8A1505.JPG" alt="7Golden production" ratio="aspect-[4/3]" className="rounded-3xl" />
             <ParallaxMedia src="/gallery/AQ8A1524AQ8A1524.JPG" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
+            <ParallaxMedia src="/gallery/AQ8A1516AQ8A1516.JPG" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
           </div>
         </section>
 
@@ -158,6 +176,9 @@ export default function About() {
             </div>
           </div>
         </section>
+
+        {/* Export markets band — synced with home page */}
+        <Marquee items={['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'ترکیه', 'آلمان', 'هلند']} />
 
         {/* Production & processing capacity — scale for business buyers */}
         <ProductionCapacity />
