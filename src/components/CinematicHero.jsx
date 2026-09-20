@@ -42,7 +42,7 @@ export default function CinematicHero({
         style={{ transform: `translate3d(0, ${scrollY * 0.28}px, 0) scale(1.12)` }}
       >
         <video
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover hero-kenburns"
           src={video}
           poster={poster}
           autoPlay

@@ -6,7 +6,6 @@ import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
 import GoldenEssence from '@/components/GoldenEssence';
 import Seo from '@/components/Seo';
-import { Image } from '@/components/ui/image';
 import PullToRefresh from '@/components/PullToRefresh';
 
 import CinematicHero from '@/components/CinematicHero';
@@ -21,7 +20,8 @@ import MaskText from '@/components/story/MaskText';
 import HorizontalScroll from '@/components/story/HorizontalScroll';
 import ExportProcess from '@/components/story/ExportProcess';
 
-import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS } from '@/lib/corporate-content';
+import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS, FALLBACK_PRODUCTS, SPECIALTY_PRODUCTS } from '@/lib/corporate-content';
+import SpecialtyShowcase from '@/components/story/SpecialtyShowcase';
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
@@ -38,16 +38,19 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
+    const timeout = new Promise((_, reject) => setTimeout(() => reject('timeout'), 6000));
     try {
-      const [prods, cats] = await Promise.all([
-        getProducts(),
-        getCategories(),
+      const [prods, cats] = await Promise.race([
+        Promise.all([getProducts(), getCategories()]),
+        timeout,
       ]);
-      const withCounts = cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length }));
-      setProducts(prods);
+      const finalProds = prods.length > 0 ? prods : FALLBACK_PRODUCTS;
+      const withCounts = cats.map(c => ({ ...c, count: finalProds.filter(p => p.category === c.slug).length }));
+      setProducts(finalProds);
       setCategories(withCounts);
     } catch (e) {
-      // storefront degrades gracefully to empty sections
+      // storefront degrades gracefully to fallback data
+      setProducts(FALLBACK_PRODUCTS);
     }
   };
 
@@ -76,6 +79,8 @@ export default function Home() {
     eyebrow: product.category.toUpperCase(),
     title: product.nameFA,
     lead: product.tagline,
+    desc: product.descFA,
+    specs: product.specs,
     image: SCENE_IMAGE[product.category],
     href: linkFor(product.category),
     cta: isFA ? 'مشاهده محصول' : 'View product',
@@ -126,6 +131,9 @@ export default function Home() {
           className="chapter-shell pt-20 md:pt-28 pb-4"
         />
         <StickyScene items={sceneItems} />
+
+        {/* ===== SPECIALTY SHOWCASE — مغز پسته، خلال پسته، مغز فندق ===== */}
+        <SpecialtyShowcase items={SPECIALTY_PRODUCTS} />
 
         {/* ===== CHAPTER 02 — industrial scale ===== */}
         <section className="chapter">

@@ -130,16 +130,22 @@ function SceneCopy({ item, animated = false }) {
       <h3 className="display-lg mb-5">
         <span className="gold-text">{item.title}</span>
       </h3>
-      <p className="font-body text-sm md:text-base leading-relaxed mb-7" style={{ color: 'var(--fg-muted)' }}>
+      <p className="font-body text-sm md:text-base leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>
         {item.lead}
       </p>
+
+      {item.desc && (
+        <p className="font-body text-xs md:text-sm leading-relaxed mb-7 max-w-lg hidden md:block" style={{ color: 'var(--fg-muted)', opacity: 0.7 }}>
+          {item.desc}
+        </p>
+      )}
 
       {item.specs?.length > 0 && (
         <dl className="grid grid-cols-2 gap-x-6 gap-y-4 mb-8 max-w-md">
           {item.specs.map((spec) => (
             <div key={spec.label}>
               <dt className="font-body text-[11px] mb-1" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
-              <dd className="font-body text-sm" style={{ color: 'var(--fg)' }}>{spec.value}</dd>
+              <dd className="font-body text-sm" style={{ color: 'var(--gold-1)' }}>{spec.value}</dd>
             </div>
           ))}
         </dl>

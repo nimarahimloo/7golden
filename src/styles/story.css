@@ -400,6 +400,19 @@
 }
 
 /* ---------------------------------------------------------------
+   HERO KEN BURNS — slow zoom on the hero video
+   --------------------------------------------------------------- */
+@keyframes heroKenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.08) translate(-1%, -0.5%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+.hero-kenburns {
+  animation: heroKenBurns 20s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------
    SCROLL CUE
    --------------------------------------------------------------- */
 .scroll-cue {
@@ -842,6 +855,67 @@
     linear-gradient(to top, var(--bg) 0%, transparent 30%, var(--bg) 100%);
   pointer-events: none;
   z-index: 1;
+}
+
+/* ---------------------------------------------------------------
+   MOBILE PARALLAX REFINEMENTS
+   --------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Sticky scenes — slightly shorter track on mobile for snappier feel */
+  .scene-viewport {
+    min-height: 480px;
+  }
+
+  /* Horizontal scroll — shorter cards on mobile */
+  .hscroll-sticky {
+    min-height: 480px;
+  }
+
+  .hscroll-card {
+    height: 56vh;
+    max-height: 440px;
+    min-height: 300px;
+  }
+
+  /* Process — shorter viewport on mobile */
+  .process-viewport {
+    min-height: 480px;
+  }
+
+  /* Depth parallax — reduced offsets on mobile for subtlety */
+  .depth-foreground {
+    padding: 1.25rem;
+  }
+
+  /* Film card — tighter on mobile */
+  .film-card-content {
+    padding: 1rem;
+  }
+
+  /* Specialty cards — stack gracefully */
+  .panel {
+    padding: 1.25rem;
+  }
+}
+
+/* ---------------------------------------------------------------
+   SPECIALTY SHOWCASE — luxury parallax cards
+   --------------------------------------------------------------- */
+.specialty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-family: 'Kalameh', serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  background: rgba(240, 206, 90, 0.1);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(240, 206, 90, 0.25);
+  color: var(--gold-1);
 }
 
 /* ---------------------------------------------------------------
