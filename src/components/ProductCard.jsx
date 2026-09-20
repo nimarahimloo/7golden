@@ -4,9 +4,11 @@ import { ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import { Image } from '@/components/ui/image';
 import { useParallax } from '@/components/useParallax';
+import { useScrollZoom } from '@/components/useScrollZoom';
 
 export default function ProductCard({ product }) {
   const { ref: parallaxRef, offset } = useParallax(0.12);
+  const { ref: zoomRef, scale: zoomScale } = useScrollZoom(1.16, 1.0);
 
   const isFA = true;
   const name = isFA ? product.nameFA : product.nameEN;
@@ -35,13 +37,14 @@ export default function ProductCard({ product }) {
       className="product-card-luxury group relative block rounded-2xl overflow-hidden aspect-[3/4]"
       style={{ background: '#0A0A0A' }}
     >
-      {/* Full-screen product image with parallax */}
+      {/* Full-screen product image with parallax + scroll-driven zoom */}
       <div className="absolute inset-0 overflow-hidden" style={{ willChange: 'transform' }}>
         <div
+          ref={zoomRef}
           className="absolute inset-0"
           style={{
-            transform: `translateY(${offset}px) scale(1.12)`,
-            transition: 'transform 0.1s linear',
+            transform: `translateY(${offset}px) scale(${1.12 * zoomScale})`,
+            transition: 'transform 0.18s ease-out',
           }}
         >
           <Image
