@@ -14,6 +14,7 @@ import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
+import MaskText from '@/components/story/MaskText';
 
 export default function About() {
 
@@ -148,6 +149,13 @@ export default function About() {
             <ParallaxMedia src="/gallery/AQ8A1516AQ8A1516.JPG" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
           </div>
         </section>
+
+        {/* ===== SIGNATURE BAND — image-filled word ===== */}
+        <MaskText
+          image="/gallery/AQ8A1499AQ8A1499.JPG"
+          text="QAZVIN"
+          eyebrow="EST. ۱۳۷۷ · قزوین"
+        />
 
         {/* ===== CHAPTER 04 — values ===== */}
         <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>

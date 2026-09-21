@@ -14,7 +14,9 @@ import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
+import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
+import MaskText from '@/components/story/MaskText';
 
 const BAND_IMAGE = {
   pistachio: '/banner/Hero-Banner-3.jpg',
@@ -161,6 +163,13 @@ export default function Shop() {
           </section>
         )}
 
+        {/* ===== SIGNATURE BAND — image-filled word ===== */}
+        <MaskText
+          image="/banner/Hero-main.jpg"
+          text="EXPORT"
+          eyebrow="صادرات · ۱۵+ کشور"
+        />
+
         {/* ===== STANDARDS ===== */}
         <section className="chapter">
           <div className="chapter-shell">
@@ -179,6 +188,23 @@ export default function Shop() {
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===== DEPTH PARALLAX — the production line speaks ===== */}
+        <section className="chapter">
+          <div className="chapter-shell">
+            <DepthParallax
+              src="/gallery/AQ8A1516AQ8A1516.JPG"
+              alt="7Golden production"
+              ratio="aspect-[4/3] md:aspect-[21/9]"
+              className="rounded-3xl"
+            >
+              <div>
+                <span className="eyebrow block mb-2">PRODUCTION</span>
+                <span className="display-md" style={{ color: 'var(--ink)' }}>خطوط فرآوری صنعتی</span>
+              </div>
+            </DepthParallax>
           </div>
         </section>
 

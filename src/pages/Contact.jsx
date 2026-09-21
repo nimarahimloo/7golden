@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, Instagram, MessageCircle, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, Instagram, CheckCircle } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import PageHero from '@/components/PageHero';
@@ -8,6 +8,10 @@ import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
 import Reveal from '@/components/story/Reveal';
+import StoryChapter from '@/components/story/StoryChapter';
+import ParallaxMedia from '@/components/story/ParallaxMedia';
+import DepthParallax from '@/components/story/DepthParallax';
+import Marquee from '@/components/story/Marquee';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
@@ -42,7 +46,7 @@ export default function Contact() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/Hero-Banner-3.jpg"
+          image="/gallery/AQ8A1579AQ8A1579.JPG"
           title={t('contact_title')}
           subtitle="همیشه در دسترس شما هستیم"
           badge="تماس با ما"
@@ -83,18 +87,39 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* ===== IMAGE-LED BAND — the facility, telling its own story ===== */}
+      <section className="chapter">
+        <div className="chapter-shell">
+          <DepthParallax
+            src="/gallery/AQ8A1589AQ8A1589.JPG"
+            alt="7Golden facility"
+            ratio="aspect-[4/3] md:aspect-[21/9]"
+            className="rounded-3xl"
+          >
+            <div>
+              <span className="eyebrow block mb-2">VISIT US</span>
+              <span className="display-md" style={{ color: 'var(--ink)' }}>دفتر مرکزی قزوین</span>
+            </div>
+          </DepthParallax>
+        </div>
+      </section>
+
+      {/* ===== ADDRESSES + FORM ===== */}
       <div className="max-w-6xl mx-auto px-4 sm:px-8 pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
           {/* Addresses */}
           <div>
-            <h2 className="display-md mb-6" style={{ color: 'var(--ink)' }}>
-              آدرس‌های ما
-            </h2>
+            <StoryChapter
+              index="01"
+              eyebrow="LOCATIONS"
+              title="آدرس‌های ما"
+              className="mb-8"
+            />
 
             <div className="flex flex-col gap-4 mb-8">
               {/* HQ */}
+              <Reveal variant="left" delay={80}>
               <div className="p-6 rounded-3xl liquid-glass-strong">
                 <div className="flex items-start gap-4">
                   <div
@@ -113,8 +138,10 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
+              </Reveal>
 
               {/* Tehran */}
+              <Reveal variant="left" delay={160}>
               <div className="p-6 rounded-3xl liquid-glass-strong">
                 <div className="flex items-start gap-4">
                   <div
@@ -133,9 +160,22 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
+              </Reveal>
             </div>
 
+            {/* Parallax image strip — the orchard speaks */}
+            <Reveal variant="up" delay={120}>
+            <ParallaxMedia
+              src="/gallery/AQ8A1552AQ8A1552.JPG"
+              alt="7Golden orchard"
+              ratio="aspect-[16/9]"
+              className="rounded-3xl"
+              speed={0.2}
+            />
+            </Reveal>
+
             {/* Social */}
+            <Reveal variant="up" delay={200} className="mt-6">
             <div className="p-6 rounded-3xl liquid-glass-strong">
               <h3 className="font-heading font-black text-sm mb-4" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
                 ما را دنبال کنید
@@ -164,19 +204,20 @@ export default function Contact() {
                 >
                   <Mail size={18} style={{ color: 'var(--accent)' }} />
                 </a>
-                <a
-                  href="#"
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
-                >
-                  <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
-                </a>
               </div>
             </div>
+            </Reveal>
           </div>
 
           {/* Form */}
           <div>
+            <StoryChapter
+              index="02"
+              eyebrow="INQUIRY"
+              title="ارسال درخواست همکاری"
+              className="mb-8"
+            />
+            <Reveal variant="up" delay={120}>
             <div className="p-8 rounded-3xl panel-strong">
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
@@ -198,12 +239,6 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  <h3 className="font-heading text-xl font-black mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                    {t('send_message')}
-                  </h3>
-                  <p className="font-body text-xs mb-2" style={{ color: 'var(--fg-muted)' }}>
-                    فرم زیر را پر کنید — تیم پشتیبانی ما پاسخگوست.
-                  </p>
                   {[
                     { key: 'name', type: 'text', label: t('name') },
                     { key: 'email', type: 'email', label: t('email') },
@@ -255,9 +290,38 @@ export default function Contact() {
                 </form>
               )}
             </div>
+            </Reveal>
           </div>
         </div>
       </div>
+
+      {/* ===== Closing parallax band ===== */}
+      <section className="closing-band" style={{ minHeight: '50vh' }}>
+        <div className="closing-band-bg">
+          <img src="/gallery/AQ8A1568AQ8A1568.JPG" alt="" />
+        </div>
+        <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
+          <Reveal variant="up">
+            <span className="eyebrow block mb-5">TRADE DESK</span>
+          </Reveal>
+          <Reveal variant="up" delay={80}>
+            <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
+              <span className="gold-text">شریک صادراتی شما</span>
+            </h2>
+          </Reveal>
+          <Reveal variant="up" delay={160} className="mt-8">
+            <a
+              href="tel:+989121823438"
+              className="btn-gold inline-flex"
+            >
+              <Phone size={16} />
+              تماس مستقیم
+            </a>
+          </Reveal>
+        </div>
+      </section>
+
+      <Marquee items={['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'ترکیه', 'آلمان', 'هلند']} />
       </PullToRefresh>
     </div>
   );
