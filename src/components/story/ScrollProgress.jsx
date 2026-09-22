@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 /**
- * ScrollProgress — a thin gold rail pinned to the top of the viewport
- * that tracks how far through the page the visitor has scrolled.
+ * ScrollProgress — a refined gold rail pinned to the top of the viewport
+ * that tracks how far through the page the visitor has scrolled. A faint
+ * track sits behind a glowing gold fill, with a luminous dot at the leading
+ * edge — so the reader always senses where they are in the story.
  */
 export default function ScrollProgress() {
   const [ratio, setRatio] = useState(0);
@@ -27,5 +29,17 @@ export default function ScrollProgress() {
     };
   }, []);
 
-  return <div className="scroll-progress" style={{ transform: `scaleX(${ratio})` }} aria-hidden="true" />;
+  return (
+    <div className="scroll-progress-wrap" aria-hidden="true">
+      <div className="scroll-progress-track" />
+      <div
+        className="scroll-progress-fill"
+        style={{ transform: `scaleX(${ratio})` }}
+      />
+      <div
+        className="scroll-progress-dot"
+        style={{ left: `${ratio * 100}%`, opacity: ratio > 0.005 && ratio < 0.999 ? 1 : 0 }}
+      />
+    </div>
+  );
 }
