@@ -21,7 +21,9 @@ export function useParallax(speed = 0.25) {
         const center = rect.top + rect.height / 2;
         const viewportCenter = windowHeight / 2;
         const distance = center - viewportCenter;
-        setOffset(distance * speed);
+        // Reduce parallax intensity on mobile for smoother scrolling.
+        const isMobile = window.innerWidth < 768;
+        setOffset(distance * speed * (isMobile ? 0.5 : 1));
       });
     };
     const onScroll = () => update();

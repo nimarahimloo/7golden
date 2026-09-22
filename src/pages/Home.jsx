@@ -9,7 +9,7 @@ import Seo from '@/components/Seo';
 import PullToRefresh from '@/components/PullToRefresh';
 
 import CinematicHero from '@/components/CinematicHero';
-import StickyScene from '@/components/story/StickyScene';
+import VitrineScroll from '@/components/story/VitrineScroll';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
@@ -130,7 +130,7 @@ export default function Home() {
           align="start"
           className="chapter-shell pt-20 md:pt-28 pb-4"
         />
-        <StickyScene items={sceneItems} />
+        <VitrineScroll items={sceneItems} />
 
         {/* ===== SPECIALTY SHOWCASE — مغز پسته، خلال پسته، مغز فندق ===== */}
         <SpecialtyShowcase items={SPECIALTY_PRODUCTS} />
