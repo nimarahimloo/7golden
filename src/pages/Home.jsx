@@ -14,12 +14,11 @@ import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import CountUp from '@/components/story/CountUp';
-import Marquee from '@/components/story/Marquee';
 import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
 import ExportProcess from '@/components/story/ExportProcess';
 
-import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
+import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
@@ -113,9 +112,6 @@ export default function Home() {
           primary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
           secondary={{ label: isFA ? 'درخواست مشاوره' : 'Request a quote', href: '/contact' }}
         />
-
-        {/* ===== EXPORT MARKETS — endless gold band ===== */}
-        <Marquee items={EXPORT_MARKETS} />
 
         {/* ===== CHAPTER 01 — the three pillars, stepped through on vertical scroll ===== */}
         <StoryChapter
@@ -261,26 +257,6 @@ export default function Home() {
           </div>
         </section>
         <ExportProcess />
-
-        {/* ===== CLOSING FRAME ===== */}
-        <section className="closing-band" style={{ minHeight: '62vh' }}>
-          <div className="closing-band-bg">
-            <img src="/banner/Hero-main.jpg" alt="" />
-          </div>
-          <div className="relative z-10 chapter-shell py-24 md:py-32">
-            <StoryChapter
-              eyebrow="CONTACT"
-              title="شریک صادراتی شما در صنعت خشکبار"
-            />
-            <Reveal delay={160} className="mt-10 flex flex-wrap gap-3">
-              <Link to="/contact" className="btn-gold">
-                {isFA ? 'درخواست مشاوره' : 'Request a quote'}
-                <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-              </Link>
-              <Link to="/shop" className="btn-ghost">{isFA ? 'مشاهده محصولات' : 'View products'}</Link>
-            </Reveal>
-          </div>
-        </section>
 
       </PullToRefresh>
     </div>

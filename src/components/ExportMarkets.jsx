@@ -1,6 +1,6 @@
 import React from 'react';
 import { Globe, BadgeCheck } from 'lucide-react';
-import { EXPORT_MARKETS, CERTIFICATES } from '@/lib/corporate-content';
+import { CERTIFICATES } from '@/lib/corporate-content';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
@@ -39,20 +39,9 @@ export default function ExportMarkets() {
               </div>
             </div>
             <p className="font-body text-sm leading-relaxed mb-6" style={{ color: 'var(--fg-muted)' }}>
-              محصولات هفت‌طلایی علاوه بر بازار داخلی، به خریداران عمده و صنایع غذایی در کشورهای
-              منطقه و اروپا عرضه می‌شود. ارسال در قالب محموله‌های صنعتی و مطابق اسناد صادراتی انجام می‌گیرد.
+              محصولات هفت‌طلایی علاوه بر بازار داخلی، به خریداران عمده و صنایع غذایی در بازارهای
+              صادراتی بین‌المللی عرضه می‌شود. ارسال در قالب محموله‌های صنعتی و مطابق اسناد صادراتی انجام می‌گیرد.
             </p>
-            <div className="flex flex-wrap gap-2.5">
-              {EXPORT_MARKETS.map(market => (
-                <span
-                  key={market}
-                  className="font-body text-sm px-4 py-2 rounded-full"
-                  style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)', color: 'var(--fg)' }}
-                >
-                  {market}
-                </span>
-              ))}
-            </div>
           </AnimatedSection>
 
           {/* Certificates */}

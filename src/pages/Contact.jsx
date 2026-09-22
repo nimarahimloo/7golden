@@ -11,7 +11,6 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
-import Marquee from '@/components/story/Marquee';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
@@ -321,7 +320,6 @@ export default function Contact() {
         </div>
       </section>
 
-      <Marquee items={['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'ترکیه', 'آلمان', 'هلند']} />
       </PullToRefresh>
     </div>
   );

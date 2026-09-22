@@ -182,7 +182,7 @@ export const CERTIFICATES = [
   'ISO 22000 — مدیریت ایمنی مواد غذایی',
   'HACCP — تحلیل خطر و نقاط کنترل بحرانی',
   'گواهی بهداشت صادرات',
-  'انطباق با الزامات اتحادیه اروپا',
+  'انطباق با الزامات استاندارد صادراتی',
 ];
 
 // Production capacity figures shown on the home page and the about page.
@@ -190,7 +190,7 @@ export const CAPACITY_STATS = [
   { value: '۳٬۵۰۰', unit: 'تن', label: 'ظرفیت فرآوری سالانه' },
   { value: '۴', unit: 'خط', label: 'خطوط فرآوری و بسته‌بندی' },
   { value: '۲٬۰۰۰', unit: 'تن', label: 'ظرفیت انبار سرد و خشک' },
-  { value: '۱۵+', unit: 'کشور', label: 'بازار صادراتی فعال' },
+  { value: '۲۴', unit: 'ساعت', label: 'پاسخگویی به سفارش' },
 ];
 
 export const CAPACITY_NOTES = [
