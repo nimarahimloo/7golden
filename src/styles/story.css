@@ -625,6 +625,117 @@
 }
 
 /* ---------------------------------------------------------------
+   VITRINE SCROLL — luxury store-window horizontal panels
+   --------------------------------------------------------------- */
+.vitrine-track {
+  position: relative;
+}
+
+.vitrine-viewport {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.vitrine-strip {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+  padding-inline: 6vw;
+  will-change: transform;
+  height: 80svh;
+  align-items: center;
+}
+
+.vitrine-panel {
+  flex: 0 0 auto;
+  width: min(78vw, 620px);
+  height: 100%;
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: var(--bg-secondary);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(227, 194, 99, 0.12);
+  transition: box-shadow 0.6s ease;
+}
+
+.vitrine-panel:hover {
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(227, 194, 99, 0.35);
+}
+
+.vitrine-image {
+  position: absolute;
+  inset: 0;
+}
+
+.vitrine-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vitrine-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(2, 1, 0, 0.94) 0%, rgba(2, 1, 0, 0.45) 50%, rgba(2, 1, 0, 0.1) 100%);
+}
+
+.vitrine-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  z-index: 2;
+}
+
+.vitrine-progress {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 6vw;
+  z-index: 10;
+}
+
+.vitrine-rail {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.vitrine-dot {
+  width: 34px;
+  height: 2px;
+  background: rgba(227, 194, 99, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.vitrine-dot span {
+  position: absolute;
+  inset: 0;
+  background: var(--gold-2);
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vitrine-dot.is-done span {
+  transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------------
    EXPORT PROCESS — the B2B journey rail
    --------------------------------------------------------------- */
 .process-track {
@@ -1034,6 +1145,31 @@
     padding: 1rem;
   }
 
+  /* Vitrine — smaller panels, tighter gaps on mobile */
+  .vitrine-viewport {
+    min-height: 480px;
+  }
+
+  .vitrine-strip {
+    gap: 1rem;
+    padding-inline: 4vw;
+    height: 72svh;
+  }
+
+  .vitrine-panel {
+    width: 86vw;
+    border-radius: 1.25rem;
+  }
+
+  .vitrine-caption {
+    padding: 1.5rem;
+  }
+
+  .vitrine-progress {
+    bottom: 1rem;
+    padding-inline: 4vw;
+  }
+
   /* Specialty cards — stack gracefully */
   .panel {
     padding: 1.25rem;
@@ -1177,5 +1313,25 @@
     height: auto;
     min-height: 0;
     max-height: none;
+  }
+
+  /* vitrine — flatten to stacked panels */
+  .vitrine-track {
+    height: auto !important;
+  }
+
+  .vitrine-viewport {
+    position: static;
+    height: auto;
+    min-height: 0;
+    display: block;
+  }
+
+  .vitrine-strip {
+    transform: none !important;
+  }
+
+  .vitrine-progress {
+    display: none;
   }
 }
