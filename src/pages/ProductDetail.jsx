@@ -16,7 +16,7 @@ import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
-import { useScrollZoom } from '@/components/useScrollZoom';
+import { useParallaxZoom } from '@/components/useParallaxZoom';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -36,7 +36,7 @@ export default function ProductDetail() {
   const [mainImage, setMainImage] = useState(null);
 
   // Scroll-driven zoom on the main product photo — leans into texture detail.
-  const { ref: zoomRef, scale: zoomScale } = useScrollZoom(1.12, 1.0);
+  const zoomRef = useParallaxZoom({ speed: 0, maxZoom: 1.12, baseScale: 1.0 });
 
   // ---------------------------------------------------------------------------
   // RETAIL PURCHASE STATE — disabled. No quantity, weight or cart on a B2B page.
@@ -211,13 +211,14 @@ export default function ProductDetail() {
                 )}
                 {/* Main image — scroll-driven zoom reveals texture detail */}
                 <div
-                  ref={zoomRef}
                   className="flex-1 rounded-3xl overflow-hidden aspect-square relative"
-                  style={{ ...liquidGlass, transform: `scale(${zoomScale})`, transition: 'transform 0.18s ease-out' }}
+                  style={liquidGlass}
                 >
-                  <Image
-                    // @ts-ignore
-                    src={mainImage || product.image} alt={name} className="w-full h-full object-cover" fittingType="fill" />
+                  <div ref={zoomRef} className="absolute inset-0" style={{ willChange: 'transform' }}>
+                    <Image
+                      // @ts-ignore
+                      src={mainImage || product.image} alt={name} className="w-full h-full object-cover" fittingType="fill" />
+                  </div>
                 </div>
               </div>
               {/* Mobile horizontal thumbnails */}

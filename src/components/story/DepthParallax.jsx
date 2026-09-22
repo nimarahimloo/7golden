@@ -48,7 +48,9 @@ export default function DepthParallax({
       // hits the viewport top — the full travel of the element through view.
       const travel = rect.height + vh;
       const prog = (vh - rect.top) / travel;
-      setP(Math.max(0, Math.min(1, prog)));
+      const clamped = Math.max(0, Math.min(1, prog));
+      // Skip negligible changes — reduces re-renders on low-power devices.
+      setP((prev) => (Math.abs(prev - clamped) < 0.008 ? prev : clamped));
     };
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -64,11 +66,14 @@ export default function DepthParallax({
     };
   }, [reduced]);
 
+  // Mobile: reduce depth offsets for smoother, less dizzying motion.
+  // The blurred back layer and beam are hidden via CSS on mobile.
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   // depth offsets — back drifts least, front drifts most
-  const back = (p - 0.5) * 26;   // atmosphere
-  const mid = (p - 0.5) * 64;    // sharp picture
-  const front = (p - 0.5) * 104; // glass panel
-  const beamX = p * 140 - 70;    // gold beam sweeps -70%..70%
+  const back = (p - 0.5) * (isMobile ? 0 : 26);     // atmosphere (hidden on mobile)
+  const mid = (p - 0.5) * (isMobile ? 32 : 64);     // sharp picture
+  const front = (p - 0.5) * (isMobile ? 48 : 104);  // glass panel
+  const beamX = p * 140 - 70;                        // gold beam sweeps -70%..70%
 
   return (
     <div

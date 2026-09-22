@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Image } from '@/components/ui/image';
-import { useScrollZoom } from '@/components/useScrollZoom';
+import { useParallaxZoom } from '@/components/useParallaxZoom';
 
 /**
  * Image-first product tile used by the home page's product grid —
@@ -11,27 +11,26 @@ import { useScrollZoom } from '@/components/useScrollZoom';
  */
 export default function ProductCardRound({ product }) {
   const name = product.nameFA;
-  const { ref, scale } = useScrollZoom(1.14, 1.0);
+  const zoomRef = useParallaxZoom({ speed: 0, maxZoom: 1.14, baseScale: 1.0 });
 
   return (
     <Link to={`/product/${product.id}`} className="group block">
       <div
-        ref={ref}
         className="relative w-full aspect-square rounded-full overflow-hidden mb-4 transition-all duration-500 group-hover:-translate-y-1"
         style={{
           background: 'var(--bg-secondary)',
           border: '1px solid var(--hairline)',
           boxShadow: 'var(--soft-shadow)',
-          transform: `scale(${scale})`,
-          transition: 'transform 0.18s ease-out',
         }}
       >
-        <Image
-          src={product.image}
-          alt={name}
-          className="block w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
-          fittingType="fill"
-        />
+        <div ref={zoomRef} className="absolute inset-0" style={{ willChange: 'transform' }}>
+          <Image
+            src={product.image}
+            alt={name}
+            className="block w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
+            fittingType="fill"
+          />
+        </div>
         {/* Gold ring — fades in on hover */}
         <div
           className="absolute inset-0 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"

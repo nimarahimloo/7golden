@@ -1018,6 +1018,17 @@
     padding: 1.25rem;
   }
 
+  /* Hide the expensive blurred back layer and beam on mobile —
+     the sharp mid layer alone carries the depth without the GPU cost
+     of a 14px blur filter on a full-bleed image. */
+  .depth-back {
+    display: none;
+  }
+
+  .depth-beam {
+    display: none;
+  }
+
   /* Film card — tighter on mobile */
   .film-card-content {
     padding: 1rem;
