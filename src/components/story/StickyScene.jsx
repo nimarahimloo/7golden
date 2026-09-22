@@ -17,8 +17,12 @@ function usePrefersReducedMotion() {
 /**
  * StickyScene — the scroll-story core.
  * A tall track holds one sticky, full-height viewport whose picture and
- * copy step through `items` as the visitor scrolls. Each item:
- * { key, eyebrow, title, lead, image, specs: [{label, value}], href, cta }
+ * copy step through `items` as the visitor scrolls vertically. Each item:
+ * { key, eyebrow, title, image, href, cta }
+ *
+ * Enhancements: Ken Burns zoom on the active image, a gold light beam
+ * that sweeps across with scroll progress, a parallax drift on the copy,
+ * and a cinematic scrim for legibility.
  *
  * Under prefers-reduced-motion it renders every chapter as a static band
  * so no content is ever hidden behind an animation.
@@ -70,7 +74,16 @@ export default function StickyScene({ items = [], id }) {
               <div className="media-frame aspect-[4/3]">
                 <img src={item.image} alt={item.title} loading="lazy" />
               </div>
-              <SceneCopy item={item} />
+              <div>
+                <span className="eyebrow block mb-3">{item.eyebrow}</span>
+                <h3 className="display-lg mb-3"><span className="gold-text">{item.title}</span></h3>
+                {item.href && (
+                  <Link to={item.href} className="link-gold">
+                    {item.cta || 'مشاهده محصول'}
+                    <ChevronLeft size={14} style={{ transform: 'scaleX(-1)' }} />
+                  </Link>
+                )}
+              </div>
             </article>
           ))}
         </div>
@@ -79,27 +92,46 @@ export default function StickyScene({ items = [], id }) {
   }
 
   const current = items[active];
+  // 0..1 within the current step — drives the copy parallax drift
+  const stepProgress = (progress * items.length) - active;
+  const copyY = stepProgress * -24;
 
   return (
     <section id={id} ref={trackRef} className="scene-track" style={{ height: `${items.length * 100}svh` }} dir="rtl">
       <div className="scene-viewport">
-        {/* ---- media layers ---- */}
+        {/* ---- media layers with Ken Burns zoom ---- */}
         {items.map((item, i) => (
           <div
             key={item.key}
-            className="scene-media"
-            style={{ opacity: i === active ? 1 : 0, transform: `scale(${i === active ? 1 : 1.06})` }}
+            className={`scene-media ${i === active ? 'is-active' : ''}`}
+            style={{ opacity: i === active ? 1 : 0 }}
             aria-hidden={i !== active}
           >
             <img src={item.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
           </div>
         ))}
+
+        {/* ---- cinematic scrim ---- */}
         <div className="scene-scrim" />
 
-        {/* ---- copy ---- */}
+        {/* ---- gold light beam — sweeps with scroll ---- */}
+        <div className="scene-beam" style={{ transform: `translateX(${(progress - 0.5) * 200}%)` }} />
+
+        {/* ---- copy (minimal — image speaks) ---- */}
         <div className="relative z-10 h-full chapter-shell flex items-center">
           <div className="w-full max-w-xl" key={current.key}>
-            <SceneCopy item={current} animated />
+            <div className="text-rise" style={{ transform: `translate3d(0, ${copyY}px, 0)` }}>
+              <span className="eyebrow block mb-4">{current.eyebrow}</span>
+              <h3 className="display-xl">
+                <span className="gold-text">{current.title}</span>
+              </h3>
+              {current.href && (
+                <Link to={current.href} className="link-gold mt-6">
+                  {current.cta || 'مشاهده محصول'}
+                  <ChevronLeft size={14} style={{ transform: 'scaleX(-1)' }} />
+                </Link>
+              )}
+            </div>
           </div>
         </div>
 
@@ -120,43 +152,5 @@ export default function StickyScene({ items = [], id }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function SceneCopy({ item, animated = false }) {
-  return (
-    <div className={animated ? 'text-rise' : ''}>
-      <span className="eyebrow block mb-4">{item.eyebrow}</span>
-      <h3 className="display-lg mb-5">
-        <span className="gold-text">{item.title}</span>
-      </h3>
-      <p className="font-body text-sm md:text-base leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>
-        {item.lead}
-      </p>
-
-      {item.desc && (
-        <p className="font-body text-xs md:text-sm leading-relaxed mb-7 max-w-lg hidden md:block" style={{ color: 'var(--fg-muted)', opacity: 0.7 }}>
-          {item.desc}
-        </p>
-      )}
-
-      {item.specs?.length > 0 && (
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-4 mb-8 max-w-md">
-          {item.specs.map((spec) => (
-            <div key={spec.label}>
-              <dt className="font-body text-[11px] mb-1" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
-              <dd className="font-body text-sm" style={{ color: 'var(--gold-1)' }}>{spec.value}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-
-      {item.href && (
-        <Link to={item.href} className="link-gold">
-          {item.cta || 'مشاهده محصول'}
-          <ChevronLeft size={14} style={{ transform: 'scaleX(-1)' }} />
-        </Link>
-      )}
-    </div>
   );
 }

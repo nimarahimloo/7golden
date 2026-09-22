@@ -244,7 +244,37 @@
 
 .scene-scrim {
   position: absolute;
-  inset: 0
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to left, rgba(7, 6, 4, 0.96) 0%, rgba(7, 6, 4, 0.5) 45%, rgba(7, 6, 4, 0.1) 100%),
+    linear-gradient(to top, rgba(7, 6, 4, 0.9) 0%, transparent 40%, rgba(7, 6, 4, 0.5) 100%);
+}
+
+/* Ken Burns zoom on the active scene image */
+.scene-media.is-active img {
+  animation: sceneKenBurns 14s ease-out forwards;
+}
+
+@keyframes sceneKenBurns {
+  from { transform: scale(1) translate(0, 0); }
+  to { transform: scale(1.15) translate(-1.5%, -1%); }
+}
+
+/* Gold light beam that sweeps across the scene with scroll */
+.scene-beam {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: 50%;
+  width: 34%;
+  margin-left: -17%;
+  background: linear-gradient(100deg, transparent, rgba(255, 245, 210, 0.1) 45%, rgba(255, 245, 210, 0.16) 50%, rgba(255, 245, 210, 0.1) 55%, transparent);
+  filter: blur(24px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 2;
 }
 
 .scene-rail {
@@ -1140,6 +1170,11 @@
     display: none;
   }
 
+  /* Scene beam — hidden on mobile for GPU savings */
+  .scene-beam {
+    display: none;
+  }
+
   /* Film card — tighter on mobile */
   .film-card-content {
     padding: 1rem;
@@ -1255,6 +1290,14 @@
 
   .scene-media {
     transition: opacity 0.2s linear;
+  }
+
+  .scene-media.is-active img {
+    animation: none;
+  }
+
+  .scene-beam {
+    display: none;
   }
 
   .scene-track {

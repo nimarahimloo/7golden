@@ -9,7 +9,7 @@ import Seo from '@/components/Seo';
 import PullToRefresh from '@/components/PullToRefresh';
 
 import CinematicHero from '@/components/CinematicHero';
-import VitrineScroll from '@/components/story/VitrineScroll';
+import StickyScene from '@/components/story/StickyScene';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
@@ -17,11 +17,9 @@ import CountUp from '@/components/story/CountUp';
 import Marquee from '@/components/story/Marquee';
 import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
-import HorizontalScroll from '@/components/story/HorizontalScroll';
 import ExportProcess from '@/components/story/ExportProcess';
 
-import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS, FALLBACK_PRODUCTS, SPECIALTY_PRODUCTS } from '@/lib/corporate-content';
-import SpecialtyShowcase from '@/components/story/SpecialtyShowcase';
+import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
@@ -74,13 +72,11 @@ export default function Home() {
     return first ? `/product/${first.id}` : '/shop';
   };
 
+  // Minimal scene items — image speaks, copy stays to eyebrow + title
   const sceneItems = MAIN_PRODUCTS.map((product) => ({
     key: product.category,
     eyebrow: product.category.toUpperCase(),
     title: product.nameFA,
-    lead: product.tagline,
-    desc: product.descFA,
-    specs: product.specs,
     image: SCENE_IMAGE[product.category],
     href: linkFor(product.category),
     cta: isFA ? 'مشاهده محصول' : 'View product',
@@ -113,7 +109,6 @@ export default function Home() {
           eyebrow=""
           title="تولید، فرآوری و صادرات"
           titleAccent="فندق، پسته و بادام"
-          lead="تأمین‌کننده صنعتی مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی."
           stats={CAPACITY_STATS}
           primary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
           secondary={{ label: isFA ? 'درخواست مشاوره' : 'Request a quote', href: '/contact' }}
@@ -122,7 +117,7 @@ export default function Home() {
         {/* ===== EXPORT MARKETS — endless gold band ===== */}
         <Marquee items={EXPORT_MARKETS} />
 
-        {/* ===== CHAPTER 01 — the three pillars, stepped through on scroll ===== */}
+        {/* ===== CHAPTER 01 — the three pillars, stepped through on vertical scroll ===== */}
         <StoryChapter
           index="01"
           eyebrow="MAIN PRODUCTS"
@@ -130,10 +125,7 @@ export default function Home() {
           align="start"
           className="chapter-shell pt-20 md:pt-28 pb-4"
         />
-        <VitrineScroll items={sceneItems} />
-
-        {/* ===== SPECIALTY SHOWCASE — مغز پسته، خلال پسته، مغز فندق ===== */}
-        <SpecialtyShowcase items={SPECIALTY_PRODUCTS} />
+        <StickyScene items={sceneItems} />
 
         {/* ===== CHAPTER 02 — industrial scale ===== */}
         <section className="chapter">
@@ -206,7 +198,7 @@ export default function Home() {
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
 
-        {/* ===== CHAPTER 04 — the full range (pinned horizontal film strip) ===== */}
+        {/* ===== CHAPTER 04 — the full range (vertical parallax grid) ===== */}
         <section className="chapter pb-0">
           <div className="chapter-shell">
             <div className="flex items-end justify-between gap-4 mb-10">
@@ -224,30 +216,39 @@ export default function Home() {
           </div>
         </section>
 
-        <HorizontalScroll
-          items={allProducts}
-          itemWidth={280}
-          gap={28}
-          renderItem={(product) => (
-            <Link to={`/product/${product.id}`} className="hscroll-tile block h-full">
-              <div className="film-card h-full" style={{ aspectRatio: '3 / 4' }}>
-                <div className="film-card-image absolute inset-0">
-                  <img
-                    src={product.image}
-                    alt={product.nameFA}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="film-card-overlay" />
-                <div className="film-card-content">
-                  <span className="eyebrow block mb-2">{product.category.toUpperCase()}</span>
-                  <span className="display-sm" style={{ color: 'var(--ink)' }}>{product.nameFA}</span>
-                </div>
-              </div>
-            </Link>
-          )}
-        />
+        <section className="chapter pt-0">
+          <div className="chapter-shell">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {allProducts.map((product, i) => (
+                <Reveal key={product.id} delay={(i % 4) * 80} variant="up">
+                  <Link to={`/product/${product.id}`} className="block h-full">
+                    <div className="film-card h-full" style={{ aspectRatio: '3 / 4' }}>
+                      <div className="film-card-image absolute inset-0">
+                        <img
+                          src={product.image}
+                          alt={product.nameFA}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="film-card-overlay" />
+                      <div className="film-card-content">
+                        <span className="eyebrow block mb-1">{product.category.toUpperCase()}</span>
+                        <span className="display-sm" style={{ color: 'var(--ink)' }}>{product.nameFA}</span>
+                      </div>
+                    </div>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={200} className="mt-10 text-center md:hidden">
+              <Link to="/shop" className="btn-ghost">
+                {isFA ? 'مشاهده همه' : 'View all'}
+                <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+              </Link>
+            </Reveal>
+          </div>
+        </section>
 
         {/* ===== CHAPTER 05 — the export journey (pinned process rail) ===== */}
         <section className="chapter pb-0">
@@ -256,13 +257,12 @@ export default function Home() {
               index="05"
               eyebrow="PROCESS"
               title="از باغستان تا مقصد صادراتی"
-              lead="زنجیره تأمین هفت‌طلایی — از برداشت مستقیم تا تحویل زمان‌بندی‌شده."
             />
           </div>
         </section>
         <ExportProcess />
 
-        {/* ===== CLOSING FRAME — consultation ===== */}
+        {/* ===== CLOSING FRAME ===== */}
         <section className="closing-band" style={{ minHeight: '62vh' }}>
           <div className="closing-band-bg">
             <img src="/banner/Hero-main.jpg" alt="" />
@@ -271,7 +271,6 @@ export default function Home() {
             <StoryChapter
               eyebrow="CONTACT"
               title="شریک صادراتی شما در صنعت خشکبار"
-              lead="برای دریافت کاتالوگ، نمونه محصول و شرایط صادراتی با تیم بازرگانی ما در تماس باشید."
             />
             <Reveal delay={160} className="mt-10 flex flex-wrap gap-3">
               <Link to="/contact" className="btn-gold">
