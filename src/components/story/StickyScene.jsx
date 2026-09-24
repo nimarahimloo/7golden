@@ -22,7 +22,8 @@ function usePrefersReducedMotion() {
  *
  * Enhancements: Ken Burns zoom on the active image, a gold light beam
  * that sweeps across with scroll progress, a parallax drift on the copy,
- * and a cinematic scrim for legibility.
+ * and a parallax drift on the active image itself — all driven via direct
+ * DOM manipulation so scroll never triggers a React re-render.
  *
  * Under prefers-reduced-motion it renders every chapter as a static band
  * so no content is ever hidden behind an animation.
@@ -30,23 +31,60 @@ function usePrefersReducedMotion() {
 export default function StickyScene({ items = [], id }) {
   const reduced = usePrefersReducedMotion();
   const trackRef = useRef(null);
-  const [progress, setProgress] = useState(0);
+  const mediaRefs = useRef([]);
+  const copyRef = useRef(null);
+  const beamRef = useRef(null);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     if (reduced) return;
     const el = trackRef.current;
     if (!el) return;
     let raf = 0;
+    let lastActive = -1;
+
     const update = () => {
-      const rect = el.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const p = total > 0 ? (-rect.top) / total : 0;
-      setProgress(Math.max(0, Math.min(0.9999, p)));
-    };
-    const onScroll = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
+      raf = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const progress = total > 0 ? Math.max(0, Math.min(0.9999, (-rect.top) / total)) : 0;
+
+        // Active index — only setState when it actually changes.
+        const newActive = Math.min(items.length - 1, Math.floor(progress * items.length));
+        if (newActive !== lastActive) {
+          lastActive = newActive;
+          setActive(newActive);
+        }
+
+        // Step progress within the current item — drives copy + image parallax.
+        const stepProgress = (progress * items.length) - newActive;
+
+        // Copy drift — intensified for a more alive feel.
+        const copyY = stepProgress * -42;
+        if (copyRef.current) {
+          copyRef.current.style.transform = `translate3d(0, ${copyY}px, 0)`;
+        }
+
+        // Active image parallax drift — the picture moves opposite to scroll.
+        const activeMedia = mediaRefs.current[newActive];
+        if (activeMedia) {
+          const img = activeMedia.querySelector('img');
+          if (img) {
+            const isMobile = window.innerWidth < 768;
+            const drift = (stepProgress - 0.5) * (isMobile ? 36 : 64);
+            img.style.transform = `translate3d(0, ${drift}px, 0) scale(1.12)`;
+          }
+        }
+
+        // Beam sweep.
+        if (beamRef.current) {
+          beamRef.current.style.transform = `translateX(${(progress - 0.5) * 220}%)`;
+        }
+      });
     };
+
+    const onScroll = () => update();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
@@ -56,11 +94,6 @@ export default function StickyScene({ items = [], id }) {
       cancelAnimationFrame(raf);
     };
   }, [reduced, items.length]);
-
-  const active = useMemo(
-    () => Math.min(items.length - 1, Math.floor(progress * items.length)),
-    [progress, items.length]
-  );
 
   if (!items.length) return null;
 
@@ -92,22 +125,20 @@ export default function StickyScene({ items = [], id }) {
   }
 
   const current = items[active];
-  // 0..1 within the current step — drives the copy parallax drift
-  const stepProgress = (progress * items.length) - active;
-  const copyY = stepProgress * -24;
 
   return (
     <section id={id} ref={trackRef} className="scene-track" style={{ height: `${items.length * 100}svh` }} dir="rtl">
       <div className="scene-viewport">
-        {/* ---- media layers with Ken Burns zoom ---- */}
+        {/* ---- media layers with Ken Burns zoom + parallax drift ---- */}
         {items.map((item, i) => (
           <div
             key={item.key}
+            ref={(node) => { mediaRefs.current[i] = node; }}
             className={`scene-media ${i === active ? 'is-active' : ''}`}
             style={{ opacity: i === active ? 1 : 0 }}
             aria-hidden={i !== active}
           >
-            <img src={item.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+            <img src={item.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} style={{ willChange: 'transform' }} />
           </div>
         ))}
 
@@ -115,12 +146,12 @@ export default function StickyScene({ items = [], id }) {
         <div className="scene-scrim" />
 
         {/* ---- gold light beam — sweeps with scroll ---- */}
-        <div className="scene-beam" style={{ transform: `translateX(${(progress - 0.5) * 200}%)` }} />
+        <div ref={beamRef} className="scene-beam" />
 
         {/* ---- copy (minimal — image speaks) ---- */}
         <div className="relative z-10 h-full chapter-shell flex items-center">
           <div className="w-full max-w-xl" key={current.key}>
-            <div className="text-rise" style={{ transform: `translate3d(0, ${copyY}px, 0)` }}>
+            <div ref={copyRef} className="text-rise">
               <span className="eyebrow block mb-4">{current.eyebrow}</span>
               <h3 className="display-xl">
                 <span className="gold-text">{current.title}</span>

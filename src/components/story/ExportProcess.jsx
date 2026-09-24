@@ -19,6 +19,10 @@ function usePrefersReducedMotion() {
  * Orchard → Processing → Lab → Packaging → Export.
  * Each step cross-fades its image and steps its copy,
  * with a gold progress rail tracking the visitor through the chain.
+ *
+ * All scroll-driven transforms use direct DOM manipulation — no React
+ * state per frame — so the motion stays buttery-smooth. The active image
+ * also drifts with a parallax offset for a more alive, cinematic feel.
  * Degrades to a static stacked layout under prefers-reduced-motion.
  */
 const STEPS = [
@@ -62,23 +66,57 @@ const STEPS = [
 export default function ExportProcess({ id }) {
   const reduced = usePrefersReducedMotion();
   const trackRef = useRef(null);
-  const [progress, setProgress] = useState(0);
+  const mediaRefs = useRef([]);
+  const copyRef = useRef(null);
+  const railFillRef = useRef(null);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     if (reduced) return;
     const el = trackRef.current;
     if (!el) return;
     let raf = 0;
+    let lastActive = -1;
+
     const update = () => {
-      const rect = el.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const p = total > 0 ? (-rect.top) / total : 0;
-      setProgress(Math.max(0, Math.min(0.9999, p)));
-    };
-    const onScroll = () => {
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(update);
+      raf = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const progress = total > 0 ? Math.max(0, Math.min(0.9999, (-rect.top) / total)) : 0;
+
+        const newActive = Math.min(STEPS.length - 1, Math.floor(progress * STEPS.length));
+        if (newActive !== lastActive) {
+          lastActive = newActive;
+          setActive(newActive);
+        }
+
+        const stepProgress = (progress * STEPS.length) - newActive;
+
+        // Copy parallax drift — intensified.
+        if (copyRef.current) {
+          copyRef.current.style.transform = `translate3d(0, ${stepProgress * -36}px, 0)`;
+        }
+
+        // Active image parallax drift.
+        const activeMedia = mediaRefs.current[newActive];
+        if (activeMedia) {
+          const img = activeMedia.querySelector('img');
+          if (img) {
+            const isMobile = window.innerWidth < 768;
+            const drift = (stepProgress - 0.5) * (isMobile ? 30 : 54);
+            img.style.transform = `translate3d(0, ${drift}px, 0) scale(1.1)`;
+          }
+        }
+
+        // Rail fill.
+        if (railFillRef.current) {
+          railFillRef.current.style.height = `${(progress * 100).toFixed(1)}%`;
+        }
+      });
     };
+
+    const onScroll = () => update();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
@@ -110,9 +148,7 @@ export default function ExportProcess({ id }) {
     );
   }
 
-  const active = Math.min(STEPS.length - 1, Math.floor(progress * STEPS.length));
   const current = STEPS[active];
-  const stepProgress = (progress * STEPS.length) - active; // 0..1 within current step
 
   return (
     <section id={id} ref={trackRef} className="process-track" style={{ height: `${STEPS.length * 80}svh` }} dir="rtl">
@@ -121,6 +157,7 @@ export default function ExportProcess({ id }) {
         {STEPS.map((step, i) => (
           <div
             key={step.key}
+            ref={(node) => { mediaRefs.current[i] = node; }}
             className="process-media"
             style={{
               opacity: i === active ? 1 : 0,
@@ -128,7 +165,7 @@ export default function ExportProcess({ id }) {
             }}
             aria-hidden={i !== active}
           >
-            <img src={step.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+            <img src={step.image} alt="" loading={i === 0 ? 'eager' : 'lazy'} style={{ willChange: 'transform' }} />
           </div>
         ))}
 
@@ -139,7 +176,7 @@ export default function ExportProcess({ id }) {
         {/* ---- copy ---- */}
         <div className="relative z-10 h-full chapter-shell flex items-center">
           <div className="w-full max-w-xl" key={current.key}>
-            <div className="process-copy">
+            <div ref={copyRef} className="process-copy">
               <span className="process-step-num">{current.eyebrow}</span>
               <h3 className="display-lg mt-4 mb-5">
                 <span className="gold-text">{current.title}</span>
@@ -155,8 +192,9 @@ export default function ExportProcess({ id }) {
         <div className="process-rail-wrap">
           <div className="process-rail-track">
             <div
+              ref={railFillRef}
               className="process-rail-fill"
-              style={{ height: `${(progress * 100).toFixed(1)}%` }}
+              style={{ height: '0%' }}
             />
           </div>
           <div className="process-rail-steps">

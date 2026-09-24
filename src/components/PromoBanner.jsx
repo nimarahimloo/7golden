@@ -5,7 +5,7 @@ import { Image } from '@/components/ui/image';
 import { useParallax } from '@/components/useParallax';
 
 export default function PromoBanner({ image, badge, title, subtitle, cta, to = '/shop' }) {
-  const { ref: parallaxRef, offset } = useParallax(0.15);
+  const parallaxRef = useParallax({ speed: 0.2, baseScale: 1.15, clamp: 50 });
 
   return (
     <section className="px-4 sm:px-6 lg:px-8 py-4">
@@ -16,13 +16,11 @@ export default function PromoBanner({ image, badge, title, subtitle, cta, to = '
           style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.3)' }}>
 
           {/* Background with parallax */}
-          <div ref={parallaxRef} className="absolute inset-0 overflow-hidden" style={{ willChange: 'transform' }}>
+          <div className="absolute inset-0 overflow-hidden">
             <div
+              ref={parallaxRef}
               className="absolute inset-0"
-              style={{
-                transform: `translateY(${offset}px) scale(1.12)`,
-                transition: 'transform 0.1s linear',
-              }}
+              style={{ willChange: 'transform' }}
             >
               <Image src={image} alt={title} className="w-full h-full" fittingType="fill" />
             </div>

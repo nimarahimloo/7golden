@@ -6,34 +6,37 @@ import { useScrollAnimation } from '@/components/useScrollAnimation';
  * ParallaxMedia — an image band that drifts against the scroll and
  * unveils itself with a clip wipe. The picture carries the section;
  * `children` is the optional caption layer sitting on top of it.
+ *
+ * Uses direct DOM manipulation for buttery-smooth scroll motion.
  */
 export default function ParallaxMedia({
   src,
   alt = '',
-  speed = 0.16,
-  clamp = 42,
-  scale = 1.3,
+  speed = 0.24,
+  clamp = 64,
+  scale = 1.35,
+  zoom = 1.15,
   ratio = 'aspect-[4/3] md:aspect-[16/9]',
   className = '',
   overlay = true,
   children,
 }) {
-  const { ref: driftRef, offset } = useParallax(speed);
+  const driftRef = useParallax({ speed, maxZoom: zoom, baseScale: scale, clamp });
   const { ref, visible } = useScrollAnimation(0.18);
-  const shift = Math.max(-clamp, Math.min(clamp, offset));
 
   return (
     <div
       ref={ref}
       className={`reveal reveal-clip ${visible ? 'is-visible' : ''} media-frame ${className}`}
     >
-      <div ref={driftRef} className={`relative w-full ${ratio}`}>
+      <div className={`relative w-full ${ratio}`}>
         {src && (
           <img
+            ref={driftRef}
             src={src}
             alt={alt}
             loading="lazy"
-            style={{ transform: `translate3d(0, ${shift}px, 0) scale(${scale})` }}
+            style={{ willChange: 'transform' }}
           />
         )}
         {overlay && <div className="media-scrim" />}

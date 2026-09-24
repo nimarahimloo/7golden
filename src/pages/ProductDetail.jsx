@@ -36,7 +36,7 @@ export default function ProductDetail() {
   const [mainImage, setMainImage] = useState(null);
 
   // Scroll-driven zoom on the main product photo — leans into texture detail.
-  const zoomRef = useParallaxZoom({ speed: 0, maxZoom: 1.12, baseScale: 1.0 });
+  const zoomRef = useParallaxZoom({ speed: 0, maxZoom: 1.16, baseScale: 1.0 });
 
   // ---------------------------------------------------------------------------
   // RETAIL PURCHASE STATE — disabled. No quantity, weight or cart on a B2B page.

@@ -6,7 +6,7 @@ import { Image } from '@/components/ui/image';
 import { useParallaxZoom } from '@/components/useParallaxZoom';
 
 export default function ProductCard({ product }) {
-  const zoomRef = useParallaxZoom({ speed: 0.12, maxZoom: 1.16, baseScale: 1.12 });
+  const zoomRef = useParallaxZoom({ speed: 0.16, maxZoom: 1.2, baseScale: 1.14 });
 
   const isFA = true;
   const name = isFA ? product.nameFA : product.nameEN;

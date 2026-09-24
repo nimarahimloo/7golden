@@ -11,7 +11,7 @@ import { useParallaxZoom } from '@/components/useParallaxZoom';
  */
 export default function ProductCardRound({ product }) {
   const name = product.nameFA;
-  const zoomRef = useParallaxZoom({ speed: 0, maxZoom: 1.14, baseScale: 1.0 });
+  const zoomRef = useParallaxZoom({ speed: 0, maxZoom: 1.18, baseScale: 1.0 });
 
   return (
     <Link to={`/product/${product.id}`} className="group block">
