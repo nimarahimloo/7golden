@@ -167,7 +167,7 @@ export default function Shop() {
         <MaskText
           image="/banner/Hero-main.jpg"
           text="EXPORT"
-          eyebrow="صادرات · ۱۵+ کشور"
+          eyebrow="صادرات بین‌المللی"
         />
 
         {/* ===== STANDARDS ===== */}

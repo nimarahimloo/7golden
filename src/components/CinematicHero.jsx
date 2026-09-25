@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import CountUp from '@/components/story/CountUp';
@@ -9,6 +9,9 @@ import CountUp from '@/components/story/CountUp';
  * oversized gold display type, and a strip of figures anchors the bottom.
  * The media drifts and the copy lifts away as the visitor starts scrolling,
  * which is what hands the page over to the scroll story below.
+ *
+ * All scroll-driven transforms use direct DOM manipulation — no React
+ * state, no re-renders — so the motion stays buttery-smooth.
  */
 export default function CinematicHero({
   video = '/9a4201778861aaa70701702683a138d9-0.mp4',
@@ -21,15 +24,55 @@ export default function CinematicHero({
   primary,
   secondary,
 }) {
-  const [scrollY, setScrollY] = useState(0);
+  const mediaRef = useRef(null);
+  const copyRef = useRef(null);
+  const cueRef = useRef(null);
+  const statsRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0;
 
-  const fade = Math.max(0, 1 - scrollY / 620);
+    const update = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const fade = Math.max(0, 1 - scrollY / 620);
+        const isMobile = window.innerWidth < 768;
+
+        // Media parallax — intensified for a more dramatic depth.
+        const mediaShift = scrollY * (isMobile ? 0.32 : 0.42);
+        if (mediaRef.current) {
+          mediaRef.current.style.transform = `translate3d(0, ${mediaShift}px, 0) scale(1.14)`;
+        }
+
+        // Copy lift + fade.
+        const copyShift = Math.min(70, scrollY * 0.14);
+        if (copyRef.current) {
+          copyRef.current.style.opacity = fade;
+          copyRef.current.style.transform = `translateY(${copyShift}px)`;
+        }
+
+        // Stats strip fade.
+        if (statsRef.current) {
+          statsRef.current.style.opacity = fade;
+        }
+
+        // Scroll cue fade.
+        if (cueRef.current) {
+          cueRef.current.style.opacity = fade;
+        }
+      });
+    };
+
+    const onScroll = () => update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <section
@@ -38,8 +81,9 @@ export default function CinematicHero({
       dir="rtl"
     >
       <div
+        ref={mediaRef}
         className="absolute inset-0"
-        style={{ transform: `translate3d(0, ${scrollY * 0.28}px, 0) scale(1.12)` }}
+        style={{ willChange: 'transform' }}
       >
         <video
           className="absolute inset-0 w-full h-full object-cover hero-kenburns"
@@ -67,8 +111,9 @@ export default function CinematicHero({
 
       {/* ---- copy ---- */}
       <div
+        ref={copyRef}
         className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-28 md:pb-32"
-        style={{ opacity: fade, transform: `translateY(${Math.min(60, scrollY * 0.12)}px)` }}
+        style={{ willChange: 'transform, opacity' }}
       >
         <span className="eyebrow block mb-6">{eyebrow}</span>
 
@@ -104,8 +149,9 @@ export default function CinematicHero({
       {/* ---- figure strip ---- */}
       {stats.length > 0 && (
         <div
+          ref={statsRef}
           className="absolute bottom-0 left-0 right-0 z-10"
-          style={{ opacity: fade, borderTop: '1px solid var(--hairline)', background: 'rgba(7,6,4,0.45)', backdropFilter: 'blur(14px)' }}
+          style={{ borderTop: '1px solid var(--hairline)', background: 'rgba(7,6,4,0.45)', backdropFilter: 'blur(14px)' }}
         >
           <div className="chapter-shell">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[var(--hairline)] rtl:divide-x-reverse">
@@ -130,7 +176,7 @@ export default function CinematicHero({
       )}
 
       {/* ---- scroll cue ---- */}
-      <div className="absolute bottom-32 left-6 md:left-10 z-10 hidden md:flex flex-col items-center gap-3" style={{ opacity: fade }}>
+      <div ref={cueRef} className="absolute bottom-32 left-6 md:left-10 z-10 hidden md:flex flex-col items-center gap-3">
         <span className="font-subheading text-[10px] tracking-[0.3em]" style={{ color: 'var(--fg-muted)', writingMode: 'vertical-rl' }}>
           SCROLL
         </span>

@@ -16,8 +16,7 @@ import Reveal from '@/components/story/Reveal';
  * copy stays minimal.
  */
 export default function Footer() {
-  const { ref: bgRef, offset } = useParallax(0.15);
-  const shift = Math.max(-50, Math.min(50, offset));
+  const bgRef = useParallax({ speed: 0.2, baseScale: 1.3, clamp: 60 });
   const { ref: maskRef, visible: maskVisible } = useScrollAnimation(0.15);
   const [scrollPct, setScrollPct] = useState(0);
 
@@ -46,12 +45,13 @@ export default function Footer() {
     <footer dir="rtl" className="relative overflow-hidden" style={{ background: 'var(--bg)' }}>
 
       {/* ===== Full-bleed parallax orchard backdrop ===== */}
-      <div ref={bgRef} className="absolute inset-0" style={{ zIndex: 0 }}>
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <img
+          ref={bgRef}
           src="/gallery/AQ8A1571AQ8A1571.JPG"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ transform: `translate3d(0, ${shift}px, 0) scale(1.3)`, opacity: 0.18 }}
+          style={{ opacity: 0.18, willChange: 'transform' }}
         />
         <div
           className="absolute inset-0"

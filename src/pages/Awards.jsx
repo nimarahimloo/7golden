@@ -49,7 +49,7 @@ export default function Awards() {
 
   const stats = [
     { icon: ShieldCheck, value: isFA ? '۲۵+' : '25+', label: isFA ? 'سال تجربه' : 'Years Experience' },
-    { icon: Globe, value: isFA ? '۱۵+' : '15+', label: isFA ? 'کشور صادراتی' : 'Export Countries' },
+    { icon: Globe, value: isFA ? '۳۵۰۰' : '3500', label: isFA ? 'تن ظرفیت سالانه' : 'Tons Annual Capacity' },
     { icon: Trophy, value: isFA ? String(awards.length || '—') : String(awards.length || '—'), label: isFA ? 'مجوز و گواهی' : 'Certifications' },
     { icon: Leaf, value: isFA ? '۱۰۰٪' : '100%', label: isFA ? 'کیفیت تضمینی' : 'Quality Guaranteed' },
   ];

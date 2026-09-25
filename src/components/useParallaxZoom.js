@@ -7,12 +7,12 @@ import { useEffect, useRef } from 'react';
  * per-frame setState would otherwise drop frames.
  *
  * The element the ref is attached to gets `transform: translate3d(…, scale(…))`
- * updated in a requestAnimationFrame loop. Intensity is automatically reduced
- * on small screens so the motion stays subtle and performant.
+ * updated in a requestAnimationFrame loop. Intensity is reduced on small
+ * screens but kept strong enough (0.7x) so the motion still feels alive.
  *
  * @param {object}  opts
- * @param {number}  opts.speed     - parallax drift strength (0.12 = subtle)
- * @param {number}  opts.maxZoom   - peak zoom at viewport centre (1.16 = 16%)
+ * @param {number}  opts.speed     - parallax drift strength (0.16 = moderate)
+ * @param {number}  opts.maxZoom   - peak zoom at viewport centre (1.2 = 20%)
  * @param {number}  opts.baseScale - resting scale (use >1 when the element
  *                                   is inside an overflow-hidden clip so the
  *                                   parallax drift never reveals edges)
@@ -20,10 +20,10 @@ import { useEffect, useRef } from 'react';
  *                                   zoom influence extends from centre
  */
 export function useParallaxZoom({
-  speed = 0.12,
-  maxZoom = 1.16,
+  speed = 0.16,
+  maxZoom = 1.2,
   baseScale = 1.0,
-  reach = 0.6,
+  reach = 0.65,
 } = {}) {
   const ref = useRef(null);
 
@@ -41,10 +41,10 @@ export function useParallaxZoom({
         const center = rect.top + rect.height / 2;
         const vpCenter = vh / 2;
 
-        // Reduce intensity on small screens for smoothness.
+        // Reduce intensity on small screens but keep it alive (0.7x not 0.5x).
         const isMobile = window.innerWidth < 768;
-        const effSpeed = isMobile ? speed * 0.5 : speed;
-        const effMaxZoom = isMobile ? 1 + (maxZoom - 1) * 0.6 : maxZoom;
+        const effSpeed = isMobile ? speed * 0.7 : speed;
+        const effMaxZoom = isMobile ? 1 + (maxZoom - 1) * 0.75 : maxZoom;
 
         // Parallax drift — element moves opposite to scroll.
         const offset = (center - vpCenter) * effSpeed;

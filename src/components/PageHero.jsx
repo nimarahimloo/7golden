@@ -6,10 +6,11 @@ import { useParallax } from '@/components/useParallax';
  * Full-bleed, parallaxed media with the page title in gold display type,
  * closing on a hairline so the chapter bands below feel like a continuation
  * of the same story. Same props as before: image, title, subtitle, badge.
+ *
+ * Uses direct DOM manipulation for smooth, powerful parallax + zoom.
  */
 export default function PageHero({ image, title, subtitle, badge, height = '72svh' }) {
-  const { ref, offset } = useParallax(0.22);
-  const shift = Math.max(-70, Math.min(70, offset));
+  const driftRef = useParallax({ speed: 0.3, maxZoom: 1.15, baseScale: 1.28, clamp: 90 });
 
   return (
     <section
@@ -17,12 +18,13 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
       style={{ height, minHeight: '440px' }}
       dir="rtl"
     >
-      <div ref={ref} className="absolute inset-0">
+      <div className="absolute inset-0">
         <img
+          ref={driftRef}
           src={image}
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ transform: `translate3d(0, ${shift}px, 0) scale(1.25)` }}
+          style={{ willChange: 'transform' }}
         />
       </div>
 

@@ -13,7 +13,6 @@ import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
-import Marquee from '@/components/story/Marquee';
 import MaskText from '@/components/story/MaskText';
 
 export default function About() {
@@ -29,13 +28,13 @@ export default function About() {
     { year: '۱۳۸۵', label: 'اولین صادرات' },
     { year: '۱۳۹۰', label: 'گسترش به تهران' },
     { year: '۱۳۹۶', label: 'ثبت شرکت رسمی' },
-    { year: '۱۴۰۰', label: 'صادرات به ۱۵ کشور' },
+    { year: '۱۴۰۰', label: 'گسترش بازار صادراتی' },
   ];
 
   const values = [
     { icon: Leaf, title: 'کیفیت ارگانیک', desc: 'محصولاتمان را مستقیم از کشاورزان متعهد تأمین می‌کنیم.' },
-    { icon: Award, title: 'استانداردهای بین‌المللی', desc: 'تمام محصولات صادراتی مطابق با الزامات اتحادیه اروپا.' },
-    { icon: Globe, title: 'دسترس جهانی', desc: 'ارسال به امارات، قطر، عمان، عراق و کشورهای اروپایی.' },
+    { icon: Award, title: 'استانداردهای بین‌المللی', desc: 'تمام محصولات صادراتی مطابق با استانداردهای بین‌المللی.' },
+    { icon: Globe, title: 'دسترس جهانی', desc: 'ارسال به بازارهای صادراتی بین‌المللی.' },
     { icon: Users, title: 'تیم متعهد', desc: 'بیش از ۵۰ متخصص جوان و متعهد.' },
   ];
 
@@ -79,7 +78,7 @@ export default function About() {
               </Reveal>
               <Reveal delay={220}>
                 <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                  در حال حاضر با کشورهای امارات، قطر، عمان، عراق، افغانستان و بصورت واسطه‌ای برخی از کشورهای اروپایی همکاری دارد. بالای ۵ درصد سود به کشاورز می‌رسد و با حذف واسطه می‌توانیم محصول با کیفیت و قیمت مناسب‌تری عرضه کنیم.
+                  در حال حاضر با بازارهای صادراتی بین‌المللی همکاری دارد. بالای ۵ درصد سود به کشاورز می‌رسد و با حذف واسطه می‌توانیم محصول با کیفیت و قیمت مناسب‌تری عرضه کنیم.
                 </p>
               </Reveal>
             </div>
@@ -184,9 +183,6 @@ export default function About() {
             </div>
           </div>
         </section>
-
-        {/* Export markets band — synced with home page */}
-        <Marquee items={['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'ترکیه', 'آلمان', 'هلند']} />
 
         {/* Production & processing capacity — scale for business buyers */}
         <ProductionCapacity />

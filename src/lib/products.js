@@ -459,10 +459,10 @@ export const TESTIMONIALS = [
   {
     nameFA: 'محمد حسینی',
     nameEN: 'Mohammad Hosseini',
-    roleFA: 'واردکننده امارات',
-    roleEN: 'UAE Importer',
-    textFA: 'محصولات صادراتی هفت‌طلایی استاندارد بین‌المللی دارند و بازار خلیج فارس خوب پذیرفته.',
-    textEN: '7Golden\'s export products meet international standards and are well-received in the Gulf market.',
+    roleFA: 'واردکننده بین‌المللی',
+    roleEN: 'International Importer',
+    textFA: 'محصولات صادراتی هفت‌طلایی استاندارد بین‌المللی دارند و در بازارهای صادراتی خوب پذیرفته شده.',
+    textEN: '7Golden\'s export products meet international standards and are well-received in international markets.',
     rating: 5,
   },
 ];

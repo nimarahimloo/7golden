@@ -184,8 +184,8 @@ export const translations = {
     bestsellers_sub: "محبوب‌ترین انتخاب‌های مشتریان",
     
     // Corporate trust points — replaced the retail shipping / payment badges
-    trust_1_title: "صادرات به ۱۵+ کشور",
-    trust_1_desc: "بازارهای منطقه و اروپا",
+    trust_1_title: "صادرات بین‌المللی",
+    trust_1_desc: "بازارهای صادراتی فعال",
     trust_2_title: "استانداردهای بین‌المللی",
     trust_2_desc: "ISO 22000 و HACCP",
     trust_3_title: "تأمین عمده",
