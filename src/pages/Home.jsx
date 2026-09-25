@@ -18,9 +18,9 @@ import CountUp from '@/components/story/CountUp';
 import Marquee from '@/components/story/Marquee';
 import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
-import HorizontalScroll from '@/components/story/HorizontalScroll';
+import GoldTrio from '@/components/story/GoldTrio';
 
-import { MAIN_PRODUCTS, CAPACITY_STATS, EXPORT_MARKETS } from '@/lib/corporate-content';
+import { MAIN_PRODUCTS, FEATURED_TRIO, CAPACITY_STATS, EXPORT_MARKETS } from '@/lib/corporate-content';
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
@@ -59,8 +59,6 @@ export default function Home() {
     return () => { active = false; };
   }, []);
 
-  const allProducts = products.slice(0, 8);
-
   if (loading) {
     return <LogoLoader />;
   }
@@ -69,6 +67,24 @@ export default function Home() {
     const first = products.find(p => p.category === slug);
     return first ? `/product/${first.id}` : '/shop';
   };
+
+  // The three signature products the brand leads with — matched against the
+  // CMS product so the frame carries the real photo and the real product link.
+  const trioItems = FEATURED_TRIO.map((entry) => {
+    const match = products.find(
+      (p) =>
+        entry.matchSlugs.includes(p.slug) ||
+        entry.matchSlugs.includes(p.id) ||
+        entry.matchNames.includes(p.nameFA)
+    );
+    return {
+      key: entry.key,
+      eyebrow: entry.eyebrow,
+      title: entry.titleFA,
+      image: match?.image || entry.fallbackImage,
+      href: match ? `/product/${match.id}` : linkFor(entry.category),
+    };
+  });
 
   const sceneItems = MAIN_PRODUCTS.map((product) => ({
     key: product.category,
@@ -197,14 +213,14 @@ export default function Home() {
         eyebrow="EST. ۱۳۷۷ · QAZVIN"
       />
 
-      {/* ===== CHAPTER 04 — the full range (pinned horizontal film strip) ===== */}
+      {/* ===== CHAPTER 04 — the signature trio (image-led, no product cards) ===== */}
       <section className="chapter pb-0">
         <div className="chapter-shell">
           <div className="flex items-end justify-between gap-4 mb-10">
             <StoryChapter
               index="04"
-              eyebrow="PRODUCTS"
-              title="محصولات هفت‌طلایی"
+              eyebrow="SIGNATURE SELECTION"
+              title="سه‌گانه طلایی"
               className="flex-1"
             />
             <Link to="/shop" className="link-gold hidden md:inline-flex">
@@ -215,28 +231,7 @@ export default function Home() {
         </div>
       </section>
 
-      <HorizontalScroll
-        items={allProducts}
-        itemWidth={300}
-        gap={32}
-        renderItem={(product) => (
-          <Link to={`/product/${product.id}`} className="hscroll-tile group block h-full">
-            <div className="relative h-full rounded-full overflow-hidden gold-frame" style={{ aspectRatio: '1 / 1', maxWidth: 300, margin: '0 auto' }}>
-              <img
-                src={product.image}
-                alt={product.nameFA}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.85), transparent 55%)' }} />
-              <div className="absolute bottom-0 inset-x-0 p-5 text-center">
-                <span className="eyebrow block mb-1.5">{product.category.toUpperCase()}</span>
-                <span className="display-sm" style={{ color: 'var(--ink)' }}>{product.nameFA}</span>
-              </div>
-            </div>
-          </Link>
-        )}
-      />
+      <GoldTrio items={trioItems} />
 
       {/* ===== CLOSING FRAME — consultation ===== */}
       <section className="relative overflow-hidden" style={{ minHeight: '62vh' }}>

@@ -46,6 +46,40 @@ export const MAIN_PRODUCTS = [
   },
 ];
 
+// The three signature products the brand leads with on the home page.
+// `matchSlugs` is checked against Product.slug / id in the Base44 CMS and
+// `matchNames` against the Persian name, so the band survives a CMS rename.
+// `fallbackImage` keeps the frame full-bleed if the product is missing.
+export const FEATURED_TRIO = [
+  {
+    key: 'pistachio-kernel',
+    eyebrow: 'PISTACHIO KERNEL',
+    titleFA: 'مغز پسته',
+    matchSlugs: ['qazvin-pistachio-nuts', 'qazvini-peeled-pistachio-nuts'],
+    matchNames: ['مغز پسته قزوین', 'مغز پسته پوست کنده قزوینی'],
+    category: 'pistachio',
+    fallbackImage: '/banner/Hero-Banner-3.jpg',
+  },
+  {
+    key: 'pistachio-slivers',
+    eyebrow: 'PISTACHIO SLIVERS',
+    titleFA: 'خلال پسته',
+    matchSlugs: ['qazvin-pistachio-slices'],
+    matchNames: ['خلال پسته قزوین'],
+    category: 'pistachio',
+    fallbackImage: '/banner/Hero-Banner-3.jpg',
+  },
+  {
+    key: 'hazelnut-kernel',
+    eyebrow: 'HAZELNUT KERNEL',
+    titleFA: 'مغز فندق',
+    matchSlugs: ['brain-hazelnut'],
+    matchNames: ['مغز فندق'],
+    category: 'hazelnut',
+    fallbackImage: '/banner/Hero.jpg',
+  },
+];
+
 // Export destinations and standards shown in the "Export & Global Markets" section.
 export const EXPORT_MARKETS = ['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'ترکیه', 'آلمان', 'هلند'];
 

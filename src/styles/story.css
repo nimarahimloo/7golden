@@ -485,6 +485,181 @@
 }
 
 /* ---------------------------------------------------------------
+   GOLD TRIO — the home page's signature image band
+   Three full-height frames; a gold curtain sweeps across each cut.
+   --------------------------------------------------------------- */
+.trio-track { position: relative; }
+.trio-viewport {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+}
+.trio-layer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1s ease;
+  will-change: opacity;
+}
+.trio-frame {
+  display: block;
+  overflow: hidden;
+  color: inherit;
+}
+.trio-frame:focus-visible {
+  outline: 1px solid var(--gold-2);
+  outline-offset: -8px;
+}
+
+/* blurred atmosphere — the product's own image opened up to the edges */
+.trio-atmos {
+  position: absolute;
+  inset: -8%;
+  opacity: 0.55;
+}
+.trio-atmos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(30px) brightness(0.45) saturate(1.2);
+  transform: scale(1.2);
+}
+.trio-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 46%, rgba(7, 6, 4, 0.28) 0%, rgba(7, 6, 4, 0.72) 52%, rgba(6, 4, 2, 0.92) 100%);
+}
+.trio-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(96vw, 900px);
+  height: min(96vw, 900px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(227, 194, 99, 0.2) 0%, rgba(227, 194, 99, 0.06) 42%, transparent 68%);
+}
+
+/* sharp subject — feathered into the dark so it never reads as a frame */
+.trio-subject {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.trio-subject img {
+  width: min(80vw, 840px);
+  height: min(64svh, 580px);
+  object-fit: contain;
+  will-change: transform;
+  transition: transform 0.2s linear;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 44%, rgba(0, 0, 0, 0.4) 68%, transparent 84%);
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 44%, rgba(0, 0, 0, 0.4) 68%, transparent 84%);
+  filter: drop-shadow(0 34px 70px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 44px rgba(227, 194, 99, 0.16));
+}
+
+/* the gold curtain that swallows one frame and reveals the next */
+.trio-curtain {
+  position: absolute;
+  top: -15%;
+  bottom: -15%;
+  left: 0;
+  width: 45%;
+  z-index: 3;
+  pointer-events: none;
+  will-change: transform;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 245, 210, 0.08) 38%,
+    rgba(255, 245, 210, 0.2) 50%,
+    rgba(255, 245, 210, 0.08) 62%,
+    transparent
+  );
+  filter: blur(20px);
+  mix-blend-mode: screen;
+}
+
+/* caption — a different corner on every stage */
+.trio-caption {
+  position: absolute;
+  z-index: 4;
+  max-width: 24rem;
+}
+.trio-caption.is-br {
+  right: clamp(1.25rem, 5vw, 4.5rem);
+  bottom: clamp(3.5rem, 11vh, 7rem);
+  text-align: right;
+}
+.trio-caption.is-bl {
+  left: clamp(1.25rem, 5vw, 4.5rem);
+  bottom: clamp(3.5rem, 11vh, 7rem);
+  text-align: left;
+}
+.trio-caption.is-tl {
+  left: clamp(1.25rem, 5vw, 4.5rem);
+  top: clamp(6.5rem, 18vh, 10rem);
+  text-align: left;
+}
+.trio-rule {
+  display: block;
+  height: 1px;
+  width: 0;
+  margin-bottom: 1.1rem;
+  background: linear-gradient(90deg, var(--gold-2), transparent);
+  transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.trio-caption.is-bl .trio-rule,
+.trio-caption.is-tl .trio-rule {
+  background: linear-gradient(270deg, var(--gold-2), transparent);
+  margin-left: auto;
+}
+.trio-frame.is-active .trio-rule { width: 5.5rem; }
+
+/* stage ruler */
+.trio-rail {
+  position: absolute;
+  left: clamp(0.9rem, 3vw, 2.25rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  pointer-events: none;
+}
+.trio-tick {
+  position: relative;
+  display: block;
+  width: 2px;
+  height: 30px;
+  background: rgba(227, 194, 99, 0.18);
+  overflow: hidden;
+}
+.trio-tick span {
+  position: absolute;
+  inset: 0;
+  background: var(--gold-2);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.trio-tick.is-done span { transform: scaleY(1); }
+
+/* stacked fallback — small screens and reduced motion */
+.trio-band {
+  position: relative;
+  display: block;
+  min-height: 78svh;
+}
+.trio-band .trio-subject img { transition: none; }
+
+/* ---------------------------------------------------------------
    REDUCED MOTION — everything degrades to a static, readable page
    --------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
