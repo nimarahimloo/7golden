@@ -4,22 +4,22 @@ const badges = [
   {
     name: 'اینماد',
     desc: 'نماد اعتماد الکترونیکی',
-    image: 'https://7golden.co/wp-content/uploads/2022/09/Certificate-min.png',
+    image: '/certificates/certificate.png',
   },
   {
     name: 'صنعت و معدن',
     desc: 'وزارت صنعت، معدن و تجارت',
-    image: 'https://7golden.co/wp-content/uploads/2022/09/Certificate-min.png',
+    image: '/certificates/certificate.png',
   },
   {
     name: 'اتاق بازرگانی',
     desc: 'اتاق بازرگانی و صنایع',
-    image: 'https://7golden.co/wp-content/uploads/2022/09/Certificate-min.png',
+    image: '/certificates/certificate.png',
   },
   {
     name: 'ساماندهی',
     desc: 'پایگاه ملی مجوزها',
-    image: 'https://7golden.co/wp-content/uploads/2022/09/Certificate-min.png',
+    image: '/certificates/certificate.png',
   },
 ];
 
