@@ -23,6 +23,14 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: '7golden-backend', time: new Date().toISOString() });
 });
 
+// Compatibility stubs for leftover Base44 client calls (AuthContext etc.)
+app.get('/api/apps/public/:env/public-settings/by-id/:id', (req, res) => {
+  res.json({ id: req.params.id, site_mode: 'corporate', public: true });
+});
+app.get('/api/apps/:appId/public-settings', (_req, res) => {
+  res.json({ site_mode: 'corporate', public: true });
+});
+
 app.use('/api/auth', authRoutes);
 app.use('/api', entitiesRoutes);
 app.use('/api', contentRoutes);
