@@ -8,11 +8,9 @@ backend/prisma/dev.db
 backend/prisma/dev.db-journal
 .env
 .env.local
+**/.DS_Store
 base44
 migration
 .base44
 bun.lock
 deno.lock
-public/fonts/Peyda
-public/fonts/Kalameh
-**/.DS_Store
