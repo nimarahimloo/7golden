@@ -2,7 +2,7 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache wget
+RUN apk add --no-cache wget openssl
 
 COPY package.json package-lock.json* ./
 RUN npm install
@@ -12,14 +12,14 @@ COPY src ./src
 COPY tsconfig.json ./
 
 RUN npx prisma generate
-RUN mkdir -p /app/data /app/uploads
+RUN mkdir -p /app/uploads
 
-ENV DATABASE_URL="file:/app/data/dev.db"
 ENV JWT_SECRET="7golden-docker-secret-change-me"
 ENV PORT=3001
 ENV CORS_ORIGIN="http://localhost:5173,http://localhost:3000"
 ENV UPLOAD_DIR="/app/uploads"
 ENV PUBLIC_URL="http://localhost:3001"
+# DATABASE_URL is injected by docker-compose (PostgreSQL)
 
 EXPOSE 3001
 
