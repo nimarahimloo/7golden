@@ -1,9 +1,27 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { API } from '../api/content';
-import { appParams } from '@/lib/app-params';
-import { createAxiosClient } from '@base44/sdk/dist/utils/axios-client';
 
 const AuthContext = createContext();
+const TOKEN_KEY = 'access_token';
+
+async function api(path, options = {}) {
+  const token = localStorage.getItem(TOKEN_KEY);
+  const res = await fetch(`/api${path}`, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options.headers,
+    },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.error || res.statusText || 'Request failed');
+    err.status = res.status;
+    err.data = data;
+    throw err;
+  }
+  return data;
+}
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -12,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoadingPublicSettings, setIsLoadingPublicSettings] = useState(true);
   const [authError, setAuthError] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
-  const [appPublicSettings, setAppPublicSettings] = useState(null); // Contains only { id, public_settings }
+  const [appPublicSettings, setAppPublicSettings] = useState(null);
 
   useEffect(() => {
     checkAppState();
@@ -22,130 +40,100 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsLoadingPublicSettings(true);
       setAuthError(null);
-
-      // First, check app public settings (with token if available)
-      // This will tell us if auth is required, user not registered, etc.
-      const appClient = createAxiosClient({
-        baseURL: `/api/apps/public`,
-        headers: {
-          'X-App-Id': appParams.appId
-        },
-        token: appParams.token, // Include token if available
-        interceptResponses: true
-      });
-
+      // Soft public settings (local backend stub or ignore)
       try {
-        const publicSettings = await appClient.get(`/prod/public-settings/by-id/${appParams.appId}`);
-        setAppPublicSettings(publicSettings);
+        const settings = await fetch('/api/settings').then((r) => (r.ok ? r.json() : null));
+        setAppPublicSettings(settings || { site_mode: 'corporate', public: true });
+      } catch {
+        setAppPublicSettings({ site_mode: 'corporate', public: true });
+      }
+      setIsLoadingPublicSettings(false);
 
-        // If we got the app public settings successfully, check if user is authenticated
-        if (appParams.token) {
-          await checkUserAuth();
-        } else {
-          setIsLoadingAuth(false);
-          setIsAuthenticated(false);
-          setAuthChecked(true);
-        }
-        setIsLoadingPublicSettings(false);
-      } catch (appError) {
-        console.error('App state check failed:', appError);
-
-        // Handle app-level errors
-        if (appError.status === 403 && appError.data?.extra_data?.reason) {
-          const reason = appError.data.extra_data.reason;
-          if (reason === 'auth_required') {
-            setAuthError({
-              type: 'auth_required',
-              message: 'Authentication required'
-            });
-          } else if (reason === 'user_not_registered') {
-            setAuthError({
-              type: 'user_not_registered',
-              message: 'User not registered for this app'
-            });
-          } else {
-            setAuthError({
-              type: reason,
-              message: appError.message
-            });
-          }
-        } else {
-          setAuthError({
-            type: 'unknown',
-            message: appError.message || 'Failed to load app'
-          });
-        }
-        setIsLoadingPublicSettings(false);
+      if (localStorage.getItem(TOKEN_KEY)) {
+        await checkUserAuth();
+      } else {
         setIsLoadingAuth(false);
+        setIsAuthenticated(false);
+        setAuthChecked(true);
       }
     } catch (error) {
-      console.error('Unexpected error:', error);
-      setAuthError({
-        type: 'unknown',
-        message: error.message || 'An unexpected error occurred'
-      });
+      console.error('App state check failed:', error);
+      setAppPublicSettings({ site_mode: 'corporate', public: true });
       setIsLoadingPublicSettings(false);
       setIsLoadingAuth(false);
+      setAuthChecked(true);
+      setAuthError(null); // public site must still load
     }
   };
 
   const checkUserAuth = async () => {
     try {
-      // Now check if the user is authenticated
       setIsLoadingAuth(true);
-      const currentUser = await base44.auth.me();
+      const currentUser = await api('/auth/me');
       setUser(currentUser);
       setIsAuthenticated(true);
-      setIsLoadingAuth(false);
-      setAuthChecked(true);
-    } catch (error) {
-      console.error('User auth check failed:', error);
-      setIsLoadingAuth(false);
+    } catch {
+      localStorage.removeItem(TOKEN_KEY);
+      setUser(null);
       setIsAuthenticated(false);
+    } finally {
+      setIsLoadingAuth(false);
       setAuthChecked(true);
-
-      // If user auth fails, it might be an expired token
-      if (error.status === 401 || error.status === 403) {
-        setAuthError({
-          type: 'auth_required',
-          message: 'Authentication required'
-        });
-      }
     }
+  };
+
+  const login = async (email, password) => {
+    const data = await api('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    if (data.access_token) localStorage.setItem(TOKEN_KEY, data.access_token);
+    setUser(data.user || null);
+    setIsAuthenticated(true);
+    return data;
+  };
+
+  const register = async (email, password, name) => {
+    const data = await api('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ email, password, name }),
+    });
+    if (data.access_token) localStorage.setItem(TOKEN_KEY, data.access_token);
+    setUser(data.user || null);
+    setIsAuthenticated(true);
+    return data;
   };
 
   const logout = (shouldRedirect = true) => {
+    localStorage.removeItem(TOKEN_KEY);
     setUser(null);
     setIsAuthenticated(false);
-
-    if (shouldRedirect) {
-      // Use the SDK's logout method which handles token cleanup and redirect
-      base44.auth.logout(window.location.href);
-    } else {
-      // Just remove the token without redirect
-      base44.auth.logout();
-    }
+    fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
+    if (shouldRedirect) window.location.href = '/';
   };
 
   const navigateToLogin = () => {
-    // Use the SDK's redirectToLogin method
-    base44.auth.redirectToLogin(window.location.href);
+    window.location.href = `/login?returnTo=${encodeURIComponent(window.location.href)}`;
   };
 
   return (
-    <AuthContext.Provider value={{
-      user,
-      isAuthenticated,
-      isLoadingAuth,
-      isLoadingPublicSettings,
-      authError,
-      appPublicSettings,
-      authChecked,
-      logout,
-      navigateToLogin,
-      checkUserAuth,
-      checkAppState
-    }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        isLoadingAuth,
+        isLoadingPublicSettings,
+        authError,
+        appPublicSettings,
+        authChecked,
+        logout,
+        navigateToLogin,
+        checkUserAuth,
+        checkAppState,
+        login,
+        register,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -153,8 +141,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 };

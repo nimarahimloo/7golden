@@ -33,3 +33,13 @@ dist-ssr
 base44/.app.jsonc
 
 /migration/backups/
+.env
+.env.local
+.env.production.local
+backend/.env
+node_modules/
+backend/node_modules/
+dist/
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.db
