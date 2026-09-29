@@ -37,11 +37,28 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
   const handleSave = async (formData) => {
     setSaving(true);
     try {
-      if (formData.id) {
-        const { id, created_date, updated_date, created_by_id, ...rest } = formData;
+      // پر کردن فیلدهای _en از روی _fa اگر خالی باشند (مدیریت انگلیسی از UI حذف شده)
+      const enriched = { ...formData };
+      Object.keys(enriched).forEach((k) => {
+        if (k.endsWith('_fa')) {
+          const enKey = k.slice(0, -3) + '_en';
+          if ((enriched[enKey] === undefined || enriched[enKey] === null || enriched[enKey] === '') && enriched[k]) {
+            enriched[enKey] = enriched[k];
+          }
+        }
+      });
+      if (enriched.name_fa && !enriched.name_en) enriched.name_en = enriched.name_fa;
+      if (enriched.title_fa && !enriched.title_en) enriched.title_en = enriched.title_fa;
+      if (enriched.desc_fa && !enriched.desc_en) enriched.desc_en = enriched.desc_fa;
+      if (enriched.body_fa && !enriched.body_en) enriched.body_en = enriched.body_fa;
+      if (enriched.badge && !enriched.badge_en) enriched.badge_en = enriched.badge;
+      if (enriched.origin_fa && !enriched.origin_en) enriched.origin_en = enriched.origin_fa;
+
+      if (enriched.id) {
+        const { id, created_date, updated_date, created_by_id, createdAt, updatedAt, ...rest } = enriched;
         await base44.entities[entityName].update(id, rest);
       } else {
-        const { id, ...rest } = formData;
+        const { id, ...rest } = enriched;
         await base44.entities[entityName].create(rest);
       }
       setEditing(null);

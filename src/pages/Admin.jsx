@@ -1,97 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Package, Tags, FileText, Image as ImageIcon, Settings, Mail,
-  LayoutDashboard, Home, LogOut, Loader2, Award
+  LayoutDashboard, Home, LogOut, Loader2, Award, MessageSquareQuote,
+  ShoppingBag, BarChart3
 } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import EntityCrud from '@/components/admin/EntityCrud';
 import SiteModeToggle from '@/components/admin/SiteModeToggle';
 import LogoLoader from '@/components/LogoLoader';
+import { base44 } from '@/api/base44Client';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 
 const SECTIONS = [
-  { id: 'products', label: 'محصولات', labelEN: 'Products', icon: Package },
-  { id: 'categories', label: 'دسته‌بندی', labelEN: 'Categories', icon: Tags },
-  { id: 'gallery', label: 'گالری', labelEN: 'Gallery', icon: ImageIcon },
-  { id: 'blog', label: 'مجله', labelEN: 'Blog Posts', icon: FileText },
-  { id: 'awards', label: 'مجوزها و جوایز', labelEN: 'Awards', icon: Award },
-  { id: 'messages', label: 'پیام‌ها', labelEN: 'Messages', icon: Mail },
-  { id: 'settings', label: 'تنظیمات', labelEN: 'Settings', icon: Settings },
+  { id: 'dashboard', label: 'داشبورد', icon: BarChart3 },
+  { id: 'products', label: 'محصولات', icon: Package },
+  { id: 'categories', label: 'دسته‌بندی', icon: Tags },
+  { id: 'gallery', label: 'گالری', icon: ImageIcon },
+  { id: 'blog', label: 'مجله / بلاگ', icon: FileText },
+  { id: 'awards', label: 'مجوزها و جوایز', icon: Award },
+  { id: 'testimonials', label: 'نظرات مشتریان', icon: MessageSquareQuote },
+  { id: 'orders', label: 'سفارش‌ها', icon: ShoppingBag },
+  { id: 'messages', label: 'پیام‌های تماس', icon: Mail },
+  { id: 'settings', label: 'تنظیمات سایت', icon: Settings },
 ];
 
 export default function Admin() {
-  const { user, isAuthenticated, isLoadingAuth } = useAuth();
-  const [active, setActive] = useState('products');
+  const { user, isAuthenticated, isLoadingAuth, logout } = useAuth();
+  const [active, setActive] = useState('dashboard');
   const navigate = useNavigate();
 
-  if (isLoadingAuth) {
-    return <LogoLoader />;
-  }
+  if (isLoadingAuth) return <LogoLoader />;
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--bg)' }} dir="rtl">
         <div className="text-center max-w-sm">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(212,175,55,0.1)' }}>
-            <LayoutDashboard size={28} style={{ color: 'var(--accent)' }} />
-          </div>
-          <h1 className="font-heading font-extrabold text-xl mb-2" style={{ color: 'var(--fg)' }}>
-            ورود به پنل مدیریت
-          </h1>
-          <p className="font-body text-sm mb-5" style={{ color: 'var(--fg-muted)' }}>
-            برای دسترسی به پنل ادمین ابتدا وارد حساب کاربری خود شوید
-          </p>
-          <Link to="/login" className="inline-block px-6 py-3 rounded-xl font-body font-semibold text-sm transition-all hover:scale-105" style={{ background: 'var(--accent)', color: '#fff' }}>
-            ورود
-          </Link>
+          <h1 className="font-heading font-extrabold text-xl mb-2" style={{ color: 'var(--fg)' }}>ورود به پنل مدیریت</h1>
+          <p className="font-body text-sm mb-5" style={{ color: 'var(--fg-muted)' }}>برای دسترسی وارد حساب ادمین شوید</p>
+          <Link to="/login" className="inline-block px-6 py-3 rounded-xl font-body font-semibold text-sm" style={{ background: 'var(--accent)', color: '#fff' }}>ورود</Link>
         </div>
       </div>
     );
   }
 
-  const isAdmin = user?.role === 'admin';
-
-  if (!isAdmin) {
+  if (user?.role !== 'admin') {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6" style={{ background: 'var(--bg)' }} dir="rtl">
-        <div className="text-center max-w-sm">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(239,68,68,0.1)' }}>
-            <LayoutDashboard size={28} style={{ color: '#ef4444' }} />
-          </div>
-          <h1 className="font-heading font-extrabold text-xl mb-2" style={{ color: 'var(--fg)' }}>
-            دسترسی محدود
-          </h1>
-          <p className="font-body text-sm mb-5" style={{ color: 'var(--fg-muted)' }}>
-            شما دسترسی ادمین ندارید. برای مدیریت سایت با مدیر سایت تماس بگیرید.
-          </p>
-          <Link to="/" className="inline-block px-6 py-3 rounded-xl font-body font-semibold text-sm transition-all hover:scale-105" style={{ background: 'var(--bg-secondary)', color: 'var(--fg)', border: '1px solid var(--border)' }}>
-            بازگشت به سایت
-          </Link>
+      <div className="min-h-screen flex items-center justify-center p-6" dir="rtl">
+        <div className="text-center">
+          <p className="mb-4">دسترسی فقط برای مدیر سیستم</p>
+          <Link to="/" className="underline">بازگشت به سایت</Link>
         </div>
       </div>
     );
   }
+
+  const onLogout = () => { logout(true); navigate('/'); };
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg)' }} dir="rtl">
-      <AdminShell
-        active={active}
-        setActive={setActive}
-        user={user}
-        onLogout={() => { navigate('/'); }}
-      >
+      <AdminShell active={active} setActive={setActive} user={user} onLogout={onLogout}>
+        {active === 'dashboard' && <DashboardSection />}
         {active === 'products' && <ProductsSection />}
         {active === 'categories' && <CategoriesSection />}
         {active === 'gallery' && <GallerySection />}
         {active === 'blog' && <BlogSection />}
         {active === 'awards' && <AwardsAdminSection />}
+        {active === 'testimonials' && <TestimonialsSection />}
+        {active === 'orders' && <OrdersSection />}
         {active === 'messages' && <MessagesSection />}
         {active === 'settings' && <SettingsSection />}
       </AdminShell>
@@ -101,21 +79,16 @@ export default function Admin() {
 
 function AdminShell({ active, setActive, user, onLogout, children }) {
   return (
-    <div className="flex flex-col lg:flex-row">
-      {/* Sidebar */}
-      <aside className="lg:w-64 lg:min-h-screen flex-shrink-0" style={{ background: 'hsl(var(--card))', borderBottom: '1px solid var(--border)' }}>
+    <div className="flex flex-col lg:flex-row min-h-screen">
+      <aside className="lg:w-64 flex-shrink-0" style={{ background: 'hsl(var(--card))', borderLeft: '1px solid var(--border)' }}>
         <div className="lg:hidden border-b p-3" style={{ borderColor: 'var(--border)' }}>
           <Select value={active} onValueChange={setActive}>
-            <SelectTrigger className="w-full admin-input cursor-pointer">
-              <SelectValue />
-            </SelectTrigger>
+            <SelectTrigger className="w-full admin-input cursor-pointer"><SelectValue /></SelectTrigger>
             <SelectContent>
               {SECTIONS.map(s => <SelectItem key={s.id} value={s.id}>{s.label}</SelectItem>)}
             </SelectContent>
           </Select>
         </div>
-
-        {/* Desktop sidebar */}
         <div className="hidden lg:block p-4">
           <div className="flex items-center gap-2.5 mb-6 px-2">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--accent)' }}>
@@ -123,67 +96,99 @@ function AdminShell({ active, setActive, user, onLogout, children }) {
             </div>
             <div>
               <div className="font-heading font-extrabold text-sm" style={{ color: 'var(--fg)' }}>پنل مدیریت</div>
-              <div className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>7Golden Admin</div>
+              <div className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>{user?.email}</div>
             </div>
           </div>
-
           <nav className="space-y-1">
             {SECTIONS.map(s => (
-              <button
-                key={s.id}
-                onClick={() => setActive(s.id)}
+              <button key={s.id} onClick={() => setActive(s.id)}
                 className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-body text-sm transition-all"
                 style={{
                   background: active === s.id ? 'var(--accent)' : 'transparent',
                   color: active === s.id ? '#fff' : 'var(--fg)',
                   fontWeight: active === s.id ? 600 : 400,
-                }}
-              >
-                <s.icon size={16} />
-                {s.label}
+                }}>
+                <s.icon size={16} />{s.label}
               </button>
             ))}
           </nav>
-
           <div className="mt-8 pt-4 space-y-1" style={{ borderTop: '1px solid var(--border)' }}>
-            <Link to="/" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-body text-sm transition-all" style={{ color: 'var(--fg-muted)' }}>
-              <Home size={16} />
-              مشاهده سایت
+            <Link to="/" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+              <Home size={16} />مشاهده سایت
             </Link>
-            <button onClick={onLogout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-body text-sm transition-all" style={{ color: '#ef4444' }}>
-              <LogOut size={16} />
-              خروج
+            <button onClick={onLogout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+              <LogOut size={16} />خروج
             </button>
-          </div>
-
-          <div className="mt-6 px-3">
-            <div className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>
-              {user?.email}
-            </div>
           </div>
         </div>
       </aside>
-
-      {/* Content */}
-      <main className="flex-1 p-4 sm:p-6 lg:p-8">
-        <div className="max-w-6xl mx-auto">
+      <main className="flex-1 p-4 lg:p-8 overflow-auto">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <h1 className="font-heading font-extrabold text-xl" style={{ color: 'var(--fg)' }}>
+            {SECTIONS.find(s => s.id === active)?.label}
+          </h1>
           <SiteModeToggle />
-          <div className="mb-6">
-            <h1 className="font-heading font-extrabold text-xl md:text-2xl mb-1" style={{ color: 'var(--fg)' }}>
-              {SECTIONS.find(s => s.id === active)?.label}
-            </h1>
-            <p className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
-              مدیریت {SECTIONS.find(s => s.id === active)?.labelEN}
-            </p>
-          </div>
-          {children}
         </div>
+        {children}
       </main>
     </div>
   );
 }
 
-/* ===== Section configs ===== */
+function DashboardSection() {
+  const [stats, setStats] = useState(null);
+  useEffect(() => {
+    (async () => {
+      try {
+        const [products, categories, blog, messages, orders] = await Promise.all([
+          base44.entities.Product.list(undefined, 500).catch(() => []),
+          base44.entities.Category.list(undefined, 200).catch(() => []),
+          base44.entities.BlogPost.list(undefined, 200).catch(() => []),
+          base44.entities.ContactMessage.list(undefined, 200).catch(() => []),
+          base44.entities.Order.list(undefined, 200).catch(() => []),
+        ]);
+        setStats({
+          products: products.length,
+          categories: categories.length,
+          blog: blog.length,
+          messages: messages.filter(m => m.status === 'new').length,
+          orders: orders.length,
+        });
+      } catch (e) {
+        console.error(e);
+        setStats({ products: 0, categories: 0, blog: 0, messages: 0, orders: 0 });
+      }
+    })();
+  }, []);
+
+  if (!stats) {
+    return <div className="flex justify-center py-20"><Loader2 className="animate-spin" style={{ color: 'var(--accent)' }} /></div>;
+  }
+
+  const cards = [
+    { label: 'محصولات', value: stats.products, color: '#d4af37' },
+    { label: 'دسته‌ها', value: stats.categories, color: '#22c55e' },
+    { label: 'مطالب بلاگ', value: stats.blog, color: '#3b82f6' },
+    { label: 'پیام جدید', value: stats.messages, color: '#ef4444' },
+    { label: 'سفارش‌ها', value: stats.orders, color: '#a855f7' },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {cards.map(c => (
+        <div key={c.label} className="rounded-2xl p-5" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
+          <div className="text-3xl font-heading font-extrabold mb-1" style={{ color: c.color }}>{c.value}</div>
+          <div className="text-sm font-body" style={{ color: 'var(--fg-muted)' }}>{c.label}</div>
+        </div>
+      ))}
+      <div className="col-span-full rounded-2xl p-5 mt-2" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
+        <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+          از منوی سمت راست هر بخش را مدیریت کنید. فیلدهای انگلیسی از پنل حذف شده‌اند؛ هنگام ذخیره از روی متن فارسی پر می‌شوند.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function ProductsSection() {
   return (
@@ -195,24 +200,19 @@ function ProductsSection() {
         { key: 'name_fa', label: 'نام' },
         { key: 'category', label: 'دسته' },
         { key: 'price_display', label: 'قیمت' },
-        { key: 'in_stock', label: 'موجود', render: r => r.in_stock !== false ? <span style={{ color: '#22c55e' }}>✓</span> : <span style={{ color: '#ef4444' }}>✗</span> },
-        { key: 'featured', label: 'ویژه', render: r => r.featured ? <span style={{ color: 'var(--accent)' }}>★</span> : '—' },
+        { key: 'in_stock', label: 'موجود', render: r => r.in_stock !== false ? '✓' : '✗' },
         { key: 'published', label: 'منتشر', render: r => r.published !== false ? <span style={{ color: '#22c55e' }}>✓</span> : <span style={{ color: '#ef4444' }}>✗</span> },
       ]}
       fields={[
-        { key: 'slug', label: 'شناسه URL (slug)', placeholder: 'hazelnut-paste' },
-        { key: 'name_fa', label: 'نام (فارسی)' },
-        { key: 'name_en', label: 'نام (انگلیسی)' },
-        { key: 'desc_fa', label: 'توضیحات (فارسی)', type: 'textarea' },
-        { key: 'desc_en', label: 'توضیحات (انگلیسی)', type: 'textarea' },
-        { key: 'category', label: 'دسته (slug)', placeholder: 'hazelnut' },
-        { key: 'origin_fa', label: 'خاستگاه (فارسی)' },
-        { key: 'origin_en', label: 'خاستگاه (انگلیسی)' },
-        { key: 'price', label: 'قیمت (عدد)', type: 'number' },
-        { key: 'price_display', label: 'قیمت (نمایش)', placeholder: '۸۵۰٬۰۰۰ تومان' },
+        { key: 'slug', label: 'شناسه URL (slug)', placeholder: 'pistachio-akbari' },
+        { key: 'name_fa', label: 'نام محصول' },
+        { key: 'desc_fa', label: 'توضیحات', type: 'textarea' },
+        { key: 'category', label: 'دسته (slug)', placeholder: 'pistachio' },
+        { key: 'origin_fa', label: 'خاستگاه' },
+        { key: 'price', label: 'قیمت عددی', type: 'number' },
+        { key: 'price_display', label: 'قیمت نمایشی', placeholder: '۸۵۰٬۰۰۰ تومان' },
         { key: 'image', label: 'تصویر اصلی', type: 'image' },
-        { key: 'badge', label: 'برچسب (فارسی)' },
-        { key: 'badge_en', label: 'برچسب (انگلیسی)' },
+        { key: 'badge', label: 'برچسب' },
         { key: 'in_stock', label: 'موجود در انبار', type: 'boolean', default: true },
         { key: 'featured', label: 'محصول ویژه', type: 'boolean', default: false },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
@@ -233,11 +233,9 @@ function CategoriesSection() {
         { key: 'slug', label: 'شناسه' },
       ]}
       fields={[
-        { key: 'slug', label: 'شناسه (slug)', placeholder: 'hazelnut' },
-        { key: 'name_fa', label: 'نام (فارسی)' },
-        { key: 'name_en', label: 'نام (انگلیسی)' },
-        { key: 'desc_fa', label: 'توضیحات (فارسی)', type: 'textarea' },
-        { key: 'desc_en', label: 'توضیحات (انگلیسی)', type: 'textarea' },
+        { key: 'slug', label: 'شناسه (slug)', placeholder: 'pistachio' },
+        { key: 'name_fa', label: 'نام دسته' },
+        { key: 'desc_fa', label: 'توضیحات', type: 'textarea' },
         { key: 'image', label: 'تصویر', type: 'image' },
         { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
       ]}
@@ -251,24 +249,15 @@ function GallerySection() {
       entityName="GalleryImage"
       defaultSort="sort_order"
       columns={[
-        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-10 h-12 rounded-lg object-cover" /> : '—' },
+        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-12 h-12 rounded-lg object-cover" /> : '—' },
         { key: 'title_fa', label: 'عنوان' },
-        { key: 'span', label: 'اندازه', render: r => ({ tall: 'بلند', wide: 'عریض', normal: 'معمولی' }[r.span] || 'معمولی') },
-        { key: 'published', label: 'منتشر', render: r => r.published !== false ? <span style={{ color: '#22c55e' }}>✓</span> : <span style={{ color: '#ef4444' }}>✗</span> },
+        { key: 'sort_order', label: 'ترتیب' },
       ]}
       fields={[
-        { key: 'title_fa', label: 'عنوان (فارسی)' },
-        { key: 'title_en', label: 'عنوان (انگلیسی)' },
-        { key: 'desc_fa', label: 'توضیحات (فارسی)', type: 'textarea' },
-        { key: 'desc_en', label: 'توضیحات (انگلیسی)', type: 'textarea' },
+        { key: 'title_fa', label: 'عنوان' },
         { key: 'image', label: 'تصویر', type: 'image' },
-        { key: 'span', label: 'اندازه نمایش', type: 'select', options: [
-          { value: 'normal', label: 'معمولی' },
-          { value: 'tall', label: 'بلند' },
-          { value: 'wide', label: 'عریض' },
-        ], default: 'normal' },
-        { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
-        { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
+        { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
+        { key: 'published', label: 'منتشر', type: 'boolean', default: true },
       ]}
     />
   );
@@ -280,22 +269,17 @@ function BlogSection() {
       entityName="BlogPost"
       defaultSort="sort_order"
       columns={[
-        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-10 h-10 rounded-lg object-cover" /> : '—' },
+        { key: 'cover', label: 'کاور', render: r => (r.cover || r.image) ? <img src={r.cover || r.image} alt="" className="w-12 h-10 rounded object-cover" /> : '—' },
         { key: 'title_fa', label: 'عنوان' },
-        { key: 'category', label: 'دسته' },
-        { key: 'published', label: 'منتشر', render: r => r.published ? <span style={{ color: '#22c55e' }}>✓</span> : <span style={{ color: '#ef4444' }}>✗</span> },
+        { key: 'slug', label: 'slug' },
+        { key: 'published', label: 'منتشر', render: r => r.published !== false ? '✓' : '✗' },
       ]}
       fields={[
-        { key: 'slug', label: 'شناسه (slug)' },
-        { key: 'title_fa', label: 'عنوان (فارسی)' },
-        { key: 'title_en', label: 'عنوان (انگلیسی)' },
-        { key: 'excerpt_fa', label: 'خلاصه (فارسی)', type: 'textarea' },
-        { key: 'excerpt_en', label: 'خلاصه (انگلیسی)', type: 'textarea' },
-        { key: 'content', label: 'محتوا', type: 'textarea', rows: 8 },
-        { key: 'category', label: 'دسته' },
-        { key: 'date_fa', label: 'تاریخ (فارسی)' },
-        { key: 'date_en', label: 'تاریخ (انگلیسی)' },
-        { key: 'image', label: 'تصویر', type: 'image' },
+        { key: 'slug', label: 'شناسه URL', placeholder: 'export-quality' },
+        { key: 'title_fa', label: 'عنوان' },
+        { key: 'excerpt_fa', label: 'خلاصه', type: 'textarea' },
+        { key: 'body_fa', label: 'متن کامل', type: 'textarea' },
+        { key: 'cover', label: 'تصویر کاور', type: 'image' },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
         { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
       ]}
@@ -309,18 +293,68 @@ function AwardsAdminSection() {
       entityName="Award"
       defaultSort="sort_order"
       columns={[
-        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-10 h-12 rounded-lg object-cover" /> : '—' },
+        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-10 h-12 rounded object-cover" /> : '—' },
         { key: 'title_fa', label: 'عنوان' },
-        { key: 'published', label: 'منتشر', render: r => r.published !== false ? <span style={{ color: '#22c55e' }}>✓</span> : <span style={{ color: '#ef4444' }}>✗</span> },
+        { key: 'published', label: 'منتشر', render: r => r.published !== false ? '✓' : '✗' },
       ]}
       fields={[
-        { key: 'title_fa', label: 'عنوان (فارسی)' },
-        { key: 'title_en', label: 'عنوان (انگلیسی)' },
-        { key: 'desc_fa', label: 'توضیحات (فارسی)', type: 'textarea' },
-        { key: 'desc_en', label: 'توضیحات (انگلیسی)', type: 'textarea' },
+        { key: 'title_fa', label: 'عنوان' },
+        { key: 'desc_fa', label: 'توضیحات', type: 'textarea' },
         { key: 'image', label: 'تصویر', type: 'image' },
-        { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
+        { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
+      ]}
+    />
+  );
+}
+
+function TestimonialsSection() {
+  return (
+    <EntityCrud
+      entityName="Testimonial"
+      defaultSort="sort_order"
+      columns={[
+        { key: 'name_fa', label: 'نام' },
+        { key: 'role_fa', label: 'سمت' },
+        { key: 'text_fa', label: 'نظر', render: r => <span className="line-clamp-1">{r.text_fa || r.content_fa}</span> },
+        { key: 'published', label: 'منتشر', render: r => r.published !== false ? '✓' : '✗' },
+      ]}
+      fields={[
+        { key: 'name_fa', label: 'نام مشتری' },
+        { key: 'role_fa', label: 'سمت / شرکت' },
+        { key: 'text_fa', label: 'متن نظر', type: 'textarea' },
+        { key: 'avatar', label: 'آواتار', type: 'image' },
+        { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
+        { key: 'published', label: 'منتشر', type: 'boolean', default: true },
+      ]}
+    />
+  );
+}
+
+function OrdersSection() {
+  return (
+    <EntityCrud
+      entityName="Order"
+      defaultSort="-createdAt"
+      columns={[
+        { key: 'id', label: 'شناسه', render: r => <span className="font-mono text-xs">{String(r.id).slice(-8)}</span> },
+        { key: 'customer_name', label: 'مشتری', render: r => r.customer_name || r.name || '—' },
+        { key: 'phone', label: 'تلفن' },
+        { key: 'status', label: 'وضعیت' },
+        { key: 'total', label: 'مبلغ', render: r => r.total ?? r.total_amount ?? '—' },
+      ]}
+      fields={[
+        { key: 'customer_name', label: 'نام مشتری' },
+        { key: 'phone', label: 'تلفن' },
+        { key: 'email', label: 'ایمیل' },
+        { key: 'address', label: 'آدرس', type: 'textarea' },
+        { key: 'status', label: 'وضعیت', type: 'select', options: [
+          { value: 'pending', label: 'در انتظار' },
+          { value: 'confirmed', label: 'تأیید شده' },
+          { value: 'shipped', label: 'ارسال شده' },
+          { value: 'cancelled', label: 'لغو' },
+        ] },
+        { key: 'notes', label: 'یادداشت', type: 'textarea' },
       ]}
     />
   );
@@ -336,8 +370,8 @@ function MessagesSection() {
         { key: 'email', label: 'ایمیل' },
         { key: 'message', label: 'پیام', render: r => <span className="line-clamp-1">{r.message}</span> },
         { key: 'status', label: 'وضعیت', render: r => {
-          const map = { new: 'جدید', read: 'خوانده شده', replied: 'پاسخ داده شده' };
-          return <span style={{ color: r.status === 'new' ? 'var(--accent)' : 'var(--fg-muted)' }}>{map[r.status] || r.status}</span>;
+          const map = { new: 'جدید', read: 'خوانده‌شده', replied: 'پاسخ‌داده‌شده' };
+          return map[r.status] || r.status;
         } },
       ]}
       fields={[
@@ -347,8 +381,8 @@ function MessagesSection() {
         { key: 'message', label: 'پیام', type: 'textarea' },
         { key: 'status', label: 'وضعیت', type: 'select', options: [
           { value: 'new', label: 'جدید' },
-          { value: 'read', label: 'خوانده شده' },
-          { value: 'replied', label: 'پاسخ داده شده' },
+          { value: 'read', label: 'خوانده‌شده' },
+          { value: 'replied', label: 'پاسخ‌داده‌شده' },
         ] },
       ]}
     />
@@ -359,105 +393,75 @@ function SettingsSection() {
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { user } = useAuth();
 
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
-        const items = await import('@/api/base44Client').then(m => m.base44.entities.SiteSettings.list());
-        setSettings(items[0] || {});
-      } catch (e) {
-        console.error('Failed to load settings:', e);
+        const items = await base44.entities.SiteSettings.list();
+        setSettings(items[0] || {
+          site_mode: 'corporate',
+          phone: '', email: '', working_hours_fa: '',
+          hq_address_fa: '', tehran_address_fa: '',
+        });
+      } catch {
+        setSettings({ site_mode: 'corporate' });
       } finally {
         setLoading(false);
       }
     })();
   }, []);
 
-  const handleSave = async (e) => {
+  const setField = (k, v) => setSettings(s => ({ ...s, [k]: v }));
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
-    const { base44 } = await import('@/api/base44Client');
     try {
-      if (settings.id) {
-        const { id, created_date, updated_date, created_by_id, ...rest } = settings;
-        await base44.entities.SiteSettings.update(id, rest);
-      } else {
-        await base44.entities.SiteSettings.create(settings);
+      const { id, createdAt, updatedAt, created_date, updated_date, ...rest } = settings;
+      if (id) await base44.entities.SiteSettings.update(id, rest);
+      else {
+        const created = await base44.entities.SiteSettings.create(rest);
+        setSettings(created);
       }
-      alert('تنظیمات ذخیره شد');
-    } catch (e) {
-      alert('خطا در ذخیره: ' + (e.message || 'نامشخص'));
+      alert('ذخیره شد');
+    } catch (err) {
+      alert('خطا: ' + (err.message || ''));
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) {
-    return <div className="flex justify-center py-20"><Loader2 size={24} className="animate-spin" style={{ color: 'var(--accent)' }} /></div>;
-  }
-
-  const setField = (key, value) => setSettings(prev => ({ ...prev, [key]: value }));
+  if (loading) return <Loader2 className="animate-spin mx-auto" />;
 
   return (
-    <form onSubmit={handleSave} className="space-y-4 max-w-2xl">
-      <div className="rounded-2xl p-5" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
-        <h3 className="font-heading font-extrabold text-sm mb-4" style={{ color: 'var(--fg)' }}>اطلاعات سایت</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="admin-label">نام سایت (فارسی)</label>
-            <input className="admin-input" value={settings.site_name_fa || ''} onChange={e => setField('site_name_fa', e.target.value)} />
-          </div>
-          <div>
-            <label className="admin-label">نام سایت (انگلیسی)</label>
-            <input className="admin-input" value={settings.site_name_en || ''} onChange={e => setField('site_name_en', e.target.value)} />
-          </div>
+    <form onSubmit={onSubmit} className="space-y-6 max-w-2xl">
+      <div className="rounded-2xl p-5 space-y-4" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
+        <h3 className="font-heading font-extrabold text-sm">تماس</h3>
+        <div>
+          <label className="admin-label">تلفن</label>
+          <input className="admin-input w-full" value={settings.phone || ''} onChange={e => setField('phone', e.target.value)} dir="ltr" />
+        </div>
+        <div>
+          <label className="admin-label">ایمیل</label>
+          <input className="admin-input w-full" value={settings.email || ''} onChange={e => setField('email', e.target.value)} dir="ltr" />
+        </div>
+        <div>
+          <label className="admin-label">ساعات کاری</label>
+          <input className="admin-input w-full" value={settings.working_hours_fa || ''} onChange={e => setField('working_hours_fa', e.target.value)} />
         </div>
       </div>
-
-      <div className="rounded-2xl p-5" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
-        <h3 className="font-heading font-extrabold text-sm mb-4" style={{ color: 'var(--fg)' }}>اطلاعات تماس</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="admin-label">تلفن ثابت</label>
-            <input className="admin-input" value={settings.contact_phone || ''} onChange={e => setField('contact_phone', e.target.value)} />
-          </div>
-          <div>
-            <label className="admin-label">موبایل</label>
-            <input className="admin-input" value={settings.contact_mobile || ''} onChange={e => setField('contact_mobile', e.target.value)} />
-          </div>
-          <div>
-            <label className="admin-label">ایمیل</label>
-            <input className="admin-input" value={settings.contact_email || ''} onChange={e => setField('contact_email', e.target.value)} />
-          </div>
-          <div>
-            <label className="admin-label">ساعات کاری (فارسی)</label>
-            <input className="admin-input" value={settings.working_hours_fa || ''} onChange={e => setField('working_hours_fa', e.target.value)} />
-          </div>
+      <div className="rounded-2xl p-5 space-y-4" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
+        <h3 className="font-heading font-extrabold text-sm">نشانی</h3>
+        <div>
+          <label className="admin-label">دفتر مرکزی</label>
+          <textarea className="admin-input w-full" rows={2} value={settings.hq_address_fa || ''} onChange={e => setField('hq_address_fa', e.target.value)} />
+        </div>
+        <div>
+          <label className="admin-label">دفتر تهران</label>
+          <textarea className="admin-input w-full" rows={2} value={settings.tehran_address_fa || ''} onChange={e => setField('tehran_address_fa', e.target.value)} />
         </div>
       </div>
-
-      <div className="rounded-2xl p-5" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
-        <h3 className="font-heading font-extrabold text-sm mb-4" style={{ color: 'var(--fg)' }}>نشانی</h3>
-        <div className="grid grid-cols-1 gap-4">
-          <div>
-            <label className="admin-label">نشانی دفتر مرکزی (فارسی)</label>
-            <textarea className="admin-input" rows={2} value={settings.hq_address_fa || ''} onChange={e => setField('hq_address_fa', e.target.value)} />
-          </div>
-          <div>
-            <label className="admin-label">نشانی دفتر تهران (فارسی)</label>
-            <textarea className="admin-input" rows={2} value={settings.tehran_address_fa || ''} onChange={e => setField('tehran_address_fa', e.target.value)} />
-          </div>
-        </div>
-      </div>
-
-      <button
-        type="submit"
-        disabled={saving}
-        className="flex items-center gap-2 px-6 py-3 rounded-xl font-body font-semibold text-sm transition-all hover:scale-105 disabled:opacity-50 magnetic-btn"
-        style={{ background: 'var(--accent)', color: '#fff' }}
-      >
-        {saving ? <Loader2 size={16} className="animate-spin" /> : <Settings size={16} />}
+      <button type="submit" disabled={saving} className="px-6 py-3 rounded-xl font-semibold text-sm" style={{ background: 'var(--accent)', color: '#fff' }}>
         {saving ? 'در حال ذخیره...' : 'ذخیره تنظیمات'}
       </button>
     </form>
