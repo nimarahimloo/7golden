@@ -17,11 +17,13 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
   const [editing, setEditing] = useState(null); // record or {} for new
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState('');
+  const [error, setError] = useState(null);
   const [toast, setToast] = useState(null);
   const showToast = (m) => { setToast(m); setTimeout(() => setToast(null), 2200); };
 
   const load = async () => {
     setLoading(true);
+    setError(null);
     try {
       const items = defaultSort
         ? await base44.entities[entityName].list(defaultSort, 200)
@@ -29,6 +31,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       setRecords(items);
     } catch (e) {
       console.error(`Failed to load ${entityName}:`, e);
+      setError(e.message || 'خطا در بارگذاری');
     } finally {
       setLoading(false);
     }
@@ -205,7 +208,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
           saving={saving}
           onSave={handleSave}
           onClose={() => setEditing(null)}
-          formError={error}
+          
         />
       )}
     </div>
