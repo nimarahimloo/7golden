@@ -10,6 +10,8 @@ import {
   normalizeRowMedia,
   prepareOrderData,
   normalizeRowMedia,
+  applyFieldAliases,
+  pickAllowedFields,
 } from '../lib/serialize.js';
 // prepareBlogPostData imported below if needed
 import { requireAuth, requireAdmin, optionalAuth, type AuthRequest } from '../middleware/auth.js';
@@ -89,12 +91,13 @@ function serialize(entity: string, row: any) {
 }
 
 function prepare(entity: string, body: any) {
-  let data: any;
-  if (entity === 'Product') data = prepareProductData(body);
-  else if (entity === 'BlogPost') data = prepareBlogPostData(body);
-  else if (entity === 'Order') data = prepareOrderData(body);
+  let data: any = applyFieldAliases(entity, body || {});
+
+  if (entity === 'Product') data = prepareProductData(data);
+  else if (entity === 'BlogPost') data = prepareBlogPostData(data);
+  else if (entity === 'Order') data = prepareOrderData(data);
   else {
-    data = { ...body };
+    data = { ...data };
     delete data.id;
     delete data.createdAt;
     delete data.updatedAt;
@@ -102,8 +105,12 @@ function prepare(entity: string, body: any) {
     delete data.updated_date;
     delete data.passwordHash;
   }
-  return fillEnFromFa(data);
+
+  data = fillEnFromFa(data);
+  data = pickAllowedFields(entity, data);
+  return data;
 }
+
 
 // Generic list
 router.get('/entities/:entity', optionalAuth, async (req: AuthRequest, res) => {

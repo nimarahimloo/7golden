@@ -424,7 +424,7 @@ function SettingsSection() {
         const items = await base44.entities.SiteSettings.list();
         setSettings(items[0] || {
           site_mode: 'corporate',
-          phone: '', email: '', working_hours_fa: '',
+          contact_phone: '', contact_email: '', contact_mobile: '', working_hours_fa: '', site_name_fa: '',
           hq_address_fa: '', tehran_address_fa: '',
         });
       } catch {
@@ -463,11 +463,11 @@ function SettingsSection() {
         <h3 className="font-heading font-extrabold text-sm">تماس</h3>
         <div>
           <label className="admin-label">تلفن</label>
-          <input className="admin-input w-full" value={settings.phone || ''} onChange={e => setField('phone', e.target.value)} dir="ltr" />
+          <input className="admin-input w-full" value={settings.contact_phone || settings.phone || ''} onChange={e => setField('contact_phone', e.target.value)} dir="ltr" />
         </div>
         <div>
           <label className="admin-label">ایمیل</label>
-          <input className="admin-input w-full" value={settings.email || ''} onChange={e => setField('email', e.target.value)} dir="ltr" />
+          <input className="admin-input w-full" value={settings.contact_email || settings.email || ''} onChange={e => setField('contact_email', e.target.value)} dir="ltr" />
         </div>
         <div>
           <label className="admin-label">ساعات کاری</label>
