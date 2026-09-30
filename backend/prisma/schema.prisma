@@ -23,18 +23,14 @@ model Product {
   id            String   @id @default(cuid())
   slug          String   @unique
   name_fa       String
-  name_en       String
   desc_fa       String?
-  desc_en       String?
   category      String
   origin_fa     String?
-  origin_en     String?
   price         Float
   price_display String?
   image         String
   gallery       String?  // JSON array
   badge         String?
-  badge_en      String?
   taste         String?  // JSON object
   weights       String?  // JSON array
   in_stock      Boolean  @default(true)
@@ -49,9 +45,7 @@ model Category {
   id         String   @id @default(cuid())
   slug       String   @unique
   name_fa    String
-  name_en    String
   desc_fa    String?
-  desc_en    String?
   image      String
   sort_order Int      @default(0)
   createdAt  DateTime @default(now())
@@ -62,12 +56,9 @@ model BlogPost {
   id         String   @id @default(cuid())
   slug       String   @unique
   title_fa   String
-  title_en   String
   excerpt_fa String?
-  excerpt_en String?
   content    String?
   date_fa    String?
-  date_en    String?
   category   String?
   image      String
   published  Boolean  @default(true)
@@ -78,10 +69,8 @@ model BlogPost {
 
 model Award {
   id         String   @id @default(cuid())
-  title_fa   String
-  title_en   String
+  title_fa   String?
   desc_fa    String?
-  desc_en    String?
   image      String
   sort_order Int      @default(0)
   published  Boolean  @default(true)
@@ -92,9 +81,7 @@ model Award {
 model GalleryImage {
   id         String   @id @default(cuid())
   title_fa   String
-  title_en   String
   desc_fa    String?
-  desc_en    String?
   image      String
   span       String   @default("normal")
   sort_order Int      @default(0)
@@ -106,13 +93,12 @@ model GalleryImage {
 model Testimonial {
   id         String   @id @default(cuid())
   name_fa    String
-  name_en    String
   role_fa    String?
-  role_en    String?
   text_fa    String
-  text_en    String
+  avatar     String?
   rating     Float    @default(5)
   sort_order Int      @default(0)
+  published  Boolean  @default(true)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -153,23 +139,17 @@ model Order {
 model SiteSettings {
   id                   String   @id @default(cuid())
   site_name_fa         String
-  site_name_en         String
   site_mode            String   @default("corporate")
   default_seo_title_fa String?
-  default_seo_title_en String?
   default_seo_desc_fa  String?
-  default_seo_desc_en  String?
   og_image             String?
   logo_url             String?
   contact_phone        String?
   contact_mobile       String?
   contact_email        String?
   hq_address_fa        String?
-  hq_address_en        String?
   tehran_address_fa    String?
-  tehran_address_en    String?
   working_hours_fa     String?
-  working_hours_en     String?
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
 }

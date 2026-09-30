@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { X, Plus, Minus, ShoppingBag, Truck, Tag, Trash2, ShieldCheck, Check, ArrowLeft, ArrowRight } from 'lucide-react';
+import { X, Plus, Minus, ShoppingBag, Truck, Tag, Trash2, ShieldCheck, Check, ArrowLeft } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import { Image } from '@/components/ui/image';

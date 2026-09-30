@@ -215,30 +215,64 @@ function DashboardSection() {
 }
 
 function ProductsSection() {
+  const [catOptions, setCatOptions] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { base44 } = await import('@/api/base44Client');
+        const items = await base44.entities.Category.list('sort_order', 200);
+        const list = Array.isArray(items) ? items : [];
+        if (!cancelled) {
+          setCatOptions(
+            list.map((c) => ({
+              value: c.slug,
+              label: c.name_fa || c.slug,
+            }))
+          );
+        }
+      } catch (e) {
+        console.error('load categories', e);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   return (
     <EntityCrud
       entityName="Product"
+      title="محصول"
       defaultSort="sort_order"
       columns={[
         { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-10 h-10 rounded-lg object-cover" /> : '—' },
-        { key: 'name_fa', label: 'نام' },
-        { key: 'category', label: 'دسته' },
-        { key: 'price_display', label: 'قیمت' },
-        { key: 'in_stock', label: 'موجود', toggleBool: true },
+        { key: 'name_fa', label: 'عنوان' },
+        { key: 'category', label: 'دسته', render: r => {
+          const opt = catOptions.find(o => o.value === r.category);
+          return opt ? opt.label : (r.category || '—');
+        }},
+        { key: 'gallery', label: 'گالری', render: r => {
+          const g = Array.isArray(r.gallery) ? r.gallery : [];
+          return `${g.length} تصویر`;
+        }},
         { key: 'published', label: 'منتشر', toggleBool: true },
       ]}
       fields={[
-        { key: 'slug', label: 'شناسه URL (slug)', placeholder: 'pistachio-akbari' },
-        { key: 'name_fa', label: 'نام محصول' },
-        { key: 'desc_fa', label: 'توضیحات', type: 'textarea' },
-        { key: 'category', label: 'دسته (slug)', placeholder: 'pistachio' },
-        { key: 'origin_fa', label: 'خاستگاه' },
-        { key: 'price', label: 'قیمت عددی', type: 'number' },
-        { key: 'price_display', label: 'قیمت نمایشی', placeholder: '۸۵۰٬۰۰۰ تومان' },
-        { key: 'image', label: 'تصویر اصلی', type: 'image' },
-        { key: 'badge', label: 'برچسب' },
-        { key: 'in_stock', label: 'موجود در انبار', type: 'boolean', default: true },
-        { key: 'featured', label: 'محصول ویژه', type: 'boolean', default: false },
+        { key: 'slug', label: 'شناسه URL', placeholder: 'pistachio-akbari', required: true },
+        { key: 'name_fa', label: 'عنوان محصول', required: true },
+        {
+          key: 'category',
+          label: 'دسته‌بندی',
+          type: 'select',
+          required: true,
+          options: catOptions.length
+            ? catOptions
+            : [{ value: '', label: 'ابتدا در بخش دسته‌ها یک دسته بسازید' }],
+        },
+        { key: 'origin_fa', label: 'خاستگاه (اختیاری)' },
+        { key: 'desc_fa', label: 'توضیحات / محتوای محصول', type: 'richtext' },
+        { key: 'image', label: 'تصویر اصلی (کاور)', type: 'image', required: true },
+        { key: 'gallery', label: 'گالری تصاویر (تا ۲۰ عدد)', type: 'gallery', max: 20 },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
         { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
       ]}
@@ -259,7 +293,7 @@ function CategoriesSection() {
       fields={[
         { key: 'slug', label: 'شناسه (slug)', placeholder: 'pistachio' },
         { key: 'name_fa', label: 'نام دسته' },
-        { key: 'desc_fa', label: 'توضیحات', type: 'textarea' },
+        { key: 'desc_fa', label: 'توضیحات', type: 'richtext' },
         { key: 'image', label: 'تصویر', type: 'image' },
         { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
       ]}
@@ -301,8 +335,8 @@ function BlogSection() {
       fields={[
         { key: 'slug', label: 'شناسه URL', placeholder: 'export-quality' },
         { key: 'title_fa', label: 'عنوان' },
-        { key: 'excerpt_fa', label: 'خلاصه', type: 'textarea' },
-        { key: 'content', label: 'متن کامل', type: 'textarea', rows: 8 },
+        { key: 'excerpt_fa', label: 'خلاصه', type: 'richtext' },
+        { key: 'content', label: 'متن کامل', type: 'richtext' },
         { key: 'image', label: 'تصویر کاور', type: 'image', required: true },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
         { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
@@ -315,22 +349,41 @@ function AwardsAdminSection() {
   return (
     <EntityCrud
       entityName="Award"
+      title="گواهی / جایزه"
       defaultSort="sort_order"
       columns={[
-        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-10 h-12 rounded object-cover" /> : '—' },
-        { key: 'title_fa', label: 'عنوان' },
-        { key: 'published', label: 'منتشر', render: r => r.published !== false ? '✓' : '✗' },
+        {
+          key: 'image',
+          label: 'تصویر',
+          render: (r) =>
+            r.image ? (
+              <img src={r.image} alt={r.title_fa || 'گواهی'} className="w-14 h-14 rounded-lg object-cover" />
+            ) : (
+              '—'
+            ),
+        },
+        {
+          key: 'title_fa',
+          label: 'عنوان',
+          render: (r) =>
+            r.title_fa || (
+              <span style={{ color: 'var(--fg-muted)' }}>فقط تصویر</span>
+            ),
+        },
+        { key: 'published', label: 'منتشر', toggleBool: true },
+        { key: 'sort_order', label: 'ترتیب' },
       ]}
       fields={[
-        { key: 'title_fa', label: 'عنوان' },
-        { key: 'desc_fa', label: 'توضیحات', type: 'textarea' },
-        { key: 'image', label: 'تصویر', type: 'image' },
-        { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
+        { key: 'image', label: 'تصویر گواهی / جایزه', type: 'image', required: true },
+        { key: 'title_fa', label: 'عنوان (اختیاری — برای موارد غیرکاغذی)' },
+        { key: 'desc_fa', label: 'توضیحات (اختیاری)', type: 'richtext' },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
+        { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
       ]}
     />
   );
 }
+
 
 function TestimonialsSection() {
   return (
@@ -346,7 +399,7 @@ function TestimonialsSection() {
       fields={[
         { key: 'name_fa', label: 'نام مشتری' },
         { key: 'role_fa', label: 'سمت / شرکت' },
-        { key: 'text_fa', label: 'متن نظر', type: 'textarea' },
+        { key: 'text_fa', label: 'متن نظر', type: 'richtext' },
         { key: 'avatar', label: 'آواتار', type: 'image' },
         { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
         { key: 'published', label: 'منتشر', type: 'boolean', default: true },
@@ -463,11 +516,11 @@ function SettingsSection() {
         <h3 className="font-heading font-extrabold text-sm">تماس</h3>
         <div>
           <label className="admin-label">تلفن</label>
-          <input className="admin-input w-full" value={settings.contact_phone || settings.phone || ''} onChange={e => setField('contact_phone', e.target.value)} dir="ltr" />
+          <input className="admin-input w-full" value={settings.contact_phone || settings.contact_phone || ''} onChange={e => setField('contact_phone', e.target.value)} dir="ltr" />
         </div>
         <div>
           <label className="admin-label">ایمیل</label>
-          <input className="admin-input w-full" value={settings.contact_email || settings.email || ''} onChange={e => setField('contact_email', e.target.value)} dir="ltr" />
+          <input className="admin-input w-full" value={settings.contact_email || settings.contact_email || ''} onChange={e => setField('contact_email', e.target.value)} dir="ltr" />
         </div>
         <div>
           <label className="admin-label">ساعات کاری</label>

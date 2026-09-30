@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
 
 export default function BackButton({ to, fallback = '/', className = '' }) {
   const navigate = useNavigate();

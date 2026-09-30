@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Calendar, ChevronLeft, Tag } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
 import { categoryLabel } from '@/lib/i18n';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/api/content';
 import { Image } from '@/components/ui/image';

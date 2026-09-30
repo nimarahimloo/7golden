@@ -13,7 +13,6 @@ import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
 import PageHero from '@/components/PageHero';
 import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
-import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
 import { useParallaxZoom } from '@/components/useParallaxZoom';

@@ -47,15 +47,6 @@ function safeJson(val: any, fallback: any) {
 /** Prepare write data: stringify JSON fields for SQLite */
 export function prepareProductData(body: any) {
   const data = { ...body };
-  // corporate site: no shop fields required from admin
-  if (data.price === undefined || data.price === null || data.price === '') data.price = 0;
-  if (data.price_display === undefined) data.price_display = null;
-  if (data.in_stock === undefined) data.in_stock = true;
-  if (data.featured === undefined) data.featured = false;
-  if (data.badge === undefined) data.badge = null;
-  if (!data.image && Array.isArray(data.gallery) && data.gallery[0]) data.image = data.gallery[0];
-  if (!data.image) data.image = '/logo.png';
-  // corporate defaults
   if (data.gallery !== undefined && typeof data.gallery !== 'string') {
     data.gallery = JSON.stringify(data.gallery);
   }
@@ -95,9 +86,12 @@ export function prepareBlogPostData(body: any) {
   if (data.body_fa && !data.content) data.content = data.body_fa;
   if (data.body && !data.content) data.content = data.body;
   if (!data.image) data.image = '/logo.png';
+  if (!data.title_en && data.title_fa) data.title_en = data.title_fa;
+  if (!data.excerpt_en && data.excerpt_fa) data.excerpt_en = data.excerpt_fa;
   delete data.cover;
   delete data.body_fa;
-    delete data.body;
+  delete data.body_en;
+  delete data.body;
   delete data.id;
   delete data.createdAt;
   delete data.updatedAt;
@@ -123,13 +117,28 @@ export function normalizeMediaUrl(url: any): any {
   return u;
 }
 
-/** FA-only site: normalize media, drop any leftover *_en keys. */
+/** Always sync *_en from *_fa (FA is source of truth). Normalize images. */
 export function fillEnFromFa(body: any) {
-  // schema is FA-only now — do not inject *_en
   const data: any = { ...body };
-  for (const k of Object.keys(data)) {
-    if (k.endsWith('_en')) delete data[k];
+  for (const key of Object.keys(data)) {
+    if (key.endsWith('_fa') && data[key] != null && data[key] !== '') {
+      const enKey = key.slice(0, -3) + '_en';
+      data[enKey] = data[key];
+    }
   }
+  if (data.badge != null && data.badge !== '') data.badge_en = data.badge;
+  if (data.name_fa) data.name_en = data.name_fa;
+  if (data.title_fa) data.title_en = data.title_fa;
+  if (data.desc_fa) data.desc_en = data.desc_fa;
+  if (data.excerpt_fa) data.excerpt_en = data.excerpt_fa;
+  if (data.origin_fa) data.origin_en = data.origin_fa;
+  if (data.cover && !data.image) data.image = data.cover;
+  if (data.image) data.image = normalizeMediaUrl(data.image);
+  if (data.cover) data.cover = normalizeMediaUrl(data.cover);
+  if (Array.isArray(data.gallery)) {
+    data.gallery = data.gallery.map((g: any) => normalizeMediaUrl(g));
+  }
+  delete data.cover;
   return data;
 }
 
@@ -148,26 +157,30 @@ export function normalizeRowMedia(row: any) {
 /** Allowed writable fields per Prisma model (no id/timestamps) */
 export const ENTITY_WRITE_FIELDS: Record<string, string[]> = {
   Product: [
-    'slug','name_fa','desc_fa','category','origin_fa',
-    'price','price_display','image','gallery','badge',
-    'taste','weights','in_stock','featured','published','sort_order',
+    'slug','name_fa','name_en','desc_fa','desc_en','category','origin_fa','origin_en',
+    'price','price_display','image','gallery','badge','badge_en','taste','weights',
+    'in_stock','featured','published','sort_order',
   ],
-  Category: ['slug','name_fa','desc_fa','image','sort_order'],
+  Category: ['slug','name_fa','name_en','desc_fa','desc_en','image','sort_order'],
   BlogPost: [
-    'slug','title_fa','excerpt_fa','content','date_fa','category','image','published','sort_order',
+    'slug','title_fa','title_en','excerpt_fa','excerpt_en','content',
+    'date_fa','date_en','category','image','published','sort_order',
   ],
-  Award: ['title_fa','desc_fa','image','sort_order','published'],
-  GalleryImage: ['title_fa','image','sort_order','published'],
-  Testimonial: ['name_fa','role_fa','text_fa','avatar','rating','sort_order','published'],
+  Award: ['title_fa','title_en','desc_fa','desc_en','image','sort_order','published'],
+  GalleryImage: ['title_fa','title_en','image','sort_order','published'],
+  Testimonial: [
+    'name_fa','name_en','role_fa','role_en','text_fa','text_en','avatar','sort_order','published',
+  ],
   ContactMessage: ['name','phone','email','message','status'],
   Order: [
     'customer_name','name','phone','email','address','status','notes','total','total_amount','items','userId',
   ],
   SiteSettings: [
-    'site_name_fa','site_mode',
-    'default_seo_title_fa','default_seo_desc_fa',
+    'site_name_fa','site_name_en','site_mode',
+    'default_seo_title_fa','default_seo_title_en','default_seo_desc_fa','default_seo_desc_en',
     'og_image','logo_url','contact_phone','contact_mobile','contact_email',
-    'hq_address_fa','tehran_address_fa','working_hours_fa',
+    'hq_address_fa','hq_address_en','tehran_address_fa','tehran_address_en',
+    'working_hours_fa','working_hours_en',
   ],
   User: ['email','name','role'],
 };
@@ -195,7 +208,8 @@ export function applyFieldAliases(entity: string, body: any) {
     if (data.body && !data.content) data.content = data.body;
     delete data.cover;
     delete data.body_fa;
-        delete data.body;
+    delete data.body_en;
+    delete data.body;
   }
   if (entity === 'Testimonial') {
     if (data.content_fa && !data.text_fa) data.text_fa = data.content_fa;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 import { UploadCloud, Trash2, Pencil, X, Plus, Loader2, Save } from 'lucide-react';
 
 /**
@@ -211,6 +212,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       {/* Edit drawer */}
       {editing && (
         <EditDrawer
+          key={editing?.id || "new"}
           fields={fields}
           data={editing}
           isNew={!editing.id}
@@ -247,12 +249,15 @@ function EditDrawer({ fields, data, isNew, saving, onSave, onClose, formError })
   };
 
   return (
-    <div className="fixed inset-0 z-[150] flex" dir="rtl">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="absolute inset-y-0 left-0 w-full max-w-lg overflow-y-auto" style={{ background: 'var(--bg)', boxShadow: 'var(--shadow-lg)' }}>
+    <div className="fixed inset-0 z-[150] flex items-center justify-center p-3 sm:p-6" dir="rtl">
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl"
+        style={{ background: 'var(--bg)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border)' }}
+      >
         {/* Header */}
-        <div className="sticky top-0 flex items-center justify-between px-6 py-4 z-10" style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border)' }}>
-          <h3 className="font-heading font-extrabold text-base" style={{ color: 'var(--fg)' }}>
+        <div className="sticky top-0 flex items-center justify-between px-6 sm:px-8 py-5 z-10" style={{ background: 'var(--bg)', borderBottom: '1px solid var(--border)' }}>
+          <h3 className="font-heading font-extrabold text-lg sm:text-xl" style={{ color: 'var(--fg)' }}>
             {isNew ? 'افزودن مورد جدید' : 'ویرایش'}
           </h3>
           <button onClick={onClose} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'var(--bg-secondary)', color: 'var(--fg)' }}>
@@ -261,7 +266,7 @@ function EditDrawer({ fields, data, isNew, saving, onSave, onClose, formError })
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
+        <form onSubmit={handleSubmit} className="px-6 sm:px-8 py-6 space-y-5">
           {formError ? (
             <div className="p-3 rounded-xl text-sm" style={{ background: 'rgba(239,68,68,0.12)', color: '#ef4444' }}>{formError}</div>
           ) : null}
@@ -297,6 +302,17 @@ function EditDrawer({ fields, data, isNew, saving, onSave, onClose, formError })
 function FieldRenderer({ field, value, onChange }) {
   if (field.type === 'image') {
     return <ImageUploadField field={field} value={value} onChange={onChange} />;
+  }
+  if (field.type === 'richtext') {
+    return (
+      <div>
+        <label className="admin-label">{field.label}{field.required ? ' *' : ''}</label>
+        <RichTextEditor value={value || ''} onChange={onChange} placeholder={field.placeholder} />
+      </div>
+    );
+  }
+  if (field.type === 'gallery') {
+    return <GalleryUploadField field={field} value={value} onChange={onChange} />;
   }
   if (field.type === 'textarea') {
     return (
@@ -434,6 +450,64 @@ function ImageUploadField({ field, value, onChange }) {
       ) : (
         <p className="text-xs mt-1" style={{ color: 'var(--fg-muted)' }}>آپلود روی همین سرور ذخیره می‌شود</p>
       )}
+    </div>
+  );
+}
+
+function GalleryUploadField({ field, value, onChange }) {
+  const [uploading, setUploading] = useState(false);
+  const [err, setErr] = useState('');
+  const list = Array.isArray(value) ? value : (typeof value === 'string' && value.startsWith('[') ? JSON.parse(value || '[]') : (value ? [value] : []));
+
+  const setList = (next) => onChange(next);
+
+  const handleFiles = async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    setErr('');
+    setUploading(true);
+    try {
+      const added = [];
+      for (const file of files) {
+        if (!file.type.startsWith('image/')) continue;
+        if (file.size > 12 * 1024 * 1024) continue;
+        const result = await base44.integrations.Core.UploadFile({ file });
+        const url = result.file_url || result.url;
+        if (url) added.push(url);
+      }
+      const merged = [...list, ...added].slice(0, field.max || 20);
+      setList(merged);
+    } catch (ex) {
+      setErr(ex?.message || 'خطا در آپلود');
+    } finally {
+      setUploading(false);
+      e.target.value = '';
+    }
+  };
+
+  const removeAt = (idx) => setList(list.filter((_, i) => i !== idx));
+
+  return (
+    <div>
+      <label className="admin-label">{field.label}</label>
+      <p className="text-xs mb-2" style={{ color: 'var(--fg-muted)' }}>
+        تا {field.max || 20} تصویر — اولی می‌تواند کاور باشد
+      </p>
+      <div className="flex flex-wrap gap-2 mb-3">
+        {list.map((url, i) => (
+          <div key={url + i} className="relative w-20 h-20 rounded-lg overflow-hidden" style={{ border: '1px solid var(--border)' }}>
+            <img src={url} alt="" className="w-full h-full object-cover" />
+            <button type="button" onClick={() => removeAt(i)}
+              className="absolute top-0 left-0 w-6 h-6 text-xs text-white" style={{ background: 'rgba(239,68,68,0.85)' }}>×</button>
+          </div>
+        ))}
+      </div>
+      <label className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold cursor-pointer"
+        style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border)' }}>
+        {uploading ? 'در حال آپلود…' : 'افزودن تصاویر'}
+        <input type="file" accept="image/*" multiple className="hidden" onChange={handleFiles} disabled={uploading} />
+      </label>
+      {err ? <p className="text-xs mt-1" style={{ color: '#ef4444' }}>{err}</p> : null}
     </div>
   );
 }

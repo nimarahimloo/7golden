@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);

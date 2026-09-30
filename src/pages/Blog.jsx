@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useApp } from '@/lib/AppContext';
 import { t, categoryLabel } from '@/lib/i18n';
 import { getBlogPosts } from '@/lib/api/content';
 import { Image } from '@/components/ui/image';
@@ -14,7 +13,6 @@ import { SITE_SEO } from '@/lib/seo';
 
 import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
-import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
 

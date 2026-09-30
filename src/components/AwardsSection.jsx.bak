@@ -61,9 +61,9 @@ export default function AwardsSection() {
 
 function AwardCard({ item, delay = 0, isFA, headingFont }) {
   const { ref, visible } = useScrollAnimation();
-  const title = item.title_fa || item.titleFA || item.title || '';
-  const desc = item.desc_fa || item.descFA || item.desc || '';
-  const img = item.image;
+  const title = isFA ? item.titleFA : item.titleEN;
+  const desc = isFA ? item.descFA : item.descEN;
+
   return (
     <div
       ref={ref}
@@ -71,36 +71,37 @@ function AwardCard({ item, delay = 0, isFA, headingFont }) {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div
-        className="rounded-3xl overflow-hidden transition-all duration-500 h-full"
+        className="rounded-3xl p-6 transition-all duration-500 h-full"
         style={{
           background: 'var(--card-bg)',
           border: '1px solid var(--border)',
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
         }}
       >
-        {img ? (
-          <img
-            src={img}
-            alt={title || 'گواهی هفت طلایی'}
-            className="w-full h-auto object-contain bg-[#faf9f6]"
-            loading="lazy" width={800} height={1100} style={{ aspectRatio: "4 / 5", width: "100%", height: "auto" }}
+        {/* Image */}
+        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5" style={{ background: 'rgba(255,255,255,0.03)' }}>
+          <Image
+            src={item.image}
+            alt={title}
+            className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+            fittingType="fill"
           />
-        ) : null}
-        {(title || desc) ? (
-          <div className="p-5 text-center">
-            {title ? (
-              <h3 className="font-heading font-bold text-sm mb-2" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-                {title}
-              </h3>
-            ) : null}
-            {desc ? (
-              <div
-                className="font-body text-xs leading-relaxed"
-                style={{ color: 'var(--fg-muted)' }}
-                dangerouslySetInnerHTML={{ __html: desc }}
-              />
-            ) : null}
-          </div>
-        ) : null}
+          {/* Gold ring on hover */}
+          <div className="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-500 group-hover:shadow-[inset_0_0_0_2px_rgba(212,175,55,0.45),0_0_24px_rgba(212,175,55,0.2)]" />
+        </div>
+
+        {/* Title */}
+        <h3 className="font-heading font-extrabold text-base mb-2 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+          {title}
+        </h3>
+
+        {/* Description */}
+        {desc && (
+          <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+            {desc}
+          </p>
+        )}
       </div>
     </div>
   );

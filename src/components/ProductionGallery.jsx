@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { useApp } from '@/lib/AppContext';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 export default function ProductionGallery({ images }) {

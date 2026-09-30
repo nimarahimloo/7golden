@@ -1,6 +1,5 @@
 import React from 'react';
 import { MapPin } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import { PatternDivider } from '@/components/IranianPattern';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
