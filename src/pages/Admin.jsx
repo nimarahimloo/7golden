@@ -292,7 +292,7 @@ function BlogSection() {
       entityName="BlogPost"
       defaultSort="sort_order"
       columns={[
-        { key: 'cover', label: 'کاور', render: r => (r.cover || r.image) ? <img src={r.cover || r.image} alt="" className="w-12 h-10 rounded object-cover" /> : '—' },
+        { key: 'image', label: 'کاور', render: r => (r.image || r.cover) ? <img src={r.image || r.cover} alt="" className="w-12 h-10 rounded object-cover" /> : '—' },
         { key: 'title_fa', label: 'عنوان' },
         { key: 'slug', label: 'slug' },
         { key: 'published', label: 'منتشر', render: r => r.published !== false ? '✓' : '✗' },
@@ -301,8 +301,8 @@ function BlogSection() {
         { key: 'slug', label: 'شناسه URL', placeholder: 'export-quality' },
         { key: 'title_fa', label: 'عنوان' },
         { key: 'excerpt_fa', label: 'خلاصه', type: 'textarea' },
-        { key: 'body_fa', label: 'متن کامل', type: 'textarea' },
-        { key: 'cover', label: 'تصویر کاور', type: 'image' },
+        { key: 'content', label: 'متن کامل', type: 'textarea', rows: 8 },
+        { key: 'image', label: 'تصویر کاور', type: 'image', required: true },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
         { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
       ]}

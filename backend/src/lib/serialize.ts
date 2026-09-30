@@ -73,3 +73,43 @@ export function prepareOrderData(body: any) {
   delete data.user;
   return data;
 }
+
+
+export function prepareBlogPostData(body: any) {
+  const data: any = { ...body };
+  // map admin UI fields → schema
+  if (data.cover && !data.image) data.image = data.cover;
+  if (data.body_fa && !data.content) data.content = data.body_fa;
+  if (data.body && !data.content) data.content = data.body;
+  if (!data.image) data.image = '/logo.png';
+  if (!data.title_en && data.title_fa) data.title_en = data.title_fa;
+  if (!data.excerpt_en && data.excerpt_fa) data.excerpt_en = data.excerpt_fa;
+  delete data.cover;
+  delete data.body_fa;
+  delete data.body_en;
+  delete data.body;
+  delete data.id;
+  delete data.createdAt;
+  delete data.updatedAt;
+  delete data.created_date;
+  delete data.updated_date;
+  return data;
+}
+
+/** Copy all *_fa values into empty *_en so schema stays satisfied without EN UI */
+export function fillEnFromFa(body: any) {
+  const data: any = { ...body };
+  for (const key of Object.keys(data)) {
+    if (key.endsWith('_fa')) {
+      const enKey = key.slice(0, -3) + '_en';
+      if (data[key] && (data[enKey] == null || data[enKey] === '')) {
+        data[enKey] = data[key];
+      }
+    }
+  }
+  // common aliases
+  if (data.badge && !data.badge_en) data.badge_en = data.badge;
+  if (data.name_fa && !data.name_en) data.name_en = data.name_fa;
+  if (data.title_fa && !data.title_en) data.title_en = data.title_fa;
+  return data;
+}

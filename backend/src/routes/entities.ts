@@ -5,8 +5,11 @@ import {
   serializeOrder,
   serializeGeneric,
   prepareProductData,
+  prepareBlogPostData,
+  fillEnFromFa,
   prepareOrderData,
 } from '../lib/serialize.js';
+// prepareBlogPostData imported below if needed
 import { requireAuth, requireAdmin, optionalAuth, type AuthRequest } from '../middleware/auth.js';
 
 const router = Router();
@@ -82,16 +85,20 @@ function serialize(entity: string, row: any) {
 }
 
 function prepare(entity: string, body: any) {
-  if (entity === 'Product') return prepareProductData(body);
-  if (entity === 'Order') return prepareOrderData(body);
-  const data = { ...body };
-  delete data.id;
-  delete data.createdAt;
-  delete data.updatedAt;
-  delete data.created_date;
-  delete data.updated_date;
-  delete data.passwordHash;
-  return data;
+  let data: any;
+  if (entity === 'Product') data = prepareProductData(body);
+  else if (entity === 'BlogPost') data = prepareBlogPostData(body);
+  else if (entity === 'Order') data = prepareOrderData(body);
+  else {
+    data = { ...body };
+    delete data.id;
+    delete data.createdAt;
+    delete data.updatedAt;
+    delete data.created_date;
+    delete data.updated_date;
+    delete data.passwordHash;
+  }
+  return fillEnFromFa(data);
 }
 
 // Generic list
