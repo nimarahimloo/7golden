@@ -7,7 +7,9 @@ import {
   prepareProductData,
   prepareBlogPostData,
   fillEnFromFa,
+  normalizeRowMedia,
   prepareOrderData,
+  normalizeRowMedia,
 } from '../lib/serialize.js';
 // prepareBlogPostData imported below if needed
 import { requireAuth, requireAdmin, optionalAuth, type AuthRequest } from '../middleware/auth.js';
@@ -79,9 +81,11 @@ function parseQuery(req: any) {
 }
 
 function serialize(entity: string, row: any) {
-  if (entity === 'Product') return serializeProduct(row);
-  if (entity === 'Order') return serializeOrder(row);
-  return serializeGeneric(row);
+  let out: any;
+  if (entity === 'Product') out = serializeProduct(row);
+  else if (entity === 'Order') out = serializeOrder(row);
+  else out = serializeGeneric(row);
+  return normalizeRowMedia(out);
 }
 
 function prepare(entity: string, body: any) {

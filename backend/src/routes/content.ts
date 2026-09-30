@@ -4,7 +4,9 @@ import {
   serializeProduct,
   serializeOrder,
   serializeGeneric,
+  normalizeRowMedia,
   prepareOrderData,
+  normalizeRowMedia,
 } from '../lib/serialize.js';
 import { requireAuth, requireAdmin, optionalAuth, type AuthRequest } from '../middleware/auth.js';
 
@@ -22,7 +24,7 @@ router.get('/products', async (req, res) => {
       orderBy: { sort_order: 'asc' },
       take: limit,
     });
-    res.json(items.map(serializeProduct));
+    res.json(items.map((x) => normalizeRowMedia(serializeProduct(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -34,7 +36,7 @@ router.get('/products/:slug', async (req, res) => {
       where: { slug: req.params.slug, published: true },
     });
     if (!item) return res.status(404).json({ error: 'Not found' });
-    res.json(serializeProduct(item));
+    res.json(normalizeRowMedia(serializeProduct(item)));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -44,7 +46,7 @@ router.get('/products/:slug', async (req, res) => {
 router.get('/categories', async (_req, res) => {
   try {
     const items = await prisma.category.findMany({ orderBy: { sort_order: 'asc' }, take: 100 });
-    res.json(items.map(serializeGeneric));
+    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -59,7 +61,7 @@ router.get('/blog', async (req, res) => {
       orderBy: { sort_order: 'asc' },
       take: limit,
     });
-    res.json(items.map(serializeGeneric));
+    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -71,7 +73,7 @@ router.get('/blog/:slug', async (req, res) => {
       where: { slug: req.params.slug, published: true },
     });
     if (!item) return res.status(404).json({ error: 'Not found' });
-    res.json(serializeGeneric(item));
+    res.json(normalizeRowMedia(serializeGeneric(item)));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -81,7 +83,7 @@ router.get('/blog/:slug', async (req, res) => {
 router.get('/testimonials', async (_req, res) => {
   try {
     const items = await prisma.testimonial.findMany({ orderBy: { sort_order: 'asc' }, take: 100 });
-    res.json(items.map(serializeGeneric));
+    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -95,7 +97,7 @@ router.get('/gallery', async (_req, res) => {
       orderBy: { sort_order: 'asc' },
       take: 100,
     });
-    res.json(items.map(serializeGeneric));
+    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -109,7 +111,7 @@ router.get('/awards', async (_req, res) => {
       orderBy: { sort_order: 'asc' },
       take: 100,
     });
-    res.json(items.map(serializeGeneric));
+    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -129,7 +131,7 @@ router.post('/contact', async (req, res) => {
         status: 'new',
       },
     });
-    res.status(201).json(serializeGeneric(row));
+    res.status(201).json(normalizeRowMedia(serializeGeneric(row)));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -152,7 +154,7 @@ router.put('/settings/:id', requireAuth, requireAdmin, async (req: AuthRequest, 
     delete data.createdAt;
     delete data.updatedAt;
     const row = await prisma.siteSettings.update({ where: { id: req.params.id }, data });
-    res.json(serializeGeneric(row));
+    res.json(normalizeRowMedia(serializeGeneric(row)));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -185,7 +187,7 @@ router.get('/orders', requireAuth, async (req: AuthRequest, res) => {
       orderBy: { createdAt: 'desc' },
       take: 100,
     });
-    res.json(items.map(serializeOrder));
+    res.json(items.map((x) => normalizeRowMedia(serializeOrder(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }

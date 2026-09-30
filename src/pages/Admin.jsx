@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import EntityCrud from '@/components/admin/EntityCrud';
+import AdminErrorBoundary from '@/components/admin/AdminErrorBoundary';
 import SiteModeToggle from '@/components/admin/SiteModeToggle';
 import LogoLoader from '@/components/LogoLoader';
 import { base44 } from '@/api/base44Client';
@@ -152,7 +153,7 @@ function AdminShell({ active, setActive, user, onLogout, children }) {
           </h1>
           <SiteModeToggle />
         </div>
-        {children}
+        <AdminErrorBoundary key={active}>{children}</AdminErrorBoundary>
       </main>
     </div>
   );

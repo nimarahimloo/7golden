@@ -28,12 +28,10 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       const items = defaultSort
         ? await base44.entities[entityName].list(defaultSort, 200)
         : await base44.entities[entityName].list();
-      const list = Array.isArray(items) ? items : (items?.data || items?.items || []);
-      setRecords(list);
+      setRecords(items);
     } catch (e) {
       console.error(`Failed to load ${entityName}:`, e);
-      setError(e?.message || 'خطا در بارگذاری');
-      setRecords([]);
+      setError(e.message || 'خطا در بارگذاری');
     } finally {
       setLoading(false);
     }
@@ -90,15 +88,14 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
     }
   };
 
-  const safeRecords = Array.isArray(records) ? records : [];
   const filtered = search
-    ? safeRecords.filter(r =>
+    ? records.filter(r =>
         columns.some(c => {
           const val = c.render ? c.render(r) : r[c.key];
           return String(val || '').toLowerCase().includes(search.toLowerCase());
         })
       )
-    : safeRecords;
+    : records;
 
   if (loading) {
     return (
@@ -110,12 +107,6 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
 
   return (
     <div>
-      {error && !editing ? (
-        <div className="mb-4 p-3 rounded-xl text-sm" style={{ background: 'rgba(239,68,68,0.12)', color: '#ef4444' }}>
-          {error}
-          <button type="button" className="mr-2 underline" onClick={() => { setError(null); load(); }}>تلاش مجدد</button>
-        </div>
-      ) : null}
       {toast && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[200] px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: '#22c55e', color: '#fff' }}>{toast}</div>
       )}
@@ -216,8 +207,8 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
           isNew={!editing.id}
           saving={saving}
           onSave={handleSave}
-          onClose={() => { setEditing(null); setError(null); }}
-          formError={error}
+          onClose={() => setEditing(null)}
+          
         />
       )}
     </div>

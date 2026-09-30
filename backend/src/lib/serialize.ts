@@ -1,9 +1,13 @@
 /** Parse JSON string fields back to objects for API responses */
 export function serializeProduct(p: any) {
   if (!p) return p;
+  const gallery = safeJson(p.gallery, []).map((g: any) =>
+    typeof g === 'string' ? (g.replace(/^https?:\/\/[^/]+(:\d+)?/i, '') ) : g
+  );
   return {
     ...p,
-    gallery: safeJson(p.gallery, []),
+    image: typeof p.image === 'string' ? p.image.replace(/^https?:\/\/[^/]+(:\d+)?/i, '') : p.image,
+    gallery,
     taste: safeJson(p.taste, { bitter: 0, sweet: 0, earthy: 0, nutty: 0 }),
     weights: safeJson(p.weights, []),
     created_date: p.createdAt,
@@ -96,20 +100,56 @@ export function prepareBlogPostData(body: any) {
   return data;
 }
 
-/** Copy all *_fa values into empty *_en so schema stays satisfied without EN UI */
+/** Force relative upload URLs (never :3001 public) */
+export function normalizeMediaUrl(url: any): any {
+  if (url == null || typeof url !== 'string') return url;
+  let u = url.trim();
+  // absolute to this server → path only
+  u = u.replace(/^https?:\/\/[^/]+(:\d+)?/i, '');
+  if (u.startsWith('/uploads/') || u.startsWith('/product/') || u.startsWith('/banner/') || u.startsWith('/certificates/')) {
+    return u;
+  }
+  // leftover host-only
+  if (u.includes('/uploads/')) {
+    const i = u.indexOf('/uploads/');
+    return u.slice(i);
+  }
+  return u;
+}
+
+/** Always sync *_en from *_fa (FA is source of truth). Normalize images. */
 export function fillEnFromFa(body: any) {
   const data: any = { ...body };
   for (const key of Object.keys(data)) {
-    if (key.endsWith('_fa')) {
+    if (key.endsWith('_fa') && data[key] != null && data[key] !== '') {
       const enKey = key.slice(0, -3) + '_en';
-      if (data[key] && (data[enKey] == null || data[enKey] === '')) {
-        data[enKey] = data[key];
-      }
+      data[enKey] = data[key];
     }
   }
-  // common aliases
-  if (data.badge && !data.badge_en) data.badge_en = data.badge;
-  if (data.name_fa && !data.name_en) data.name_en = data.name_fa;
-  if (data.title_fa && !data.title_en) data.title_en = data.title_fa;
+  if (data.badge != null && data.badge !== '') data.badge_en = data.badge;
+  if (data.name_fa) data.name_en = data.name_fa;
+  if (data.title_fa) data.title_en = data.title_fa;
+  if (data.desc_fa) data.desc_en = data.desc_fa;
+  if (data.excerpt_fa) data.excerpt_en = data.excerpt_fa;
+  if (data.origin_fa) data.origin_en = data.origin_fa;
+  if (data.cover && !data.image) data.image = data.cover;
+  if (data.image) data.image = normalizeMediaUrl(data.image);
+  if (data.cover) data.cover = normalizeMediaUrl(data.cover);
+  if (Array.isArray(data.gallery)) {
+    data.gallery = data.gallery.map((g: any) => normalizeMediaUrl(g));
+  }
+  delete data.cover;
   return data;
 }
+
+/** On read: fix bad absolute upload URLs in API responses */
+export function normalizeRowMedia(row: any) {
+  if (!row) return row;
+  const r = { ...row };
+  for (const k of ['image', 'cover', 'avatar']) {
+    if (typeof r[k] === 'string') r[k] = normalizeMediaUrl(r[k]);
+  }
+  if (Array.isArray(r.gallery)) r.gallery = r.gallery.map((g: any) => normalizeMediaUrl(g));
+  return r;
+}
+
