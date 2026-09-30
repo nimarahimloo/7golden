@@ -68,7 +68,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
       await load();
     } catch (e) {
       console.error(`Failed to save ${entityName}:`, e);
-      alert('خطا در ذخیره: ' + (e.message || 'نامشخص'));
+      setError('خطا در ذخیره: ' + (e.message || 'نامشخص'));
     } finally {
       setSaving(false);
     }
@@ -205,6 +205,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
           saving={saving}
           onSave={handleSave}
           onClose={() => setEditing(null)}
+          formError={error}
         />
       )}
     </div>
@@ -223,7 +224,7 @@ function buildEmpty(fields) {
   return obj;
 }
 
-function EditDrawer({ fields, data, isNew, saving, onSave, onClose }) {
+function EditDrawer({ fields, data, isNew, saving, onSave, onClose, formError }) {
   const [form, setForm] = useState({ ...data });
 
   const setField = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
@@ -249,6 +250,9 @@ function EditDrawer({ fields, data, isNew, saving, onSave, onClose }) {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
+          {formError ? (
+            <div className="p-3 rounded-xl text-sm" style={{ background: 'rgba(239,68,68,0.12)', color: '#ef4444' }}>{formError}</div>
+          ) : null}
           {fields.map(field => (
             <FieldRenderer key={field.key} field={field} value={form[field.key]} onChange={v => setField(field.key, v)} />
           ))}
@@ -360,19 +364,34 @@ function FieldRenderer({ field, value, onChange }) {
 
 function ImageUploadField({ field, value, onChange }) {
   const [uploading, setUploading] = useState(false);
+  const [fieldError, setFieldError] = useState('');
 
   const handleFile = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setFieldError('');
+    if (file.size > 8 * 1024 * 1024) {
+      setFieldError('حجم فایل حداکثر ۸ مگابایت');
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      setFieldError('فقط فایل تصویری مجاز است');
+      return;
+    }
     setUploading(true);
     try {
-      const { file_url } = await base44.integrations.Core.UploadFile({ file });
-      onChange(file_url);
+      const result = await base44.integrations.Core.UploadFile({ file });
+      const url = result.file_url || result.url || result.path;
+      if (!url) throw new Error('پاسخ سرور بدون آدرس فایل');
+      onChange(url);
+      setFieldError('');
     } catch (err) {
       console.error('Upload failed:', err);
-      alert('خطا در آپلود تصویر');
+      const msg = err?.message || err?.data?.error || 'خطا در آپلود تصویر';
+      setFieldError(String(msg));
     } finally {
       setUploading(false);
+      e.target.value = '';
     }
   };
 
@@ -398,6 +417,11 @@ function ImageUploadField({ field, value, onChange }) {
         className="admin-input mt-2"
         placeholder="یا URL تصویر را وارد کنید"
       />
+      {fieldError ? (
+        <p className="text-xs mt-1.5" style={{ color: '#ef4444' }}>{fieldError}</p>
+      ) : (
+        <p className="text-xs mt-1" style={{ color: 'var(--fg-muted)' }}>آپلود روی همین سرور ذخیره می‌شود</p>
+      )}
     </div>
   );
 }
