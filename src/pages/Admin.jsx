@@ -25,6 +25,8 @@ const SECTIONS = [
   { id: 'orders', label: 'سفارش‌ها', icon: ShoppingBag },
   { id: 'messages', label: 'پیام‌های تماس', icon: Mail },
   { id: 'settings', label: 'تنظیمات سایت', icon: Settings },
+  { id: 'users', label: 'کاربران', icon: Settings },
+  { id: 'security', label: 'امنیت / رمز', icon: Settings },
 ];
 
 export default function Admin() {
@@ -72,6 +74,27 @@ export default function Admin() {
         {active === 'orders' && <OrdersSection />}
         {active === 'messages' && <MessagesSection />}
         {active === 'settings' && <SettingsSection />}
+        {active === 'users' && (
+          <EntityCrud entityName="User" title="کاربر"
+            columns={[
+              { key: 'email', label: 'ایمیل' },
+              { key: 'role', label: 'نقش' },
+            ]}
+            fields={[
+              { key: 'email', label: 'ایمیل' },
+              { key: 'role', label: 'نقش', type: 'select', options: [
+                { value: 'user', label: 'کاربر' },
+                { value: 'admin', label: 'ادمین' },
+              ]},
+            ]}
+          />
+        )}
+        {active === 'security' && (
+          <div className="max-w-md rounded-2xl p-5" style={{ background: 'hsl(var(--card))', border: '1px solid var(--border)' }}>
+            <p className="text-sm mb-2">رمز ادمین را از دیتابیس یا بعد از فعال‌سازی endpoint تغییر دهید.</p>
+            <p className="text-xs" style={{ color: 'var(--fg-muted)' }}>فعلی seed: admin@7golden.co — حتماً عوض شود.</p>
+          </div>
+        )}
       </AdminShell>
     </div>
   );
@@ -200,8 +223,8 @@ function ProductsSection() {
         { key: 'name_fa', label: 'نام' },
         { key: 'category', label: 'دسته' },
         { key: 'price_display', label: 'قیمت' },
-        { key: 'in_stock', label: 'موجود', render: r => r.in_stock !== false ? '✓' : '✗' },
-        { key: 'published', label: 'منتشر', render: r => r.published !== false ? <span style={{ color: '#22c55e' }}>✓</span> : <span style={{ color: '#ef4444' }}>✗</span> },
+        { key: 'in_stock', label: 'موجود', toggleBool: true },
+        { key: 'published', label: 'منتشر', toggleBool: true },
       ]}
       fields={[
         { key: 'slug', label: 'شناسه URL (slug)', placeholder: 'pistachio-akbari' },

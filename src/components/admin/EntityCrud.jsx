@@ -17,6 +17,8 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
   const [editing, setEditing] = useState(null); // record or {} for new
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState('');
+  const [toast, setToast] = useState(null);
+  const showToast = (m) => { setToast(m); setTimeout(() => setToast(null), 2200); };
 
   const load = async () => {
     setLoading(true);
@@ -62,6 +64,7 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
         await base44.entities[entityName].create(rest);
       }
       setEditing(null);
+      showToast('ذخیره شد');
       await load();
     } catch (e) {
       console.error(`Failed to save ${entityName}:`, e);
@@ -101,6 +104,9 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
 
   return (
     <div>
+      {toast && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[200] px-4 py-2 rounded-xl text-sm font-semibold" style={{ background: '#22c55e', color: '#fff' }}>{toast}</div>
+      )}
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between mb-5">
         <div className="flex items-center gap-3">
@@ -149,7 +155,17 @@ export default function EntityCrud({ entityName, columns, fields, defaultSort })
                   <tr key={r.id}>
                     {columns.map(c => (
                       <td key={c.key}>
-                        {c.render ? c.render(r) : (String(r[c.key] ?? '—'))}
+                        {c.toggleBool ? (
+                          <button type="button" onClick={async () => {
+                            try {
+                              await base44.entities[entityName].update(r.id, { [c.key]: !r[c.key] });
+                              showToast('به‌روز شد');
+                              await load();
+                            } catch (e) { alert(e.message); }
+                          }} style={{ color: r[c.key] ? '#22c55e' : '#ef4444', fontWeight: 700 }}>
+                            {r[c.key] ? '✓' : '✗'}
+                          </button>
+                        ) : c.render ? c.render(r) : (String(r[c.key] ?? '—'))}
                       </td>
                     ))}
                     <td>
