@@ -306,7 +306,7 @@ function FieldRenderer({ field, value, onChange }) {
   if (field.type === 'richtext') {
     return (
       <div>
-        <label className="admin-label">{field.label}{field.required ? ' *' : ''}</label>
+        <label className="admin-label" htmlFor={field.key}>{field.label}{field.required ? ' *' : ''}</label>
         <RichTextEditor value={value || ''} onChange={onChange} placeholder={field.placeholder} />
       </div>
     );
@@ -317,7 +317,7 @@ function FieldRenderer({ field, value, onChange }) {
   if (field.type === 'textarea') {
     return (
       <div>
-        <label className="admin-label">{field.label}</label>
+        <label className="admin-label" htmlFor={field.key}>{field.label}</label>
         <textarea
           value={value || ''}
           onChange={e => onChange(e.target.value)}
@@ -349,7 +349,7 @@ function FieldRenderer({ field, value, onChange }) {
   if (field.type === 'select') {
     return (
       <div>
-        <label className="admin-label">{field.label}</label>
+        <label className="admin-label" htmlFor={field.key}>{field.label}</label>
         <select
           value={value || ''}
           onChange={e => onChange(e.target.value)}
@@ -366,7 +366,7 @@ function FieldRenderer({ field, value, onChange }) {
   if (field.type === 'number') {
     return (
       <div>
-        <label className="admin-label">{field.label}</label>
+        <label className="admin-label" htmlFor={field.key}>{field.label}</label>
         <input
           type="number"
           value={value ?? 0}
@@ -378,7 +378,7 @@ function FieldRenderer({ field, value, onChange }) {
   }
   return (
     <div>
-      <label className="admin-label">{field.label}</label>
+      <label className="admin-label" htmlFor={field.key}>{field.label}</label>
       <input
         type="text"
         value={value || ''}
@@ -425,7 +425,7 @@ function ImageUploadField({ field, value, onChange }) {
 
   return (
     <div>
-      <label className="admin-label">{field.label}</label>
+      <label className="admin-label" htmlFor={field.key}>{field.label}</label>
       <div className="flex items-center gap-3">
         {value && (
           <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0" style={{ border: '1px solid var(--border)', background: 'var(--bg-secondary)' }}>
@@ -444,6 +444,8 @@ function ImageUploadField({ field, value, onChange }) {
         onChange={e => onChange(e.target.value)}
         className="admin-input mt-2"
         placeholder="یا URL تصویر را وارد کنید"
+        id={field.key}
+        name={field.key}
       />
       {fieldError ? (
         <p className="text-xs mt-1.5" style={{ color: '#ef4444' }}>{fieldError}</p>
@@ -489,7 +491,7 @@ function GalleryUploadField({ field, value, onChange }) {
 
   return (
     <div>
-      <label className="admin-label">{field.label}</label>
+      <label className="admin-label" htmlFor={field.key}>{field.label}</label>
       <p className="text-xs mb-2" style={{ color: 'var(--fg-muted)' }}>
         تا {field.max || 20} تصویر — اولی می‌تواند کاور باشد
       </p>
