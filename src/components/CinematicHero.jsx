@@ -15,7 +15,7 @@ import CountUp from '@/components/story/CountUp';
  */
 export default function CinematicHero({
   video = '/9a4201778861aaa70701702683a138d9-0.mp4',
-  poster = '/banner/Hero.jpg',
+  poster = '/banner/side-pesteh.jpg',
   eyebrow = '',
   title,
   titleAccent,
