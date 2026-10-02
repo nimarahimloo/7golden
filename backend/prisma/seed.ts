@@ -140,30 +140,32 @@ async function main() {
 
   const tCount = await prisma.testimonial.count();
   if (tCount === 0) {
-    await prisma.testimonial.create({
-      data: {
-        name_fa: 'شرکت نمونه',
-        role_fa: 'خریدار صادراتی',
-        text_fa: 'کیفیت عالی و تحویل به‌موقع',
-        rating: 5,
-        sort_order: 1,
-      },
-      {
-        name_fa: 'بستنی گلستان',
-        role_fa: 'خریدار صادراتی',
-        text_fa: 'خلال پسته قزوین هفت طلایی بهترین کیفیت را در بین تأمین‌کنندگان دارد. رنگ سبز مطلوب و برش یکنواخت.',
-        rating: 5,
-        sort_order: 2,
-      },
-      {
-        name_fa: 'قنادی برتر',
-        role_fa: 'خریدار عمده',
-        text_fa: 'پرک بادام درختی با کیفیت عالی و تحویل به‌موقع. همکاری با هفت طلایی را به همه صنعت‌گران توصیه می‌کنیم.',
-        rating: 5,
-        sort_order: 3,
-      },
-    ],
-  });
+    await prisma.testimonial.createMany({
+      data: [
+        {
+          name_fa: 'شرکت نمونه',
+          role_fa: 'خریدار صادراتی',
+          text_fa: 'کیفیت عالی و تحویل به‌موقع',
+          rating: 5,
+          sort_order: 1,
+        },
+        {
+          name_fa: 'بستنی گلستان',
+          role_fa: 'خریدار صادراتی',
+          text_fa: 'خلال پسته قزوین هفت طلایی بهترین کیفیت را در بین تأمین‌کنندگان دارد. رنگ سبز مطلوب و برش یکنواخت.',
+          rating: 5,
+          sort_order: 2,
+        },
+        {
+          name_fa: 'قنادی برتر',
+          role_fa: 'خریدار عمده',
+          text_fa: 'پرک بادام درختی با کیفیت عالی و تحویل به‌موقع. همکاری با هفت طلایی را به همه صنعت‌گران توصیه می‌کنیم.',
+          rating: 5,
+          sort_order: 3,
+        },
+      ],
+    });
+  }
 
   console.log('Seed done. Admin: admin@7golden.co / admin123');
 }
