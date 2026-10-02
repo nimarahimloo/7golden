@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const SLIDES = [
   {
-    image: '/banner/Hero.jpg',
+    image: '/banner/side-pesteh.jpg',
     badge: '7GOLDEN',
     titleFA: 'تولید، فرآوری و صادرات فندق، پسته و بادام',
     titleEN: 'Producer & Exporter of Hazelnut, Pistachio and Almond',
@@ -11,7 +11,7 @@ const SLIDES = [
     subEN: 'Industrial supplier of hazelnut kernels, pistachio slices and almond kernels for the chocolate, confectionery and ice-cream industry',
   },
   {
-    image: '/banner/Hero-Banner-3.jpg',
+    image: '/product/qazvin-pistachio-nuts.png',
     badge: 'PISTACHIO',
     titleFA: 'خلال پسته و مغز پسته قزوین',
     titleEN: 'Qazvin Pistachio Kernels & Slices',
@@ -19,7 +19,7 @@ const SLIDES = [
     subEN: 'Uniform grading, industrial packaging and continuous supply capacity',
   },
   {
-    image: '/banner/Hero-Banner-main.png',
+    image: '/product/brain-hazelnut.png',
     badge: 'HAZELNUT',
     titleFA: 'مغز فندق درجه یک برای صنایع شکلات',
     titleEN: 'Premium Hazelnut Kernels for the Chocolate Industry',

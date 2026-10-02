@@ -55,7 +55,7 @@ const STEPS = [
   },
   {
     key: 'export',
-    image: '/banner/Hero-main.jpg',
+    image: '/banner/side-pesteh.jpg',
     eyebrow: 'STEP 05',
     title: 'صادرات و تحویل',
     lead: 'تحویل زمان‌بندی‌شده به بازارهای صادراتی بین‌المللی.',

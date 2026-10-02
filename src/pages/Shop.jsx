@@ -19,9 +19,9 @@ import Marquee from '@/components/story/Marquee';
 import MaskText from '@/components/story/MaskText';
 
 const BAND_IMAGE = {
-  pistachio: '/banner/Hero-Banner-3.jpg',
-  almond: '/banner/Hero-banner-2.jpg',
-  hazelnut: '/banner/Hero.jpg',
+  pistachio: '/product/qazvin-pistachio-nuts.png',
+  almond: '/product/almond-flakes.png',
+  hazelnut: '/product/brain-hazelnut.png',
 };
 
 /**
@@ -76,7 +76,7 @@ export default function Shop() {
       <PullToRefresh onRefresh={loadData}>
         {/* ===== HERO ===== */}
         <PageHero
-          image="/banner/Hero-Banner-3.jpg"
+          image="/banner/side-pesteh.jpg"
           title={t('products_title')}
           subtitle="پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی"
           badge={isFA ? 'محصولات' : 'Products'}
@@ -165,7 +165,7 @@ export default function Shop() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/banner/Hero-main.jpg"
+          image="/banner/side-pesteh.jpg"
           text="EXPORT"
           eyebrow="صادرات بین‌المللی"
         />
@@ -195,7 +195,7 @@ export default function Shop() {
         <section className="chapter">
           <div className="chapter-shell">
             <DepthParallax
-              src="/gallery/AQ8A1516AQ8A1516.JPG"
+              src="/banner/img-6052.jpg"
               alt="7Golden production"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -211,7 +211,7 @@ export default function Shop() {
         {/* ===== B2B INQUIRY CTA ===== */}
         <section className="closing-band" style={{ minHeight: '50vh' }}>
           <div className="closing-band-bg">
-            <img src="/banner/Hero-Banner-5.jpg" alt="" />
+            <img src="/banner/blog-exhibition.jpg" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 md:py-28">
             <StoryChapter

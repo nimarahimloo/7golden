@@ -48,7 +48,7 @@ export default function Footer() {
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <img
           ref={bgRef}
-          src="/gallery/AQ8A1571AQ8A1571.JPG"
+          src="/banner/hazelnuts-display.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
           style={{ opacity: 0.18, willChange: 'transform' }}
@@ -82,7 +82,7 @@ export default function Footer() {
             lineHeight: 0.9,
             letterSpacing: '-0.03em',
             margin: 0,
-            backgroundImage: 'url(/banner/Hero-main.jpg)',
+            backgroundImage: 'url(/banner/side-pesteh.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             WebkitBackgroundClip: 'text',
@@ -104,7 +104,7 @@ export default function Footer() {
           {/* Logo tile — spans 2 on mobile */}
           <Reveal variant="up" delay={0} className="col-span-2 md:col-span-1">
             <div className="panel rounded-3xl p-6 h-full flex flex-col justify-between gold-frame" style={{ minHeight: '180px' }}>
-              <img src="/logo.png" alt="7Golden" className="h-12 w-auto object-contain mb-4" />
+              <img src="/banner/logo.png" alt="7Golden" className="h-12 w-auto object-contain mb-4" />
               <p className="font-body text-[11px] leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
                 {t('footer_tagline')}
               </p>

@@ -22,9 +22,9 @@ import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporat
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
-  pistachio: '/banner/Hero-Banner-3.jpg',
-  almond: '/banner/Hero-banner-2.jpg',
-  hazelnut: '/banner/Hero.jpg',
+  pistachio: '/product/qazvin-pistachio-nuts.png',
+  almond: '/product/almond-flakes.png',
+  hazelnut: '/product/brain-hazelnut.png',
 };
 
 export default function Home() {
@@ -128,7 +128,7 @@ export default function Home() {
           <div className="chapter-shell">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <ParallaxMedia
-                src="/gallery/AQ8A1516AQ8A1516.JPG"
+                src="/banner/img-6052.jpg"
                 alt="7Golden production"
                 ratio="aspect-[4/3]"
                 className="rounded-3xl"
@@ -167,7 +167,7 @@ export default function Home() {
               className="mb-12 md:mb-16"
             />
             <DepthParallax
-              src="/banner/Hero-main.jpg"
+              src="/banner/side-pesteh.jpg"
               alt="Iranian orchards"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -189,7 +189,7 @@ export default function Home() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/banner/Hero-main.jpg"
+          image="/banner/side-pesteh.jpg"
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
