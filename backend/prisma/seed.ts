@@ -21,15 +21,12 @@ async function main() {
   await prisma.siteSettings.create({
     data: {
       site_name_fa: 'هفت طلایی',
-      site_name_en: '7Golden',
       site_mode: 'corporate',
       contact_phone: '021-12345678',
       contact_mobile: '0912-0000000',
       contact_email: 'info@7golden.co',
       hq_address_fa: 'ایران، قزوین',
-      hq_address_en: 'Qazvin, Iran',
       working_hours_fa: 'شنبه تا پنج‌شنبه ۹ تا ۱۷',
-      working_hours_en: 'Sat–Thu 9–17',
     },
   });
 
@@ -40,27 +37,21 @@ async function main() {
         {
           slug: 'pistachio',
           name_fa: 'پسته',
-          name_en: 'Pistachio',
           desc_fa: 'پسته صادراتی درجه یک',
-          desc_en: 'Premium export pistachios',
           image: '/product/pistachio.jpg',
           sort_order: 1,
         },
         {
           slug: 'almond',
           name_fa: 'بادام',
-          name_en: 'Almond',
           desc_fa: 'بادام با کیفیت صادراتی',
-          desc_en: 'Export-grade almonds',
           image: '/product/almond.jpg',
           sort_order: 2,
         },
         {
           slug: 'hazelnut',
           name_fa: 'فندق',
-          name_en: 'Hazelnut',
           desc_fa: 'فندق تازه و مرغوب',
-          desc_en: 'Fresh quality hazelnuts',
           image: '/product/hazelnut.jpg',
           sort_order: 3,
         },
@@ -75,12 +66,9 @@ async function main() {
         {
           slug: 'pistachio-akbari',
           name_fa: 'پسته اکبری',
-          name_en: 'Akbari Pistachio',
           desc_fa: 'پسته اکبری ممتاز برای صادرات',
-          desc_en: 'Premium Akbari pistachio for export',
           category: 'pistachio',
           origin_fa: 'کرمان',
-          origin_en: 'Kerman',
           price: 8500000,
           price_display: '۸٬۵۰۰٬۰۰۰',
           image: '/product/pistachio.jpg',
@@ -94,7 +82,6 @@ async function main() {
         {
           slug: 'almond-mamra',
           name_fa: 'بادام مامرایی',
-          name_en: 'Mamra Almond',
           category: 'almond',
           price: 6200000,
           price_display: '۶٬۲۰۰٬۰۰۰',
@@ -106,7 +93,6 @@ async function main() {
         {
           slug: 'hazelnut-raw',
           name_fa: 'فندق خام',
-          name_en: 'Raw Hazelnut',
           category: 'hazelnut',
           price: 4800000,
           price_display: '۴٬۸۰۰٬۰۰۰',
@@ -125,12 +111,9 @@ async function main() {
       data: {
         slug: 'export-quality',
         title_fa: 'کیفیت صادراتی هفت طلایی',
-        title_en: '7Golden Export Quality',
         excerpt_fa: 'استانداردهای صادرات پسته و خشکبار',
-        excerpt_en: 'Export standards for nuts',
         content: 'محتوای نمونه...',
         date_fa: '۱۴۰۴/۰۱/۰۱',
-        date_en: '2025-03-21',
         category: 'news',
         image: '/banner/hero.jpg',
         published: true,
@@ -144,11 +127,8 @@ async function main() {
     await prisma.testimonial.create({
       data: {
         name_fa: 'شرکت نمونه',
-        name_en: 'Sample Co',
         role_fa: 'خریدار صادراتی',
-        role_en: 'Export buyer',
         text_fa: 'کیفیت عالی و تحویل به‌موقع',
-        text_en: 'Excellent quality and on-time delivery',
         rating: 5,
         sort_order: 1,
       },
