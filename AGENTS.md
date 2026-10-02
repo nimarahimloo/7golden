@@ -56,6 +56,7 @@ docker compose -f docker-compose.base44.yml up -d
 
 ## Known fixes applied
 - `backend/prisma/seed.ts` was out of sync with `schema.prisma` (referenced removed `_en` fields). Fixed to match the current schema (Persian-only fields).
+- `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found "{"`). Fixed by switching to `createMany({ data: [...] })` with a proper array.
 
 ## Verifying
 - `docker compose -f docker-compose.base44.yml ps` — all three services should be `healthy`
