@@ -66,7 +66,7 @@ export const FALLBACK_PRODUCTS = [
     nameFA: 'خلال پسته قزوین',
     nameEN: 'Pistachio Slice',
     category: 'pistachio',
-    image: '/product/pistachio-slices.png',
+    image: '/product/khelal-qazvin-slice.png',
     featured: true,
     published: true,
   },
