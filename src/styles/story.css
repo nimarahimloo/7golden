@@ -92,18 +92,14 @@
 }
 
 .reveal-clip {
-  /* Never clip the whole box away: a fully clipped element has no visible
-     area, so IntersectionObserver never fires and the picture would stay
-     hidden forever. A soft inset keeps ~70% of the box "visible" to the
-     observer while still giving a gentle iris-open entrance. */
-  clip-path: inset(10% 6% 10% 6% round 1.5rem);
-  transform: scale(0.97);
+  clip-path: inset(0 0 100% 0);
+  transform: none;
 }
 
 .reveal.is-visible {
   opacity: 1;
   transform: none;
-  clip-path: inset(-2rem -2rem -2rem -2rem round 1.5rem);
+  clip-path: inset(0 0 0 0);
 }
 
 /* ---------------------------------------------------------------
