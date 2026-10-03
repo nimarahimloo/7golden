@@ -83,7 +83,7 @@ export default function Footer() {
             lineHeight: 0.9,
             letterSpacing: '-0.03em',
             margin: 0,
-            backgroundImage: 'url(/banner/side-pesteh.jpg)',
+            backgroundImage: 'url(/gallery/AQ8A1505AQ8A1505.JPG)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             WebkitBackgroundClip: 'text',

@@ -10,7 +10,7 @@
    --------------------------------------------------------------- */
 .display-xl {
   font-family: 'Peyda', serif;
-  font-weight: 700;
+  font-weight: 800;
   font-size: clamp(2.4rem, 8.4vw, 7rem);
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -18,7 +18,7 @@
 
 .display-lg {
   font-family: 'Peyda', serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: clamp(1.9rem, 5vw, 4rem);
   line-height: 1.12;
   letter-spacing: -0.005em;
@@ -34,7 +34,7 @@
 
 .display-sm {
   font-family: 'Kalameh', serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: clamp(1rem, 1.9vw, 1.3rem);
   line-height: 1.55;
 }
@@ -212,7 +212,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(7, 6, 4, 0.9) 0%, rgba(7, 6, 4, 0.25) 55%, rgba(7, 6, 4, 0.05) 100%);
+  background: linear-gradient(to top, rgba(7, 6, 4, 0.8) 0%, rgba(7, 6, 4, 0.15) 55%, transparent 100%);
 }
 
 /* ---------------------------------------------------------------
@@ -249,8 +249,8 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to left, rgba(7, 6, 4, 0.96) 0%, rgba(7, 6, 4, 0.5) 45%, rgba(7, 6, 4, 0.1) 100%),
-    linear-gradient(to top, rgba(7, 6, 4, 0.9) 0%, transparent 40%, rgba(7, 6, 4, 0.5) 100%);
+    linear-gradient(to left, rgba(7, 6, 4, 0.82) 0%, rgba(7, 6, 4, 0.3) 35%, rgba(7, 6, 4, 0) 70%),
+    linear-gradient(to top, rgba(7, 6, 4, 0.7) 0%, transparent 35%, rgba(7, 6, 4, 0.3) 100%);
 }
 
 /* Ken Burns zoom on the active scene image */
@@ -543,8 +543,7 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to top, rgba(7, 6, 4, 0.92) 0%, rgba(7, 6, 4, 0.28) 55%, rgba(7, 6, 4, 0.55) 100%),
-    radial-gradient(ellipse at 30% 40%, transparent 30%, rgba(7, 6, 4, 0.5) 100%);
+    linear-gradient(to top, rgba(7, 6, 4, 0.85) 0%, rgba(7, 6, 4, 0.15) 50%, rgba(7, 6, 4, 0.35) 100%);
 }
 
 .depth-beam {
@@ -801,15 +800,15 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to left, rgba(7, 6, 4, 0.96) 0%, rgba(7, 6, 4, 0.55) 45%, rgba(7, 6, 4, 0.15) 100%),
-    linear-gradient(to top, rgba(7, 6, 4, 0.9) 0%, transparent 40%, rgba(7, 6, 4, 0.5) 100%);
+    linear-gradient(to left, rgba(7, 6, 4, 0.88) 0%, rgba(7, 6, 4, 0.4) 35%, rgba(7, 6, 4, 0) 70%),
+    linear-gradient(to top, rgba(7, 6, 4, 0.7) 0%, transparent 35%, rgba(7, 6, 4, 0.3) 100%);
 }
 
 .process-vignette {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at 65% 50%, transparent 30%, rgba(7, 6, 4, 0.6) 100%);
+  background: radial-gradient(ellipse at 65% 50%, transparent 40%, rgba(7, 6, 4, 0.35) 100%);
 }
 
 .process-copy {

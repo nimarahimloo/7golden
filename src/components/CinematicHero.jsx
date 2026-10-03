@@ -96,17 +96,13 @@ export default function CinematicHero({
         />
       </div>
 
-      {/* ---- scrims ---- */}
+      {/* ---- scrims — lighter so the hero image stays visible ---- */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to top, rgba(7,6,4,1) 0%, rgba(7,6,4,0.82) 26%, rgba(7,6,4,0.32) 62%, rgba(7,6,4,0.72) 100%)',
+            'linear-gradient(to top, rgba(7,6,4,0.95) 0%, rgba(7,6,4,0.65) 30%, rgba(7,6,4,0.15) 60%, rgba(7,6,4,0.5) 100%)',
         }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{ background: 'radial-gradient(ellipse at 70% 40%, transparent 20%, rgba(7,6,4,0.7) 100%)' }}
       />
 
       {/* ---- copy ---- */}

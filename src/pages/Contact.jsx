@@ -45,7 +45,7 @@ export default function Contact() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/gallery/AQ8A1579AQ8A1579.JPG"
+          image="/gallery/AQ8A1770AQ8A1770.JPG"
           title={t('contact_title')}
           subtitle="همیشه در دسترس شما هستیم"
           badge="تماس با ما"
@@ -90,7 +90,7 @@ export default function Contact() {
       <section className="chapter">
         <div className="chapter-shell">
           <DepthParallax
-            src="/gallery/AQ8A1589AQ8A1589.JPG"
+            src="/gallery/AQ8A1742AQ8A1742.JPG"
             alt="7Golden facility"
             ratio="aspect-[4/3] md:aspect-[21/9]"
             className="rounded-3xl"
@@ -165,7 +165,7 @@ export default function Contact() {
             {/* Parallax image strip — the orchard speaks */}
             <Reveal variant="up" delay={120}>
             <ParallaxMedia
-              src="/gallery/AQ8A1552AQ8A1552.JPG"
+              src="/gallery/AQ8A1628AQ8A1628.JPG"
               alt="7Golden orchard"
               ratio="aspect-[16/9]"
               className="rounded-3xl"
@@ -297,7 +297,7 @@ export default function Contact() {
       {/* ===== Closing parallax band ===== */}
       <section className="closing-band" style={{ minHeight: '50vh' }}>
         <div className="closing-band-bg">
-          <img src="/gallery/AQ8A1568AQ8A1568.JPG" alt="" />
+          <img src="/gallery/AQ8A1750AQ8A1750.JPG" alt="" />
         </div>
         <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
           <Reveal variant="up">

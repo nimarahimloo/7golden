@@ -52,7 +52,7 @@ export default function About() {
         {/* Hero */}
         <div className="relative">
           <PageHero
-            image="/banner/product-nuts-assortment.jpg"
+            image="/gallery/AQ8A1683AQ8A1683.JPG"
             title={t('about_title')}
             subtitle={t('about_sub')}
             badge="داستان ما"
@@ -129,7 +129,7 @@ export default function About() {
         <section className="chapter">
           <div className="chapter-shell">
             <DepthParallax
-              src="/gallery/AQ8A1505AQ8A1505.JPG"
+              src="/gallery/AQ8A1640AQ8A1640.JPG"
               alt="7Golden production line"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -144,14 +144,14 @@ export default function About() {
 
         <section className="chapter pt-0">
           <div className="chapter-shell grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-            <ParallaxMedia src="/gallery/AQ8A1524AQ8A1524.JPG" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
-            <ParallaxMedia src="/gallery/AQ8A1516AQ8A1516.JPG" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
+            <ParallaxMedia src="/gallery/AQ8A1748AQ8A1748.JPG" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
+            <ParallaxMedia src="/gallery/AQ8A1665AQ8A1665.JPG" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
           </div>
         </section>
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/gallery/AQ8A1499AQ8A1499.JPG"
+          image="/gallery/AQ8A1628AQ8A1628.JPG"
           text="QAZVIN"
           eyebrow="EST. ۱۳۷۷ · قزوین"
         />

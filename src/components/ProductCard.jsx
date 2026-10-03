@@ -33,7 +33,7 @@ export default function ProductCard({ product }) {
     <Link
       to={`/product/${product.id}`}
       className="product-card-luxury group relative block rounded-2xl overflow-hidden aspect-[3/4]"
-      style={{ background: '#0A0A0A' }}
+      style={{ background: 'transparent' }}
     >
       {/* Full-screen product image with parallax + scroll-driven zoom */}
       <div className="absolute inset-0 overflow-hidden">
@@ -47,21 +47,13 @@ export default function ProductCard({ product }) {
         </div>
       </div>
 
-      {/* Soft gold glow — fades in on hover */}
+      {/* Minimal hover glow */}
       <div
         className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(232,197,71,0.2) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse at center, rgba(232,197,71,0.12) 0%, transparent 55%)',
         }}
       />
-
-      {/* Shimmer sweep */}
-      <div className="product-shimmer-sweep absolute inset-0 rounded-2xl pointer-events-none overflow-hidden">
-        <div className="shimmer-stripe" />
-      </div>
-
-      {/* Gold border ring on hover */}
-      <div className="product-gold-ring absolute inset-0 rounded-2xl pointer-events-none" />
 
       {/* Badge */}
       {/* {badge && (
@@ -93,13 +85,11 @@ export default function ProductCard({ product }) {
         </span>
       )} */}
 
-      {/* Bottom content — frosted glass panel with depth */}
+      {/* Bottom content — minimal gradient for readability */}
       <div
         className="absolute inset-x-0 bottom-0 z-10 p-4"
         style={{
-          background: 'linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.55) 55%, transparent 100%)',
-          backdropFilter: 'blur(16px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+          background: 'linear-gradient(to top, rgba(7,6,4,0.88) 0%, rgba(7,6,4,0.4) 55%, transparent 100%)',
         }}
       >
         <h3

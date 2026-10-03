@@ -61,7 +61,7 @@ export default function Blog() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/banner-spoons-set.jpg"
+          image="/banner/blog-exhibition.jpg"
           title={t('blog_title')}
           subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
           badge={isFA ? 'وبلاگ' : 'Blog'}
@@ -199,7 +199,7 @@ export default function Blog() {
       {!loading && posts.length > 0 && (
         <section className="closing-band" style={{ minHeight: '40vh' }}>
           <div className="closing-band-bg">
-            <img src="/banner/hero-chopped-scoop.jpg" alt="" />
+            <img src="/gallery/AQ8A1547AQ8A1547.JPG" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 text-center">
             <Reveal variant="up">
