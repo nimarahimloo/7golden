@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Home, Package, Info, BookOpen, Mail, Award } from 'lucide-react';
+import { X, Home, Package, Info, BookOpen, Mail, Award, Images } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
 export default function MobileMenu({ open, onClose }) {
@@ -14,6 +14,7 @@ export default function MobileMenu({ open, onClose }) {
     { href: '/shop', label: t('shop'), icon: Package, desc: isFA ? 'پسته، بادام و فندق' : 'Pistachio, almond & hazelnut' },
     { href: '/about', label: t('about'), icon: Info, desc: isFA ? 'داستان ما' : 'Our story' },
     { href: '/awards', label: t('awards'), icon: Award, desc: isFA ? 'مجوزها و جوایز' : 'Awards & licenses' },
+    { href: '/gallery', label: t('gallery'), icon: Images, desc: isFA ? 'ویدئو و نمایشگاه‌ها' : 'Videos & exhibitions' },
     { href: '/blog', label: t('blog'), icon: BookOpen, desc: isFA ? 'اخبار و مطالب' : 'News & articles' },
     { href: '/contact', label: t('contact'), icon: Mail, desc: isFA ? 'تماس با ما' : 'Get in touch' },
   ];

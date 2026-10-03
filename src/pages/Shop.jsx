@@ -19,9 +19,9 @@ import Marquee from '@/components/story/Marquee';
 import MaskText from '@/components/story/MaskText';
 
 const BAND_IMAGE = {
-  pistachio: '/product/qazvin-pistachio-nuts.png',
-  almond: '/product/almond-flakes.png',
-  hazelnut: '/product/brain-hazelnut.png',
+  pistachio: '/banner/pistachio-dishes-teal.jpg',
+  almond: '/banner/almond-milk.jpg',
+  hazelnut: '/banner/hazelnut-bowl.jpg',
 };
 
 /**
@@ -76,7 +76,7 @@ export default function Shop() {
       <PullToRefresh onRefresh={loadData}>
         {/* ===== HERO ===== */}
         <PageHero
-          image="/banner/side-pesteh.jpg"
+          image="/banner/hero-nuts-bowl.jpg"
           title={t('products_title')}
           subtitle="پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی"
           badge={isFA ? 'محصولات' : 'Products'}
@@ -165,7 +165,7 @@ export default function Shop() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/banner/side-pesteh.jpg"
+          image="/banner/banner-spoons-set.jpg"
           text="EXPORT"
           eyebrow="صادرات بین‌المللی"
         />
@@ -211,7 +211,7 @@ export default function Shop() {
         {/* ===== B2B INQUIRY CTA ===== */}
         <section className="closing-band" style={{ minHeight: '50vh' }}>
           <div className="closing-band-bg">
-            <img src="/banner/blog-exhibition.jpg" alt="" />
+            <img src="/banner/hero-chopped-scoop.jpg" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 md:py-28">
             <StoryChapter

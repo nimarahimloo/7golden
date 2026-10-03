@@ -37,6 +37,7 @@ export default function Footer() {
     { href: '/', label: t('home') },
     { href: '/shop', label: t('shop') },
     { href: '/about', label: t('about') },
+    { href: '/gallery', label: t('gallery') },
     { href: '/blog', label: t('blog') },
     { href: '/contact', label: t('contact') },
   ];
