@@ -40,6 +40,14 @@ type BlogSeed = {
   sort_order: number;
 };
 
+type AwardSeed = {
+  key: string;
+  title_fa: string;
+  desc_fa: string;
+  image: string;
+  sort_order: number;
+};
+
 async function main() {
   const passwordHash = await bcrypt.hash('admin123', 10);
 
@@ -563,6 +571,101 @@ async function main() {
       where: { slug: b.slug },
       update: data,
       create: data,
+    });
+  }
+
+  // ── Awards / Certificates ──────────────────────────────────────
+  const awardData: AwardSeed[] = [
+    {
+      key: 'award-01-tabriz-exhibition',
+      title_fa: 'حضور در نخستین نمایشگاه شیرینی و شکلات تبریز ۱۴۰۲',
+      desc_fa: 'لوح تقدیر از معاونت غذا و داروی دانشگاه علوم پزشکی تبریز به پاس مشارکت در نخستین نمایشگاه صنایع شیرینی، شکلات و بیسکوییت.',
+      image: '/awards/award-01-tabriz-exhibition.jpg',
+      sort_order: 1,
+    },
+    {
+      key: 'award-02-qazvin-appreciation',
+      title_fa: 'لوح تقدیر نمایشگاه فروش بهاره و ضیافت رمضان ۱۴۰۳',
+      desc_fa: 'تقدیر از شرکت نمایشگاه‌های بین‌المللی استان قزوین به دلیل حضور مؤثر و پررنگ در نمایشگاه فروش بهاره و ضیافت رمضان.',
+      image: '/awards/award-02-qazvin-appreciation.jpg',
+      sort_order: 2,
+    },
+    {
+      key: 'award-03-tabriz-university',
+      title_fa: 'دومین نمایشگاه تولیدات شیرینی و شکلات تبریز ۱۴۰۲',
+      desc_fa: 'تقدیر از معاونت غذا و داروی دانشگاه علوم پزشکی تبریز برای مشارکت صمیمانه هفت طلایی در دومین نمایشگاه تولیدات شیرینی و شکلات.',
+      image: '/awards/award-03-tabriz-university.jpg',
+      sort_order: 3,
+    },
+    {
+      key: 'award-04-training-ut',
+      title_fa: 'کارگاه آموزشی کوچینگ و توسعه فردی مدیران — دانشگاه تهران',
+      desc_fa: 'گواهی پایان کارگاه «کوچینگ و توسعه فردی مدیران» برگزار شده در دانشگاه تهران.',
+      image: '/awards/award-04-training-ut.jpg',
+      sort_order: 4,
+    },
+    {
+      key: 'award-05-coaching-ut',
+      title_fa: 'کارگاه آموزشی استراتژی‌های نوین بازاریابی — دانشگاه تهران',
+      desc_fa: 'گواهی پایان کارگاه «استراتژی‌های نوین بازاریابی» با تدریس استاد ایمان ابهشم‌چی در دانشگاه تهران.',
+      image: '/awards/award-05-coaching-ut.jpg',
+      sort_order: 5,
+    },
+    {
+      key: 'award-06-membership',
+      title_fa: 'گواهی عضویت خانه صنعتکاران ایران',
+      desc_fa: 'گواهی عضویت شرکت خشکبار هفت طلایی در خانه صنعتکاران ایران با شناسه ملی ۱۴۰۰۹۴۹۱۰۱۳.',
+      image: '/awards/award-06-membership.jpg',
+      sort_order: 6,
+    },
+    {
+      key: 'award-07-talieh-charity',
+      title_fa: 'لوح تقدیر موسسه نگهداری کودکان معلول طلیعه',
+      desc_fa: 'تقدیر از خیریه و حمایت‌های خیرخواهانه شرکت هفت طلایی از مرکز نگهداری کودکان معلول طلیعه.',
+      image: '/awards/award-07-talieh-charity.jpg',
+      sort_order: 7,
+    },
+    {
+      key: 'award-08-certificate-training',
+      title_fa: 'گواهینامه آموزشی الگوهای نوین مدیریت کسب‌وکار — ICB',
+      desc_fa: 'گواهی شرکت در کنفرانس ملی و بین‌المللی الگوهای نوین مدیریت کسب‌وکار (دانشکده مدیریت دانشگاه تهران) صادر شده توسط هیئت بین‌المللی گواهینامه ICB.',
+      image: '/awards/award-08-certificate-training.jpg',
+      sort_order: 8,
+    },
+    {
+      key: 'award-09-marketing-ut',
+      title_fa: 'کارگاه استراتژی‌های نوین بازاریابی — دانشگاه تهران',
+      desc_fa: 'گواهی موفقیت در کارگاه «استراتژی‌های نوین بازاریابی» برگزار شده در دانشگاه تهران.',
+      image: '/awards/award-09-marketing-ut.jpg',
+      sort_order: 9,
+    },
+    {
+      key: 'award-10-tech-ut',
+      title_fa: 'کارگاه پایش تأثیر ضربه آرام — دانشگاه تهران',
+      desc_fa: 'گواهی پایان کارگاه «پایش تأثیر ضربه آرام و گسسته نیروی اتاق» با تدریس دکتر مهدی باغبان در دانشگاه تهران.',
+      image: '/awards/award-10-tech-ut.jpg',
+      sort_order: 10,
+    },
+  ];
+
+  // Remove old placeholder awards not in the real catalog.
+  const awardKeys = awardData.map((a) => a.key);
+  await prisma.award.deleteMany({
+    where: { id: { notIn: awardKeys } },
+  });
+
+  for (const a of awardData) {
+    const data = {
+      title_fa: a.title_fa,
+      desc_fa: a.desc_fa,
+      image: a.image,
+      sort_order: a.sort_order,
+      published: true,
+    };
+    await prisma.award.upsert({
+      where: { id: a.key },
+      update: data,
+      create: { id: a.key, ...data },
     });
   }
 
