@@ -22,9 +22,9 @@ import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporat
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
-  pistachio: '/product/qazvin-pistachio-nuts.png',
-  almond: '/product/almond-flakes.png',
-  hazelnut: '/product/brain-hazelnut.png',
+  pistachio: '/banner/pistachio-dishes-teal.jpg',
+  almond: '/banner/almond-milk.jpg',
+  hazelnut: '/banner/hazelnut-bowl.jpg',
 };
 
 export default function Home() {
@@ -105,6 +105,7 @@ export default function Home() {
 
         {/* ===== OPENING FRAME — full-height cinematic hero ===== */}
         <CinematicHero
+          poster="/banner/hero-nuts-bowl.jpg"
           eyebrow=""
           title="تولید، فرآوری و صادرات"
           titleAccent="فندق، پسته و بادام"
@@ -167,7 +168,7 @@ export default function Home() {
               className="mb-12 md:mb-16"
             />
             <DepthParallax
-              src="/banner/side-pesteh.jpg"
+              src="/banner/banner-spoons-set.jpg"
               alt="Iranian orchards"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -189,7 +190,7 @@ export default function Home() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/banner/side-pesteh.jpg"
+          image="/banner/banner-four-bowls.jpg"
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
