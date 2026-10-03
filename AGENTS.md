@@ -59,6 +59,8 @@ docker compose -f docker-compose.base44.yml up -d
 - `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found "{"`). Fixed by switching to `createMany({ data: [...] })` with a proper array.
 - `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site export. Real product images copied to `public/product/*-7golden*.png` where available; blog images live in `public/banner/`.
 - Products that have no real WordPress image fall back to existing local `/product/*.png` assets (e.g. `pistachio-slices.png`, `brain-hazelnut.png`).
+- Added a dedicated **Gallery page** (`/gallery`, `src/pages/Gallery.jsx`) presenting the 10 facility/showroom/processing videos from `public/video/` and the 85 trade-show/factory photos in `public/gallery/` in a lightboxed mosaic. Data lives in `src/lib/gallery-content.js`. Route + Navbar/MobileMenu/Footer links wired.
+- Studio food photography downloaded from the user into `public/banner/` (hero-nuts-bowl, banner-spoons-set, almond-milk, hazelnut-bowl, pistachio-dishes-teal, banner-four-bowls, hero-chopped-scoop, product-nuts-assortment) and placed across Home/Shop/About/Blog/ExportProcess pages as scene/hero/banner images. Note: the media upload served `4.jpeg`==`4-1.jpeg` and `8.jpeg`==`8-1.jpeg` as byte-identical files.
 
 ## Verifying
 - `docker compose -f docker-compose.base44.yml ps` — all three services should be `healthy`

@@ -16,6 +16,7 @@ const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
 // const Checkout = lazy(() => import('@/pages/Checkout')); // retail — disabled
 const About = lazy(() => import('@/pages/About'));
 const Awards = lazy(() => import('@/pages/Awards'));
+const Gallery = lazy(() => import('@/pages/Gallery'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const Admin = lazy(() => import('@/pages/Admin'));
@@ -58,6 +59,7 @@ function AppLayout() {
         </Route> */}
         <Route path="/about" element={<About />} />
         <Route path="/awards" element={<Awards />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
