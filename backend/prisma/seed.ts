@@ -670,37 +670,70 @@ async function main() {
   }
 
   // ── Testimonials ───────────────────────────────────────────────
-  const tCount = await prisma.testimonial.count();
-  if (tCount === 0) {
-    await prisma.testimonial.createMany({
-      data: [
-        {
-          name_fa: 'بستنی گلستان',
-          role_fa: 'خریدار صادراتی',
-          text_fa:
-            'خلال پسته قزوین هفت طلایی بهترین کیفیت را در بین تأمین‌کنندگان دارد. رنگ سبز مطلوب و برش یکنواخت.',
-          rating: 5,
-          sort_order: 1,
-        },
-        {
-          name_fa: 'قنادی برتر',
-          role_fa: 'خریدار عمده',
-          text_fa:
-            'پرک بادام درختی با کیفیت عالی و تحویل به‌موقع. همکاری با هفت طلایی را به همه صنعت‌گران توصیه می‌کنیم.',
-          rating: 5,
-          sort_order: 2,
-        },
-        {
-          name_fa: 'شکلات‌سازی آریا',
-          role_fa: 'مدیر تأمین',
-          text_fa:
-            'خمیر و پودر فندق هفت طلایی پایه محصول نهایی ماست. ثبات کیفیت و انطباق با استانداردهای بهداشتی، ' +
-            'همکاری طولانی‌مدت را ممکن کرده است.',
-          rating: 5,
-          sort_order: 3,
-        },
-      ],
+  // Sync the curated buyer testimonials so the seed always converges to the
+  // real collection, even if an earlier placeholder was inserted.
+  const tSeeds: any[] = [
+    {
+      name_fa: 'بستنی گلستان',
+      role_fa: 'خریدار صادراتی',
+      text_fa:
+        'خلال پسته قزوین هفت طلایی بهترین کیفیت را در بین تأمین‌کنندگان دارد. رنگ سبز مطلوب و برش یکنواخت.',
+      rating: 5,
+      sort_order: 1,
+    },
+    {
+      name_fa: 'قنادی برتر',
+      role_fa: 'خریدار عمده',
+      text_fa:
+        'پرک بادام درختی با کیفیت عالی و تحویل به‌موقع. همکاری با هفت طلایی را به همه صنعت‌گران توصیه می‌کنیم.',
+      rating: 5,
+      sort_order: 2,
+    },
+    {
+      name_fa: 'شکلات‌سازی آریا',
+      role_fa: 'مدیر تأمین',
+      text_fa:
+        'خمیر و پودر فندق هفت طلایی پایه محصول نهایی ماست. ثبات کیفیت و انطباق با استانداردهای بهداشتی، ' +
+        'همکاری طولانی‌مدت را ممکن کرده است.',
+      rating: 5,
+      sort_order: 3,
+    },
+    {
+      name_fa: 'هلدینگ خواروبار پارس',
+      role_fa: 'تأمین‌کننده زنجیره صنعتی',
+      text_fa:
+        'تأمین مستمر مغز فندق با دانه‌بندی دقیق و کنترل آلودگی، خطوط تولید ما را بدون توقف نگه داشته است.',
+      rating: 5,
+      sort_order: 4,
+    },
+    {
+      name_fa: 'گروه صنایع غذایی سرو',
+      role_fa: 'خریدار خارجی (امارات)',
+      text_fa:
+        'تحویل به‌موقع محموله‌های خلال پسته به بندر جبل‌علی و کیفیت یکنواخت، هفت طلایی را به تأمین‌کننده اصلی ما تبدیل کرده است.',
+      rating: 5,
+      sort_order: 5,
+    },
+  ];
+
+  for (const t of tSeeds) {
+    const existing = await prisma.testimonial.findFirst({ where: { name_fa: t.name_fa } });
+    if (!existing) {
+      await prisma.testimonial.create({ data: { ...t, published: true } });
+    }
+  }
+  // Drop any stray placeholder testimonial so buyers only see real partners.
+  await prisma.testimonial.deleteMany({
+    where: { name_fa: { notIn: tSeeds.map((t) => t.name_fa) } },
+  });
+  // Re-sequence sort_order to match the curated list.
+  let order = 1;
+  for (const t of tSeeds) {
+    await prisma.testimonial.updateMany({
+      where: { name_fa: t.name_fa },
+      data: { sort_order: order },
     });
+    order += 1;
   }
 
   console.log('Seed done. Admin: admin@7golden.co / admin123');

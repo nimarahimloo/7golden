@@ -17,15 +17,26 @@ import CountUp from '@/components/story/CountUp';
 import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
 import ExportProcess from '@/components/story/ExportProcess';
+import HomeClients from '@/components/home/HomeClients';
+import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
 // Full-bleed frames for the three flagship chapters of the scroll story.
 const SCENE_IMAGE = {
-  pistachio: '/banner/pistachio-dishes-teal.jpg',
-  almond: '/banner/almond-milk.jpg',
-  hazelnut: '/banner/hazelnut-bowl.jpg',
+  pistachio: '/banner/pistachio-kernels.jpg',
+  almond: '/banner/tray-pistachio-almond.jpg',
+  hazelnut: '/banner/hazelnut-spoon.jpg',
 };
+
+// Premium product photography for the "product showcase" band below the
+// capacity chapter — each image shows the ingredient full and clear.
+const PRODUCT_STRIP = [
+  { src: '/banner/hazelnut-spoon.jpg', alt: 'مغز فندق', label: 'فندق' },
+  { src: '/banner/pistachio-bowl-green.jpg', alt: 'مغز پسته سبز', label: 'پسته' },
+  { src: '/banner/pistachio-kernels.jpg', alt: 'پسته پوست‌کنده', label: 'پسته سبز' },
+  { src: '/banner/product-4-stack.jpg', alt: 'تنوع محصولات', label: 'تنوع' },
+];
 
 export default function Home() {
   const isFA = true;
@@ -195,12 +206,45 @@ export default function Home() {
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
 
+        {/* ===== PRODUCT SHOWCASE — premium full-frame product photography ===== */}
+        <section className="chapter">
+          <div className="chapter-shell">
+            <StoryChapter
+              index="04"
+              eyebrow="SHOWCASE"
+              title="کیفیتی که می‌بینید"
+              lead={isFA
+                ? 'هر تصویر، کیفیت مواد اولیه هفت‌طلایی را در تمامِ وضوح نشان می‌دهد — از باغستان تا قفسه تولید.'
+                : 'Each frame shows the quality of 7Golden raw materials in full clarity — from orchard to production.'}
+              className="mb-10"
+            />
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+              {PRODUCT_STRIP.map((item, i) => (
+                <Reveal key={item.src} delay={(i % 4) * 80} variant="up">
+                  <div className="group relative rounded-3xl overflow-hidden gold-frame" style={{ aspectRatio: '4 / 5' }}>
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                    />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.85), rgba(7,6,4,0.1) 55%, transparent)' }} />
+                    <div className="absolute bottom-0 right-0 left-0 p-4 text-right">
+                      <span className="display-sm" style={{ color: 'var(--ink)' }}>{item.label}</span>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ===== CHAPTER 04 — the full range (vertical parallax grid) ===== */}
         <section className="chapter pb-0">
           <div className="chapter-shell">
             <div className="flex items-end justify-between gap-4 mb-10">
               <StoryChapter
-                index="04"
+                index="۰۵"
                 eyebrow="PRODUCTS"
                 title="محصولات هفت‌طلایی"
                 className="flex-1"
@@ -247,17 +291,23 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== CHAPTER 05 — the export journey (pinned process rail) ===== */}
+        {/* ===== CHAPTER 06 — the export journey (pinned process rail) ===== */}
         <section className="chapter pb-0">
           <div className="chapter-shell">
             <StoryChapter
-              index="05"
+              index="۰۶"
               eyebrow="PROCESS"
               title="از باغستان تا مقصد صادراتی"
             />
           </div>
         </section>
         <ExportProcess />
+
+        {/* ===== CHAPTER 06 — awards & honors (full-view slider) ===== */}
+        <HomeAwardsSlider />
+
+        {/* ===== CHAPTER 07 — featured buyers (testimonials) ===== */}
+        <HomeClients />
 
       </PullToRefresh>
     </div>

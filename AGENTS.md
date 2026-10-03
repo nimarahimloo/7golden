@@ -62,6 +62,24 @@ docker compose -f docker-compose.base44.yml up -d
 - Added a dedicated **Gallery page** (`/gallery`, `src/pages/Gallery.jsx`) presenting the 10 facility/showroom/processing videos from `public/video/` and the 85 trade-show/factory photos in `public/gallery/` in a lightboxed mosaic. Data lives in `src/lib/gallery-content.js`. Route + Navbar/MobileMenu/Footer links wired.
 - Studio food photography downloaded from the user into `public/banner/` (hero-nuts-bowl, banner-spoons-set, almond-milk, hazelnut-bowl, pistachio-dishes-teal, banner-four-bowls, hero-chopped-scoop, product-nuts-assortment) and placed across Home/Shop/About/Blog/ExportProcess pages as scene/hero/banner images. Note: the media upload served `4.jpeg`==`4-1.jpeg` and `8.jpeg`==`8-1.jpeg` as byte-identical files.
 
+## Home Page Structure (current)
+The home page now reads top→bottom as:
+1. `CinematicHero` (hero-nuts-bowl)
+2. Chapter 01 — `StickyScene` 3 pillars (pistachio-kernels, tray-pistachio-almond, hazelnut-spoon — new premium product photos)
+3. Chapter 02 — Capacity stats (`img-6052.jpg` parallax)
+4. Chapter 03 — Origin story (`banner-spoons-set` depth parallax)
+5. `MaskText` 7GOLDEN band (`banner-four-bowls`)
+6. Chapter 04/Showcase — `PRODUCT_STRIP` 4-card premium product-photo grid (hazelnut-spoon, pistachio-bowl-green, pistachio-kernels, product-4-stack) with `SCENE_IMAGE` scenes
+7. `StickyScene`-driven product grid (from API products)
+8. Chapter 06 — `ExportProcess` (export journey)
+9. **Chapter 07 — `HomeAwardsSlider`** (`src/components/home/HomeAwardsSlider.jsx`) — awards shown as a full-view slider (image large & centered, prev/next, dots, auto-advance 6s), reads `/api/awards`, fallback curated list. Matches 7golden.co push to show awards full & clear on home.
+10. **Chapter 08 — `HomeClients`** (`src/components/home/HomeClients.jsx`) — featured-buyers/testimonials band reading `/api/testimonials`, fallback `FALLBACK_CLIENTS`. Shows quote + stars + buyer name/role.
+
+New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pistachio-bowl-green.jpg`, `pistachio-kernels.jpg`, `tray-pistachio-almond.jpg`, `product-4-stack.jpg`, `hazelnut-chopped-dark.jpg`, `img-6052-split.jpg`.
+
+## Testimonials seed
+`backend/prisma/seed.ts` testimonial block now **syncs** (create-if-missing + delete placeholders + re-sequence sort_order) instead of only seeding when count===0 — so the DB always converges to the curated 5 buyer testimonials (بستنی گلستان, قنادی برتر, شکلاتسازی آریا, هلدینگ خواروبار پارس, گروه صنایع غذایی سرو). After editing. restart backend to re-run seed: `docker compose restart backend`.
+
 ## Verifying
 - `docker compose -f docker-compose.base44.yml ps` — all three services should be `healthy`
 - `curl -s http://localhost:3000/api/health` — should return `{"ok":true,...}`
