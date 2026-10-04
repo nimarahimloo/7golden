@@ -6,7 +6,6 @@ import { Image } from '@/components/ui/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
 import PageHero from '@/components/PageHero';
-import BackButton from '@/components/BackButton';
 import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
@@ -74,9 +73,6 @@ export default function Blog() {
           subtitle={hero.subtitle}
           badge={hero.badge}
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-          <BackButton to="/" className="text-white/80 hover:text-white" />
-        </div>
       </div>
 
       {/* ===== Featured post — cinematic depth parallax ===== */}

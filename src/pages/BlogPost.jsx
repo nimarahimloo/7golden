@@ -7,7 +7,6 @@ import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import Seo from '@/components/Seo';
 import LogoLoader from '@/components/LogoLoader';
-import BackButton from '@/components/BackButton';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, articleJsonLd } from '@/lib/seo';
 import ReactMarkdown from 'react-markdown';
@@ -84,10 +83,6 @@ export default function BlogPost() {
       <PullToRefresh onRefresh={loadData}>
       {/* ===== CINEMATIC HERO ===== */}
       <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden">
-        {/* Back button overlay */}
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-          <BackButton to="/blog" className="text-white/80 hover:text-white" />
-        </div>
         <img
           src={post.image}
           alt={title}

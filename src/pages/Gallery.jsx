@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import PageHero from '@/components/PageHero';
-import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
@@ -69,9 +68,6 @@ export default function Gallery() {
             subtitle={hero.subtitle}
             badge={hero.badge}
           />
-          <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-            <BackButton to="/" className="text-white/80 hover:text-white" />
-          </div>
         </div>
 
         {/* ===== CHAPTER 01 — videos ===== */}

@@ -6,7 +6,6 @@ import { t } from '@/lib/i18n';
 import { Image } from '@/components/ui/image';
 import PaymentGateway from '@/components/PaymentGateway';
 import CheckoutCard from '@/components/CheckoutCard';
-import BackButton from '@/components/BackButton';
 import {
   Select,
   SelectContent,
@@ -244,9 +243,6 @@ export default function Checkout() {
       {/* Premium header */}
       <div className="pt-24 pb-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-5">
-            <BackButton to="/shop" />
-          </div>
           <div className="flex flex-col items-center text-center mb-8">
             <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
               {isFA ? 'تسویه حساب' : 'Checkout'}

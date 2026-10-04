@@ -16,7 +16,6 @@ import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
 import ProductAbout from '@/components/ProductAbout';
 import { getPackagingOptions } from '@/lib/product-facts';
-import BackButton from '@/components/BackButton';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -130,8 +129,6 @@ export default function ProductDetail() {
             specs and quote CTA are all visible without scrolling past a hero. */}
         <div className="chapter" style={{ paddingTop: 'clamp(7rem, 12vw, 9.5rem)' }}>
           <div className="chapter-shell">
-            <BackButton to="/shop" className="mb-4" />
-
             {/* Breadcrumb */}
             <nav aria-label="مسیر صفحه" className="flex flex-wrap items-center gap-2 mb-8 font-body text-xs" style={{ color: '#fff' }}>
               <Link to="/" className="transition-opacity hover:opacity-70">خانه</Link>
