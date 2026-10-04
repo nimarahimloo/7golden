@@ -137,6 +137,22 @@ router.post('/contact', async (req, res) => {
   }
 });
 
+// Page Sections (public)
+router.get('/page-sections', async (req, res) => {
+  try {
+    const where: any = { published: true };
+    if (req.query.page) where.page_key = String(req.query.page);
+    const items = await prisma.pageSection.findMany({
+      where,
+      orderBy: { sort_order: 'asc' },
+      take: 200,
+    });
+    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 // Settings
 router.get('/settings', async (_req, res) => {
   try {

@@ -11,6 +11,7 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
+import { usePageHero } from '@/lib/usePageHero';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
@@ -18,6 +19,13 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
+
+  const { hero } = usePageHero('contact', {
+    image: '/banner/banner-spoons-set.jpg',
+    title: t('contact_title'),
+    subtitle: 'همیشه در دسترس شما هستیم',
+    badge: 'تماس با ما',
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,10 +53,10 @@ export default function Contact() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/banner-spoons-set.jpg"
-          title={t('contact_title')}
-          subtitle="همیشه در دسترس شما هستیم"
-          badge="تماس با ما"
+          image={hero.image}
+          title={hero.title}
+          subtitle={hero.subtitle}
+          badge={hero.badge}
         />
         <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/" className="text-white/80 hover:text-white" />

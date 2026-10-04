@@ -15,6 +15,7 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
+import { usePageHero } from '@/lib/usePageHero';
 
 export default function Blog() {
   const isFA = true;
@@ -23,6 +24,13 @@ export default function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
+
+  const { hero } = usePageHero('blog', {
+    image: '/banner/hazelnut-bowl.jpg',
+    title: t('blog_title'),
+    subtitle: 'اخبار و آموزش',
+    badge: 'وبلاگ',
+  });
 
   const loadData = async () => {
     try {
@@ -61,10 +69,10 @@ export default function Blog() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/hazelnut-bowl.jpg"
-          title={t('blog_title')}
-          subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
-          badge={isFA ? 'وبلاگ' : 'Blog'}
+          image={hero.image}
+          title={hero.title}
+          subtitle={hero.subtitle}
+          badge={hero.badge}
         />
         <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/" className="text-white/80 hover:text-white" />

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { getProducts, getCategories } from '@/lib/api/content';
+import { getPageHero } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
 import GoldenEssence from '@/components/GoldenEssence';
@@ -35,6 +36,7 @@ export default function Home() {
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [heroConfig, setHeroConfig] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
@@ -53,6 +55,10 @@ export default function Home() {
       setProducts(FALLBACK_PRODUCTS);
     }
   };
+
+  useEffect(() => {
+    getPageHero('home').then(s => setHeroConfig(s)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -108,11 +114,11 @@ export default function Home() {
 
         {/* ===== OPENING FRAME — full-height cinematic hero ===== */}
         <CinematicHero
-          image="/banner/tray-pistachio-almond.jpg"
-          eyebrow="EST. ۱۳۷۷ · QAZVIN"
-          title="تولید، فرآوری و صادرات"
+          image={heroConfig?.image || "/banner/tray-pistachio-almond.jpg"}
+          eyebrow={heroConfig?.badge_fa || "EST. ۱۳۷۷ · QAZVIN"}
+          title={heroConfig?.title_fa || "تولید، فرآوری و صادرات"}
           titleAccent="فندق، پسته و بادام"
-          lead="مغز و خلال پسته، بادام و فندق برای کارخانه‌های شکلات، قنادی و بستنی — مستقیم از باغ، با کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده."
+          lead={heroConfig?.subtitle_fa || "مغز و خلال پسته، بادام و فندق برای کارخانه‌های شکلات، قنادی و بستنی — مستقیم از باغ، با کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده."}
           stats={CAPACITY_STATS}
           primary={{ label: isFA ? 'درخواست قیمت و نمونه' : 'Request a quote', href: '/contact' }}
           secondary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}

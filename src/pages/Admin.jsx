@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Package, Tags, FileText, Image as ImageIcon, Settings, Mail,
   LayoutDashboard, Home, LogOut, Loader2, Award, MessageSquareQuote,
-  ShoppingBag, BarChart3
+  ShoppingBag, BarChart3, LayoutTemplate
 } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import EntityCrud from '@/components/admin/EntityCrud';
@@ -23,6 +23,7 @@ const SECTIONS = [
   { id: 'blog', label: 'مجله / بلاگ', icon: FileText },
   { id: 'awards', label: 'مجوزها و جوایز', icon: Award },
   { id: 'testimonials', label: 'نظرات مشتریان', icon: MessageSquareQuote },
+  { id: 'page-sections', label: 'هیرو و سکشن‌ها', icon: LayoutTemplate },
   { id: 'orders', label: 'سفارش‌ها', icon: ShoppingBag },
   { id: 'messages', label: 'پیام‌های تماس', icon: Mail },
   { id: 'settings', label: 'تنظیمات سایت', icon: Settings },
@@ -72,6 +73,7 @@ export default function Admin() {
         {active === 'blog' && <BlogSection />}
         {active === 'awards' && <AwardsAdminSection />}
         {active === 'testimonials' && <TestimonialsSection />}
+        {active === 'page-sections' && <PageSectionsSection />}
         {active === 'orders' && <OrdersSection />}
         {active === 'messages' && <MessagesSection />}
         {active === 'settings' && <SettingsSection />}
@@ -461,6 +463,46 @@ function MessagesSection() {
           { value: 'read', label: 'خوانده‌شده' },
           { value: 'replied', label: 'پاسخ‌داده‌شده' },
         ] },
+      ]}
+    />
+  );
+}
+
+const PAGE_KEYS = [
+  { value: 'home', label: 'خانه' },
+  { value: 'about', label: 'درباره ما' },
+  { value: 'shop', label: 'محصولات' },
+  { value: 'contact', label: 'تماس با ما' },
+  { value: 'blog', label: 'وبلاگ' },
+  { value: 'awards', label: 'جوایز' },
+  { value: 'gallery', label: 'گالری' },
+];
+
+function PageSectionsSection() {
+  return (
+    <EntityCrud
+      entityName="PageSection"
+      title="سکشن"
+      defaultSort="sort_order"
+      columns={[
+        { key: 'image', label: 'تصویر', render: r => r.image ? <img src={r.image} alt="" className="w-12 h-12 rounded-lg object-cover" /> : '—' },
+        { key: 'page_key', label: 'صفحه', render: r => {
+          const opt = PAGE_KEYS.find(p => p.value === r.page_key);
+          return opt ? opt.label : (r.page_key || '—');
+        }},
+        { key: 'section_key', label: 'سکشن' },
+        { key: 'title_fa', label: 'عنوان', render: r => r.title_fa || '—' },
+        { key: 'published', label: 'منتشر', toggleBool: true },
+      ]}
+      fields={[
+        { key: 'page_key', label: 'صفحه', type: 'select', required: true, options: PAGE_KEYS },
+        { key: 'section_key', label: 'کلید سکشن (مثلاً hero)', placeholder: 'hero', required: true },
+        { key: 'title_fa', label: 'عنوان' },
+        { key: 'subtitle_fa', label: 'زیرعنوان', type: 'textarea' },
+        { key: 'badge_fa', label: 'بج / برچسب' },
+        { key: 'image', label: 'تصویر هیرو / پس‌زمینه', type: 'image' },
+        { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
+        { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
       ]}
     />
   );

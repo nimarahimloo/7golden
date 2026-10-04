@@ -170,6 +170,7 @@ export const ENTITY_WRITE_FIELDS: Record<string, string[]> = {
     'hq_address_fa','tehran_address_fa','working_hours_fa',
   ],
   User: ['email','name','role'],
+  PageSection: ['page_key','section_key','title_fa','subtitle_fa','badge_fa','image','published','sort_order'],
 };
 
 /** Map aliases from admin UI → schema names */

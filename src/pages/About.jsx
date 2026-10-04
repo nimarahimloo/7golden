@@ -3,6 +3,7 @@ import { t } from '@/lib/i18n';
 import AwardsSection from '@/components/AwardsSection';
 import ProductionCapacity from '@/components/ProductionCapacity';
 import PageHero from '@/components/PageHero';
+import { usePageHero } from '@/lib/usePageHero';
 import { Award, Leaf, Globe, Users } from 'lucide-react';
 import Seo from '@/components/Seo';
 import BackButton from '@/components/BackButton';
@@ -22,6 +23,13 @@ export default function About() {
   const handleRefresh = async () => {
     setRefreshKey(k => k + 1);
   };
+
+  const { hero } = usePageHero('about', {
+    image: '/banner/pistachio-dishes-teal.jpg',
+    title: t('about_title'),
+    subtitle: t('about_sub'),
+    badge: 'داستان ما',
+  });
 
   const milestones = [
     { year: '۱۳۷۷', label: 'تأسیس در قزوین' },
@@ -52,10 +60,10 @@ export default function About() {
         {/* Hero */}
         <div className="relative">
           <PageHero
-            image="/banner/pistachio-dishes-teal.jpg"
-            title={t('about_title')}
-            subtitle={t('about_sub')}
-            badge="داستان ما"
+            image={hero.image}
+            title={hero.title}
+            subtitle={hero.subtitle}
+            badge={hero.badge}
           />
           <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
             <BackButton to="/" className="text-white/80 hover:text-white" />

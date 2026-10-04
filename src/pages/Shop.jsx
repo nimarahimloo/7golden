@@ -10,6 +10,7 @@ import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
+import { usePageHero } from '@/lib/usePageHero';
 
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
@@ -35,6 +36,13 @@ export default function Shop() {
   const [loading, setLoading] = useState(true);
 
   const isFA = true;
+
+  const { hero } = usePageHero('shop', {
+    image: '/banner/product-nuts-assortment.jpg',
+    title: t('products_title'),
+    subtitle: 'پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی',
+    badge: 'محصولات',
+  });
 
   const loadData = async () => {
     try {
@@ -76,10 +84,10 @@ export default function Shop() {
       <PullToRefresh onRefresh={loadData}>
         {/* ===== HERO ===== */}
         <PageHero
-          image="/banner/product-nuts-assortment.jpg"
-          title={t('products_title')}
-          subtitle="پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی"
-          badge={isFA ? 'محصولات' : 'Products'}
+          image={hero.image}
+          title={hero.title}
+          subtitle={hero.subtitle}
+          badge={hero.badge}
         />
 
         {/* ===== FLAGSHIP CHAPTERS — one full band per pillar ===== */}

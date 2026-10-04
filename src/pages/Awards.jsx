@@ -12,6 +12,7 @@ import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
 import Reveal from '@/components/story/Reveal';
 import CountUp from '@/components/story/CountUp';
+import { usePageHero } from '@/lib/usePageHero';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -27,6 +28,13 @@ export default function Awards() {
   const headingFont = 'Peyda, serif';
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { hero } = usePageHero('awards', {
+    image: '/banner/almond-milk.jpg',
+    title: 'جوایز و افتخارات',
+    subtitle: 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی',
+    badge: 'اعتبار و افتخارات',
+  });
 
   const loadData = async () => {
     try {
@@ -66,10 +74,10 @@ export default function Awards() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/almond-milk.jpg"
-          title={isFA ? 'جوایز و افتخارات' : 'Awards & Honors'}
-          subtitle={isFA ? 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی' : 'Certified quality, recognized excellence'}
-          badge={isFA ? 'اعتبار و افتخارات' : 'Excellence'}
+          image={hero.image}
+          title={hero.title}
+          subtitle={hero.subtitle}
+          badge={hero.badge}
         />
         <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/" className="text-white/80 hover:text-white" />
