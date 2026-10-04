@@ -1,127 +1,145 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Home, Package, Info, BookOpen, Mail, Award, Images } from 'lucide-react';
+import { X, Phone, Mail, ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
-export default function MobileMenu({ open, onClose }) {
-  // const { cartCount, setCartOpen } = useApp(); // retail cart — disabled
-  const location = useLocation();
-  const isFA = true;
-  const headingFont = 'Peyda, serif';
+const LINKS = [
+  { href: '/', label: t('home'), desc: 'صفحه اصلی' },
+  { href: '/shop', label: t('shop'), desc: 'پسته، بادام و فندق' },
+  { href: '/about', label: t('about'), desc: 'داستان و ظرفیت تولید' },
+  { href: '/awards', label: t('awards'), desc: 'مجوزها و گواهینامه‌ها' },
+  { href: '/gallery', label: t('gallery'), desc: 'ویدئو و نمایشگاه‌ها' },
+  { href: '/blog', label: t('blog'), desc: 'اخبار و مطالب' },
+  { href: '/contact', label: t('contact'), desc: 'درخواست قیمت و نمونه' },
+];
 
-  const links = [
-    { href: '/', label: t('home'), icon: Home, desc: isFA ? 'صفحه اصلی' : 'Main page' },
-    { href: '/shop', label: t('shop'), icon: Package, desc: isFA ? 'پسته، بادام و فندق' : 'Pistachio, almond & hazelnut' },
-    { href: '/about', label: t('about'), icon: Info, desc: isFA ? 'داستان ما' : 'Our story' },
-    { href: '/awards', label: t('awards'), icon: Award, desc: isFA ? 'مجوزها و جوایز' : 'Awards & licenses' },
-    { href: '/gallery', label: t('gallery'), icon: Images, desc: isFA ? 'ویدئو و نمایشگاه‌ها' : 'Videos & exhibitions' },
-    { href: '/blog', label: t('blog'), icon: BookOpen, desc: isFA ? 'اخبار و مطالب' : 'News & articles' },
-    { href: '/contact', label: t('contact'), icon: Mail, desc: isFA ? 'تماس با ما' : 'Get in touch' },
-  ];
+const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+const toFa = (n) => String(n).replace(/\d/g, d => FA_DIGITS[Number(d)]);
+
+function isActivePath(pathname, href) {
+  if (href === '/') return pathname === '/';
+  if (href === '/shop') return pathname === '/shop' || pathname.startsWith('/product/');
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/**
+ * MobileMenu — slide-in sheet used below the `lg` breakpoint.
+ * Solid dark surface (readable over any page), numbered links, and the
+ * trade-desk contact details pinned at the bottom.
+ */
+export default function MobileMenu({ open, onClose }) {
+  const location = useLocation();
+
+  // Lock page scroll and close on Escape while the sheet is open.
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open, onClose]);
 
   return (
-    <>
+    <div className="lg:hidden">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-[60] transition-opacity duration-300"
+        className="fixed inset-0 z-[80]"
         style={{
-          background: 'rgba(0,0,0,0.25)',
+          background: 'rgba(0,0,0,0.7)',
+          backdropFilter: 'blur(4px)',
+          WebkitBackdropFilter: 'blur(4px)',
           opacity: open ? 1 : 0,
           pointerEvents: open ? 'auto' : 'none',
+          transition: 'opacity 0.3s ease',
         }}
         onClick={onClose}
+        aria-hidden="true"
       />
 
-      {/* Glass panel */}
-      <div
-        className={`fixed top-0 left-0 right-0 md:left-auto md:right-0 md:w-[420px] z-[70] glass-strong transform transition-transform duration-[450ms] ease-[cubic-bezier(0.32,0.72,0,1)] ${
-          open
-            ? 'translate-y-0 md:translate-x-0'
-            : '-translate-y-full md:translate-y-0 md:translate-x-full'
-        }`}
-        style={{
-          borderBottom: '1px solid hsl(var(--border))',
-          boxShadow: '0 24px 60px rgba(0,0,0,0.12)',
-          minHeight: '100vh',
-        }}
+      {/* Sheet */}
+      <aside
         dir="rtl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="منوی سایت"
+        aria-hidden={!open}
+        className="fixed top-0 bottom-0 left-0 z-[90] flex flex-col"
+        style={{
+          width: 'min(92vw, 400px)',
+          background: 'linear-gradient(180deg, #0C0A07 0%, #070604 100%)',
+          borderRight: '1px solid var(--hairline-strong)',
+          boxShadow: '24px 0 80px rgba(0,0,0,0.6)',
+          transform: open ? 'translateX(0)' : 'translateX(-105%)',
+          transition: 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)',
+          paddingTop: 'var(--safe-area-top)',
+          paddingBottom: 'var(--safe-area-bottom)',
+        }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-5 h-16">
-          <span className="font-heading font-extrabold text-lg" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-            {isFA ? 'منو' : 'Menu'}
-          </span>
+        <div className="flex items-center justify-between px-5 h-20 flex-shrink-0" style={{ borderBottom: '1px solid var(--hairline)' }}>
+          <img src="/logo.png" alt="7Golden" className="h-12 w-auto object-contain" />
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all active:scale-90"
-            style={{ background: 'hsl(var(--border))', color: 'var(--fg)' }}
+            className="w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-90"
+            style={{ color: '#fff', border: '1px solid var(--hairline-strong)', background: 'rgba(227,194,99,0.07)' }}
+            aria-label="بستن منو"
           >
             <X size={20} />
           </button>
         </div>
 
-        {/* Nav links — card style */}
-        <div className="px-4 pt-3 pb-4 flex flex-col gap-2.5">
-          {links.map(link => {
-            const active = location.pathname === link.href;
+        {/* Links */}
+        <nav className="flex-1 overflow-y-auto px-5 py-4" aria-label="منوی موبایل">
+          {LINKS.map((link, i) => {
+            const active = isActivePath(location.pathname, link.href);
             return (
               <Link
                 key={link.href}
                 to={link.href}
                 onClick={onClose}
-                className="flex items-center gap-4 p-3.5 rounded-2xl transition-all active:scale-[0.97]"
-                style={{
-                  background: active ? 'hsl(var(--accent-hsl) / 0.1)' : 'var(--glass)',
-                  backdropFilter: active ? 'none' : 'blur(12px)',
-                  WebkitBackdropFilter: active ? 'none' : 'blur(12px)',
-                  border: active ? '1.5px solid var(--accent)' : '1px solid hsl(var(--border))',
-                }}
+                className="flex items-center gap-4 py-3.5 transition-all active:opacity-70"
+                style={{ borderBottom: '1px solid var(--hairline)' }}
+                aria-current={active ? 'page' : undefined}
               >
-                <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 transition-all"
-                  style={{
-                    background: active ? 'var(--accent)' : 'hsl(var(--muted))',
-                    color: active ? 'hsl(var(--accent-foreground))' : 'var(--accent)',
-                  }}
-                >
-                  <link.icon size={22} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div
-                    className="font-heading font-extrabold text-base"
-                    style={{ color: 'var(--fg)', fontFamily: headingFont }}
+                <span className="outline-num text-xl w-9 flex-shrink-0 text-center">{toFa(i + 1)}</span>
+                <span className="flex-1 min-w-0">
+                  <span
+                    className="block text-xl leading-tight"
+                    style={{ fontFamily: 'Peyda, serif', fontWeight: 700, color: active ? 'var(--gold-2)' : '#fff' }}
                   >
                     {link.label}
-                  </div>
-                  <div className="font-body text-sm mt-0.5" style={{ color: 'var(--fg-muted)' }}>
+                  </span>
+                  <span className="block text-xs mt-0.5" style={{ fontFamily: 'Kalameh, serif', color: '#fff' }}>
                     {link.desc}
-                  </div>
-                </div>
-                {active && (
-                  <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--accent)' }} />
-                )}
+                  </span>
+                </span>
+                <ChevronLeft size={18} style={{ color: active ? 'var(--gold-2)' : 'var(--hairline-strong)' }} />
               </Link>
             );
           })}
-        </div>
+        </nav>
 
-        {/* Bottom action — business contact. Retail cart entry point is disabled. */}
-        <div className="px-4 pt-2 pb-6">
-          <Link
-            to="/contact"
-            onClick={onClose}
-            className="glass-card flex items-center justify-center gap-2 py-4 transition-all active:scale-95"
-            style={{ color: 'var(--accent)' }}
-          >
-            <Mail size={18} />
-            <span className="font-body text-sm font-semibold">تماس با واحد بازرگانی</span>
+        {/* Trade desk */}
+        <div className="flex-shrink-0 px-5 pt-4 pb-6" style={{ borderTop: '1px solid var(--hairline)' }}>
+          <Link to="/contact" onClick={onClose} className="btn-gold w-full justify-center">
+            درخواست قیمت و نمونه
           </Link>
+          <div className="flex items-center justify-between gap-3 mt-4 text-sm" style={{ color: '#fff' }}>
+            <a href="tel:+989121823438" className="inline-flex items-center gap-2" style={{ direction: 'ltr', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+              <Phone size={15} style={{ color: 'var(--gold-2)' }} />
+              ۰۹۱۲ ۱۸۲ ۳۴۳۸
+            </a>
+            <a href="mailto:info@7golden.co" className="inline-flex items-center gap-2" style={{ fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+              <Mail size={15} style={{ color: 'var(--gold-2)' }} />
+              info@7golden.co
+            </a>
+          </div>
         </div>
-
-        {/* Retail cart button — disabled
-        <button onClick={() => { onClose(); setCartOpen(true); }}>سبد خرید</button>
-        */}
-      </div>
-    </>
+      </aside>
+    </div>
   );
 }

@@ -1,22 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
-import { useApp } from '@/lib/AppContext';
-import { useAuth } from '@/lib/AuthContext';
+import { Menu, Phone, ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import MobileMenu from '@/components/MobileMenu';
-import NavbarParticles from '@/components/NavbarParticles';
+
+/**
+ * Navbar — the site header.
+ * Transparent over the page's hero, it turns into a solid blurred bar
+ * (and shrinks) once the visitor scrolls. Desktop shows the full menu, the
+ * trade-desk phone and a "request a quote" button; below `lg` the menu
+ * collapses into the slide-in sheet. (Retail cart / account controls are
+ * intentionally absent — 7Golden sells B2B only.)
+ */
+const NAV_LINKS = [
+  { href: '/', label: t('home') },
+  { href: '/shop', label: t('shop') },
+  { href: '/about', label: t('about') },
+  { href: '/awards', label: t('awards') },
+  { href: '/gallery', label: t('gallery') },
+  { href: '/blog', label: t('blog') },
+  { href: '/contact', label: t('contact') },
+];
+
+function isActivePath(pathname, href) {
+  if (href === '/') return pathname === '/';
+  if (href === '/shop') return pathname === '/shop' || pathname.startsWith('/product/');
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export default function Navbar() {
-  const { cartCount, setCartOpen, isStoreMode } = useApp();
-  const { isAuthenticated, user } = useAuth();
-  const isAdmin = user?.role === 'admin';
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -25,123 +44,68 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  const navLinks = [
-    { href: '/', label: t('home') },
-    { href: '/shop', label: t('shop') },
-    { href: '/about', label: t('about') },
-    { href: '/awards', label: t('awards') },
-    { href: '/gallery', label: t('gallery') },
-    { href: '/blog', label: t('blog') },
-    { href: '/contact', label: t('contact') },
-  ];
-
   return (
     <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-50 liquid-glass transition-all duration-500"
+      <header
+        dir="rtl"
+        className={`site-header ${scrolled ? 'is-scrolled' : ''}`}
         style={{
-          borderBottom: '1px solid var(--border)',
-          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.08)' : 'inset 0 1px 1px rgba(255,255,255,0.06)',
           paddingTop: 'var(--safe-area-top)',
           paddingLeft: 'var(--safe-area-left)',
           paddingRight: 'var(--safe-area-right)',
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-24">
+        <div className="site-header-inner max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-4">
 
-            {/* Logo */}
-            <Link to="/" className="flex items-center group">
-              <img
-                src="/logo.png"
-                alt="7Golden"
-                className="h-16 md:h-20 w-auto object-contain transition-all group-hover:opacity-90"
-              />
+          {/* Brand */}
+          <Link to="/" className="flex-shrink-0 flex items-center" aria-label="هفت‌طلایی — صفحه اصلی">
+            <img src="/logo.png" alt="7Golden" className="site-header-logo" />
+          </Link>
+
+          {/* Primary navigation */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="منوی اصلی">
+            {NAV_LINKS.map(link => {
+              const active = isActivePath(location.pathname, link.href);
+              return (
+                <Link
+                  key={link.href}
+                  to={link.href}
+                  className={`nav-link ${active ? 'is-active' : ''}`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Trade desk actions */}
+          <div className="flex items-center gap-3">
+            <a href="tel:+989121823438" className="header-phone hidden xl:inline-flex" aria-label="تماس با واحد بازرگانی">
+              <span className="header-phone-icon"><Phone size={16} /></span>
+              <span>۰۹۱۲ ۱۸۲ ۳۴۳۸</span>
+            </a>
+
+            <Link to="/contact" className="btn-gold btn-sm hidden md:inline-flex">
+              درخواست قیمت و نمونه
+              <ChevronLeft size={15} />
             </Link>
 
-            {/* Desktop Nav — gold underline marks the current page */}
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map(link => {
-                const active = location.pathname === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    to={link.href}
-                    className={`nav-link ${active ? 'is-active' : ''}`}
-                    style={{ color: active ? 'var(--gold-2)' : 'var(--fg)', opacity: active ? 1 : 0.72 }}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2">
-              {/* Admin panel */}
-              {/* {isAdmin && (
-                <Link
-                  to="/admin"
-                  className="hidden sm:flex w-11 h-11 rounded-full items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
-                  style={{ color: 'var(--accent)' }}
-                  aria-label="پنل مدیریت"
-                >
-                  <LayoutDashboard size={16} />
-                </Link>
-              )} */}
-
-              {/* Language switcher */}
-              {/* <button
-                onClick={toggleLang}
-                className="hidden sm:flex w-11 h-11 rounded-full items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
-                style={{ color: 'var(--fg)' }}
-                aria-label="Switch language"
-              >
-                <Languages size={16} />
-              </button> */}
-
-              {/* Account / Login */}
-              {/* <Link
-                to={isAuthenticated ? '/account' : '/login'}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 glass-pill"
-                style={{ color: 'var(--fg)' }}
-                aria-label={isAuthenticated ? 'پنل کاربری' : 'ورود'}
-              >
-                <User size={16} />
-              </Link> */}
-
-              {/* {isStoreMode && (
-                <button
-                  onClick={() => setCartOpen(true)}
-                  className="relative w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
-                  style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))' }}
-                  aria-label={t('cart')}
-                >
-                  <ShoppingBag size={16} />
-                  {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center" style={{ background: '#ef4444', color: '#fff' }}>
-                      {cartCount}
-                    </span>
-                  )}
-                </button>
-              )} */}
-
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="w-11 h-11 rounded-full glass-card flex items-center justify-center transition-all active:scale-90"
-                style={{ color: 'var(--fg)', border: 'none' }}
-                aria-label="Menu"
-              >
-                <Menu size={18} />
-              </button>
-            </div>
+            <button
+              onClick={() => setMenuOpen(true)}
+              className="lg:hidden w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-90"
+              style={{ color: '#fff', border: '1px solid var(--hairline-strong)', background: 'rgba(227,194,99,0.07)' }}
+              aria-label="باز کردن منو"
+              aria-expanded={menuOpen}
+            >
+              <Menu size={20} />
+            </button>
           </div>
         </div>
-        <NavbarParticles />
-        <div className="nav-gold-sheen" />
-      </nav>
 
-      {/* Mobile glass menu */}
+        <div className="nav-gold-sheen" />
+      </header>
+
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );

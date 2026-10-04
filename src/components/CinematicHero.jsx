@@ -5,7 +5,7 @@ import CountUp from '@/components/story/CountUp';
 
 /**
  * CinematicHero — the full-height opening frame of the site.
- * A looping video (or still) fills the viewport, the headline sits in
+ * A full-bleed photograph fills the viewport, the headline sits in
  * oversized gold display type, and a strip of figures anchors the bottom.
  * The media drifts and the copy lifts away as the visitor starts scrolling,
  * which is what hands the page over to the scroll story below.
@@ -14,8 +14,7 @@ import CountUp from '@/components/story/CountUp';
  * state, no re-renders — so the motion stays buttery-smooth.
  */
 export default function CinematicHero({
-  video = '/9a4201778861aaa70701702683a138d9-0.mp4',
-  poster = '/banner/side-pesteh.jpg',
+  image = '/banner/hero-nuts-bowl.jpg',
   eyebrow = '',
   title,
   titleAccent,
@@ -85,14 +84,11 @@ export default function CinematicHero({
         className="absolute inset-0"
         style={{ willChange: 'transform' }}
       >
-        <video
+        <img
           className="absolute inset-0 w-full h-full object-cover hero-kenburns"
-          src={video}
-          poster={poster}
-          autoPlay
-          muted
-          loop
-          playsInline
+          src={image}
+          alt=""
+          style={{ objectPosition: 'center 46%' }}
         />
       </div>
 
@@ -111,9 +107,9 @@ export default function CinematicHero({
         className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-28 md:pb-32"
         style={{ willChange: 'transform, opacity' }}
       >
-        <span className="eyebrow block mb-6">{eyebrow}</span>
+        {eyebrow && <span className="eyebrow block mb-6">{eyebrow}</span>}
 
-        <h1 className="display-xl mb-6 max-w-4xl" style={{ color: 'var(--ink)' }}>
+        <h1 className="display-xl mb-6 max-w-6xl" style={{ color: 'var(--ink)' }}>
           {title}
           {titleAccent && (
             <>
@@ -124,7 +120,7 @@ export default function CinematicHero({
         </h1>
 
         {lead && (
-          <p className="font-body text-sm md:text-lg leading-relaxed max-w-xl mb-9" style={{ color: 'var(--fg-muted)' }}>
+          <p className="font-body text-sm md:text-lg leading-relaxed max-w-2xl mb-9" style={{ color: '#fff' }}>
             {lead}
           </p>
         )}

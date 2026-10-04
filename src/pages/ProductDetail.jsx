@@ -10,11 +10,12 @@ import LogoLoader from '@/components/LogoLoader';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, productJsonLd } from '@/lib/seo';
 import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
-import PageHero from '@/components/PageHero';
 import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
+import ProductAbout from '@/components/ProductAbout';
+import { getPackagingOptions } from '@/lib/product-facts';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -98,11 +99,13 @@ export default function ProductDetail() {
 
   // @ts-ignore
   const productSpecs = MAIN_PRODUCTS.find(p => p.category === product.category);
+  // @ts-ignore
+  const packagingOptions = getPackagingOptions(product.weights);
   const specs = [
     { icon: Boxes, label: 'دسته‌بندی', value: CATEGORY_NAMES[product.category] || 'محصول' },
     { icon: MapPin, label: 'خاستگاه', value: origin },
     { icon: Award, label: 'گریدها', value: productSpecs?.specs?.[0]?.value || 'مطابق سفارش مشتری' },
-    { icon: Package, label: 'بسته‌بندی', value: productSpecs?.specs?.[1]?.value || 'کیسه صنعتی، فله' },
+    { icon: Package, label: 'بسته‌بندی', value: packagingOptions.length > 0 ? packagingOptions.join('، ') : (productSpecs?.specs?.[1]?.value || 'کیسه صنعتی، فله') },
     { icon: Factory, label: 'ظرفیت تأمین', value: productSpecs?.specs?.[2]?.value || 'طبق قرارداد' },
     { icon: Leaf, label: 'کاربرد صنعتی', value: productSpecs?.specs?.[3]?.value || 'صنایع غذایی' },
   ];
@@ -122,17 +125,24 @@ export default function ProductDetail() {
           jsonLd={productJsonLd(product)}
         />
 
-        {/* Hero */}
-        <PageHero
-          image={product.image}
-          title={name}
-          subtitle={origin}
-          badge={CATEGORY_NAMES[product.category] || 'محصول'}
-        />
-
-        {/* Main PDP — clean, readable layout */}
-        <div className="chapter pt-12 md:pt-16">
+        {/* Main PDP — starts right under the header so the name, description,
+            specs and quote CTA are all visible without scrolling past a hero. */}
+        <div className="chapter" style={{ paddingTop: 'clamp(7rem, 12vw, 9.5rem)' }}>
           <div className="chapter-shell">
+
+            {/* Breadcrumb */}
+            <nav aria-label="مسیر صفحه" className="flex flex-wrap items-center gap-2 mb-8 font-body text-xs" style={{ color: '#fff' }}>
+              <Link to="/" className="transition-opacity hover:opacity-70">خانه</Link>
+              <ChevronLeft size={12} style={{ color: 'var(--gold-2)' }} />
+              <Link to="/shop" className="transition-opacity hover:opacity-70">محصولات</Link>
+              <ChevronLeft size={12} style={{ color: 'var(--gold-2)' }} />
+              <Link to={`/shop#${product.category}`} className="transition-opacity hover:opacity-70">
+                {CATEGORY_NAMES[product.category] || 'محصول'}
+              </Link>
+              <ChevronLeft size={12} style={{ color: 'var(--gold-2)' }} />
+              <span style={{ color: 'var(--gold-2)' }}>{name}</span>
+            </nav>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
               {/* Left: Image Gallery */}
@@ -217,12 +227,12 @@ export default function ProductDetail() {
                   </h1>
                 </Reveal>
 
-                {/* Short description — visible text */}
-                <Reveal variant="up" delay={80}>
-                  <p className="font-body text-sm md:text-base leading-relaxed" style={{ color: 'var(--fg)' }}>
+                {/* Full product description — plain markup so it is never hidden */}
+                {desc && (
+                  <p className="font-body text-base md:text-lg leading-loose" style={{ color: '#fff' }}>
                     {desc}
                   </p>
-                </Reveal>
+                )}
 
                 {/* Business inquiry CTA */}
                 <Reveal variant="up" delay={120}>
@@ -290,6 +300,9 @@ export default function ProductDetail() {
                 </div>
               </div>
             </div>
+
+            {/* ===== Per-product facts: uses, pack sizes, taste ===== */}
+            <ProductAbout product={product} name={name} />
 
             {/* ===== Full-bleed origin band with gallery image ===== */}
             <div className="mt-16 mb-4">

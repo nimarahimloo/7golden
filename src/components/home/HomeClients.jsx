@@ -1,69 +1,44 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
+import ClientLogo from '@/components/home/ClientLogo';
+import { CLIENTS } from '@/lib/clients';
 
 /**
- * HomeClients — a fixed parallax brand marquee band for the home page.
- * Shows the industrial partners who buy from 7Golden as an auto-moving
- * horizontal slider with a pinned parallax backdrop. Brand names are
- * rendered as elegant gold text cards — no testimonials, just brands.
+ * HomeClients — social proof for B2B buyers. A logo wall of the industrial
+ * brands that buy from 7Golden drifts slowly across a pinned parallax
+ * backdrop (pure CSS animation — no per-frame React work). Hover pauses it.
+ * The brand list lives in lib/clients.js, where real logo files can be
+ * swapped in.
  */
-const CLIENT_BRANDS = [
-  { nameFA: 'بستنی گلستان', roleFA: 'صنایع بستنی‌سازی' },
-  { nameFA: 'قنادی برتر', roleFA: 'صنایع قنادی' },
-  { nameFA: 'شکلات‌سازی آریا', roleFA: 'صنایع شکلات' },
-  { nameFA: 'هلدینگ پارس', roleFA: 'خواروبار عمده' },
-  { nameFA: 'گروه سرو', roleFA: 'صنایع غذایی' },
-  { nameFA: 'نخبگان غذا', roleFA: 'فرآورده غذایی' },
-  { nameFA: 'گلستان طلایی', roleFA: 'صادرات خشکبار' },
-  { nameFA: 'آریا فود', roleFA: 'تأمین مواد اولیه' },
-];
-
 export default function HomeClients() {
   const isFA = true;
-  const trackRef = useRef(null);
+  const sectionRef = useRef(null);
   const bgRef = useRef(null);
-  const [offset, setOffset] = useState(0);
 
-  // Auto-scroll the brand strip
-  useEffect(() => {
-    let raf = 0;
-    let pos = 0;
-    const animate = () => {
-      raf = requestAnimationFrame(animate);
-      pos += 0.5;
-      if (pos > 50) pos = 0;
-      setOffset(pos);
-    };
-    animate();
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  // Parallax on the fixed background
+  // Parallax on the backdrop
   useEffect(() => {
     const onScroll = () => {
-      const el = trackRef.current;
-      if (!el) return;
+      const el = sectionRef.current;
+      if (!el || !bgRef.current) return;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
       const p = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height)));
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translate3d(0, ${(p - 0.5) * 60}px, 0) scale(1.15)`;
-      }
+      bgRef.current.style.transform = `translate3d(0, ${(p - 0.5) * 60}px, 0) scale(1.15)`;
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Duplicate brands for seamless loop
-  const doubled = [...CLIENT_BRANDS, ...CLIENT_BRANDS];
+  // Two identical halves → the -50% keyframe loops seamlessly.
+  const loop = [...CLIENTS, ...CLIENTS];
 
   return (
     <section
-      ref={trackRef}
+      ref={sectionRef}
       className="relative overflow-hidden"
       style={{ minHeight: '420px' }}
       dir="rtl"
@@ -94,44 +69,15 @@ export default function HomeClients() {
             lead={isFA
               ? 'از کارخانجات بستنی و شکلات تا قنادی‌ها و گروه‌های صادراتی — برندهایی که به کیفیت هفت‌طلایی اعتماد کرده‌اند.'
               : 'From ice-cream and chocolate factories to confectioners and export groups.'}
-            className="mb-12"
+            className="mb-10"
           />
         </div>
 
-        {/* Auto-moving brand slider */}
-        <div
-          className="relative overflow-hidden py-8"
-          style={{
-            maskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
-          }}
-        >
-          <div
-            className="flex gap-4 md:gap-6 w-max"
-            style={{ transform: `translateX(${offset}%)` }}
-          >
-            {doubled.map((brand, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 flex flex-col items-center justify-center gap-2 px-8 py-6 rounded-2xl"
-                style={{
-                  minWidth: '220px',
-                  background: 'rgba(12, 10, 6, 0.6)',
-                  border: '1px solid var(--hairline)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                }}
-              >
-                <span
-                  className="font-heading font-extrabold text-lg md:text-xl"
-                  style={{ color: 'var(--gold-2)', fontFamily: 'Peyda, serif', fontWeight: 700 }}
-                >
-                  {brand.nameFA}
-                </span>
-                <span className="font-body text-xs" style={{ color: 'var(--fg-muted)', fontFamily: 'Kalameh, serif', fontWeight: 400 }}>
-                  {brand.roleFA}
-                </span>
-              </div>
+        {/* Logo wall */}
+        <div className="logo-marquee" aria-label="برندهای مشتری هفت‌طلایی">
+          <div className="logo-marquee-track">
+            {loop.map((client, i) => (
+              <ClientLogo key={`${client.id}-${i}`} client={client} />
             ))}
           </div>
         </div>

@@ -14,9 +14,9 @@ import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import CountUp from '@/components/story/CountUp';
-import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
 import ExportProcess from '@/components/story/ExportProcess';
+import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 
@@ -108,13 +108,14 @@ export default function Home() {
 
         {/* ===== OPENING FRAME — full-height cinematic hero ===== */}
         <CinematicHero
-          poster="/banner/hero-nuts-bowl.jpg"
-          eyebrow=""
+          image="/banner/tray-pistachio-almond.jpg"
+          eyebrow="EST. ۱۳۷۷ · QAZVIN"
           title="تولید، فرآوری و صادرات"
           titleAccent="فندق، پسته و بادام"
+          lead="مغز و خلال پسته، بادام و فندق برای کارخانه‌های شکلات، قنادی و بستنی — مستقیم از باغ، با کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده."
           stats={CAPACITY_STATS}
-          primary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
-          secondary={{ label: isFA ? 'درخواست مشاوره' : 'Request a quote', href: '/contact' }}
+          primary={{ label: isFA ? 'درخواست قیمت و نمونه' : 'Request a quote', href: '/contact' }}
+          secondary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
         />
 
         {/* ===== CHAPTER 01 — the three pillars, stepped through on vertical scroll ===== */}
@@ -122,6 +123,7 @@ export default function Home() {
           index="01"
           eyebrow="MAIN PRODUCTS"
           title="سه ستون تولید هفت‌طلایی"
+          lead="سه محصولی که بیشترین سفارش‌های صنعتی ما را تشکیل می‌دهند. برای هر کدام گرید، بسته‌بندی و ظرفیت تأمین مشخص داریم — یکی را انتخاب کنید و مشخصات فنی‌اش را ببینید."
           align="start"
           className="chapter-shell pt-20 md:pt-28 pb-4"
         />
@@ -143,6 +145,7 @@ export default function Home() {
                   index="02"
                   eyebrow="CAPACITY"
                   title="مقیاس صنعتی، تحویل زمان‌بندی‌شده"
+                  lead="ظرفیت یعنی اطمینان از اینکه سفارش عمده شما سر موعد و با همان کیفیتِ نمونه تحویل می‌شود، نه فقط یک عدد روی کاغذ."
                 />
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
                   {CAPACITY_STATS.map((stat, i) => (
@@ -160,36 +163,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== CHAPTER 03 — origin story (multi-layer depth parallax) ===== */}
-        <section className="chapter">
-          <div className="chapter-shell">
-            <StoryChapter
-              index="03"
-              eyebrow="ORIGIN"
-              title="از باغستان قزوین و اشنویه، بدون واسطه"
-              align="center"
-              className="mb-12 md:mb-16"
-            />
-            <DepthParallax
-              src="/banner/banner-spoons-set.jpg"
-              alt="Iranian orchards"
-              ratio="aspect-[4/3] md:aspect-[21/9]"
-              className="rounded-3xl"
-            >
-              <div>
-                <span className="eyebrow block mb-2">SINCE 1998</span>
-                <span className="display-md" style={{ color: 'var(--ink)' }}>تأمین مستقیم از کشاورز</span>
-              </div>
-            </DepthParallax>
-
-            <Reveal delay={120} className="mt-12 text-center">
-              <Link to="/about" className="btn-ghost">
-                {isFA ? 'داستان هفت‌طلایی' : 'Our story'}
-                <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        {/* ===== CHAPTER 03 — why direct sourcing wins (trust + CTA) ===== */}
+        <HomeOrigin />
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
@@ -206,6 +181,7 @@ export default function Home() {
                 index="۰۴"
                 eyebrow="PRODUCTS"
                 title="محصولات هفت‌طلایی"
+                lead="نمونه‌ای از کاتالوگ ما. وارد صفحه هر محصول شوید تا شرح کامل، بسته‌بندی و مشخصات فنی را ببینید و پیش‌فاکتور بخواهید."
                 className="flex-1"
               />
               <Link to="/shop" className="link-gold hidden md:inline-flex">
@@ -268,6 +244,7 @@ export default function Home() {
               index="۰۵"
               eyebrow="PROCESS"
               title="از باغستان تا مقصد صادراتی"
+              lead="مسیر یک سفارش عمده در پنج گام شفاف: از برداشت و فرآوری تا کنترل کیفیت، بسته‌بندی و تحویل."
             />
           </div>
         </section>

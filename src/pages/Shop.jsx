@@ -87,7 +87,7 @@ export default function Shop() {
           const first = firstProductFor(product.category);
           const flipped = i % 2 === 1;
           return (
-            <section key={product.category} className="chapter">
+            <section key={product.category} id={product.category} className="chapter" style={{ scrollMarginTop: '5rem' }}>
               <div className="chapter-shell">
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center`}>
                   <Reveal variant={flipped ? 'right' : 'left'} className={flipped ? 'lg:order-2' : ''}>
