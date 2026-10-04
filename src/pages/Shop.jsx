@@ -18,6 +18,7 @@ import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
 import MaskText from '@/components/story/MaskText';
+import BackButton from '@/components/BackButton';
 
 const BAND_IMAGE = {
   pistachio: '/gallery/AQ8A1516AQ8A1516.JPG',
@@ -83,12 +84,17 @@ export default function Shop() {
 
       <PullToRefresh onRefresh={loadData}>
         {/* ===== HERO ===== */}
-        <PageHero
-          image={hero.image}
-          title={hero.title}
-          subtitle={hero.subtitle}
-          badge={hero.badge}
-        />
+        <div className="relative">
+          <PageHero
+            image={hero.image}
+            title={hero.title}
+            subtitle={hero.subtitle}
+            badge={hero.badge}
+          />
+          <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+            <BackButton to="/" className="text-white/80 hover:text-white" />
+          </div>
+        </div>
 
         {/* ===== FLAGSHIP CHAPTERS — one full band per pillar ===== */}
         {MAIN_PRODUCTS.map((product, i) => {
