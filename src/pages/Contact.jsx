@@ -45,7 +45,7 @@ export default function Contact() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/gallery/AQ8A1770AQ8A1770.JPG"
+          image="/banner/banner-spoons-set.jpg"
           title={t('contact_title')}
           subtitle="همیشه در دسترس شما هستیم"
           badge="تماس با ما"

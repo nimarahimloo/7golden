@@ -61,7 +61,7 @@ export default function Blog() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/blog-exhibition.jpg"
+          image="/banner/hazelnut-bowl.jpg"
           title={t('blog_title')}
           subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
           badge={isFA ? 'وبلاگ' : 'Blog'}

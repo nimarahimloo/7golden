@@ -76,7 +76,7 @@ export default function Shop() {
       <PullToRefresh onRefresh={loadData}>
         {/* ===== HERO ===== */}
         <PageHero
-          image="/gallery/AQ8A1571AQ8A1571.JPG"
+          image="/banner/product-nuts-assortment.jpg"
           title={t('products_title')}
           subtitle="پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی"
           badge={isFA ? 'محصولات' : 'Products'}

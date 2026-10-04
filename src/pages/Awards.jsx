@@ -66,7 +66,7 @@ export default function Awards() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/blog-exhibition.jpg"
+          image="/banner/almond-milk.jpg"
           title={isFA ? 'جوایز و افتخارات' : 'Awards & Honors'}
           subtitle={isFA ? 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی' : 'Certified quality, recognized excellence'}
           badge={isFA ? 'اعتبار و افتخارات' : 'Excellence'}

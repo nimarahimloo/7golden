@@ -52,7 +52,7 @@ export default function About() {
         {/* Hero */}
         <div className="relative">
           <PageHero
-            image="/gallery/AQ8A1683AQ8A1683.JPG"
+            image="/banner/pistachio-dishes-teal.jpg"
             title={t('about_title')}
             subtitle={t('about_sub')}
             badge="داستان ما"
