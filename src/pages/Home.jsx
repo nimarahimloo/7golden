@@ -21,7 +21,7 @@ import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 
-import { MAIN_PRODUCTS, CAPACITY_STATS } from '@/lib/corporate-content';
+import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
 // Full-bleed frames for the three flagship chapters — each uses a different
 // gallery/banner photo so no two scenes repeat.
@@ -46,11 +46,13 @@ export default function Home() {
         Promise.all([getProducts(), getCategories()]),
         timeout,
       ]);
-      const withCounts = cats.map(c => ({ ...c, count: prods.filter(p => p.category === c.slug).length }));
-      setProducts(prods);
+      const finalProds = prods.length > 0 ? prods : FALLBACK_PRODUCTS;
+      const withCounts = cats.map(c => ({ ...c, count: finalProds.filter(p => p.category === c.slug).length }));
+      setProducts(finalProds);
       setCategories(withCounts);
     } catch (e) {
-      // API unavailable — products stay empty until added via admin
+      // storefront degrades gracefully to fallback data
+      setProducts(FALLBACK_PRODUCTS);
     }
   };
 
@@ -177,66 +179,62 @@ export default function Home() {
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
 
-        {/* ===== PRODUCTS — simple, no background cards (only if products exist) ===== */}
-        {allProducts.length > 0 && (
-          <>
-            <section className="chapter pb-0">
-              <div className="chapter-shell">
-                <div className="flex items-end justify-between gap-4 mb-10">
-                  <StoryChapter
-                    index="۰۴"
-                    eyebrow="PRODUCTS"
-                    title="محصولات هفت‌طلایی"
-                    lead="نمونه‌ای از کاتالوگ ما. وارد صفحه هر محصول شوید تا شرح کامل، بسته‌بندی و مشخصات فنی را ببینید و پیش‌فاکتور بخواهید."
-                    className="flex-1"
-                  />
-                  <Link to="/shop" className="link-gold hidden md:inline-flex">
-                    {isFA ? 'مشاهده همه' : 'View all'}
-                    <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-                  </Link>
-                </div>
-              </div>
-            </section>
+        {/* ===== PRODUCTS — simple, no background cards ===== */}
+        <section className="chapter pb-0">
+          <div className="chapter-shell">
+            <div className="flex items-end justify-between gap-4 mb-10">
+              <StoryChapter
+                index="۰۴"
+                eyebrow="PRODUCTS"
+                title="محصولات هفت‌طلایی"
+                lead="نمونه‌ای از کاتالوگ ما. وارد صفحه هر محصول شوید تا شرح کامل، بسته‌بندی و مشخصات فنی را ببینید و پیش‌فاکتور بخواهید."
+                className="flex-1"
+              />
+              <Link to="/shop" className="link-gold hidden md:inline-flex">
+                {isFA ? 'مشاهده همه' : 'View all'}
+                <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+              </Link>
+            </div>
+          </div>
+        </section>
 
-            <section className="chapter pt-0">
-              <div className="chapter-shell">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                  {allProducts.map((product, i) => (
-                    <Reveal key={product.id} delay={(i % 4) * 80} variant="up">
-                      <Link to={`/product/${product.id}`} className="block group">
-                        {/* Simple card — no background, image speaks */}
-                        <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: '3 / 4' }}>
-                          <img
-                            src={product.image}
-                            alt={product.nameFA}
-                            loading="lazy"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                          />
-                          {/* Minimal gradient only at bottom for readability */}
-                          <div className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.92), transparent)' }} />
-                          <div className="absolute bottom-0 right-0 left-0 p-4">
-                            <span className="display-sm block" style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
-                              {product.nameFA}
-                            </span>
-                            <span className="font-body text-xs block mt-1" style={{ color: 'var(--gold-2)', fontFamily: 'Kalameh, serif', fontWeight: 500 }}>
-                              {product.category.toUpperCase()}
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </Reveal>
-                  ))}
-                </div>
-                <Reveal delay={200} className="mt-10 text-center md:hidden">
-                  <Link to="/shop" className="btn-ghost">
-                    {isFA ? 'مشاهده همه' : 'View all'}
-                    <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+        <section className="chapter pt-0">
+          <div className="chapter-shell">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {allProducts.map((product, i) => (
+                <Reveal key={product.id} delay={(i % 4) * 80} variant="up">
+                  <Link to={`/product/${product.id}`} className="block group">
+                    {/* Simple card — no background, image speaks */}
+                    <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: '3 / 4' }}>
+                      <img
+                        src={product.image}
+                        alt={product.nameFA}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                      />
+                      {/* Minimal gradient only at bottom for readability */}
+                      <div className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.92), transparent)' }} />
+                      <div className="absolute bottom-0 right-0 left-0 p-4">
+                        <span className="display-sm block" style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+                          {product.nameFA}
+                        </span>
+                        <span className="font-body text-xs block mt-1" style={{ color: 'var(--gold-2)', fontFamily: 'Kalameh, serif', fontWeight: 500 }}>
+                          {product.category.toUpperCase()}
+                        </span>
+                      </div>
+                    </div>
                   </Link>
                 </Reveal>
-              </div>
-            </section>
-          </>
-        )}
+              ))}
+            </div>
+            <Reveal delay={200} className="mt-10 text-center md:hidden">
+              <Link to="/shop" className="btn-ghost">
+                {isFA ? 'مشاهده همه' : 'View all'}
+                <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+              </Link>
+            </Reveal>
+          </div>
+        </section>
 
         {/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
         <MaskText

@@ -46,7 +46,134 @@ export const MAIN_PRODUCTS = [
   },
 ];
 
+// Fallback product data — used when the Base44 backend has no products yet,
+// so the home page's product strip and links always render. Each item maps
+// to the same shape as normalizeProduct() in lib/api/content.js.
+export const FALLBACK_PRODUCTS = [
+  {
+    id: 'pistachio-kernel',
+    slug: 'pistachio-kernel',
+    nameFA: 'مغز پسته قزوین',
+    nameEN: 'Qazvin Pistachio Kernel',
+    category: 'pistachio',
+    image: '/product/qazvin-pistachio-nuts.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'pistachio-slice',
+    slug: 'pistachio-slice',
+    nameFA: 'خلال پسته قزوین',
+    nameEN: 'Pistachio Slice',
+    category: 'pistachio',
+    image: '/product/khelal-qazvin-slice.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'hazelnut-kernel',
+    slug: 'hazelnut-kernel',
+    nameFA: 'مغز فندق خام',
+    nameEN: 'Raw Hazelnut Kernel',
+    category: 'hazelnut',
+    image: '/product/brain-hazelnut.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'hazelnut-paste',
+    slug: 'hazelnut-paste',
+    nameFA: 'خمیر فندق',
+    nameEN: 'Hazelnut Paste',
+    category: 'hazelnut',
+    image: '/product/hazelnut-paste.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'almond-kernel',
+    slug: 'almond-kernel',
+    nameFA: 'پرک بادام درختی',
+    nameEN: 'Almond Flakes',
+    category: 'almond',
+    image: '/product/almond-flakes.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'almond-slice',
+    slug: 'almond-slice',
+    nameFA: 'خلال بادام زمینی',
+    nameEN: 'Sliced Peanuts',
+    category: 'almond',
+    image: '/product/sliced-peanuts.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'pistachio-akbari',
+    slug: 'pistachio-akbari',
+    nameFA: 'مغز پسته پوست کنده',
+    nameEN: 'Peeled Pistachio',
+    category: 'pistachio',
+    image: '/product/peeled-pistachio.png',
+    featured: true,
+    published: true,
+  },
+  {
+    id: 'hazelnut-raw',
+    slug: 'hazelnut-raw',
+    nameFA: 'فندق خندان',
+    nameEN: 'Smiling Hazelnut',
+    category: 'hazelnut',
+    image: '/product/smiling-hazelnut.png',
+    featured: true,
+    published: true,
+  },
+];
 
+// Specialty products — the flagship grades the user wants emphasized.
+export const SPECIALTY_PRODUCTS = [
+  {
+    key: 'pistachio-kernel',
+    nameFA: 'مغز پسته',
+    grade: 'گرید A — سبز مطلوب',
+    image: '/product/qazvin-pistachio-nuts.png',
+    desc: 'مغز پسته قزوین با رنگ سبز مطلوب و دانه‌بندی یکنواخت، فرآوری شده برای صنایع شکلات، قنادی و بستنی.',
+    specs: [
+      { label: 'رنگ', value: 'سبز مطلوب' },
+      { label: 'سایز', value: '۲۶–۳۰ میلی‌متر' },
+      { label: 'رطوبت', value: 'حداکثر ۵٪' },
+      { label: 'بسته‌بندی', value: 'کیسه ۱۰/۲۰ کیلو' },
+    ],
+  },
+  {
+    key: 'pistachio-slice',
+    nameFA: 'خلال پسته',
+    grade: 'برش یکنواخت صنعتی',
+    image: '/product/pistachio-slices.png',
+    desc: 'خلال پسته با ضخامت دقیق و یکنواخت، مخصوص تزئین قنادی و صنایع بستنی و شکلات.',
+    specs: [
+      { label: 'ضخامت', value: '۰.۸–۱.۲ میلی‌متر' },
+      { label: 'رنگ', value: 'سبز روشن' },
+      { label: 'کاربرد', value: 'قنادی و بستنی' },
+      { label: 'بسته‌بندی', value: 'کیسه ۵/۱۰ کیلو' },
+    ],
+  },
+  {
+    key: 'hazelnut-kernel',
+    nameFA: 'مغز فندق',
+    grade: 'درجه یک — قزوین و اشنویه',
+    image: '/product/brain-hazelnut.png',
+    desc: 'مغز فندق با تفکیک دقیق سایز و کنترل آلودگی، آماده‌سازی شده برای صنایع شکلات و تولید کرم فندق.',
+    specs: [
+      { label: 'سایز', value: '۱۱–۱۳ میلی‌متر' },
+      { label: 'رطوبت', value: 'حداکثر ۶٪' },
+      { label: 'کاربرد', value: 'شکلات و کرم' },
+      { label: 'بسته‌بندی', value: 'کیسه ۱۰/۲۵ کیلو' },
+    ],
+  },
+];
 
 // Export destinations and standards shown in the "Export & Global Markets" section.
 export const EXPORT_MARKETS = ['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'ترکیه', 'آلمان', 'هلند'];
