@@ -1101,3 +1101,8 @@ body::before {
   border: 0;
   background: var(--hairline);
 }
+
+/* ===== GLOBAL: no border-radius anywhere ===== */
+*, *::before, *::after {
+  border-radius: 0 !important;
+}
