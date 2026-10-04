@@ -190,7 +190,7 @@ function AwardCardLarge({ item, delay = 0, isFA, headingFont }) {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div
-        className="rounded-3xl p-5 transition-all duration-500 h-full"
+        className="rounded-3xl p-5 transition-all duration-500 h-full flex flex-col"
         style={{
           background: 'var(--panel)',
           border: '1px solid var(--hairline)',
@@ -198,32 +198,40 @@ function AwardCardLarge({ item, delay = 0, isFA, headingFont }) {
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
         }}
       >
-        {/* Image with gold frame */}
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5 product-gold-ring" style={{ background: 'rgba(255,255,255,0.03)' }}>
-          <Image
+        {/* Certificate image — portrait, contained (not cropped) */}
+        <div
+          className="relative rounded-2xl overflow-hidden mb-5 product-gold-ring flex items-center justify-center"
+          style={{
+            aspectRatio: '3 / 4',
+            background: 'linear-gradient(135deg, rgba(7,6,4,0.9) 0%, rgba(12,10,6,0.95) 100%)',
+            border: '1px solid var(--hairline)',
+          }}
+        >
+          <img
             src={item.image}
             alt={title}
+            loading="lazy"
             className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-            fittingType="fill"
+            style={{ objectFit: 'contain', padding: '8px' }}
           />
           {/* Shimmer sweep */}
           <div className="product-shimmer-sweep absolute inset-0 pointer-events-none">
             <div className="shimmer-stripe" />
           </div>
           {/* Trophy badge */}
-          <div className="absolute top-3 right-3 w-10 h-10 rounded-full glass-luxury flex items-center justify-center" style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
+          <div className="absolute top-3 right-3 w-10 h-10 rounded-full glass-luxury flex items-center justify-center z-10" style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
             <Trophy size={16} style={{ color: 'var(--accent)' }} />
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="font-heading font-extrabold text-base mb-2 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+        <h3 className="font-heading font-extrabold text-base mb-2 leading-snug" style={{ color: '#FFFFFF', fontFamily: headingFont }}>
           {title}
         </h3>
 
         {/* Description */}
         {desc && (
-          <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+          <p className="font-body text-xs leading-relaxed" style={{ color: '#FFFFFF', opacity: 0.85 }}>
             {desc}
           </p>
         )}

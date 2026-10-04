@@ -7,6 +7,27 @@
 /* --- Peyda --- */
 @font-face {
   font-family: 'Peyda';
+  src: url('/fonts/Peyda/PeydaWeb/woff2/PeydaWeb-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/Peyda/PeydaWeb/woff2/peydaWeb-extralight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/Peyda/PeydaWeb/woff2/peydaWeb-light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
   src: url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
@@ -51,6 +72,27 @@
 /* --- Kalameh --- */
 @font-face {
   font-family: 'Kalameh';
+  src: url('/fonts/Kalameh/02- Farsi_Numerals/WebFonts/fonts/woff2/KalamehWebFaNum-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/Kalameh/02- Farsi_Numerals/WebFonts/fonts/woff2/KalamehWebFaNum-ExtraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/Kalameh/02- Farsi_Numerals/WebFonts/fonts/woff2/KalamehWebFaNum-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
   src: url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
@@ -74,6 +116,20 @@
   font-family: 'Kalameh';
   src: url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
   font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/Kalameh/02- Farsi_Numerals/WebFonts/fonts/woff2/KalamehWebFaNum-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/Kalameh/02- Farsi_Numerals/WebFonts/fonts/woff2/KalamehWebFaNum-Black.woff2') format('woff2');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -108,7 +164,7 @@
     --bg: #070604;
     --bg-secondary: #0C0A07;
     --fg: #FFF;
-    --fg-muted: #D4C9A8;
+    --fg-muted: #FFFFFF;
     --accent: #E3C263;
     --accent-hover: #F3DA8C;
     --accent-gold: #E3C263;
@@ -152,17 +208,17 @@
     --panel-strong: rgba(9, 7, 4, 0.82);
 
     --background: 40 30% 2%;
-    --foreground: 40 20% 88%;
+    --foreground: 0 0% 100%;
     --card: 40 25% 5%;
-    --card-foreground: 40 20% 88%;
+    --card-foreground: 0 0% 100%;
     --popover: 40 25% 5%;
-    --popover-foreground: 40 20% 88%;
+    --popover-foreground: 0 0% 100%;
     --primary: 48 82% 64%;
     --primary-foreground: 0 0% 5%;
     --secondary: 40 20% 8%;
-    --secondary-foreground: 40 20% 88%;
+    --secondary-foreground: 0 0% 100%;
     --muted: 40 20% 8%;
-    --muted-foreground: 40 15% 62%;
+    --muted-foreground: 0 0% 100%;
     --accent-hsl: 48 82% 64%;
     --accent-foreground: 0 0% 5%;
     --destructive: 0 62% 30%;
