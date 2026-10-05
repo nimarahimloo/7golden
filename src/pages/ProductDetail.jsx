@@ -14,7 +14,6 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
-import ProductAbout from '@/components/ProductAbout';
 import { getPackagingOptions } from '@/lib/product-facts';
 
 const CATEGORY_NAMES = {
@@ -96,19 +95,6 @@ export default function ProductDetail() {
     : `${name} — ${origin} | ${SITE_SEO.siteNameEN}`;
   // @ts-ignore
   const seoDesc = isFA ? product.descFA : product.descEN;
-
-  // @ts-ignore
-  const productSpecs = MAIN_PRODUCTS.find(p => p.category === product.category);
-  // @ts-ignore
-  const packagingOptions = getPackagingOptions(product.weights);
-  const specs = [
-    { icon: Boxes, label: 'دسته‌بندی', value: CATEGORY_NAMES[product.category] || 'محصول' },
-    { icon: MapPin, label: 'خاستگاه', value: origin },
-    { icon: Award, label: 'گریدها', value: productSpecs?.specs?.[0]?.value || 'مطابق سفارش مشتری' },
-    { icon: Package, label: 'بسته‌بندی', value: packagingOptions.length > 0 ? packagingOptions.join('، ') : (productSpecs?.specs?.[1]?.value || 'کیسه صنعتی، فله') },
-    { icon: Factory, label: 'ظرفیت تأمین', value: productSpecs?.specs?.[2]?.value || 'طبق قرارداد' },
-    { icon: Leaf, label: 'کاربرد صنعتی', value: productSpecs?.specs?.[3]?.value || 'صنایع غذایی' },
-  ];
 
   return (
     <PullToRefresh onRefresh={loadData}>
@@ -262,31 +248,6 @@ export default function ProductDetail() {
                   </div>
                 </Reveal>
 
-                {/* Technical specifications — clean table */}
-                <Reveal variant="up" delay={160}>
-                  <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--hairline)' }}>
-                    <div className="px-4 py-3" style={{ background: 'rgba(227,194,99,0.08)', borderBottom: '1px solid var(--hairline)' }}>
-                      <span className="font-heading font-bold text-sm" style={{ color: 'var(--gold-2)', fontFamily: headingFont, fontWeight: 700 }}>
-                        مشخصات فنی
-                      </span>
-                    </div>
-                    {specs.map((spec, i) => (
-                      <div
-                        key={spec.label}
-                        className="flex items-start gap-3 px-4 py-3.5"
-                        style={{ borderTop: i === 0 ? 'none' : '1px solid var(--hairline)' }}
-                      >
-                        <spec.icon size={15} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--accent)' }} />
-                        <span className="font-body text-xs font-semibold flex-shrink-0 w-24" style={{ color: 'var(--fg-muted)' }}>
-                          {spec.label}
-                        </span>
-                        <span className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg)' }}>
-                          {spec.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </Reveal>
 
                 {/* Standards strip */}
                 <div className="grid grid-cols-1 gap-3 py-4" style={{ borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)' }}>
@@ -301,31 +262,8 @@ export default function ProductDetail() {
             </div>
 
             {/* ===== Per-product facts: uses, pack sizes, taste ===== */}
-            <ProductAbout product={product} name={name} />
-
-            {/* ===== Full-bleed origin band with gallery image ===== */}
-            <div className="mt-16 mb-4">
-              <StoryChapter
-                eyebrow="ORIGIN"
-                title="خاستگاه و فرآوری"
-                align="center"
-                className="mb-10"
-              />
-              <DepthParallax
-                // @ts-ignore
-                src={ORIGIN_IMAGES[product.category] || '/gallery/AQ8A1499AQ8A1499.webp'}
-                alt="7Golden orchard"
-                ratio="aspect-[4/3] md:aspect-[21/9]"
-                className="rounded-3xl"
-              >
-                <div>
-                  <span className="eyebrow block mb-2">FROM ORCHARD</span>
-                  <span className="display-md" style={{ color: 'var(--ink)' }}>از باغستان تا صنعت</span>
-                </div>
-              </DepthParallax>
-            </div>
-
-            {/* Related Products */}
+{/* ===== Full-bleed origin band with gallery image ===== */}
+{/* Related Products */}
             {related.length > 0 && (
               <div className="mt-16">
                 <div className="flex items-center justify-between mb-6">

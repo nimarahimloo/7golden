@@ -15,9 +15,9 @@ export function AppProvider({ children }) {
   // state is kept commented below — restore it to bring the shop back.
   // ---------------------------------------------------------------------------
   // const [siteMode, setSiteMode] = useState(() => localStorage.getItem('7golden_site_mode') || 'store');
-  // const isStoreMode = siteMode === 'store';
+  // const isStoreMode = false; // corporate only // corporate only
   const siteMode = 'corporate';
-  const isStoreMode = false;
+  const isStoreMode = false; // corporate only // corporate only
 
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('7golden_cart') || '[]');

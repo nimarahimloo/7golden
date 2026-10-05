@@ -177,6 +177,7 @@ export const ENTITY_WRITE_FIELDS: Record<string, string[]> = {
 export function applyFieldAliases(entity: string, body: any) {
   const data = { ...body };
   if (entity === 'SiteSettings') {
+    data.site_mode = 'corporate'; // فروشگاهی غیرفعال
     if (data.email != null && data.contact_email == null) data.contact_email = data.email;
     if (data.phone != null && data.contact_phone == null) data.contact_phone = data.phone;
     if (data.mobile != null && data.contact_mobile == null) data.contact_mobile = data.mobile;

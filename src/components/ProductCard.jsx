@@ -41,8 +41,8 @@ export default function ProductCard({ product }) {
           <Image
             src={product.image}
             alt={name}
-            className="block w-full h-full transition-transform ease-out group-hover:scale-[1.08] object-contain"
-            fittingType="fill"
+            className="absolute inset-0 w-full h-full object-cover transition-transform ease-out group-hover:scale-[1.08]"
+            fittingType="cover"
           />
         </div>
       </div>

@@ -8,7 +8,6 @@ import {
 import { useAuth } from '@/lib/AuthContext';
 import EntityCrud from '@/components/admin/EntityCrud';
 import AdminErrorBoundary from '@/components/admin/AdminErrorBoundary';
-import SiteModeToggle from '@/components/admin/SiteModeToggle';
 import LogoLoader from '@/components/LogoLoader';
 import { base44 } from '@/api/base44Client';
 import {
@@ -24,7 +23,6 @@ const SECTIONS = [
   { id: 'awards', label: 'مجوزها و جوایز', icon: Award },
   { id: 'testimonials', label: 'نظرات مشتریان', icon: MessageSquareQuote },
   { id: 'page-sections', label: 'هیرو و سکشن‌ها', icon: LayoutTemplate },
-  { id: 'orders', label: 'سفارش‌ها', icon: ShoppingBag },
   { id: 'messages', label: 'پیام‌های تماس', icon: Mail },
   { id: 'settings', label: 'تنظیمات سایت', icon: Settings },
   { id: 'users', label: 'کاربران', icon: Settings },
@@ -74,7 +72,6 @@ export default function Admin() {
         {active === 'awards' && <AwardsAdminSection />}
         {active === 'testimonials' && <TestimonialsSection />}
         {active === 'page-sections' && <PageSectionsSection />}
-        {active === 'orders' && <OrdersSection />}
         {active === 'messages' && <MessagesSection />}
         {active === 'settings' && <SettingsSection />}
         {active === 'users' && (
@@ -153,7 +150,6 @@ function AdminShell({ active, setActive, user, onLogout, children }) {
           <h1 className="font-heading font-extrabold text-xl" style={{ color: 'var(--fg)' }}>
             {SECTIONS.find(s => s.id === active)?.label}
           </h1>
-          <SiteModeToggle />
         </div>
         <AdminErrorBoundary key={active}>{children}</AdminErrorBoundary>
       </main>

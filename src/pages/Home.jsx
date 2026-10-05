@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { getProducts, getCategories } from '@/lib/api/content';
-import { getPageHero } from '@/lib/api/content';
+import { getPageHero, getPageSections } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
 import GoldenEssence from '@/components/GoldenEssence';
@@ -25,7 +25,7 @@ import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporat
 
 // Full-bleed frames for the three flagship chapters — each uses a different
 // gallery/banner photo so no two scenes repeat.
-const SCENE_IMAGE = {
+const DEFAULT_SCENE_IMAGE = {
   pistachio: '/banner/pistachio-kernels.webp',
   almond: '/gallery/AQ8A1516AQ8A1516.webp',
   hazelnut: '/banner/hazelnut-spoon.webp',
@@ -37,6 +37,7 @@ export default function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [heroConfig, setHeroConfig] = useState(null);
+  const [sectionMap, setSectionMap] = useState({});
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
@@ -58,6 +59,14 @@ export default function Home() {
 
   useEffect(() => {
     getPageHero('home').then(s => setHeroConfig(s)).catch(() => {});
+    getPageSections('home').then(list => {
+      const map = {};
+      (list || []).forEach(s => {
+        const k = String(s.section_key || '').trim().toLowerCase();
+        if (k) map[k] = s;
+      });
+      setSectionMap(map);
+    }).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -70,6 +79,13 @@ export default function Home() {
   }, []);
 
   const allProducts = products.slice(0, 8);
+  const sec = (key) => sectionMap[key] || {};
+  const SCENE_IMAGE = {
+    pistachio: sec('scene_pistachio').image || DEFAULT_SCENE_IMAGE.pistachio,
+    almond: sec('scene_almond').image || DEFAULT_SCENE_IMAGE.almond,
+    hazelnut: sec('scene_hazelnut').image || DEFAULT_SCENE_IMAGE.hazelnut,
+  };
+
 
   if (loading) {
     return <LogoLoader />;
@@ -127,8 +143,8 @@ export default function Home() {
         {/* ===== CHAPTER 01 — the three pillars, stepped through on vertical scroll ===== */}
         <StoryChapter
           index="01"
-          eyebrow="MAIN PRODUCTS"
-          title="سه ستون تولید هفت‌طلایی"
+          eyebrow={sec('pillars').badge_fa || "MAIN PRODUCTS"}
+          title={sec('pillars').title_fa || "سه ستون تولید هفت‌طلایی"}
           lead="سه محصولی که بیشترین سفارش‌های صنعتی ما را تشکیل می‌دهند. برای هر کدام گرید، بسته‌بندی و ظرفیت تأمین مشخص داریم — یکی را انتخاب کنید و مشخصات فنی‌اش را ببینید."
           align="start"
           className="chapter-shell pt-20 md:pt-28 pb-4"
@@ -140,7 +156,7 @@ export default function Home() {
           <div className="chapter-shell">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <ParallaxMedia
-                src="/banner/img-6052.webp"
+                src={sec('capacity').image || "/banner/img-6052.webp"}
                 alt="7Golden production"
                 ratio="aspect-[4/3]"
                 className="rounded-3xl"
@@ -149,8 +165,8 @@ export default function Home() {
               <div>
                 <StoryChapter
                   index="02"
-                  eyebrow="CAPACITY"
-                  title="مقیاس صنعتی، تحویل زمان‌بندی‌شده"
+                  eyebrow={sec('capacity').badge_fa || "CAPACITY"}
+                  title={sec('capacity').title_fa || "مقیاس صنعتی، تحویل زمان‌بندی‌شده"}
                   lead="ظرفیت یعنی اطمینان از اینکه سفارش عمده شما سر موعد و با همان کیفیتِ نمونه تحویل می‌شود، نه فقط یک عدد روی کاغذ."
                 />
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
@@ -174,7 +190,7 @@ export default function Home() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/gallery/AQ8A1505AQ8A1505.webp"
+          image={sec('products').image || "/gallery/AQ8A1505AQ8A1505.webp"}
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
@@ -238,9 +254,9 @@ export default function Home() {
 
         {/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
         <MaskText
-          image="/gallery/AQ8A1571AQ8A1571.webp"
-          text="EXPORT"
-          eyebrow="صادرات بین‌المللی"
+          image={sec('export_band').image || "/gallery/AQ8A1571AQ8A1571.webp"}
+          text={sec('export_band').title_fa || "EXPORT"}
+          eyebrow={sec('export_band').badge_fa || "صادرات بین‌المللی"}
         />
 
         {/* ===== CHAPTER 06 — the export journey (pinned process rail) ===== */}
