@@ -5,7 +5,7 @@ import fs from 'fs';
 import sharp from 'sharp';
 import { requireAuth, requireAdmin, type AuthRequest } from '../middleware/auth.js';
 
-const uploadDir = process.env.UPLOAD_DIR || './uploads';
+const uploadDir = path.resolve(process.env.UPLOAD_DIR || path.join(process.cwd(), 'uploads'));
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 const upload = multer({

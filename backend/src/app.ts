@@ -17,7 +17,9 @@ app.use(
   })
 );
 app.use(express.json({ limit: '2mb' }));
-app.use('/uploads', express.static(path.resolve(process.env.UPLOAD_DIR || './uploads')));
+const uploadsPath = path.resolve(process.env.UPLOAD_DIR || path.join(process.cwd(), 'uploads'));
+app.use('/uploads', express.static(uploadsPath, { maxAge: '7d', fallthrough: false }));
+console.log('Serving uploads from', uploadsPath);
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: '7golden-backend', time: new Date().toISOString() });
