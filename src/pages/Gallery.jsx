@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import PageHero from '@/components/PageHero';
-import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
@@ -10,10 +9,18 @@ import Reveal from '@/components/story/Reveal';
 import Marquee from '@/components/story/Marquee';
 import { EXHIBITION_PHOTOS, VIDEOS } from '@/lib/gallery-content';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
+import { usePageHero } from '@/lib/usePageHero';
 
 export default function Gallery() {
   const isFA = true;
   const [lightbox, setLightbox] = useState(null); // { type: 'video'|'photo', index }
+
+  const { hero } = usePageHero('gallery', {
+    image: '/banner/banner-four-bowls.jpg',
+    title: 'گالری و نمایشگاه‌ها',
+    subtitle: 'حضور هفت‌طلایی در نمایشگاه‌ها، خطوط تولید و گالری محصولات',
+    badge: 'گالری',
+  });
 
   const openLightbox = (type, index) => setLightbox({ type, index });
   const close = () => setLightbox(null);
@@ -56,14 +63,11 @@ export default function Gallery() {
         {/* Hero */}
         <div className="relative">
           <PageHero
-            image="/banner/banner-four-bowls.jpg"
-            title={isFA ? 'گالری و نمایشگاه‌ها' : 'Gallery & Exhibitions'}
-            subtitle={isFA ? 'حضور هفت‌طلایی در نمایشگاه‌ها، خطوط تولید و گالری محصولات' : '7Golden at exhibitions, production lines and product galleries'}
-            badge={isFA ? 'گالری' : 'Gallery'}
+            image={hero.image}
+            title={hero.title}
+            subtitle={hero.subtitle}
+            badge={hero.badge}
           />
-          <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-            <BackButton to="/" className="text-white/80 hover:text-white" />
-          </div>
         </div>
 
         {/* ===== CHAPTER 01 — videos ===== */}

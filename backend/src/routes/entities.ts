@@ -28,7 +28,8 @@ type ModelName =
   | 'contactMessage'
   | 'order'
   | 'siteSettings'
-  | 'user';
+  | 'user'
+  | 'pageSection';
 
 const ENTITY_MAP: Record<string, ModelName> = {
   Product: 'product',
@@ -41,11 +42,12 @@ const ENTITY_MAP: Record<string, ModelName> = {
   Order: 'order',
   SiteSettings: 'siteSettings',
   User: 'user',
+  PageSection: 'pageSection',
 };
 
 const PUBLIC_CREATE = new Set(['ContactMessage']);
-const PUBLIC_READ_ALL = new Set(['Category', 'Testimonial', 'SiteSettings']);
-const HAS_PUBLISHED = new Set(['Product', 'BlogPost', 'Award', 'GalleryImage']);
+const PUBLIC_READ_ALL = new Set(['Category', 'Testimonial', 'SiteSettings', 'PageSection']);
+const HAS_PUBLISHED = new Set(['Product', 'BlogPost', 'Award', 'GalleryImage', 'PageSection']);
 
 function getDelegate(name: ModelName) {
   return (prisma as any)[name];

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import { getProducts, getCategories } from '@/lib/api/content';
+import { getPageHero } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
 import { SITE_SEO } from '@/lib/seo';
 import GoldenEssence from '@/components/GoldenEssence';
@@ -14,35 +15,28 @@ import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import CountUp from '@/components/story/CountUp';
-import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
 import ExportProcess from '@/components/story/ExportProcess';
+import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
-// Full-bleed frames for the three flagship chapters of the scroll story.
+// Full-bleed frames for the three flagship chapters — each uses a different
+// gallery/banner photo so no two scenes repeat.
 const SCENE_IMAGE = {
   pistachio: '/banner/pistachio-kernels.jpg',
-  almond: '/banner/tray-pistachio-almond.jpg',
+  almond: '/gallery/AQ8A1516AQ8A1516.JPG',
   hazelnut: '/banner/hazelnut-spoon.jpg',
 };
-
-// Premium product photography for the "product showcase" band below the
-// capacity chapter — each image shows the ingredient full and clear.
-const PRODUCT_STRIP = [
-  { src: '/banner/hazelnut-spoon.jpg', alt: 'مغز فندق', label: 'فندق' },
-  { src: '/banner/pistachio-bowl-green.jpg', alt: 'مغز پسته سبز', label: 'پسته' },
-  { src: '/banner/pistachio-kernels.jpg', alt: 'پسته پوست‌کنده', label: 'پسته سبز' },
-  { src: '/banner/product-4-stack.jpg', alt: 'تنوع محصولات', label: 'تنوع' },
-];
 
 export default function Home() {
   const isFA = true;
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [heroConfig, setHeroConfig] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
@@ -61,6 +55,10 @@ export default function Home() {
       setProducts(FALLBACK_PRODUCTS);
     }
   };
+
+  useEffect(() => {
+    getPageHero('home').then(s => setHeroConfig(s)).catch(() => {});
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -116,13 +114,14 @@ export default function Home() {
 
         {/* ===== OPENING FRAME — full-height cinematic hero ===== */}
         <CinematicHero
-          poster="/banner/hero-nuts-bowl.jpg"
-          eyebrow=""
-          title="تولید، فرآوری و صادرات"
+          image={heroConfig?.image || "/banner/tray-pistachio-almond.jpg"}
+          eyebrow={heroConfig?.badge_fa || "EST. ۱۳۷۷ · QAZVIN"}
+          title={heroConfig?.title_fa || "تولید، فرآوری و صادرات"}
           titleAccent="فندق، پسته و بادام"
+          lead={heroConfig?.subtitle_fa || "مغز و خلال پسته، بادام و فندق برای کارخانه‌های شکلات، قنادی و بستنی — مستقیم از باغ، با کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده."}
           stats={CAPACITY_STATS}
-          primary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
-          secondary={{ label: isFA ? 'درخواست مشاوره' : 'Request a quote', href: '/contact' }}
+          primary={{ label: isFA ? 'درخواست قیمت و نمونه' : 'Request a quote', href: '/contact' }}
+          secondary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
         />
 
         {/* ===== CHAPTER 01 — the three pillars, stepped through on vertical scroll ===== */}
@@ -130,6 +129,7 @@ export default function Home() {
           index="01"
           eyebrow="MAIN PRODUCTS"
           title="سه ستون تولید هفت‌طلایی"
+          lead="سه محصولی که بیشترین سفارش‌های صنعتی ما را تشکیل می‌دهند. برای هر کدام گرید، بسته‌بندی و ظرفیت تأمین مشخص داریم — یکی را انتخاب کنید و مشخصات فنی‌اش را ببینید."
           align="start"
           className="chapter-shell pt-20 md:pt-28 pb-4"
         />
@@ -151,6 +151,7 @@ export default function Home() {
                   index="02"
                   eyebrow="CAPACITY"
                   title="مقیاس صنعتی، تحویل زمان‌بندی‌شده"
+                  lead="ظرفیت یعنی اطمینان از اینکه سفارش عمده شما سر موعد و با همان کیفیتِ نمونه تحویل می‌شود، نه فقط یک عدد روی کاغذ."
                 />
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
                   {CAPACITY_STATS.map((stat, i) => (
@@ -168,85 +169,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== CHAPTER 03 — origin story (multi-layer depth parallax) ===== */}
-        <section className="chapter">
-          <div className="chapter-shell">
-            <StoryChapter
-              index="03"
-              eyebrow="ORIGIN"
-              title="از باغستان قزوین و اشنویه، بدون واسطه"
-              align="center"
-              className="mb-12 md:mb-16"
-            />
-            <DepthParallax
-              src="/banner/banner-spoons-set.jpg"
-              alt="Iranian orchards"
-              ratio="aspect-[4/3] md:aspect-[21/9]"
-              className="rounded-3xl"
-            >
-              <div>
-                <span className="eyebrow block mb-2">SINCE 1998</span>
-                <span className="display-md" style={{ color: 'var(--ink)' }}>تأمین مستقیم از کشاورز</span>
-              </div>
-            </DepthParallax>
-
-            <Reveal delay={120} className="mt-12 text-center">
-              <Link to="/about" className="btn-ghost">
-                {isFA ? 'داستان هفت‌طلایی' : 'Our story'}
-                <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        {/* ===== CHAPTER 03 — why direct sourcing wins (trust + CTA) ===== */}
+        <HomeOrigin />
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/banner/banner-four-bowls.jpg"
+          image="/gallery/AQ8A1505AQ8A1505.JPG"
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
 
-        {/* ===== PRODUCT SHOWCASE — premium full-frame product photography ===== */}
-        <section className="chapter">
-          <div className="chapter-shell">
-            <StoryChapter
-              index="04"
-              eyebrow="SHOWCASE"
-              title="کیفیتی که می‌بینید"
-              lead={isFA
-                ? 'هر تصویر، کیفیت مواد اولیه هفت‌طلایی را در تمامِ وضوح نشان می‌دهد — از باغستان تا قفسه تولید.'
-                : 'Each frame shows the quality of 7Golden raw materials in full clarity — from orchard to production.'}
-              className="mb-10"
-            />
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
-              {PRODUCT_STRIP.map((item, i) => (
-                <Reveal key={item.src} delay={(i % 4) * 80} variant="up">
-                  <div className="group relative rounded-3xl overflow-hidden gold-frame" style={{ aspectRatio: '4 / 5' }}>
-                    <img
-                      src={item.src}
-                      alt={item.alt}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                    />
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.85), rgba(7,6,4,0.1) 55%, transparent)' }} />
-                    <div className="absolute bottom-0 right-0 left-0 p-4 text-right">
-                      <span className="display-sm" style={{ color: 'var(--ink)' }}>{item.label}</span>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ===== CHAPTER 04 — the full range (vertical parallax grid) ===== */}
+        {/* ===== PRODUCTS — simple, no background cards ===== */}
         <section className="chapter pb-0">
           <div className="chapter-shell">
             <div className="flex items-end justify-between gap-4 mb-10">
               <StoryChapter
-                index="۰۵"
+                index="۰۴"
                 eyebrow="PRODUCTS"
                 title="محصولات هفت‌طلایی"
+                lead="نمونه‌ای از کاتالوگ ما. وارد صفحه هر محصول شوید تا شرح کامل، بسته‌بندی و مشخصات فنی را ببینید و پیش‌فاکتور بخواهید."
                 className="flex-1"
               />
               <Link to="/shop" className="link-gold hidden md:inline-flex">
@@ -262,20 +203,24 @@ export default function Home() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
               {allProducts.map((product, i) => (
                 <Reveal key={product.id} delay={(i % 4) * 80} variant="up">
-                  <Link to={`/product/${product.id}`} className="block h-full">
-                    <div className="film-card h-full" style={{ aspectRatio: '3 / 4' }}>
-                      <div className="film-card-image absolute inset-0">
-                        <img
-                          src={product.image}
-                          alt={product.nameFA}
-                          loading="lazy"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="film-card-overlay" />
-                      <div className="film-card-content">
-                        <span className="eyebrow block mb-1">{product.category.toUpperCase()}</span>
-                        <span className="display-sm" style={{ color: 'var(--ink)' }}>{product.nameFA}</span>
+                  <Link to={`/product/${product.id}`} className="block group">
+                    {/* Simple card — no background, image speaks */}
+                    <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: '3 / 4' }}>
+                      <img
+                        src={product.image}
+                        alt={product.nameFA}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                      />
+                      {/* Minimal gradient only at bottom for readability */}
+                      <div className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.92), transparent)' }} />
+                      <div className="absolute bottom-0 right-0 left-0 p-4">
+                        <span className="display-sm block" style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+                          {product.nameFA}
+                        </span>
+                        <span className="font-body text-xs block mt-1" style={{ color: 'var(--gold-2)', fontFamily: 'Kalameh, serif', fontWeight: 500 }}>
+                          {product.category.toUpperCase()}
+                        </span>
                       </div>
                     </div>
                   </Link>
@@ -291,13 +236,21 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
+        <MaskText
+          image="/gallery/AQ8A1571AQ8A1571.JPG"
+          text="EXPORT"
+          eyebrow="صادرات بین‌المللی"
+        />
+
         {/* ===== CHAPTER 06 — the export journey (pinned process rail) ===== */}
         <section className="chapter pb-0">
           <div className="chapter-shell">
             <StoryChapter
-              index="۰۶"
+              index="۰۵"
               eyebrow="PROCESS"
               title="از باغستان تا مقصد صادراتی"
+              lead="مسیر یک سفارش عمده در پنج گام شفاف: از برداشت و فرآوری تا کنترل کیفیت، بسته‌بندی و تحویل."
             />
           </div>
         </section>
@@ -306,7 +259,7 @@ export default function Home() {
         {/* ===== CHAPTER 06 — awards & honors (full-view slider) ===== */}
         <HomeAwardsSlider />
 
-        {/* ===== CHAPTER 07 — featured buyers (testimonials) ===== */}
+        {/* ===== CHAPTER 07 — featured buyers brand slider ===== */}
         <HomeClients />
 
       </PullToRefresh>

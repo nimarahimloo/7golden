@@ -10,6 +10,7 @@ import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
+import { usePageHero } from '@/lib/usePageHero';
 
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
@@ -19,9 +20,9 @@ import Marquee from '@/components/story/Marquee';
 import MaskText from '@/components/story/MaskText';
 
 const BAND_IMAGE = {
-  pistachio: '/banner/pistachio-dishes-teal.jpg',
-  almond: '/banner/almond-milk.jpg',
-  hazelnut: '/banner/hazelnut-bowl.jpg',
+  pistachio: '/gallery/AQ8A1516AQ8A1516.JPG',
+  almond: '/gallery/AQ8A1508AQ8A1508.JPG',
+  hazelnut: '/gallery/AQ8A1499AQ8A1499.JPG',
 };
 
 /**
@@ -35,6 +36,13 @@ export default function Shop() {
   const [loading, setLoading] = useState(true);
 
   const isFA = true;
+
+  const { hero } = usePageHero('shop', {
+    image: '/banner/product-nuts-assortment.jpg',
+    title: t('products_title'),
+    subtitle: 'پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی',
+    badge: 'محصولات',
+  });
 
   const loadData = async () => {
     try {
@@ -75,19 +83,21 @@ export default function Shop() {
 
       <PullToRefresh onRefresh={loadData}>
         {/* ===== HERO ===== */}
-        <PageHero
-          image="/banner/hero-nuts-bowl.jpg"
-          title={t('products_title')}
-          subtitle="پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی"
-          badge={isFA ? 'محصولات' : 'Products'}
-        />
+        <div className="relative">
+          <PageHero
+            image={hero.image}
+            title={hero.title}
+            subtitle={hero.subtitle}
+            badge={hero.badge}
+          />
+        </div>
 
         {/* ===== FLAGSHIP CHAPTERS — one full band per pillar ===== */}
         {MAIN_PRODUCTS.map((product, i) => {
           const first = firstProductFor(product.category);
           const flipped = i % 2 === 1;
           return (
-            <section key={product.category} className="chapter">
+            <section key={product.category} id={product.category} className="chapter" style={{ scrollMarginTop: '5rem' }}>
               <div className="chapter-shell">
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center`}>
                   <Reveal variant={flipped ? 'right' : 'left'} className={flipped ? 'lg:order-2' : ''}>
@@ -165,7 +175,7 @@ export default function Shop() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/banner/banner-spoons-set.jpg"
+          image="/gallery/AQ8A1571AQ8A1571.JPG"
           text="EXPORT"
           eyebrow="صادرات بین‌المللی"
         />
@@ -195,7 +205,7 @@ export default function Shop() {
         <section className="chapter">
           <div className="chapter-shell">
             <DepthParallax
-              src="/banner/img-6052.jpg"
+              src="/gallery/AQ8A1505AQ8A1505.JPG"
               alt="7Golden production"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -211,7 +221,7 @@ export default function Shop() {
         {/* ===== B2B INQUIRY CTA ===== */}
         <section className="closing-band" style={{ minHeight: '50vh' }}>
           <div className="closing-band-bg">
-            <img src="/banner/hero-chopped-scoop.jpg" alt="" />
+            <img src="/gallery/AQ8A1568AQ8A1568.JPG" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 md:py-28">
             <StoryChapter

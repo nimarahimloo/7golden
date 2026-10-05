@@ -32,7 +32,7 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to top, var(--bg) 0%, rgba(7,6,4,0.86) 30%, rgba(7,6,4,0.42) 70%, rgba(7,6,4,0.72) 100%)',
+            'linear-gradient(to top, var(--bg) 0%, rgba(7,6,4,0.72) 25%, rgba(7,6,4,0.25) 65%, rgba(7,6,4,0.5) 100%)',
         }}
       />
 

@@ -6,12 +6,12 @@ import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import PageHero from '@/components/PageHero';
 import LogoLoader from '@/components/LogoLoader';
-import BackButton from '@/components/BackButton';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
 import Reveal from '@/components/story/Reveal';
 import CountUp from '@/components/story/CountUp';
+import { usePageHero } from '@/lib/usePageHero';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -27,6 +27,13 @@ export default function Awards() {
   const headingFont = 'Peyda, serif';
   const [awards, setAwards] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { hero } = usePageHero('awards', {
+    image: '/banner/almond-milk.jpg',
+    title: 'جوایز و افتخارات',
+    subtitle: 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی',
+    badge: 'اعتبار و افتخارات',
+  });
 
   const loadData = async () => {
     try {
@@ -66,14 +73,11 @@ export default function Awards() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/blog-exhibition.jpg"
-          title={isFA ? 'جوایز و افتخارات' : 'Awards & Honors'}
-          subtitle={isFA ? 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی' : 'Certified quality, recognized excellence'}
-          badge={isFA ? 'اعتبار و افتخارات' : 'Excellence'}
+          image={hero.image}
+          title={hero.title}
+          subtitle={hero.subtitle}
+          badge={hero.badge}
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-          <BackButton to="/" className="text-white/80 hover:text-white" />
-        </div>
       </div>
 
       {/* Stats Bar */}
@@ -190,7 +194,7 @@ function AwardCardLarge({ item, delay = 0, isFA, headingFont }) {
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div
-        className="rounded-3xl p-5 transition-all duration-500 h-full"
+        className="rounded-3xl p-5 transition-all duration-500 h-full flex flex-col"
         style={{
           background: 'var(--panel)',
           border: '1px solid var(--hairline)',
@@ -198,32 +202,40 @@ function AwardCardLarge({ item, delay = 0, isFA, headingFont }) {
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
         }}
       >
-        {/* Image with gold frame */}
-        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5 product-gold-ring" style={{ background: 'rgba(255,255,255,0.03)' }}>
-          <Image
+        {/* Certificate image — portrait, contained (not cropped) */}
+        <div
+          className="relative rounded-2xl overflow-hidden mb-5 product-gold-ring flex items-center justify-center"
+          style={{
+            aspectRatio: '3 / 4',
+            background: 'linear-gradient(135deg, rgba(7,6,4,0.9) 0%, rgba(12,10,6,0.95) 100%)',
+            border: '1px solid var(--hairline)',
+          }}
+        >
+          <img
             src={item.image}
             alt={title}
+            loading="lazy"
             className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-            fittingType="fill"
+            style={{ objectFit: 'contain', padding: '8px' }}
           />
           {/* Shimmer sweep */}
           <div className="product-shimmer-sweep absolute inset-0 pointer-events-none">
             <div className="shimmer-stripe" />
           </div>
           {/* Trophy badge */}
-          <div className="absolute top-3 right-3 w-10 h-10 rounded-full glass-luxury flex items-center justify-center" style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
+          <div className="absolute top-3 right-3 w-10 h-10 rounded-full glass-luxury flex items-center justify-center z-10" style={{ boxShadow: '0 4px 16px rgba(0,0,0,0.3)' }}>
             <Trophy size={16} style={{ color: 'var(--accent)' }} />
           </div>
         </div>
 
         {/* Title */}
-        <h3 className="font-heading font-extrabold text-base mb-2 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+        <h3 className="font-heading font-extrabold text-base mb-2 leading-snug" style={{ color: '#FFFFFF', fontFamily: headingFont }}>
           {title}
         </h3>
 
         {/* Description */}
         {desc && (
-          <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+          <p className="font-body text-xs leading-relaxed" style={{ color: '#FFFFFF', opacity: 0.85 }}>
             {desc}
           </p>
         )}

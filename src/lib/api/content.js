@@ -189,6 +189,20 @@ export async function getSiteSettings() {
   return get('/settings');
 }
 
+export async function getPageSections(page) {
+  const q = page ? `?page=${encodeURIComponent(page)}` : '';
+  return get(`/page-sections${q}`);
+}
+
+export async function getPageHero(page) {
+  try {
+    const sections = await getPageSections(page);
+    return sections.find(s => s.section_key === 'hero') || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getSiteMode() {
   const settings = await getSiteSettings();
   return settings?.site_mode || 'corporate';

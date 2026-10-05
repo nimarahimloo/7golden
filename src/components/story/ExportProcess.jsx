@@ -55,7 +55,7 @@ const STEPS = [
   },
   {
     key: 'export',
-    image: '/banner/pistachio-triple-bowls.jpg',
+    image: '/gallery/AQ8A1547AQ8A1547.JPG',
     eyebrow: 'STEP 05',
     title: 'صادرات و تحویل',
     lead: 'تحویل زمان‌بندی‌شده به بازارهای صادراتی بین‌المللی.',

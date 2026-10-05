@@ -6,7 +6,6 @@ import { Image } from '@/components/ui/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
 import PageHero from '@/components/PageHero';
-import BackButton from '@/components/BackButton';
 import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
@@ -15,6 +14,7 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
+import { usePageHero } from '@/lib/usePageHero';
 
 export default function Blog() {
   const isFA = true;
@@ -23,6 +23,13 @@ export default function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
+
+  const { hero } = usePageHero('blog', {
+    image: '/banner/hazelnut-bowl.jpg',
+    title: t('blog_title'),
+    subtitle: 'اخبار و آموزش',
+    badge: 'وبلاگ',
+  });
 
   const loadData = async () => {
     try {
@@ -61,14 +68,11 @@ export default function Blog() {
       {/* Hero */}
       <div className="relative">
         <PageHero
-          image="/banner/banner-spoons-set.jpg"
-          title={t('blog_title')}
-          subtitle={isFA ? 'اخبار و آموزش' : 'News & Education'}
-          badge={isFA ? 'وبلاگ' : 'Blog'}
+          image={hero.image}
+          title={hero.title}
+          subtitle={hero.subtitle}
+          badge={hero.badge}
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
-          <BackButton to="/" className="text-white/80 hover:text-white" />
-        </div>
       </div>
 
       {/* ===== Featured post — cinematic depth parallax ===== */}
@@ -199,7 +203,7 @@ export default function Blog() {
       {!loading && posts.length > 0 && (
         <section className="closing-band" style={{ minHeight: '40vh' }}>
           <div className="closing-band-bg">
-            <img src="/banner/hero-chopped-scoop.jpg" alt="" />
+            <img src="/gallery/AQ8A1547AQ8A1547.JPG" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 text-center">
             <Reveal variant="up">
