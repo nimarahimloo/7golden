@@ -29,7 +29,7 @@ export default function Awards() {
   const [loading, setLoading] = useState(true);
 
   const { hero } = usePageHero('awards', {
-    image: '/banner/almond-milk.jpg',
+    image: '/banner/almond-milk.webp',
     title: 'جوایز و افتخارات',
     subtitle: 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی',
     badge: 'اعتبار و افتخارات',

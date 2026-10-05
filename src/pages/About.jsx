@@ -24,7 +24,7 @@ export default function About() {
   };
 
   const { hero } = usePageHero('about', {
-    image: '/banner/pistachio-dishes-teal.jpg',
+    image: '/banner/pistachio-dishes-teal.webp',
     title: t('about_title'),
     subtitle: t('about_sub'),
     badge: 'داستان ما',
@@ -88,7 +88,7 @@ export default function About() {
             </div>
 
             <ParallaxMedia
-              src="/gallery/AQ8A1499AQ8A1499.JPG"
+              src="/gallery/AQ8A1499AQ8A1499.webp"
               alt="7Golden facility"
               ratio="aspect-[4/3]"
               className="rounded-3xl"
@@ -133,7 +133,7 @@ export default function About() {
         <section className="chapter">
           <div className="chapter-shell">
             <DepthParallax
-              src="/gallery/AQ8A1640AQ8A1640.JPG"
+              src="/gallery/AQ8A1640AQ8A1640.webp"
               alt="7Golden production line"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -148,14 +148,14 @@ export default function About() {
 
         <section className="chapter pt-0">
           <div className="chapter-shell grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-            <ParallaxMedia src="/gallery/AQ8A1748AQ8A1748.JPG" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
-            <ParallaxMedia src="/gallery/AQ8A1665AQ8A1665.JPG" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
+            <ParallaxMedia src="/gallery/AQ8A1748AQ8A1748.webp" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
+            <ParallaxMedia src="/gallery/AQ8A1665AQ8A1665.webp" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
           </div>
         </section>
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/gallery/AQ8A1628AQ8A1628.JPG"
+          image="/gallery/AQ8A1628AQ8A1628.webp"
           text="QAZVIN"
           eyebrow="EST. ۱۳۷۷ · قزوین"
         />

@@ -9,7 +9,7 @@ export default function LogoLoader({ fullScreen = true }) {
       <div className="relative flex flex-col items-center gap-5">
         <div className="relative flex items-center justify-center">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="7Golden"
             className="relative h-26 w-auto object-contain"
           />

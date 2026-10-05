@@ -26,9 +26,9 @@ import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporat
 // Full-bleed frames for the three flagship chapters — each uses a different
 // gallery/banner photo so no two scenes repeat.
 const SCENE_IMAGE = {
-  pistachio: '/banner/pistachio-kernels.jpg',
-  almond: '/gallery/AQ8A1516AQ8A1516.JPG',
-  hazelnut: '/banner/hazelnut-spoon.jpg',
+  pistachio: '/banner/pistachio-kernels.webp',
+  almond: '/gallery/AQ8A1516AQ8A1516.webp',
+  hazelnut: '/banner/hazelnut-spoon.webp',
 };
 
 export default function Home() {
@@ -114,7 +114,7 @@ export default function Home() {
 
         {/* ===== OPENING FRAME — full-height cinematic hero ===== */}
         <CinematicHero
-          image={heroConfig?.image || "/banner/tray-pistachio-almond.jpg"}
+          image={heroConfig?.image || "/banner/tray-pistachio-almond.webp"}
           eyebrow={heroConfig?.badge_fa || "EST. ۱۳۷۷ · QAZVIN"}
           title={heroConfig?.title_fa || "تولید، فرآوری و صادرات"}
           titleAccent="فندق، پسته و بادام"
@@ -140,7 +140,7 @@ export default function Home() {
           <div className="chapter-shell">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               <ParallaxMedia
-                src="/banner/img-6052.jpg"
+                src="/banner/img-6052.webp"
                 alt="7Golden production"
                 ratio="aspect-[4/3]"
                 className="rounded-3xl"
@@ -174,7 +174,7 @@ export default function Home() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/gallery/AQ8A1505AQ8A1505.JPG"
+          image="/gallery/AQ8A1505AQ8A1505.webp"
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
@@ -238,7 +238,7 @@ export default function Home() {
 
         {/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
         <MaskText
-          image="/gallery/AQ8A1571AQ8A1571.JPG"
+          image="/gallery/AQ8A1571AQ8A1571.webp"
           text="EXPORT"
           eyebrow="صادرات بین‌المللی"
         />

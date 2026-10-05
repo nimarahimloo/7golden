@@ -10,7 +10,7 @@ export const SITE_SEO = {
   defaultTitleEN: '7Golden — Producer & Exporter of Hazelnut, Pistachio and Almond',
   defaultDescriptionFA: 'بازرگانی هفت‌طلایی — تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی. تأمین عمده و قرارداد بلندمدت.',
   defaultDescriptionEN: 'Producer and exporter of hazelnut kernels, pistachio slices and almond kernels for the chocolate, confectionery and ice-cream industry. Bulk supply and long-term contracts.',
-  ogImage: '/banner/Hero-main.jpg',
+  ogImage: '/banner/Hero-main.webp',
   baseUrl: 'https://7golden.co',
   baseUrlIr: 'https://7golden.ir',
   twitterHandle: '@7golden',
@@ -24,7 +24,7 @@ export const ORGANIZATION_JSONLD = {
   name: '7Golden',
   alternateName: 'هفت‌طلایی',
   url: 'https://7golden.co',
-  logo: '/logo.png',
+  logo: '/logo.webp',
   description: "Iran's leading producer of premium dried fruits and nuts since 1998.",
   foundingDate: '1998',
   sameAs: [
@@ -74,7 +74,7 @@ export function articleJsonLd(post) {
     publisher: {
       '@type': 'Organization',
       name: '7Golden',
-      logo: { '@type': 'ImageObject', url: '/logo.png' },
+      logo: { '@type': 'ImageObject', url: '/logo.webp' },
     },
   };
 }

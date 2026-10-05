@@ -43,7 +43,7 @@ export default function HomeOrigin() {
         />
 
         <DepthParallax
-          src="/banner/banner-spoons-set.jpg"
+          src="/banner/banner-spoons-set.webp"
           alt="باغستان‌های قزوین و اشنویه"
           ratio="aspect-[4/3] md:aspect-[21/9]"
           className="rounded-3xl"

@@ -44,7 +44,7 @@ export function parseWixMediaUrl(src) {
       u.hostname.includes("7golden.co")
     ) {
       return {
-        baseUrl: u.pathname || "/logo.png",
+        baseUrl: u.pathname || "/logo.webp",
         isLocal: true,
         isWixMedia: false,
         fileName: u.pathname.split("/").pop() || "image",

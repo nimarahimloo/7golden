@@ -25,7 +25,7 @@ export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const { hero } = usePageHero('blog', {
-    image: '/banner/hazelnut-bowl.jpg',
+    image: '/banner/hazelnut-bowl.webp',
     title: t('blog_title'),
     subtitle: 'اخبار و آموزش',
     badge: 'وبلاگ',
@@ -203,7 +203,7 @@ export default function Blog() {
       {!loading && posts.length > 0 && (
         <section className="closing-band" style={{ minHeight: '40vh' }}>
           <div className="closing-band-bg">
-            <img src="/gallery/AQ8A1547AQ8A1547.JPG" alt="" />
+            <img src="/gallery/AQ8A1547AQ8A1547.webp" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 text-center">
             <Reveal variant="up">

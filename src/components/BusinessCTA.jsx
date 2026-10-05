@@ -12,7 +12,7 @@ export default function BusinessCTA() {
   return (
     <section className="relative overflow-hidden">
       <img
-        src="/cdn/cta.png"
+        src="/cdn/cta.webp"
         alt=""
         className="absolute inset-0 w-full h-full object-cover"
         style={{ animation: 'kenBurns 10s ease-out forwards' }}

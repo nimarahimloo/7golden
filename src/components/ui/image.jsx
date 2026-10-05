@@ -12,7 +12,7 @@ import {
 } from "./image-helpers"
 
 const FALLBACK_IMAGE_URL =
-  "/logo.png"
+  "/logo.webp"
 
 const ImageWrapper = React.forwardRef(({ aspectRatio, className, style, children }, ref) => (
   <span

@@ -14,7 +14,7 @@ import CountUp from '@/components/story/CountUp';
  * state, no re-renders — so the motion stays buttery-smooth.
  */
 export default function CinematicHero({
-  image = '/banner/hero-nuts-bowl.jpg',
+  image = '/banner/hero-nuts-bowl.webp',
   eyebrow = '',
   title,
   titleAccent,

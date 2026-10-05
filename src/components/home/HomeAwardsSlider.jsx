@@ -18,7 +18,7 @@ const FALLBACK_AWARDS = [
       'حضور در نخستین نمایشگاه شیرینی و شکلات تبریز ۱۴۰۲',
     descFA:
       'لوح تقدیر از معاونت غذا و داروی دانشگاه علوم پزشکی تبریز به پاس مشارکت در نخستین نمایشگاه صنایع شیرینی، شکلات و بیسکوییت.',
-    image: '/awards/award-01-tabriz-exhibition.jpg',
+    image: '/awards/award-01-tabriz-exhibition.webp',
   },
   {
     id: 'award-02',
@@ -26,7 +26,7 @@ const FALLBACK_AWARDS = [
       'لوح تقدیر نمایشگاه فروش بهاره و ضیافت رمضان ۱۴۰۳',
     descFA:
       'تقدیر از شرکت نمایشگاه‌های بین‌المللی استان قزوین به دلیل حضور مؤثر و پررنگ در نمایشگاه فروش بهاره و ضیافت رمضان.',
-    image: '/awards/award-02-qazvin-appreciation.jpg',
+    image: '/awards/award-02-qazvin-appreciation.webp',
   },
 ];
 

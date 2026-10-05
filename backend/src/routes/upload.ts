@@ -43,7 +43,7 @@ router.post('/', requireAuth, requireAdmin, (req: AuthRequest, res) => {
           .toFile(outPath);
       } catch (convErr: any) {
         // fallback: keep original extension
-        const ext = path.extname(req.file.originalname || '').toLowerCase() || '.jpg';
+        const ext = path.extname(req.file.originalname || '').toLowerCase() || '.webp';
         filename = `${baseName}${ext}`;
         outPath = path.join(uploadDir, filename);
         fs.writeFileSync(outPath, req.file.buffer);

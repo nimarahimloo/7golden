@@ -25,9 +25,9 @@ const CATEGORY_NAMES = {
 
 // Full-bleed gallery images for the origin band — different per category
 const ORIGIN_IMAGES = {
-  hazelnut: '/gallery/AQ8A1499AQ8A1499.JPG',
-  pistachio: '/gallery/AQ8A1516AQ8A1516.JPG',
-  almond: '/gallery/AQ8A1524AQ8A1524.JPG',
+  hazelnut: '/gallery/AQ8A1499AQ8A1499.webp',
+  pistachio: '/gallery/AQ8A1516AQ8A1516.webp',
+  almond: '/gallery/AQ8A1524AQ8A1524.webp',
 };
 
 export default function ProductDetail() {
@@ -313,7 +313,7 @@ export default function ProductDetail() {
               />
               <DepthParallax
                 // @ts-ignore
-                src={ORIGIN_IMAGES[product.category] || '/gallery/AQ8A1499AQ8A1499.JPG'}
+                src={ORIGIN_IMAGES[product.category] || '/gallery/AQ8A1499AQ8A1499.webp'}
                 alt="7Golden orchard"
                 ratio="aspect-[4/3] md:aspect-[21/9]"
                 className="rounded-3xl"

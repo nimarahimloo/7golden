@@ -20,9 +20,9 @@ import Marquee from '@/components/story/Marquee';
 import MaskText from '@/components/story/MaskText';
 
 const BAND_IMAGE = {
-  pistachio: '/gallery/AQ8A1516AQ8A1516.JPG',
-  almond: '/gallery/AQ8A1508AQ8A1508.JPG',
-  hazelnut: '/gallery/AQ8A1499AQ8A1499.JPG',
+  pistachio: '/gallery/AQ8A1516AQ8A1516.webp',
+  almond: '/gallery/AQ8A1508AQ8A1508.webp',
+  hazelnut: '/gallery/AQ8A1499AQ8A1499.webp',
 };
 
 /**
@@ -38,7 +38,7 @@ export default function Shop() {
   const isFA = true;
 
   const { hero } = usePageHero('shop', {
-    image: '/banner/product-nuts-assortment.jpg',
+    image: '/banner/product-nuts-assortment.webp',
     title: t('products_title'),
     subtitle: 'پسته، بادام و فندق — تأمین صنعتی برای صنایع غذایی',
     badge: 'محصولات',
@@ -175,7 +175,7 @@ export default function Shop() {
 
         {/* ===== SIGNATURE BAND — image-filled word ===== */}
         <MaskText
-          image="/gallery/AQ8A1571AQ8A1571.JPG"
+          image="/gallery/AQ8A1571AQ8A1571.webp"
           text="EXPORT"
           eyebrow="صادرات بین‌المللی"
         />
@@ -205,7 +205,7 @@ export default function Shop() {
         <section className="chapter">
           <div className="chapter-shell">
             <DepthParallax
-              src="/gallery/AQ8A1505AQ8A1505.JPG"
+              src="/gallery/AQ8A1505AQ8A1505.webp"
               alt="7Golden production"
               ratio="aspect-[4/3] md:aspect-[21/9]"
               className="rounded-3xl"
@@ -221,7 +221,7 @@ export default function Shop() {
         {/* ===== B2B INQUIRY CTA ===== */}
         <section className="closing-band" style={{ minHeight: '50vh' }}>
           <div className="closing-band-bg">
-            <img src="/gallery/AQ8A1568AQ8A1568.JPG" alt="" />
+            <img src="/gallery/AQ8A1568AQ8A1568.webp" alt="" />
           </div>
           <div className="relative z-10 chapter-shell py-20 md:py-28">
             <StoryChapter

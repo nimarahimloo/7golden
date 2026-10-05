@@ -81,7 +81,7 @@ export default function MobileMenu({ open, onClose }) {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-5 h-20 flex-shrink-0" style={{ borderBottom: '1px solid var(--hairline)' }}>
-          <img src="/logo.png" alt="7Golden" className="h-12 w-auto object-contain" />
+          <img src="/logo.webp" alt="7Golden" className="h-12 w-auto object-contain" />
           <button
             onClick={onClose}
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-90"

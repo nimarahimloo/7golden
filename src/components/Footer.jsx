@@ -8,7 +8,7 @@ export default function Footer() {
       className="relative flex flex-col items-center justify-center text-center px-6 py-16"
       style={{ background: 'var(--bg)', borderTop: '1px solid var(--hairline)' }}
     >
-      <img src="/logo.png" alt="7Golden" className="h-16 w-auto object-contain mb-5" />
+      <img src="/logo.webp" alt="7Golden" className="h-16 w-auto object-contain mb-5" />
       <p className="font-body text-sm leading-relaxed max-w-md" style={{ color: '#fff' }}>
         {t('footer_tagline')}
       </p>

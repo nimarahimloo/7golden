@@ -16,7 +16,7 @@ export default function Gallery() {
   const [lightbox, setLightbox] = useState(null); // { type: 'video'|'photo', index }
 
   const { hero } = usePageHero('gallery', {
-    image: '/banner/banner-four-bowls.jpg',
+    image: '/banner/banner-four-bowls.webp',
     title: 'گالری و نمایشگاه‌ها',
     subtitle: 'حضور هفت‌طلایی در نمایشگاه‌ها، خطوط تولید و گالری محصولات',
     badge: 'گالری',

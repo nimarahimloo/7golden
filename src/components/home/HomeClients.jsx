@@ -47,7 +47,7 @@ export default function HomeClients() {
       <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <img
           ref={bgRef}
-          src="/gallery/AQ8A1683AQ8A1683.JPG"
+          src="/gallery/AQ8A1683AQ8A1683.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
           style={{ willChange: 'transform', opacity: 0.18 }}

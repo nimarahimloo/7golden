@@ -7,7 +7,7 @@ export default function AuthLayout({ icon: Icon, title, subtitle, footer, childr
         {/* Logo */}
         <div className="text-center mb-8">
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="7Golden"
             className="h-14 w-auto object-contain mx-auto mb-6"
           />
