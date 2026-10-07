@@ -37,6 +37,7 @@ import PageTransition from '@/components/PageTransition';
 import LogoLoader from '@/components/LogoLoader';
 import BottomTabBar from '@/components/BottomTabBar';
 import GlobalGoldAmbient from '@/components/GlobalGoldAmbient';
+import CursorSpotlight from '@/components/CursorSpotlight';
 import ScrollAura from '@/components/story/ScrollAura';
 import ScrollProgress from '@/components/story/ScrollProgress';
 
@@ -44,6 +45,7 @@ function AppLayout() {
   return (
     <>
       <GlobalGoldAmbient />
+      <CursorSpotlight />
       <ScrollAura />
       <ScrollProgress />
       <Navbar />

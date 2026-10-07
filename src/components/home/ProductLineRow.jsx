@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
- * ردیف مارکی افقی — حرکت با transform (نه scrollLeft)
- * object-contain تا تصویر برش نخورد
- * درگ برای عقب/جلو
+ * ردیف مارکی افقی — حرکت پیوسته با transform (نه scrollLeft).
+ * کارت نزدیک مرکز صفحه نور می‌گیرد (spotlight) تا ردیف‌ها زنده و هماهنگ دیده شوند.
+ * درگ برای عقب/جلو، توقف روی هاور.
  */
 export default function ProductLineRow({
   title,
@@ -16,37 +16,61 @@ export default function ProductLineRow({
   const offsetRef = useRef(0);
   const dragRef = useRef({ on: false, x: 0, base: 0, moved: false });
   const [paused, setPaused] = useState(false);
-  const [dragX, setDragX] = useState(0);
 
-  if (!products.length) return null;
-
+  const hasProducts = products.length > 0;
   // دو کپی برای لوپ بی‌نهایت
-  const loop = [...products, ...products];
+  const loop = hasProducts ? [...products, ...products] : [];
 
   useEffect(() => {
+    if (!hasProducts) return;
     const el = trackRef.current;
     if (!el) return;
     let raf;
     let last = performance.now();
-    // سرعت بر حسب px/ms از duration و نصف عرض ترک
+    let frame = 0;
+
+    // کارت نزدیک مرکز ظرف را روشن می‌کند
+    const updateSpotlight = () => {
+      const container = el.parentElement;
+      if (!container) return;
+      const cRect = container.getBoundingClientRect();
+      const center = cRect.left + cRect.width / 2;
+      const kids = el.children;
+      let best = null;
+      let bestDist = Infinity;
+      for (let i = 0; i < kids.length; i++) {
+        const r = kids[i].getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - center);
+        if (d < bestDist) {
+          bestDist = d;
+          best = kids[i];
+        }
+      }
+      for (let i = 0; i < kids.length; i++) {
+        kids[i].classList.toggle('is-spotlight', kids[i] === best);
+      }
+    };
+
     const step = (now) => {
       if (!dragRef.current.on && !paused) {
         const half = el.scrollWidth / 2 || 1;
         // یک دور کامل در `duration` ثانیه
         const pxPerMs = half / (duration * 1000);
-        const dt = now - last;
+        const dt = Math.min(now - last, 64);
         offsetRef.current += (reverse ? -1 : 1) * pxPerMs * dt;
         // نرمال‌سازی در بازه [0, half)
         while (offsetRef.current >= half) offsetRef.current -= half;
         while (offsetRef.current < 0) offsetRef.current += half;
         el.style.transform = `translate3d(${-offsetRef.current}px,0,0)`;
       }
+      if (frame % 3 === 0) updateSpotlight();
+      frame++;
       last = now;
       raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [paused, duration, reverse, products.length]);
+  }, [paused, duration, reverse, hasProducts]);
 
   const pointerDown = (e) => {
     const x = e.clientX ?? e.touches?.[0]?.clientX;
@@ -84,6 +108,8 @@ export default function ProductLineRow({
     }
   };
 
+  if (!hasProducts) return null;
+
   return (
     <div className="w-full mb-10 md:mb-14" dir="rtl">
       {title ? (
@@ -98,7 +124,7 @@ export default function ProductLineRow({
       ) : null}
 
       <div
-        className="overflow-hidden w-full"
+        className="plr-viewport overflow-hidden w-full"
         style={{ cursor: 'grab', touchAction: 'pan-y' }}
         onMouseDown={pointerDown}
         onMouseMove={pointerMove}
@@ -125,28 +151,25 @@ export default function ProductLineRow({
               <Link
                 key={`${id}-${i}`}
                 to={`/product/${id}`}
-                className="relative flex-shrink-0 overflow-hidden rounded-2xl block"
+                className="plr-card relative flex-shrink-0 block overflow-hidden"
                 style={{
-                  width: 'min(68vw, 240px)',
-                  height: 'min(80vw, 300px)',
-                  background: 'rgba(255,255,255,0.03)',
+                  width: 'min(64vw, 232px)',
+                  aspectRatio: '3 / 4',
+                  background: 'var(--bg-secondary)',
                 }}
                 draggable={false}
               >
                 <img
                   src={p.image || '/logo.webp'}
                   alt={name}
-                  width={480}
-                  height={600}
                   loading="lazy"
                   draggable={false}
-                  className="absolute inset-0 w-full h-full object-contain p-3"
+                  className="plr-img absolute inset-0 w-full h-full object-cover"
                 />
+                <div className="plr-veil absolute inset-0 pointer-events-none" />
+                <div className="plr-shine absolute inset-0 pointer-events-none" />
                 <div
-                  className="absolute inset-x-0 bottom-0 pt-10 pb-3 px-3 pointer-events-none"
-                  style={{
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.75), transparent)',
-                  }}
+                  className="absolute inset-x-0 bottom-0 pt-10 pb-3.5 px-3 pointer-events-none"
                 >
                   <span
                     className="block text-sm font-semibold text-center"

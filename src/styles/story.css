@@ -1733,3 +1733,114 @@
   filter: blur(0);
 }
 
+/* ---------------------------------------------------------------
+   CURSOR SPOTLIGHT — a soft gold light that trails the pointer
+   (global, every page). Blended in "screen" mode so it only adds light.
+   Desktop pointers only; hidden for touch and reduced-motion visitors.
+   --------------------------------------------------------------- */
+.cursor-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 660px;
+  height: 660px;
+  margin: -330px 0 0 -330px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  mix-blend-mode: screen;
+  will-change: transform;
+  background: radial-gradient(
+    circle,
+    rgba(212, 175, 55, 0.16) 0%,
+    rgba(212, 175, 55, 0.06) 38%,
+    transparent 70%
+  );
+}
+
+/* ---------------------------------------------------------------
+   PRODUCT LINE ROW — premium marquee with a centre spotlight.
+   Side cards sit back; the card nearest the viewport centre lifts,
+   lights up with a gold rim and gently zooms its photo.
+   --------------------------------------------------------------- */
+.plr-viewport {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+
+.plr-card {
+  border: 1px solid var(--hairline);
+  transform: scale(0.93);
+  opacity: 0.6;
+  transition:
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.7s ease,
+    border-color 0.7s ease,
+    box-shadow 0.7s ease;
+}
+
+.plr-card.is-spotlight,
+.plr-card:hover {
+  transform: scale(1.04);
+  opacity: 1;
+  border-color: var(--hairline-strong);
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(212, 175, 55, 0.25),
+    0 0 60px rgba(212, 175, 55, 0.18);
+}
+
+.plr-img {
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.plr-card.is-spotlight .plr-img,
+.plr-card:hover .plr-img {
+  transform: scale(1.07);
+}
+
+.plr-veil {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.86) 0%,
+    rgba(0, 0, 0, 0.3) 42%,
+    rgba(0, 0, 0, 0.05) 68%,
+    transparent 100%
+  );
+}
+
+/* Gold shimmer that sweeps across the spotlighted card */
+.plr-shine {
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(245, 220, 142, 0.28) 50%,
+    transparent 65%
+  );
+  transform: translateX(-120%);
+}
+
+.plr-card.is-spotlight .plr-shine,
+.plr-card:hover .plr-shine {
+  animation: plrSweep 2.4s ease-in-out infinite;
+}
+
+@keyframes plrSweep {
+  0% { opacity: 0; transform: translateX(-120%); }
+  18% { opacity: 1; }
+  55% { opacity: 1; transform: translateX(120%); }
+  100% { opacity: 0; transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-spotlight { display: none; }
+  .plr-card,
+  .plr-card.is-spotlight,
+  .plr-card:hover { transform: none; opacity: 1; }
+  .plr-card.is-spotlight .plr-shine,
+  .plr-card:hover .plr-shine { animation: none; }
+  .plr-img { transition: none; }
+}
+
