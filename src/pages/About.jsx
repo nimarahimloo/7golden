@@ -101,16 +101,16 @@ export default function About() {
             />
 
             <div className="relative">
-              {/* gold rail */}
+              {/* gold rail — aligned with the dot column */}
               <div
                 className="absolute top-0 bottom-0 w-px hidden md:block"
-                style={{ right: '6.5rem', background: 'linear-gradient(to bottom, transparent, var(--hairline-strong) 12%, var(--hairline-strong) 88%, transparent)' }}
+                style={{ right: '8.75rem', background: 'linear-gradient(to bottom, transparent, var(--hairline-strong) 12%, var(--hairline-strong) 88%, transparent)' }}
               />
               <div className="flex flex-col gap-10 md:gap-14">
                 {milestones.map((m, i) => (
                   <Reveal key={m.year} delay={i * 90} variant="left">
                     <div className="flex items-center gap-6 md:gap-10">
-                      <span className="outline-num text-3xl md:text-5xl leading-none flex-shrink-0" style={{ minWidth: '5rem', textAlign: 'left' }}>
+                      <span className="outline-num text-3xl md:text-4xl leading-none flex-shrink-0" style={{ width: '6rem', textAlign: 'left', overflow: 'visible' }}>
                         {m.year}
                       </span>
                       <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(212,175,55,0.7)' }} />

@@ -216,7 +216,7 @@ export default function Contact() {
               className="mb-8"
             />
             <Reveal variant="up" delay={120}>
-            <div className="p-8 rounded-3xl panel-strong">
+            <div className="p-5 md:p-8 rounded-3xl panel-strong">
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div

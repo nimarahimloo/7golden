@@ -275,7 +275,7 @@ export default function ProductDetail() {
                     <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
                   </Link>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
                   {related.map(p => <ProductCard key={p.
                     // @ts-ignore
                     id} product={p} />)}

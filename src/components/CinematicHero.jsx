@@ -76,7 +76,7 @@ export default function CinematicHero({
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: '100svh', minHeight: '620px' }}
+      style={{ height: '100svh', minHeight: 'min(620px, 100svh)' }}
       dir="rtl"
     >
       <div

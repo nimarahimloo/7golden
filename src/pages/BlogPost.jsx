@@ -118,7 +118,7 @@ export default function BlogPost() {
 
       {/* ===== ARTICLE BODY ===== */}
       <article className="max-w-3xl mx-auto px-4 sm:px-8 py-14 md:py-20 -mt-10 relative z-10">
-        <div className="rounded-3xl p-8 md:p-14" style={{
+        <div className="rounded-3xl p-5 md:p-8 lg:p-14" style={{
           background: 'var(--panel-strong)',
           border: '1px solid var(--hairline)',
           backdropFilter: 'blur(32px) saturate(200%)',

@@ -41,6 +41,20 @@ export default function Gallery() {
     };
   }, [lightbox]);
 
+  // Touch swipe nav for the lightbox (mobile)
+  const touchRef = useRef({ x: 0, y: 0 });
+  const onTouchStart = (e) => {
+    touchRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  };
+  const onTouchEnd = (e) => {
+    const dx = e.changedTouches[0].clientX - touchRef.current.x;
+    const dy = e.changedTouches[0].clientY - touchRef.current.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      // RTL: swipe left = next, swipe right = prev
+      nav(dx > 0 ? -1 : 1);
+    }
+  };
+
   const nav = (dir) => {
     if (!lightbox) return;
     const list = lightbox.type === 'video' ? VIDEOS : EXHIBITION_PHOTOS;
@@ -143,6 +157,8 @@ export default function Gallery() {
           className="fixed inset-0 z-[200] flex items-center justify-center p-4"
           style={{ background: 'rgba(0,0,0,0.94)', backdropFilter: 'blur(8px)' }}
           onClick={close}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
         >
           <button
             className="absolute top-5 right-5 w-11 h-11 rounded-full flex items-center justify-center text-white transition-all hover:scale-110"
@@ -152,22 +168,22 @@ export default function Gallery() {
             <X size={20} />
           </button>
 
-          {/* nav arrows */}
+          {/* nav arrows — visible on all breakpoints */}
           <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 hidden md:flex"
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 z-10"
             style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
             onClick={(e) => { e.stopPropagation(); nav(-1); }}
             aria-label="قبلی"
           >
-            <ChevronRight size={22} />
+            <ChevronRight size={20} />
           </button>
           <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 hidden md:flex"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 z-10"
             style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}
             onClick={(e) => { e.stopPropagation(); nav(1); }}
             aria-label="بعدی"
           >
-            <ChevronLeft size={22} />
+            <ChevronLeft size={20} />
           </button>
 
           <div className="max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>

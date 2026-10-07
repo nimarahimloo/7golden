@@ -1214,6 +1214,18 @@
 }
 
 /* ---------------------------------------------------------------
+   MOBILE: process rail — hide labels to prevent overlap with copy
+   --------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .process-rail-steps {
+    display: none;
+  }
+  .process-rail-wrap {
+    gap: 0;
+  }
+}
+
+/* ---------------------------------------------------------------
    SPECIALTY SHOWCASE — luxury parallax cards
    --------------------------------------------------------------- */
 .specialty-badge {
