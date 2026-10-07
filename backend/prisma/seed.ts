@@ -119,336 +119,270 @@ async function main() {
   // WordPress image was available it is used; otherwise a matching local
   // asset from the same product family is used.
   const prodData: ProductSeed[] = [
+    // —— پسته (۷) مطابق کاتالوگ PDF / 7golden.co ——
     {
-      slug: 'qazvin-pistachio-nuts',
-      name_fa: 'مغز پسته قزوین',
+      slug: 'qazvin-peeled-pistachio',
+      name_fa: 'مغز پسته پوست‌کنده قزوین',
       category: 'pistachio',
       origin_fa: 'قزوین',
-      price: 8500000,
-      image: '/product/Qazvin-pistachio-nuts-7goldenco.webp',
-      gallery: ['/product/Qazvin-pistachio-nuts-7goldenco.webp'],
-      badge: 'پرفروش',
-      taste: { bitter: 5, sweet: 35, earthy: 20, nutty: 90 },
-      weights: [10000, 40000],
+      price: 0,
+      image: '/product/qazvini-peeled-pistachio-nuts-7goldenco.webp',
+      gallery: ['/product/qazvini-peeled-pistachio-nuts-7goldenco.webp'],
       featured: true,
       sort_order: 1,
       desc_fa:
-        'مغز پسته قزوین یکی از معروف‌ترین مغزهای پسته دنیاست که به دلیل طعم و رنگ سبز بی‌نظیرش درخشش خاصی دارد. ' +
-        'مناسب برای صادرات، صنایع بسته‌بندی، شرکت‌های تولید باقلوا، حلوا ارده و آجیل‌فروشان. ' +
-        'بسته‌بندی در بسته‌های ۱۰ و ۴۰ کیلوگرم. تمام مراحل از برداشت تا بسته‌بندی تحت کنترل کیفی آزمایشگاهی انجام می‌گیرد.',
+        'مغز پسته پوست‌کنده قزوین با رنگ سبز روشن و دانه‌بندی یکنواخت؛ آماده مصرف در صنایع شکلات، قنادی، بستنی و بسته‌بندی صادراتی. بخشی از تولید به‌صورت مستقیم از کشاورز و بدون واسطه تأمین می‌شود.',
     },
     {
-      slug: 'qazvini-peeled-pistachio-nuts',
-      name_fa: 'مغز پسته پوست‌کنده قزوینی',
+      slug: 'qazvin-pistachio-kernels',
+      name_fa: 'مغز پسته قزوین',
       category: 'pistachio',
       origin_fa: 'قزوین',
-      price: 9200000,
-      image: '/product/qazvini-peeled-pistachio-nuts-7goldenco.webp',
-      gallery: ['/product/qazvini-peeled-pistachio-nuts-7goldenco.webp'],
-      badge: 'صادراتی',
-      taste: { bitter: 3, sweet: 40, earthy: 15, nutty: 92 },
-      weights: [10000, 40000],
+      price: 0,
+      image: '/product/Qazvin-pistachio-nuts-7goldenco.webp',
+      gallery: ['/product/Qazvin-pistachio-nuts-7goldenco.webp'],
       featured: true,
       sort_order: 2,
       desc_fa:
-        'مغز پسته پوست‌کنده قزوینی با رنگ سبز روشن و مطلوب، یکی از خاص‌ترین محصولات پسته ایران است. ' +
-        'پوست‌کنده و آماده برای مصرف مستقیم در صنایع شکلات، قنادی و بسته‌بندی صادراتی. ' +
-        'بسته‌بندی در بسته‌های ۱۰ و ۴۰ کیلوگرمی.',
+        'مغز پسته قزوین یکی از معروف‌ترین مغزهای پسته است که به دلیل طعم و رنگ سبز مطلوب در صادرات و صنایع باقلوا، حلوا ارده، شکلات و آجیل‌فروشی کاربرد دارد. کنترل کیفی از برداشت تا بسته‌بندی انجام می‌شود.',
+    },
+    {
+      slug: 'raw-pistachio',
+      name_fa: 'پسته خام',
+      category: 'pistachio',
+      origin_fa: 'قزوین',
+      price: 0,
+      image: '/product/qazvin-pistachio-nuts.webp',
+      gallery: ['/product/qazvin-pistachio-nuts.webp'],
+      featured: true,
+      sort_order: 3,
+      desc_fa:
+        'پسته خام مناسب فرآوری صنعتی و صادرات؛ ورودی خطوط تولید مغز، خلال و پودر پسته در کارخانه‌های خشکبار و صنایع وابسته.',
+    },
+    {
+      slug: 'kerman-pistachio-slices',
+      name_fa: 'خلال پسته کرمان',
+      category: 'pistachio',
+      origin_fa: 'کرمان',
+      price: 0,
+      image: '/product/pistachio-slices.webp',
+      gallery: ['/product/pistachio-slices.webp'],
+      featured: true,
+      sort_order: 4,
+      desc_fa:
+        'خلال پسته کرمان با برش یکنواخت؛ مناسب شیرینی‌پزی، شکلات‌سازی، تزئین محصولات و صنایع وابسته.',
+    },
+    {
+      slug: 'pistachio-powder',
+      name_fa: 'پودر پسته',
+      category: 'pistachio',
+      origin_fa: 'ایران',
+      price: 0,
+      image: '/product/peeled-pistachio.webp',
+      gallery: ['/product/peeled-pistachio.webp'],
+      featured: true,
+      sort_order: 5,
+      desc_fa:
+        'پودر پسته با رنگ و بافت یکنواخت برای قنادی، بستنی، شکلات‌سازی و فرآورده‌های وابسته.',
     },
     {
       slug: 'qazvin-pistachio-slices',
       name_fa: 'خلال پسته قزوین',
       category: 'pistachio',
       origin_fa: 'قزوین',
-      price: 12000000,
+      price: 0,
       image: '/product/khelal-qazvin-slice-7golden.webp',
       gallery: ['/product/khelal-qazvin-slice-7golden.webp'],
-      badge: 'ویژه',
-      taste: { bitter: 4, sweet: 38, earthy: 18, nutty: 88 },
-      weights: [10000, 22000],
       featured: true,
-      sort_order: 3,
-      desc_fa:
-        'خلال پسته قزوین به دلیل رنگ سبز بی‌نظیرش از منحصربه‌فردترین خلال‌های پسته دنیا به شمار می‌رود. ' +
-        'مناسب برای صادرات، صنایع بسته‌بندی، شرکت‌های باقلوا، حلوا ارده، آجیل‌فروشان و رستوران‌ها. ' +
-        'بسته‌بندی در بسته‌های ۱۰ و ۲۲ کیلوگرمی.',
-    },
-    {
-      slug: 'kermani-pistachio-slices',
-      name_fa: 'خلال پسته کرمانی',
-      category: 'pistachio',
-      origin_fa: 'کرمان',
-      price: 11500000,
-      image: '/product/pistachio-slices.webp',
-      gallery: ['/product/pistachio-slices.webp'],
-      taste: { bitter: 4, sweet: 36, earthy: 18, nutty: 85 },
-      weights: [10000, 22000],
-      sort_order: 4,
-      desc_fa:
-        'خلال پسته کرمانی با برش یکنواخت صنعتی، مناسب صادرات، صنایع بسته‌بندی، شرکت‌های تولید کنده باقلوا، ' +
-        'حلوا ارده، آجیل‌فروشان و رستوران‌ها. بسته‌بندی در وزن‌های ۱۰ و ۲۲ کیلوگرمی.',
-    },
-    {
-      slug: 'pistachio-powder',
-      name_fa: 'پودر پسته',
-      category: 'pistachio',
-      origin_fa: 'قزوین',
-      price: 7800000,
-      image: '/product/peeled-pistachio.webp',
-      gallery: ['/product/peeled-pistachio.webp'],
-      taste: { bitter: 3, sweet: 42, earthy: 15, nutty: 90 },
-      weights: [8000, 15000],
-      sort_order: 5,
-      desc_fa:
-        'پودر مغز پسته یکی از فرآورده‌های مهم پسته است که کاربردهای فراوانی در صنایع شیرینی‌پزی و تهیه و تزیین انواع کیک، ' +
-        'شکلات، بستنی و خمیر پسته دارد. بسته‌بندی در وزن‌های ۸ و ۱۵ کیلوگرمی.',
-    },
-    {
-      slug: 'raw-pistachios',
-      name_fa: 'پسته خام قزوین',
-      category: 'pistachio',
-      origin_fa: 'قزوین',
-      price: 5600000,
-      image: '/product/qazvin-pistachio-nuts.webp',
-      gallery: ['/product/qazvin-pistachio-nuts.webp'],
-      taste: { bitter: 6, sweet: 30, earthy: 25, nutty: 80 },
-      weights: [40000, 50000],
       sort_order: 6,
       desc_fa:
-        'پسته خام قزوین به دلیل ارزش غذایی بالا و خواص درمانی مفید، یکی از محصولات صادراتی مهم ایران به شمار می‌رود. ' +
-        'بیشترین کاربرد آن به دلیل سبز بودن مغز، برای تولید خلال پسته است. بسته‌بندی در کیسه‌های ۴۰ و ۵۰ کیلویی.',
+        'خلال پسته قزوین تولیدشده از پسته بوئین‌زهرا با رنگ سبز شاخص؛ مورد توجه مصرف‌کنندگان داخلی و خارجی و مناسب بستنی، شکلات، حلوا ارده و صادرات.',
     },
     {
-      slug: 'pistachio-skin',
+      slug: 'pistachio-shells',
       name_fa: 'پوست پسته',
       category: 'pistachio',
-      price: 1200000,
+      origin_fa: 'ایران',
+      price: 0,
       image: '/product/pistachio-cat.webp',
       gallery: ['/product/pistachio-cat.webp'],
-      weights: [50000],
+      featured: false,
       sort_order: 7,
       desc_fa:
-        'پوست پسته فرآورده‌ای جانبی از خط فرآوری پسته است که در صنعت ذغال و چوب و صنایع وابسته کاربرد دارد. ' +
-        'عرضه به صورت فله و کیسه‌ای.',
+        'پوست پسته به‌عنوان محصول جانبی فرآوری هفت‌طلایی؛ قابل استفاده در مصارف صنعتی و کشاورزی.',
     },
-    // ── Hazelnut products ────────────────────────────────────────
+
+    // —— فندق (۷) ——
     {
-      slug: 'brain-hazelnut',
-      name_fa: 'مغز فندق',
-      category: 'hazelnut',
-      origin_fa: 'قزوین',
-      price: 4800000,
-      image: '/product/brain-hazelnut-7golden.webp',
-      gallery: ['/product/brain-hazelnut-7golden.webp'],
-      badge: 'پرفروش',
-      taste: { bitter: 5, sweet: 30, earthy: 25, nutty: 85 },
-      weights: [10000, 40000, 50000],
-      featured: true,
-      sort_order: 8,
-      desc_fa:
-        'مغز فندق با روکش قهوه‌ای خود در سایزهای ۱۰–۱۳، ۱۳–۱۱ و ۱۱ (دراژه) عرضه می‌شود. ' +
-        'مغز فندق ایرانی به دلیل شرایط اقلیمی و خاکی مناسب منطقه، کیفیت بالا و طعم شیرین و خامه‌ای دارد و ' +
-        'به عنوان یکی از بهترین مغزهای فندق جهان شناخته می‌شود. مناسب مصرف بازار خشکبار، صنایع بسته‌بندی، ' +
-        'شکلات‌سازی، بستنی و آجیل‌فروشان. بسته‌بندی در وزن‌های ۱۰، ۴۰ و ۵۰ کیلویی.',
-    },
-    {
-      slug: 'roasted-hazelnut-brain',
-      name_fa: 'مغز فندق رست',
-      category: 'hazelnut',
-      origin_fa: 'قزوین',
-      price: 5200000,
-      image: '/product/Roasted-hazelnut-brain-7goldenco.webp',
-      gallery: ['/product/Roasted-hazelnut-brain-7goldenco.webp'],
-      badge: 'صادراتی',
-      taste: { bitter: 4, sweet: 35, earthy: 20, nutty: 88 },
-      weights: [10000, 40000, 50000],
-      featured: true,
-      sort_order: 9,
-      desc_fa:
-        'مغز فندق رست (سفید) در سایزهای ۱۰–۱۳، ۱۳–۱۱ و ۱۱ (دراژه). فندق به دلیل خواص و فواید منحصربه‌فردش ' +
-        'طرفداران زیادی در سراسر دنیا دارد و مغز فندق سفید در چند سال گذشته به یکی از مهم‌ترین سبد مصرفی ' +
-        'آجیل‌فروشان تبدیل شده است. مناسب مصرف بازار خشکبار، صنایع بسته‌بندی و آجیل‌فروشان. ' +
-        'بسته‌بندی در وزن‌های ۱۰، ۴۰ و ۵۰ کیلویی.',
-    },
-    {
-      slug: 'smiling-hazelnut',
+      slug: 'openshell-hazelnut',
       name_fa: 'فندق خندان',
       category: 'hazelnut',
       origin_fa: 'قزوین',
-      price: 3900000,
+      price: 0,
       image: '/product/smiling-hazelnut-7golden.webp',
       gallery: ['/product/smiling-hazelnut-7golden.webp'],
-      taste: { bitter: 6, sweet: 28, earthy: 28, nutty: 80 },
-      weights: [10000, 40000, 50000],
-      sort_order: 10,
+      featured: true,
+      sort_order: 1,
       desc_fa:
-        'فندق خندان یا ترک‌خورده، محصولی کشاورزی استان قزوین است که به صورت دستی و دستگاهی عرضه می‌شود. ' +
-        'این فندق از نظر اندازه بزرگ و پربار است و طعم شیرین و خامه‌ای دارد. به دلیل کیفیت بالا و طعم خوب، ' +
-        'در بازارهای داخلی و خارجی (صادرات) بسیار مورد تقاضاست. مناسب مصرف بازار خشکبار، صنایع بسته‌بندی و آجیل‌فروشان. ' +
-        'بسته‌بندی در وزن‌های ۱۰، ۴۰ و ۵۰ کیلوگرمی.',
+        'فندق خندان یا ترک‌خورده که به‌صورت خام و بو‌داده تولید و فرآوری می‌شود. فندق خندان ایرانی به‌دلیل شرایط اقلیمی از نظر طعم متمایز است؛ مناطق کیفی شامل اشنویه، الموت قزوین و اشکورات.',
     },
     {
-      slug: 'hazelnut-granules',
-      name_fa: 'گرانول فندق',
+      slug: 'roasted-hazelnut-kernels',
+      name_fa: 'مغز فندق رست',
       category: 'hazelnut',
       origin_fa: 'قزوین',
-      price: 6400000,
-      image: '/product/brain-hazelnut.webp',
-      gallery: ['/product/brain-hazelnut.webp'],
-      taste: { bitter: 4, sweet: 38, earthy: 18, nutty: 86 },
-      weights: [8000],
-      sort_order: 11,
+      price: 0,
+      image: '/product/Roasted-hazelnut-brain-7goldenco.webp',
+      gallery: ['/product/Roasted-hazelnut-brain-7goldenco.webp'],
+      featured: true,
+      sort_order: 2,
       desc_fa:
-        'گرانول فندق فرآورده خردشده مغز فندق است که به عنوان تنقلات و میان‌وعده مغذی مصرف می‌شود. ' +
-        'به دلیل فیبر فراوان، سیری طولانی‌مدت ایجاد می‌کند و برای رژیم‌های سالم و تأمین انرژی مناسب است. ' +
-        'مناسب برای مصرف در کارخانجات شیرینی و شکلات، بستنی و صنایع وابسته. بسته‌بندی در وزن‌های ۸ کیلوگرمی.',
+        'مغز فندق رست‌شده برای صنایع شکلات و قنادی؛ طعم و عطر پایدار و دانه‌بندی یکنواخت برای خطوط تولید صنعتی.',
     },
     {
-      slug: 'hazelnut-powder',
-      name_fa: 'پودر فندق',
+      slug: 'raw-hazelnut-kernels',
+      name_fa: 'مغز فندق خام',
       category: 'hazelnut',
       origin_fa: 'قزوین',
-      price: 7000000,
-      image: '/product/roasted-hazelnut.webp',
-      gallery: ['/product/roasted-hazelnut.webp'],
-      taste: { bitter: 3, sweet: 40, earthy: 15, nutty: 90 },
-      weights: [10000],
-      sort_order: 12,
+      price: 0,
+      image: '/product/brain-hazelnut-7golden.webp',
+      gallery: ['/product/brain-hazelnut-7golden.webp'],
+      featured: true,
+      sort_order: 3,
       desc_fa:
-        'پودر مغز فندق رست، محصولی خشک با طعم و بوی مطبوع است که به عنوان منبع پروتئین و انرژی در صنایع غذایی کاربرد دارد. ' +
-        'حاوی پروتئین، فیبر، ویتامین E، منیزیم، فسفر و روی و چربی‌های سالم غیراشباع. ' +
-        'مصرف آن در تهیه خلال فندق، شیرینی، کیک و دسر رایج است و به حفظ سلامت قلب، سیستم ایمنی و استخوان‌ها کمک می‌کند. ' +
-        'بسته‌بندی در وزن‌های ۱۰ کیلوگرمی.',
+        'مغز فندق خام درجه یک؛ تأمین مستقیم برای کارخانه‌های شکلات، قنادی و صادرات. مجموعه هفت‌طلایی در فرآوری مغز فندق از ارکان اصلی بازار است.',
     },
     {
       slug: 'hazelnut-paste',
       name_fa: 'خمیر فندق',
       category: 'hazelnut',
-      origin_fa: 'قزوین',
-      price: 8800000,
+      origin_fa: 'ایران',
+      price: 0,
       image: '/product/Hazelnut-paste-7golden.webp',
       gallery: ['/product/Hazelnut-paste-7golden.webp'],
-      badge: 'ویژه',
-      taste: { bitter: 3, sweet: 50, earthy: 12, nutty: 95 },
-      weights: [8000],
       featured: true,
-      sort_order: 13,
+      sort_order: 4,
       desc_fa:
-        'خمیر فندق یکی از فرآورده‌های مهم فندق در تهیه انواع غذاها و چاشنی‌هاست که از مغز فندق تهیه می‌شود. ' +
-        'معمولاً از مغزهای ریز برای تهیه خمیر استفاده می‌شود و رعایت پروتکل‌های بهداشتی در سالن تولید ضروری است. ' +
-        'مناسب برای مصرف در کارخانجات شیرینی و شکلات، بستنی و صنایع وابسته. بسته‌بندی در وزن‌های ۸ کیلوگرمی.',
+        'خمیر فندق با بافت یکنواخت و درصد مغز بالا؛ مناسب شکلات‌سازی، کرم‌ها و صنایع قنادی.',
     },
     {
-      slug: 'hazelnut-skin',
+      slug: 'hazelnut-powder',
+      name_fa: 'پودر فندق',
+      category: 'hazelnut',
+      origin_fa: 'ایران',
+      price: 0,
+      image: '/product/roasted-hazelnut.webp',
+      gallery: ['/product/roasted-hazelnut.webp'],
+      featured: true,
+      sort_order: 5,
+      desc_fa:
+        'پودر فندق آسیاب‌شده برای کیک، شیرینی، شکلات و فرآورده‌های آردی.',
+    },
+    {
+      slug: 'hazelnut-granules',
+      name_fa: 'گرانول فندق',
+      category: 'hazelnut',
+      origin_fa: 'ایران',
+      price: 0,
+      image: '/product/brain-hazelnut.webp',
+      gallery: ['/product/brain-hazelnut.webp'],
+      featured: true,
+      sort_order: 6,
+      desc_fa:
+        'گرانول فندق با اندازه ذرات یکنواخت؛ مناسب تزئین و ترکیب در شکلات، بستنی و محصولات قنادی.',
+    },
+    {
+      slug: 'hazelnut-shells',
       name_fa: 'پوست فندق',
       category: 'hazelnut',
-      price: 900000,
+      origin_fa: 'ایران',
+      price: 0,
       image: '/product/hazelnut-cat.webp',
       gallery: ['/product/hazelnut-cat.webp'],
-      weights: [50000],
-      sort_order: 14,
+      featured: false,
+      sort_order: 7,
       desc_fa:
-        'پوست فندق فرآورده‌ای جانبی از خط فرآوری فندق است که در صنعت ذغال و چوب و صنایع وابسته کاربرد دارد. ' +
-        'عرضه به صورت فله.',
+        'پوست فندق محصول جانبی فرآوری؛ مناسب مصارف صنعتی.',
     },
-    // ── Almond products ──────────────────────────────────────────
+
+    // —— بادام (۶) ——
     {
-      slug: 'nuts-of-tree-almonds',
-      name_fa: 'مغز بادام درختی',
+      slug: 'almond-flakes',
+      name_fa: 'پرگ بادام درختی',
       category: 'almond',
       origin_fa: 'ایران',
-      price: 6200000,
+      price: 0,
       image: '/product/almond-flakes-7golden.webp',
       gallery: ['/product/almond-flakes-7golden.webp'],
-      badge: 'صادراتی',
-      taste: { bitter: 8, sweet: 32, earthy: 18, nutty: 78 },
-      weights: [45000],
       featured: true,
-      sort_order: 15,
+      sort_order: 1,
       desc_fa:
-        'مغز بادام درختی با روکش قهوه‌ای خاص خود در سایزهای مختلف عرضه می‌شود. ' +
-        'مناسب مصرف در بازار، شرکت‌های کیک و شکلات و صنایع وابسته. ' +
-        'بسته‌بندی در وزن‌های ۴۵ کیلوگرمی.',
+        'پرگ (پرک) بادام درختی با ظاهر شکیل؛ مناسب شکلات‌سازی، حلوا شکری، سوهان، بستنی و قنادی.',
     },
     {
-      slug: 'sliced-almonds',
+      slug: 'almond-slices',
       name_fa: 'خلال بادام درختی',
       category: 'almond',
       origin_fa: 'ایران',
-      price: 7400000,
+      price: 0,
       image: '/product/almond-flakes.webp',
       gallery: ['/product/almond-flakes.webp'],
-      taste: { bitter: 6, sweet: 35, earthy: 16, nutty: 80 },
-      weights: [8000, 18000],
-      sort_order: 16,
+      featured: true,
+      sort_order: 2,
       desc_fa:
-        'خلال بادام درختی در تهیه و تزیین انواع غذاها، شیرینی‌جات، شکلات‌ها و دسرها به کار برده می‌شود. ' +
-        'بسته‌بندی در وزن‌های ۸ و ۱۸ کیلوگرمی.',
+        'خلال بادام درختی برای تزئین و مصرف صنعتی در شیرینی، کیک و شکلات.',
     },
     {
-      slug: 'almond-flakes',
-      name_fa: 'پرک بادام',
+      slug: 'almond-kernels',
+      name_fa: 'مغز بادام درختی',
       category: 'almond',
       origin_fa: 'ایران',
-      price: 8100000,
+      price: 0,
       image: '/product/almond-flakes-7golden.webp',
       gallery: ['/product/almond-flakes-7golden.webp'],
-      badge: 'پرفروش',
-      taste: { bitter: 5, sweet: 38, earthy: 15, nutty: 82 },
-      weights: [8000],
       featured: true,
-      sort_order: 17,
+      sort_order: 3,
       desc_fa:
-        'پرک بادام درختی به دلیل چهار قسمت شدن هر مغز، از نظر توزیع فراوان و ظاهری بسیار شکیل است. ' +
-        'مناسب مصرف در صنایع شکلات‌سازی، حلوا شکری، سوهان، تولید بستنی، قنادی و… ' +
-        'بسته‌بندی در وزن‌های ۸ کیلوگرمی.',
+        'مغز بادام درختی کامل برای فرآوری خلال، پرگ، پودر و مصرف مستقیم در صنایع غذایی.',
+    },
+    {
+      slug: 'peanut-kernels',
+      name_fa: 'مغز بادام زمینی',
+      category: 'almond',
+      origin_fa: 'ایران',
+      price: 0,
+      image: '/product/sliced-peanuts.webp',
+      gallery: ['/product/sliced-peanuts.webp'],
+      featured: true,
+      sort_order: 4,
+      desc_fa:
+        'مغز بادام زمینی بدون پوست؛ مناسب خلال‌سازی، شیرینی، شکلات و تنقلات. ارزش غذایی بالا و منبع پروتئین.',
+    },
+    {
+      slug: 'peanut-slices',
+      name_fa: 'خلال بادام زمینی',
+      category: 'almond',
+      origin_fa: 'ایران',
+      price: 0,
+      image: '/product/sliced-peanuts-7golden.webp',
+      gallery: ['/product/sliced-peanuts-7golden.webp'],
+      featured: true,
+      sort_order: 5,
+      desc_fa:
+        'خلال بادام زمینی برای صنایع شیرینی‌پزی، شکلات‌سازی، کیک‌پزی و سوهان.',
     },
     {
       slug: 'almond-powder',
       name_fa: 'پودر بادام',
       category: 'almond',
       origin_fa: 'ایران',
-      price: 6900000,
+      price: 0,
       image: '/product/almond-flakes.webp',
       gallery: ['/product/almond-flakes.webp'],
-      taste: { bitter: 4, sweet: 40, earthy: 14, nutty: 85 },
-      weights: [10000, 15000],
-      sort_order: 18,
+      featured: true,
+      sort_order: 6,
       desc_fa:
-        'پودر مغز بادام یکی از فرآورده‌های بادام است که در صنایع شیرینی‌پزی، کیک‌پزی و شکلات‌سازی بسیار پرکاربرد است. ' +
-        'بسته‌بندی در وزن‌های ۱۰ و ۱۵ کیلوگرمی.',
-    },
-    {
-      slug: 'sliced-peanuts',
-      name_fa: 'خلال بادام زمینی',
-      category: 'almond',
-      origin_fa: 'ایران',
-      price: 2400000,
-      image: '/product/sliced-peanuts-7golden.webp',
-      gallery: ['/product/sliced-peanuts-7golden.webp'],
-      taste: { bitter: 5, sweet: 30, earthy: 22, nutty: 75 },
-      weights: [10000, 20000],
-      sort_order: 19,
-      desc_fa:
-        'خلال بادام زمینی از نظر ارزش غذایی برابر با مغز گردو و بادام است و منبعی غنی از پروتئین محسوب می‌شود. ' +
-        'مناسب مصرف صنایع شیرینی‌پزی، شکلات‌سازی، کیک‌پزی، سوهان و صنایع وابسته. ' +
-        'بسته‌بندی در وزن‌های ۱۰ و ۲۰ کیلوگرمی.',
-    },
-    {
-      slug: 'peanuts-without-skin',
-      name_fa: 'مغز بادام زمینی بدون پوست',
-      category: 'almond',
-      origin_fa: 'ایران',
-      price: 2100000,
-      image: '/product/sliced-peanuts.webp',
-      gallery: ['/product/sliced-peanuts.webp'],
-      taste: { bitter: 4, sweet: 32, earthy: 20, nutty: 72 },
-      weights: [25000],
-      sort_order: 20,
-      desc_fa:
-        'مغز بادام زمینی سفید در تهیه محصولات نظیر خلال بادام زمینی، شیرینی‌ها، کیک‌ها و دسرها بسیار رایج است. ' +
-        'همچنین می‌تواند به عنوان تنقلات سالم و پرانرژی در هنگام صبحانه یا پس از ورزش مصرف شود. ' +
-        'بسته‌بندی در کارتن‌های ۲۵ کیلویی.',
+        'پودر بادام با بافت نرم و یکنواخت؛ مناسب شیرینی‌پزی، کیک و شکلات‌سازی.',
     },
   ];
 
