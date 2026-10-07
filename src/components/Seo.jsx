@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { ORGANIZATION_JSONLD, SITE_SEO } from '@/lib/seo';
+import { useLocation } from 'react-router-dom';
+import { ORGANIZATION_JSONLD, WEBSITE_JSONLD, SITE_SEO, breadcrumbForPath } from '@/lib/seo';
 
 function setMeta(attr, key, content) {
   if (!content) return;
@@ -31,6 +32,8 @@ function setJsonLd(id, data) {
 // and JSON-LD structured data per page. Mount <Seo /> at the top of any page
 // that should have its own SEO. Organization JSON-LD is always present.
 export default function Seo({ title, description, image, type = 'website', canonical, jsonLd }) {
+  const location = useLocation();
+
   useEffect(() => {
     if (title) document.title = title;
     setMeta('name', 'description', description);
@@ -43,6 +46,10 @@ export default function Seo({ title, description, image, type = 'website', canon
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'twitter:image', image || SITE_SEO.ogImage);
     setMeta('name', 'twitter:site', SITE_SEO.twitterHandle);
+    setMeta('name', 'keywords', SITE_SEO.keywordsFA);
+    setMeta('property', 'og:site_name', SITE_SEO.siteNameEN);
+    setMeta('property', 'og:locale', 'fa_IR');
+    setMeta('property', 'og:url', canonical || SITE_SEO.baseUrl);
 
     if (canonical) {
       let link = document.head.querySelector('link[rel="canonical"]');
@@ -55,13 +62,18 @@ export default function Seo({ title, description, image, type = 'website', canon
     }
 
     setJsonLd('jsonld-org', ORGANIZATION_JSONLD);
-    setJsonLd('jsonld-page', jsonLd);
+    setJsonLd('jsonld-website', WEBSITE_JSONLD);
+    // Merge the page's own structured data with an auto-derived breadcrumb
+    // trail so every crawlable route carries a BreadcrumbList.
+    const crumbs = breadcrumbForPath(location.pathname);
+    const pageData = jsonLd && crumbs ? [jsonLd, crumbs] : (jsonLd || crumbs);
+    setJsonLd('jsonld-page', pageData);
 
     return () => {
       const pageLd = document.getElementById('jsonld-page');
       if (pageLd) pageLd.remove();
     };
-  }, [title, description, image, type, canonical, jsonLd]);
+  }, [title, description, image, type, canonical, jsonLd, location.pathname]);
 
   return null;
 }

@@ -31,18 +31,17 @@ export default function About() {
   });
 
   const milestones = [
-    { year: '۱۳۷۷', label: 'تأسیس در قزوین' },
-    { year: '۱۳۸۵', label: 'اولین صادرات' },
-    { year: '۱۳۹۰', label: 'گسترش به تهران' },
-    { year: '۱۳۹۶', label: 'ثبت شرکت رسمی' },
-    { year: '۱۴۰۰', label: 'گسترش بازار صادراتی' },
+    { year: '۱۳۷۷', label: 'آغاز کار در کارگاهی کوچک در قزوین' },
+    { year: '۱۳۹۶', label: 'ثبت رسمی شرکت خشکبار و بسته‌بندی هفت طلایی' },
+    { year: '۱۳۹۶', label: 'تأمین مستقیم از کشاورز از طریق بنکداری خشکبار محمدی' },
+    { year: 'امروز', label: 'صادرات به امارات، قطر، عمان، عراق و افغانستان' },
   ];
 
   const values = [
-    { icon: Leaf, title: 'کیفیت ارگانیک', desc: 'محصولاتمان را مستقیم از کشاورزان متعهد تأمین می‌کنیم.' },
-    { icon: Award, title: 'استانداردهای بین‌المللی', desc: 'تمام محصولات صادراتی مطابق با استانداردهای بین‌المللی.' },
-    { icon: Globe, title: 'دسترس جهانی', desc: 'ارسال به بازارهای صادراتی بین‌المللی.' },
-    { icon: Users, title: 'تیم متعهد', desc: 'بیش از ۵۰ متخصص جوان و متعهد.' },
+    { icon: Leaf, title: 'تأمین مستقیم از باغ', desc: 'از سال ۱۳۹۶ مواد اولیه را از طریق بنکداری خانوادگی خودمان — خشکبار محمدی با بیش از صد سال قدمت — بدون واسطه از کشاورز می‌خریم.' },
+    { icon: Award, title: 'کنترل کیفی پیش از ارسال', desc: 'رطوبت، رنگ و سلامت هر محموله را می‌سنجیم و اسناد آزمایشگاهی را همراه بار می‌فرستیم.' },
+    { icon: Globe, title: 'بازارهای صادراتی', desc: 'محصول ما به امارات، قطر، عمان، عراق و افغانستان می‌رود و از طریق بازرگانان به برخی کشورهای اروپایی هم می‌رسد.' },
+    { icon: Users, title: 'سود بیشتر برای کشاورز', desc: 'با حذف واسطه، بیش از ۵٪ بیشتر به سود کشاورز می‌رسد و شما محصول تازه‌تر و قیمت منصفانه‌تری می‌گیرید.' },
   ];
 
   return (
@@ -50,7 +49,7 @@ export default function About() {
 
       <Seo
         title={`درباره ${SITE_SEO.siteNameFA} — تولیدکننده و صادرکننده فندق، پسته و بادام`}
-        description="از سال ۱۳۷۷، تولیدکننده و صادرکننده مغز فندق، خلال پسته و مغز بادام برای صنایع شکلات، قنادی و بستنی — تأمین مستقیم از باغستان‌های قزوین."
+        description="خشکبار هفت طلایی، تولیدکننده و فرآوری‌کننده مغز فندق، خلال پسته و بادام — از سال ۱۳۷۷ در قزوین؛ تأمین مستقیم از کشاورز و صادرات به امارات، قطر، عمان، عراق و افغانستان."
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/about`}
       />
@@ -67,17 +66,17 @@ export default function About() {
             <div>
               <StoryChapter
                 index="01"
-                eyebrow="OUR STORY"
-                title="از کارگاهی کوچک تا رهبر صنعت"
+                eyebrow="داستان ما"
+                title="از یک کارگاه کوچک تا یکی از پیشروان صنعت"
               />
               <Reveal delay={140}>
                 <p className="font-body text-sm leading-relaxed mt-6 mb-4" style={{ color: 'var(--fg-muted)' }}>
-                  این مجموعه فعالیت جدی خود را در سال ۱۳۷۷ در کارگاهی بسیار کوچک آغاز نمود و به تدریج با کسب تجربیات بیشتر و بهره‌گیری از دانش و توانمندی نیروهای جوان و متعهد و پس از عبور از فراز و نشیب‌های فراوان موفق به کسب جایگاه قابل توجهی در زمینه تولید و فرآوری فندق و پسته و خشکبار شد.
+                  فعالیت جدی ما از سال ۱۳۷۷ در کارگاهی کوچک در قزوین شروع شد. کم‌کم تجربه جمع کردیم، به نیروهای جوان و متعهد تکیه کردیم و پس از فراز و نشیب‌های زیاد، جایگاه قابل توجهی در تولید و فرآوری فندق، پسته و خشکبار به دست آوردیم. در سال ۱۳۹۶ شرکت خشکبار و بسته‌بندی هفت طلایی را ثبت کردیم و کار را صنعتی‌تر ادامه دادیم.
                 </p>
               </Reveal>
               <Reveal delay={220}>
                 <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                  در حال حاضر با بازارهای صادراتی بین‌المللی همکاری دارد. بالای ۵ درصد سود به کشاورز می‌رسد و با حذف واسطه می‌توانیم محصول با کیفیت و قیمت مناسب‌تری عرضه کنیم.
+                  از سال ۱۳۹۶ مواد اولیه را از طریق بنکداری خانوادگی خودمان — خشکبار محمدی با بیش از صد سال قدمت — مستقیم و بدون واسطه از کشاورز می‌خریم. حذف واسطه یعنی سود بیشتر برای کشاورز و محصول تازه‌تر با قیمت منصفانه‌تر برای شما. امروز محصول ما به امارات، قطر، عمان، عراق و افغانستان صادر می‌شود.
                 </p>
               </Reveal>
             </div>
@@ -96,8 +95,8 @@ export default function About() {
           <div className="chapter-shell">
             <StoryChapter
               index="02"
-              eyebrow="JOURNEY"
-              title="خط زمانی هفت‌طلایی"
+              eyebrow="مسیر ما"
+              title="از کجا شروع کردیم و کجا رسیدیم"
               className="mb-14"
             />
 
@@ -114,7 +113,7 @@ export default function About() {
                       <span className="outline-num text-3xl md:text-5xl leading-none flex-shrink-0" style={{ minWidth: '5rem', textAlign: 'left' }}>
                         {m.year}
                       </span>
-                      <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(227,194,99,0.7)' }} />
+                      <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(212,175,55,0.7)' }} />
                       <span className="font-body text-sm md:text-base" style={{ color: 'var(--fg)' }}>{m.label}</span>
                     </div>
                   </Reveal>
@@ -160,8 +159,8 @@ export default function About() {
           <div className="chapter-shell">
             <StoryChapter
               index="03"
-              eyebrow="VALUES"
-              title="چرا هفت‌طلایی؟"
+              eyebrow="ارزش‌های ما"
+              title="چرا کارخانه‌ها به هفت‌طلایی اعتماد می‌کنند؟"
               className="mb-12"
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
@@ -170,7 +169,7 @@ export default function About() {
                   <div className="gold-frame panel p-6 rounded-3xl h-full">
                     <div
                       className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                      style={{ background: 'rgba(227,194,99,0.1)', border: '1px solid var(--hairline-strong)' }}
+                      style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid var(--hairline-strong)' }}
                     >
                       <v.icon size={20} style={{ color: 'var(--gold-2)' }} />
                     </div>

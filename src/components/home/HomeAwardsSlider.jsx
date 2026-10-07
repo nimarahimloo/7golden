@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Award, Maximize2 } from 'lucide-react';
 import { getAwards } from '@/lib/api/content';
 import StoryChapter from '@/components/story/StoryChapter';
@@ -71,11 +70,11 @@ export default function HomeAwardsSlider() {
       <div className="chapter-shell">
         <StoryChapter
           index="۰۷"
-          eyebrow="AWARDS"
-          title="جوایز و افتخارات هفت‌طلایی"
+          eyebrow="جوایز و گواهینامه‌ها"
+          title="کیفیتی که مراجع معتبر تأیید کرده‌اند"
 
           lead={isFA
-            ? 'هر گواهی و لوح، تعهد ما به کیفیت و استانداردهای بین‌المللی است — از نمایشگاه‌های تخصصی تا گواهینامه‌های مراجع معتبر.'
+            ? 'هر گواهی و لوح تقدیری که داریم، تعهد ما به کیفیت و استانداردهای بین‌المللی را نشان می‌دهد — از نمایشگاه‌های تخصصی تا گواهینامه‌های ایمنی مواد غذایی.'
             : 'Every certificate and plaque reflects our commitment to quality and international standards.'}
           className="mb-10"
         />
@@ -137,10 +136,6 @@ export default function HomeAwardsSlider() {
                   >
                     <ChevronLeft size={20} style={{ color: 'var(--gold-2)' }} />
                   </button>
-
-                  <Link to="/awards" className="link-gold ms-auto hidden md:inline-flex">
-                    {isFA ? 'همه جوایز' : 'All awards'}
-                  </Link>
                 </div>
               </div>
             </div>

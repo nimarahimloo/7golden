@@ -572,7 +572,7 @@ function SettingsSection() {
           <textarea className="admin-input w-full" rows={2} value={settings.hq_address_fa || ''} onChange={e => setField('hq_address_fa', e.target.value)} />
         </div>
         <div>
-          <label className="admin-label">دفتر تهران</label>
+          <label className="admin-label">کارخانه (قزوین)</label>
           <textarea className="admin-input w-full" rows={2} value={settings.tehran_address_fa || ''} onChange={e => setField('tehran_address_fa', e.target.value)} />
         </div>
       </div>

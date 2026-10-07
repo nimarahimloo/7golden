@@ -3,21 +3,21 @@ import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 const STORIES = [
 {
-  image: '/cdn/origin-1.webp',
+  image: '/product/pistachio-category.webp',
   nameFA: 'پسته قزوین',
   nameEN: 'Qazvin Pistachio',
   regionFA: 'بوئین‌زهرا، قزوین',
   regionEN: 'Buin Zahra, Qazvin'
 },
 {
-  image: '/cdn/origin-2.webp',
+  image: '/product/hazelnut-category.webp',
   nameFA: 'فندق اشنویه',
   nameEN: 'Oshnavieh Hazelnut',
   regionFA: 'اشنویه و قزوین',
   regionEN: 'Oshnavieh & Qazvin'
 },
 {
-  image: '/cdn/origin-3.webp',
+  image: '/product/almond-category.webp',
   nameFA: 'بادام ایرانی',
   nameEN: 'Iranian Almond',
   regionFA: 'ایران',

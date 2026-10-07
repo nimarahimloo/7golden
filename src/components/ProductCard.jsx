@@ -51,7 +51,7 @@ export default function ProductCard({ product }) {
       <div
         className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(232,197,71,0.12) 0%, transparent 55%)',
+          background: 'radial-gradient(ellipse at center, rgba(212,175,55,0.12) 0%, transparent 55%)',
         }}
       />
 
@@ -63,7 +63,7 @@ export default function ProductCard({ product }) {
             background: 'rgba(232, 197, 71, 0.95)',
             color: '#0D0D0D',
             backdropFilter: 'blur(8px)',
-            boxShadow: '0 4px 16px rgba(232,197,71,0.3)',
+            boxShadow: '0 4px 16px rgba(212,175,55,0.3)',
             [isFA ? 'right' : 'left']: '0.75rem',
           }}
         >
@@ -103,7 +103,7 @@ export default function ProductCard({ product }) {
         <div className="overflow-hidden transition-all duration-500 max-h-0 group-hover:max-h-32 opacity-0 group-hover:opacity-100">
           <div className="flex items-center justify-between gap-2">
             <div className="flex flex-col">
-              <span className="font-heading font-extrabold text-base" style={{ color: '#F0CE5A', fontFamily: headingFont }}>
+              <span className="font-heading font-extrabold text-base" style={{ color: '#D4AF37', fontFamily: headingFont }}>
                 {product.priceDisplay}
               </span>
               <span className="font-body text-sm text-white/50">
@@ -114,7 +114,7 @@ export default function ProductCard({ product }) {
               onClick={handleAdd}
               disabled={!product.inStock || adding}
               className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-40 flex-shrink-0"
-              style={{ background: '#F0CE5A', color: '#0D0D0D', boxShadow: '0 4px 16px rgba(232,197,71,0.3)' }}
+              style={{ background: '#D4AF37', color: '#0D0D0D', boxShadow: '0 4px 16px rgba(212,175,55,0.3)' }}
               aria-label={t('add_to_cart')}
             >
               <ShoppingBag size={16} />
@@ -129,7 +129,7 @@ export default function ProductCard({ product }) {
             <span className="font-body text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {t('view_product')}
             </span>
-            <ChevronLeft size={13} style={{ color: '#F0CE5A', transform: isFA ? 'scaleX(-1)' : 'none' }} />
+            <ChevronLeft size={13} style={{ color: '#D4AF37', transform: isFA ? 'scaleX(-1)' : 'none' }} />
           </div>
         </div>
       </div>

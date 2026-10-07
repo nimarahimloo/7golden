@@ -12,11 +12,11 @@ const TABS = [
 ];
 
 // Map any pathname to its owning bottom-tab.
-// Product detail belongs to the Products tab; awards sit under About.
+// Product detail belongs to the Products tab; the gallery sits under About.
 const TAB_PREFIXES = [
   { path: '/', prefixes: ['/'] },
   { path: '/shop', prefixes: ['/shop', '/product'] },
-  { path: '/about', prefixes: ['/about', '/awards'] },
+  { path: '/about', prefixes: ['/about', '/gallery'] },
   { path: '/blog', prefixes: ['/blog'] },
   { path: '/contact', prefixes: ['/contact'] },
 ];

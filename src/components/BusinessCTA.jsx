@@ -12,7 +12,7 @@ export default function BusinessCTA() {
   return (
     <section className="relative overflow-hidden">
       <img
-        src="/cdn/cta.webp"
+        src="/banner/tray-pistachio-almond.webp"
         alt=""
         className="absolute inset-0 w-full h-full object-cover"
         style={{ animation: 'kenBurns 10s ease-out forwards' }}
@@ -20,7 +20,7 @@ export default function BusinessCTA() {
       <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 50%, rgba(0,0,0,0.92) 100%)' }} />
 
       <div className="relative z-10 py-14 md:py-20 text-center px-4">
-        <span className="font-subheading text-sm uppercase block mb-3 tracking-wider" style={{ color: '#F0CE5A', fontFamily: 'Kalameh, serif' }}>
+        <span className="font-subheading text-sm uppercase block mb-3 tracking-wider" style={{ color: '#D4AF37', fontFamily: 'Kalameh, serif' }}>
           همکاری تجاری
         </span>
         <h2 className="font-heading text-2xl md:text-4xl font-black text-white mb-4 gold-text-glow" style={{ fontFamily: headingFont }}>
@@ -34,7 +34,7 @@ export default function BusinessCTA() {
           <a
             href="tel:+989121823438"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body font-semibold text-sm transition-all duration-300 hover:scale-105 gold-border-luxury"
-            style={{ background: 'linear-gradient(135deg, rgba(240,206,90,0.95), rgba(184,148,42,0.95))', color: '#0D0D0D' }}
+            style={{ background: 'linear-gradient(135deg, rgba(212,175,55,0.95), rgba(169,138,43,0.95))', color: '#0D0D0D' }}
           >
             <Phone size={16} />
             تماس با واحد بازرگانی
@@ -42,7 +42,7 @@ export default function BusinessCTA() {
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-body font-semibold text-sm transition-all duration-300 hover:scale-105"
-            style={{ border: '1.5px solid rgba(240,206,90,0.6)', color: '#F0CE5A' }}
+            style={{ border: '1.5px solid rgba(212,175,55,0.6)', color: '#D4AF37' }}
           >
             ارسال درخواست همکاری
             <ChevronLeft size={16} style={{ transform: 'scaleX(-1)' }} />

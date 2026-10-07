@@ -30,8 +30,8 @@ export default function NavbarParticles() {
             animationDuration: `${p.duration}s`,
             animationDelay: `${p.delay}s`,
             ...(p.bright ? {
-              background: 'radial-gradient(circle, rgba(255,245,210,1) 0%, rgba(232,197,71,0) 70%)',
-              boxShadow: '0 0 8px rgba(232,197,71,0.7)',
+              background: 'radial-gradient(circle, rgba(255,245,210,1) 0%, rgba(212,175,55,0) 70%)',
+              boxShadow: '0 0 8px rgba(212,175,55,0.7)',
             } : {}),
           }}
         />

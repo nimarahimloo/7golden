@@ -19,6 +19,11 @@ export default defineConfig({
         target: process.env.VITE_PROXY_TARGET || 'http://localhost:3001',
         changeOrigin: true,
       },
+      // Serve the crawler sitemap at the canonical root path.
+      '/sitemap.xml': {
+        target: process.env.VITE_PROXY_TARGET || 'http://localhost:3001',
+        changeOrigin: true,
+      },
     },
   },
 })

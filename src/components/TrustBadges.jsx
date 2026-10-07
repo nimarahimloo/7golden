@@ -4,22 +4,22 @@ const badges = [
   {
     name: 'اینماد',
     desc: 'نماد اعتماد الکترونیکی',
-    image: '/certificates/certificate.webp',
+    image: '/certificates/certificate.png',
   },
   {
     name: 'صنعت و معدن',
     desc: 'وزارت صنعت، معدن و تجارت',
-    image: '/certificates/certificate.webp',
+    image: '/certificates/certificate.png',
   },
   {
     name: 'اتاق بازرگانی',
     desc: 'اتاق بازرگانی و صنایع',
-    image: '/certificates/certificate.webp',
+    image: '/certificates/certificate.png',
   },
   {
     name: 'ساماندهی',
     desc: 'پایگاه ملی مجوزها',
-    image: '/certificates/certificate.webp',
+    image: '/certificates/certificate.png',
   },
 ];
 

@@ -15,7 +15,6 @@ const Shop = lazy(() => import('@/pages/Shop'));
 const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
 // const Checkout = lazy(() => import('@/pages/Checkout')); // retail — disabled
 const About = lazy(() => import('@/pages/About'));
-const Awards = lazy(() => import('@/pages/Awards'));
 const Gallery = lazy(() => import('@/pages/Gallery'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Blog = lazy(() => import('@/pages/Blog'));
@@ -38,12 +37,16 @@ import PageTransition from '@/components/PageTransition';
 import LogoLoader from '@/components/LogoLoader';
 import BottomTabBar from '@/components/BottomTabBar';
 import GlobalGoldAmbient from '@/components/GlobalGoldAmbient';
+import CursorSpotlight from '@/components/CursorSpotlight';
+import ScrollAura from '@/components/story/ScrollAura';
 import ScrollProgress from '@/components/story/ScrollProgress';
 
 function AppLayout() {
   return (
     <>
       <GlobalGoldAmbient />
+      <CursorSpotlight />
+      <ScrollAura />
       <ScrollProgress />
       <Navbar />
       <PageTransition>
@@ -58,7 +61,6 @@ function AppLayout() {
           <Route path="/account" element={<Account />} />
         </Route> */}
         <Route path="/about" element={<About />} />
-        <Route path="/awards" element={<Awards />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />

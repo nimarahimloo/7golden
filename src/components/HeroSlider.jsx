@@ -122,7 +122,7 @@ export default function HeroSlider() {
                     style={{
                       width: i === current ? '30px' : '8px',
                       height: '8px',
-                      background: i === current ? 'var(--accent)' : 'rgba(240,206,90,0.22)',
+                      background: i === current ? 'var(--accent)' : 'rgba(212,175,55,0.22)',
                     }}
                     aria-label={`Slide ${i + 1}`}
                   />

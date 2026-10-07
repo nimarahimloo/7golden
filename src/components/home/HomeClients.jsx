@@ -64,17 +64,17 @@ export default function HomeClients() {
         <div className="chapter-shell pt-16 md:pt-20">
           <StoryChapter
             index="۰۸"
-            eyebrow="CLIENTS"
+            eyebrow="مشتریان ما"
             title="کسانی که با هفت‌طلایی خرید می‌کنند"
             lead={isFA
-              ? 'از کارخانجات بستنی و شکلات تا قنادی‌ها و گروه‌های صادراتی — برندهایی که به کیفیت هفت‌طلایی اعتماد کرده‌اند.'
+              ? 'مغز و خلال فندق، پسته و بادام را برای کارخانه‌های شکلات و بستنی، قنادی‌ها، تولیدکنندگان حلوا ارده و بیسکوییت و گروه‌های صادراتی فرآوری می‌کنیم.'
               : 'From ice-cream and chocolate factories to confectioners and export groups.'}
             className="mb-10"
           />
         </div>
 
         {/* Logo wall */}
-        <div className="logo-marquee" aria-label="برندهای مشتری هفت‌طلایی">
+        <div className="logo-marquee" aria-label="صنایع خریدار هفت‌طلایی">
           <div className="logo-marquee-track">
             {loop.map((client, i) => (
               <ClientLogo key={`${client.id}-${i}`} client={client} />
@@ -85,7 +85,7 @@ export default function HomeClients() {
         <div className="chapter-shell pb-16 md:pb-20">
           <Reveal delay={160} className="mt-12 text-center">
             <Link to="/contact" className="btn-ghost">
-              {isFA ? 'پیوستن به مشتریان ما' : 'Join our clients'}
+              {isFA ? 'به جمع آن‌ها بپیوندید' : 'Join our clients'}
               <ChevronLeft size={16} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             </Link>
           </Reveal>
