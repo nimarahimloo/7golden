@@ -43,7 +43,7 @@ export default function PromoBanner({ image, badge, title, subtitle, cta, to = '
               </p>
             }
             {cta &&
-            <span className="inline-flex items-center gap-2 font-body text-sm font-bold w-fit px-5 py-2 rounded-full transition-all" style={{ color: '#F0CE5A', border: '1px solid rgba(232,197,71,0.3)' }}>
+            <span className="inline-flex items-center gap-2 font-body text-sm font-bold w-fit px-5 py-2 rounded-full transition-all" style={{ color: '#D4AF37', border: '1px solid rgba(212,175,55,0.3)' }}>
                 {cta}
                 <ChevronLeft size={14} style={{ transform: 'scaleX(-1)' }} className="transition-transform group-hover:-translate-x-1 lucide-chevron-right" />
               </span>

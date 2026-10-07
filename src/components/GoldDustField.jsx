@@ -7,8 +7,8 @@ function makeGlowTexture(size, coreStop) {
   const ctx = c.getContext('2d');
   const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
   g.addColorStop(0, 'rgba(255,252,235,1)');
-  g.addColorStop(coreStop, 'rgba(240,206,90,0.55)');
-  g.addColorStop(1, 'rgba(240,206,90,0)');
+  g.addColorStop(coreStop, 'rgba(212,175,55,0.55)');
+  g.addColorStop(1, 'rgba(212,175,55,0)');
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, size, size);
   return new THREE.CanvasTexture(c);
@@ -57,7 +57,7 @@ export default function GoldDustField() {
         blending: THREE.AdditiveBlending,
         depthWrite: false,
         sizeAttenuation: true,
-        color: 0xF0CE5A,
+        color: 0xD4AF37,
       });
       const points = new THREE.Points(geometry, material);
       scene.add(points);

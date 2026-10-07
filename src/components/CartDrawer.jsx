@@ -126,7 +126,7 @@ export default function CartDrawer() {
                   width: `${progress}%`,
                   background: freeShippingUnlocked
                     ? 'linear-gradient(90deg, #22c55e, #4ade80)'
-                    : 'linear-gradient(90deg, #E8C547, #C09B25)',
+                    : 'linear-gradient(90deg, #D4AF37, #A98A2B)',
                   boxShadow: freeShippingUnlocked ? '0 0 16px rgba(34,197,94,0.5)' : '0 0 16px rgba(212,175,55,0.5)',
                 }}
               />

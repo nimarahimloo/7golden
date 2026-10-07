@@ -19,9 +19,9 @@ export default function GoldenEssence() {
         pointerEvents: 'none',
         overflow: 'hidden',
         background:
-          'radial-gradient(ellipse 70% 55% at 50% 28%, rgba(240,206,90,0.10) 0%, transparent 62%),' +
-          'radial-gradient(ellipse 60% 45% at 12% 82%, rgba(240,206,90,0.06) 0%, transparent 65%),' +
-          'radial-gradient(ellipse 55% 40% at 88% 68%, rgba(240,206,90,0.05) 0%, transparent 65%)',
+          'radial-gradient(ellipse 70% 55% at 50% 28%, rgba(212,175,55,0.10) 0%, transparent 62%),' +
+          'radial-gradient(ellipse 60% 45% at 12% 82%, rgba(212,175,55,0.06) 0%, transparent 65%),' +
+          'radial-gradient(ellipse 55% 40% at 88% 68%, rgba(212,175,55,0.05) 0%, transparent 65%)',
       }}
     />,
     document.body

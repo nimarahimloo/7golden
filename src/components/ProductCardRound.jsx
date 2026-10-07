@@ -34,7 +34,7 @@ export default function ProductCardRound({ product }) {
         {/* Gold ring — fades in on hover */}
         <div
           className="absolute inset-0 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ boxShadow: 'inset 0 0 0 2px rgba(240,206,90,0.5), 0 0 40px rgba(240,206,90,0.15)' }}
+          style={{ boxShadow: 'inset 0 0 0 2px rgba(212,175,55,0.5), 0 0 40px rgba(212,175,55,0.15)' }}
         />
       </div>
       <h3

@@ -62,8 +62,8 @@ export default function GlobalGoldAmbient() {
             animationDelay: `${p.delay}s`,
             opacity: 0.5,
             ...(p.bright ? {
-              background: 'radial-gradient(circle, rgba(255,245,210,1) 0%, rgba(240,206,90,0) 70%)',
-              boxShadow: '0 0 10px rgba(240,206,90,0.6)',
+              background: 'radial-gradient(circle, rgba(255,245,210,1) 0%, rgba(212,175,55,0) 70%)',
+              boxShadow: '0 0 10px rgba(212,175,55,0.6)',
             } : {}),
           }}
         />

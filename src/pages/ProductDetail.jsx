@@ -232,7 +232,7 @@ export default function ProductDetail() {
                       <a
                         href="tel:+989121823438"
                         className="flex-1 py-3.5 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
-                        style={{ background: 'var(--accent)', color: '#14100A', boxShadow: '0 8px 32px rgba(232,197,71,0.3)' }}
+                        style={{ background: 'var(--accent)', color: '#14100A', boxShadow: '0 8px 32px rgba(212,175,55,0.3)' }}
                       >
                         <Phone size={16} />
                         {isFA ? 'تماس با بازرگانی' : 'Call the trade desk'}
