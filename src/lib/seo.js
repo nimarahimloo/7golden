@@ -42,6 +42,7 @@ export const ORGANIZATION_JSONLD = {
     '@type': 'PostalAddress',
     streetAddress: 'خیابان سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰',
     addressLocality: 'قزوین',
+    postalCode: '3419617948',
     addressCountry: 'IR',
   },
 };

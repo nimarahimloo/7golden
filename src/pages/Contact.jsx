@@ -32,8 +32,8 @@ export default function Contact() {
   };
 
   const contactCards = [
-    { icon: Phone, label: 'تلفن پشتیبانی', value: '۰۲۸۳۳۲۳۴۰۰۵', href: 'tel:+982833234005' },
-    { icon: Phone, label: 'موبایل', value: '۰۹۱۲۱۸۲۳۴۳۸', href: 'tel:+989121823438' },
+    { icon: Phone, label: 'تلفن دفتر', value: '۰۲۸۳۳۲۳۴۰۰۴', href: 'tel:+982833234004' },
+    { icon: Phone, label: 'موبایل / واتساپ', value: '۰۹۱۲۱۸۲۳۴۳۸', href: 'tel:+989121823438' },
     { icon: Mail, label: 'ایمیل', value: 'info@7golden.co', href: 'mailto:info@7golden.co' },
     { icon: Clock, label: 'ساعات کاری', value: '۹ صبح الی ۹ شب — هر روز', href: null },
   ];
@@ -150,10 +150,10 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                      {t('tehran_title')}
+                      {t('factory_title')}
                     </h3>
                     <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      {t('tehran_address')}
+                      {t('factory_address')}
                     </p>
                   </div>
                 </div>

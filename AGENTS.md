@@ -91,5 +91,21 @@ New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pi
 - Structured data is injected client-side by `src/components/Seo.jsx`: Organization + WebSite always, plus per-page JSON-LD and an auto-derived `BreadcrumbList` (`breadcrumbForPath` in `src/lib/seo.js`, static routes only).
 - Palette is golden (`#D4AF37`) — the gold ramp lives in `src/index.css` (`--accent`, `--gold-1..4`, `--hairline*`, HSL `46 65% 52%`).
 
+## Real brand content (source of truth)
+All marketing copy is grounded in the brand's own public sources (7golden.co and
+its foodkeys producer profile). Verified facts used across the site:
+- Work began ۱۳۷۷ in a small Qazvin workshop; the company **شرکت خشکبار و بسته‌بندی هفت طلایی** was registered in ۱۳۹۶.
+- Raw material is bought straight from growers via the family بنکداری (خشکبار محمدی, 100+ years) — no middleman.
+- Pistachio from Buin-Zahra (Qazvin) and Kerman; hazelnut from Oshnavieh, Alamut (Qazvin) and northern Ashkvarat.
+- Exports: UAE, Qatar, Oman, Iraq, Afghanistan (Europe via traders).
+- Office: قزوین، سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰ (کدپستی ۳۴۱۹۶۱۷۹۴۸). Factory: بلوار ابوترابی، نرسیده به سه راه شهر صنعتی.
+- Phone ۰۲۸۳۳۲۳۴۰۰۴ / ۰۹۱۲۱۸۲۳۴۳۸, email info@7golden.co.
+Central copy lives in `src/lib/corporate-content.js` (products, capacity figures,
+certificates, export markets), `src/lib/clients.js` (buyer sectors) and
+`src/lib/i18n.js` (trust points, contact). Do **not** reintroduce invented
+numbers (ISO 22000/HACCP claims, fabricated tonnage) — keep it to the facts above.
+The buyer wall in `src/lib/clients.js` lists real **industry sectors**, not brand
+names; drop real customer logos into `public/clients/` and set `logo:` per entry.
+
 ## Removed
 - The standalone **Awards page** (`/awards`, `src/pages/Awards.jsx`) was deleted, along with its route and all nav links. Awards/certificates still appear on the home page (`HomeAwardsSlider`) and About (`AwardsSection`); the awards API/data is untouched.

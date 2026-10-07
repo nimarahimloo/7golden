@@ -10,7 +10,6 @@ import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import { usePageHero } from '@/lib/usePageHero';
 import Reveal from '@/components/story/Reveal';
-import ProductGallery from '@/components/shop/ProductGallery';
 
 const FALLBACK_LINES = [
   { slug: 'pistachio', nameFA: 'پسته', image: '/gallery/AQ8A1516AQ8A1516.webp', descFA: 'مغز و خلال پسته صادراتی' },
@@ -153,9 +152,6 @@ export default function Shop() {
             </div>
           </section>
         )}
-
-        {/* ===== گالری نمای نزدیک محصول ===== */}
-        {!activeSlug && <ProductGallery />}
 
         {/* ===== مرحله ۲: محصولات همان خط ===== */}
         {activeSlug && (

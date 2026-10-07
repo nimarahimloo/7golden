@@ -67,14 +67,14 @@ export default function HomeClients() {
             eyebrow="مشتریان ما"
             title="کسانی که با هفت‌طلایی خرید می‌کنند"
             lead={isFA
-              ? 'از کارخانه‌های بستنی و شکلات تا قنادی‌ها و گروه‌های صادراتی — برندهایی که سال‌هاست به کیفیت ما اعتماد کرده‌اند و هر ماه سفارششان را تکرار می‌کنند.'
+              ? 'مغز و خلال فندق، پسته و بادام را برای کارخانه‌های شکلات و بستنی، قنادی‌ها، تولیدکنندگان حلوا ارده و بیسکوییت و گروه‌های صادراتی فرآوری می‌کنیم.'
               : 'From ice-cream and chocolate factories to confectioners and export groups.'}
             className="mb-10"
           />
         </div>
 
         {/* Logo wall */}
-        <div className="logo-marquee" aria-label="برندهای مشتری هفت‌طلایی">
+        <div className="logo-marquee" aria-label="صنایع خریدار هفت‌طلایی">
           <div className="logo-marquee-track">
             {loop.map((client, i) => (
               <ClientLogo key={`${client.id}-${i}`} client={client} />
