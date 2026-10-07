@@ -71,11 +71,11 @@ export default function HomeAwardsSlider() {
       <div className="chapter-shell">
         <StoryChapter
           index="۰۷"
-          eyebrow="AWARDS"
-          title="جوایز و افتخارات هفت‌طلایی"
+          eyebrow="جوایز و گواهینامه‌ها"
+          title="کیفیتی که مراجع معتبر تأیید کرده‌اند"
 
           lead={isFA
-            ? 'هر گواهی و لوح، تعهد ما به کیفیت و استانداردهای بین‌المللی است — از نمایشگاه‌های تخصصی تا گواهینامه‌های مراجع معتبر.'
+            ? 'هر گواهی و لوح تقدیری که داریم، تعهد ما به کیفیت و استانداردهای بین‌المللی را نشان می‌دهد — از نمایشگاه‌های تخصصی تا گواهینامه‌های ایمنی مواد غذایی.'
             : 'Every certificate and plaque reflects our commitment to quality and international standards.'}
           className="mb-10"
         />

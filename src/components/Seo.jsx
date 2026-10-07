@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ORGANIZATION_JSONLD, SITE_SEO } from '@/lib/seo';
+import { ORGANIZATION_JSONLD, WEBSITE_JSONLD, SITE_SEO } from '@/lib/seo';
 
 function setMeta(attr, key, content) {
   if (!content) return;
@@ -43,6 +43,10 @@ export default function Seo({ title, description, image, type = 'website', canon
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'twitter:image', image || SITE_SEO.ogImage);
     setMeta('name', 'twitter:site', SITE_SEO.twitterHandle);
+    setMeta('name', 'keywords', SITE_SEO.keywordsFA);
+    setMeta('property', 'og:site_name', SITE_SEO.siteNameEN);
+    setMeta('property', 'og:locale', 'fa_IR');
+    setMeta('property', 'og:url', canonical || SITE_SEO.baseUrl);
 
     if (canonical) {
       let link = document.head.querySelector('link[rel="canonical"]');
@@ -55,6 +59,7 @@ export default function Seo({ title, description, image, type = 'website', canon
     }
 
     setJsonLd('jsonld-org', ORGANIZATION_JSONLD);
+    setJsonLd('jsonld-website', WEBSITE_JSONLD);
     setJsonLd('jsonld-page', jsonLd);
 
     return () => {

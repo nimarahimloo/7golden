@@ -136,13 +136,13 @@ export default function Home() {
         {/* ===== OPENING FRAME — full-height cinematic hero ===== */}
         <CinematicHero
           image={heroConfig?.image || "/banner/tray-pistachio-almond.webp"}
-          eyebrow={heroConfig?.badge_fa || "EST. ۱۳۷۷ · QAZVIN"}
-          title={heroConfig?.title_fa || "تولید، فرآوری و صادرات"}
-          titleAccent="فندق، پسته و بادام"
-          lead={heroConfig?.subtitle_fa || "مغز و خلال پسته، بادام و فندق برای کارخانه‌های شکلات، قنادی و بستنی — مستقیم از باغ، با کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده."}
+          eyebrow={heroConfig?.badge_fa || "از سال ۱۳۷۷ · قزوین"}
+          title={heroConfig?.title_fa || "از باغستان قزوین"}
+          titleAccent="تا خط تولید شما"
+          lead={heroConfig?.subtitle_fa || "مغز و خلال فندق، پسته و بادام را مستقیم از باغ تأمین می‌کنیم و برای کارخانه‌های شکلات، قنادی و بستنی فرآوری می‌کنیم. کنترل کیفی آزمایشگاهی، تحویل سر موعد و کیفیتی که هر بار تکرار می‌شود."}
           stats={CAPACITY_STATS}
           primary={{ label: isFA ? 'درخواست قیمت و نمونه' : 'Request a quote', href: '/contact' }}
-          secondary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
+          secondary={{ label: isFA ? 'دیدن محصولات' : 'View products', href: '/shop' }}
         />
 {/* ===== CHAPTER 02 — industrial scale ===== */}
         <section className="chapter">
@@ -158,9 +158,9 @@ export default function Home() {
               <div>
                 <StoryChapter
                   index="02"
-                  eyebrow={sec('capacity').badge_fa || "CAPACITY"}
-                  title={sec('capacity').title_fa || "مقیاس صنعتی، تحویل زمان‌بندی‌شده"}
-                  lead="ظرفیت یعنی اطمینان از اینکه سفارش عمده شما سر موعد و با همان کیفیتِ نمونه تحویل می‌شود، نه فقط یک عدد روی کاغذ."
+                  eyebrow={sec('capacity').badge_fa || "ظرفیت"}
+                  title={sec('capacity').title_fa || "مقیاسی که به وعده‌اش عمل می‌کند"}
+                  lead="ظرفیت برای ما یعنی اینکه سفارش عمده شما را سر موعد و با همان کیفیتی که در نمونه دیده‌اید تحویل می‌دهیم — نه فقط یک عدد روی کاغذ."
                 />
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
                   {CAPACITY_STATS.map((stat, i) => (
@@ -192,8 +192,8 @@ export default function Home() {
           <div className="chapter-shell mb-6">
             <StoryChapter
               index="03"
-              eyebrow={(typeof sec === 'function' && sec('products')?.badge_fa) || 'PRODUCTS'}
-              title={(typeof sec === 'function' && sec('products')?.title_fa) || 'محصولات هفت‌طلایی'}
+              eyebrow={(typeof sec === 'function' && sec('products')?.badge_fa) || 'محصولات'}
+              title={(typeof sec === 'function' && sec('products')?.title_fa) || 'هر محصولی که می‌خواهید، اینجا فرآوری می‌شود'}
             />
           </div>
           <ProductLineRow title="مشتقات پسته" products={pistachioProducts} duration={90} />
@@ -215,9 +215,9 @@ export default function Home() {
           <div className="chapter-shell">
             <StoryChapter
               index="۰۵"
-              eyebrow="PROCESS"
-              title="از باغستان تا مقصد صادراتی"
-              lead="مسیر یک سفارش عمده در پنج گام شفاف: از برداشت و فرآوری تا کنترل کیفیت، بسته‌بندی و تحویل."
+              eyebrow="مسیر صادرات"
+              title="از باغستان تا مقصد صادراتی شما"
+              lead="مسیر یک سفارش عمده را در پنج گام شفاف نشان می‌دهیم: از برداشت و فرآوری تا کنترل کیفیت، بسته‌بندی و تحویل. هیچ گام پنهان نیست."
             />
           </div>
         </section>
