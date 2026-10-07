@@ -114,7 +114,7 @@ export default function About() {
                       <span className="outline-num text-3xl md:text-5xl leading-none flex-shrink-0" style={{ minWidth: '5rem', textAlign: 'left' }}>
                         {m.year}
                       </span>
-                      <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(227,194,99,0.7)' }} />
+                      <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(212,175,55,0.7)' }} />
                       <span className="font-body text-sm md:text-base" style={{ color: 'var(--fg)' }}>{m.label}</span>
                     </div>
                   </Reveal>
@@ -170,7 +170,7 @@ export default function About() {
                   <div className="gold-frame panel p-6 rounded-3xl h-full">
                     <div
                       className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                      style={{ background: 'rgba(227,194,99,0.1)', border: '1px solid var(--hairline-strong)' }}
+                      style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid var(--hairline-strong)' }}
                     >
                       <v.icon size={20} style={{ color: 'var(--gold-2)' }} />
                     </div>

@@ -95,7 +95,7 @@ export default function Gallery() {
                     <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.8), rgba(7,6,4,0.2))' }} />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="w-14 h-14 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                        style={{ background: 'rgba(227,194,99,0.16)', border: '1px solid rgba(227,194,99,0.5)', backdropFilter: 'blur(8px)' }}>
+                        style={{ background: 'rgba(212,175,55,0.16)', border: '1px solid rgba(212,175,55,0.5)', backdropFilter: 'blur(8px)' }}>
                         <Play size={22} style={{ color: 'var(--gold-2)' }} fill="currentColor" />
                       </span>
                     </div>

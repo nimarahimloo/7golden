@@ -84,3 +84,12 @@ New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pi
 - `docker compose -f docker-compose.base44.yml ps` — all three services should be `healthy`
 - `curl -s http://localhost:3000/api/health` — should return `{"ok":true,...}`
 - `curl -s http://localhost:3000/` — should return HTML with Vite HMR script tags
+- `curl -s http://localhost:3000/sitemap.xml` — should return XML (proxied to backend)
+
+## SEO routes
+- The sitemap is served by `backend/src/routes/sitemap.ts` at **both** `/api/sitemap.xml` and the canonical root `/sitemap.xml` (declared in `public/robots.txt`). `vite.config.js` proxies `/sitemap.xml` to the backend so it works in the dev/preview server too. If a reverse proxy is ever added in production, it must forward `/sitemap.xml` as well.
+- Structured data is injected client-side by `src/components/Seo.jsx`: Organization + WebSite always, plus per-page JSON-LD and an auto-derived `BreadcrumbList` (`breadcrumbForPath` in `src/lib/seo.js`, static routes only).
+- Palette is golden (`#D4AF37`) — the gold ramp lives in `src/index.css` (`--accent`, `--gold-1..4`, `--hairline*`, HSL `46 65% 52%`).
+
+## Removed
+- The standalone **Awards page** (`/awards`, `src/pages/Awards.jsx`) was deleted, along with its route and all nav links. Awards/certificates still appear on the home page (`HomeAwardsSlider`) and About (`AwardsSection`); the awards API/data is untouched.

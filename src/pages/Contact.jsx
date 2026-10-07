@@ -66,7 +66,7 @@ export default function Contact() {
               <div
                 className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
                 style={{
-                  background: 'rgba(227,194,99,0.12)',
+                  background: 'rgba(212,175,55,0.12)',
                   border: '1px solid var(--hairline-strong)',
                 }}
               >
@@ -122,7 +122,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(227,194,99,0.12)', border: '1px solid var(--hairline-strong)' }}
+                    style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}
                   >
                     <MapPin size={20} style={{ color: 'var(--accent)' }} />
                   </div>
@@ -144,7 +144,7 @@ export default function Contact() {
                 <div className="flex items-start gap-4">
                   <div
                     className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(227,194,99,0.12)', border: '1px solid var(--hairline-strong)' }}
+                    style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}
                   >
                     <MapPin size={20} style={{ color: 'var(--accent)' }} />
                   </div>
@@ -184,21 +184,21 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
+                  style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <Instagram size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="tel:+989121823438"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
+                  style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <Phone size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="mailto:info@7golden.co"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(227,194,99,0.06)', border: '1px solid var(--hairline)' }}
+                  style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
                 >
                   <Mail size={18} style={{ color: 'var(--accent)' }} />
                 </a>

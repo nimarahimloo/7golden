@@ -10,7 +10,7 @@ export const SITE_SEO = {
   defaultTitleEN: '7Golden | Hazelnut, Pistachio & Almond Producer and Exporter',
   defaultDescriptionFA: 'هفت‌طلایی از سال ۱۳۷۷ در قزوین، مغز و خلال فندق، پسته و بادام را مستقیم از باغستان تأمین و برای کارخانه‌های شکلات، قنادی و بستنی فرآوری می‌کند. تأمین عمده، کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده.',
   defaultDescriptionEN: 'Since 1998, 7Golden in Qazvin has sourced hazelnut kernels, pistachio slices and almond kernels straight from orchards and processed them for chocolate, confectionery and ice-cream factories. Bulk supply, lab-tested quality, scheduled delivery.',
-  ogImage: '/banner/Hero-main.webp',
+  ogImage: 'https://7golden.co/banner/Hero-main.webp',
   baseUrl: 'https://7golden.co',
   baseUrlIr: 'https://7golden.ir',
   twitterHandle: '@7golden',
@@ -114,4 +114,32 @@ export function breadcrumbJsonLd(items) {
       item: item.url,
     })),
   };
+}
+
+// Human labels for the crawlable static routes. Dynamic routes (product /
+// blog slugs) return null so no misleading breadcrumb is emitted for them.
+const BREADCRUMB_LABELS = {
+  shop: 'محصولات',
+  about: 'درباره ما',
+  gallery: 'گالری',
+  blog: 'مجله',
+  contact: 'تماس با ما',
+};
+
+// Builds a BreadcrumbList for a pathname so Google can render the trail in
+// the SERP. Returns null for the home page or any route without a known label.
+export function breadcrumbForPath(pathname) {
+  const clean = String(pathname || '/').split('?')[0].split('#')[0];
+  const segs = clean.split('/').filter(Boolean);
+  if (segs.length === 0) return null;
+
+  const items = [{ name: 'خانه', url: `${SITE_SEO.baseUrl}/` }];
+  let acc = '';
+  for (const seg of segs) {
+    acc += `/${seg}`;
+    const label = BREADCRUMB_LABELS[seg];
+    if (!label) return null;
+    items.push({ name: label, url: `${SITE_SEO.baseUrl}${acc}` });
+  }
+  return breadcrumbJsonLd(items);
 } 

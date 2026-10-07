@@ -8,6 +8,5 @@ Disallow: /track
 Disallow: /oauth
 
 # Sitemaps for both domains
-Sitemap: https://7-golden.base44.app/functions/generateSitemap
 Sitemap: https://7golden.co/sitemap.xml
 Sitemap: https://7golden.ir/sitemap.xml

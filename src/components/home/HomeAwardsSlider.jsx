@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Award, Maximize2 } from 'lucide-react';
 import { getAwards } from '@/lib/api/content';
 import StoryChapter from '@/components/story/StoryChapter';
@@ -137,10 +136,6 @@ export default function HomeAwardsSlider() {
                   >
                     <ChevronLeft size={20} style={{ color: 'var(--gold-2)' }} />
                   </button>
-
-                  <Link to="/awards" className="link-gold ms-auto hidden md:inline-flex">
-                    {isFA ? 'همه جوایز' : 'All awards'}
-                  </Link>
                 </div>
               </div>
             </div>

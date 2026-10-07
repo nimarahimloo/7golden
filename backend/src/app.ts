@@ -38,6 +38,9 @@ app.use('/api', entitiesRoutes);
 app.use('/api', contentRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api', sitemapRoutes);
+// Also expose the sitemap at the canonical root path so crawlers reach it at
+// https://7golden.co/sitemap.xml (as declared in public/robots.txt).
+app.use('/', sitemapRoutes);
 
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err);
