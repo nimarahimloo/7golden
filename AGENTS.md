@@ -57,8 +57,8 @@ docker compose -f docker-compose.base44.yml up -d
 ## Known fixes applied
 - `backend/prisma/seed.ts` was out of sync with `schema.prisma` (referenced removed `_en` fields). Fixed to match the current schema (Persian-only fields).
 - `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found "{"`). Fixed by switching to `createMany({ data: [...] })` with a proper array.
-- `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site export. Real product images copied to `public/product/*-7golden*.png` where available; blog images live in `public/banner/`.
-- Products that have no real WordPress image fall back to existing local `/product/*.png` assets (e.g. `pistachio-slices.png`, `brain-hazelnut.png`).
+- `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site export. Real product images live in `public/product/*-7golden*.webp` where available; blog images live in `public/banner/`.
+- Products that have no real WordPress image fall back to existing local `/product/*.webp` assets (e.g. `pistachio-slices.webp`, `brain-hazelnut.webp`).
 - Added a dedicated **Gallery page** (`/gallery`, `src/pages/Gallery.jsx`) presenting the 10 facility/showroom/processing videos from `public/video/` and the 85 trade-show/factory photos in `public/gallery/` in a lightboxed mosaic. Data lives in `src/lib/gallery-content.js`. Route + Navbar/MobileMenu/Footer links wired.
 - Studio food photography downloaded from the user into `public/banner/` (hero-nuts-bowl, banner-spoons-set, almond-milk, hazelnut-bowl, pistachio-dishes-teal, banner-four-bowls, hero-chopped-scoop, product-nuts-assortment) and placed across Home/Shop/About/Blog/ExportProcess pages as scene/hero/banner images. Note: the media upload served `4.jpeg`==`4-1.jpeg` and `8.jpeg`==`8-1.jpeg` as byte-identical files.
 
@@ -106,6 +106,15 @@ certificates, export markets), `src/lib/clients.js` (buyer sectors) and
 numbers (ISO 22000/HACCP claims, fabricated tonnage) — keep it to the facts above.
 The buyer wall in `src/lib/clients.js` lists real **industry sectors**, not brand
 names; drop real customer logos into `public/clients/` and set `logo:` per entry.
+
+The editable `SiteSettings` row (phone, mobile, addresses, hours — shown in the
+admin panel) is seeded with the same real values as `corporate-content.js` /
+`i18n.js`; keep them in sync when the seed runs. All image references in `src/`
+and `backend/` resolve to files under `public/` (verified with a broken-ref
+scan). Legacy unused components (`BusinessCTA`, `OriginStory`, `TrustBadges`,
+`ProvenanceSection`, `MainProducts`, `ExportMarkets`, `SpecialtyShowcase`,
+`ProductAbout`, `ProductTabs`, `PromoBanner`) are no longer imported anywhere —
+left in place but safe to delete.
 
 ## Removed
 - The standalone **Awards page** (`/awards`, `src/pages/Awards.jsx`) was deleted, along with its route and all nav links. Awards/certificates still appear on the home page (`HomeAwardsSlider`) and About (`AwardsSection`); the awards API/data is untouched.
