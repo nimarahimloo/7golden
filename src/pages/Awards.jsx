@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getAwards } from '@/lib/api/content';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
-import PageHero from '@/components/PageHero';
+import DynamicHeroSlider from '@/components/DynamicHeroSlider';
 import LogoLoader from '@/components/LogoLoader';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
@@ -72,12 +72,7 @@ export default function Awards() {
       <PullToRefresh onRefresh={loadData}>
       {/* Hero */}
       <div className="relative">
-        <PageHero
-          image={hero.image}
-          title={hero.title}
-          subtitle={hero.subtitle}
-          badge={hero.badge}
-        />
+        <DynamicHeroSlider pageKey="awards" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
       </div>
 
       {/* Stats Bar */}

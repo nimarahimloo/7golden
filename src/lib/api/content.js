@@ -195,11 +195,19 @@ export async function getPageSections(page) {
 }
 
 export async function getPageHero(page) {
+  const heroes = await getPageHeroes(page);
+  return heroes[0] || null;
+}
+
+export async function getPageHeroes(page) {
   try {
     const sections = await getPageSections(page);
-    return sections.find(s => s.section_key === 'hero') || null;
+    if (!Array.isArray(sections)) return [];
+    return sections
+      .filter(s => String(s.section_key || '').trim().toLowerCase().startsWith('hero'))
+      .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
   } catch {
-    return null;
+    return [];
   }
 }
 

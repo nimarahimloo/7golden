@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Instagram, CheckCircle } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
-import PageHero from '@/components/PageHero';
+import DynamicHeroSlider from '@/components/DynamicHeroSlider';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
@@ -51,12 +51,7 @@ export default function Contact() {
       <PullToRefresh onRefresh={refreshSiteMode}>
       {/* Hero */}
       <div className="relative">
-        <PageHero
-          image={hero.image}
-          title={hero.title}
-          subtitle={hero.subtitle}
-          badge={hero.badge}
-        />
+        <DynamicHeroSlider pageKey="contact" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
       </div>
 
       {/* Contact Cards */}

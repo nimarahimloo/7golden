@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { t } from '@/lib/i18n';
 import AwardsSection from '@/components/AwardsSection';
 import ProductionCapacity from '@/components/ProductionCapacity';
-import PageHero from '@/components/PageHero';
+import DynamicHeroSlider from '@/components/DynamicHeroSlider';
 import { usePageHero } from '@/lib/usePageHero';
 import { Award, Leaf, Globe, Users } from 'lucide-react';
 import Seo from '@/components/Seo';
@@ -58,12 +58,7 @@ export default function About() {
       <PullToRefresh onRefresh={handleRefresh}>
         {/* Hero */}
         <div className="relative">
-          <PageHero
-            image={hero.image}
-            title={hero.title}
-            subtitle={hero.subtitle}
-            badge={hero.badge}
-          />
+          <DynamicHeroSlider pageKey="about" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
         </div>
 
         {/* ===== CHAPTER 01 — the story ===== */}

@@ -4,7 +4,7 @@ import { ChevronLeft, ArrowRight } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import { getProducts, getCategories } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
-import PageHero from '@/components/PageHero';
+import DynamicHeroSlider from '@/components/DynamicHeroSlider';
 import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
@@ -91,12 +91,7 @@ export default function Shop() {
 
       <PullToRefresh onRefresh={loadData}>
         {!activeSlug && (
-          <PageHero
-            image={hero.image}
-            title={hero.title}
-            subtitle={hero.subtitle}
-            badge={hero.badge}
-          />
+          <DynamicHeroSlider pageKey="shop" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
         )}
 
         {/* ===== مرحله ۱: خطوط محصول ===== */}

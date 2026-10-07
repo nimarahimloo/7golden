@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
-import PageHero from '@/components/PageHero';
+import DynamicHeroSlider from '@/components/DynamicHeroSlider';
 import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import PullToRefresh from '@/components/PullToRefresh';
@@ -62,12 +62,7 @@ export default function Gallery() {
       <PullToRefresh onRefresh={() => Promise.resolve()}>
         {/* Hero */}
         <div className="relative">
-          <PageHero
-            image={hero.image}
-            title={hero.title}
-            subtitle={hero.subtitle}
-            badge={hero.badge}
-          />
+          <DynamicHeroSlider pageKey="gallery" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
         </div>
 
         {/* ===== CHAPTER 01 — videos ===== */}

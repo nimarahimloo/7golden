@@ -139,19 +139,7 @@ export default function Home() {
           primary={{ label: isFA ? 'درخواست قیمت و نمونه' : 'Request a quote', href: '/contact' }}
           secondary={{ label: isFA ? 'مشاهده محصولات' : 'View products', href: '/shop' }}
         />
-
-        {/* ===== CHAPTER 01 — the three pillars, stepped through on vertical scroll ===== */}
-        <StoryChapter
-          index="01"
-          eyebrow={sec('pillars').badge_fa || "MAIN PRODUCTS"}
-          title={sec('pillars').title_fa || "سه ستون تولید هفت‌طلایی"}
-          lead="سه محصولی که بیشترین سفارش‌های صنعتی ما را تشکیل می‌دهند. برای هر کدام گرید، بسته‌بندی و ظرفیت تأمین مشخص داریم — یکی را انتخاب کنید و مشخصات فنی‌اش را ببینید."
-          align="start"
-          className="chapter-shell pt-20 md:pt-28 pb-4"
-        />
-        <StickyScene items={sceneItems} />
-
-        {/* ===== CHAPTER 02 — industrial scale ===== */}
+{/* ===== CHAPTER 02 — industrial scale ===== */}
         <section className="chapter">
           <div className="chapter-shell">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
