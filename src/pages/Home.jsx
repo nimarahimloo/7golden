@@ -20,6 +20,7 @@ import ExportProcess from '@/components/story/ExportProcess';
 import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
+import ProductLineRow from '@/components/home/ProductLineRow';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
@@ -78,7 +79,11 @@ export default function Home() {
     return () => { active = false; };
   }, []);
 
-  const allProducts = products.slice(0, 8);
+  const byCat = (slug) =>
+    products.filter((p) => p.category === slug && p.published !== false);
+  const pistachioProducts = byCat('pistachio');
+  const hazelnutProducts = byCat('hazelnut');
+  const almondProducts = byCat('almond');
   const sec = (key) => sectionMap[key] || {};
   const SCENE_IMAGE = {
     pistachio: sec('scene_pistachio').image || DEFAULT_SCENE_IMAGE.pistachio,
@@ -183,64 +188,21 @@ export default function Home() {
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
 
-        {/* ===== PRODUCTS — simple, no background cards ===== */}
-        <section className="chapter pb-0">
-          <div className="chapter-shell">
-            <div className="flex items-end justify-between gap-4 mb-10">
-              <StoryChapter
-                index="۰۴"
-                eyebrow="PRODUCTS"
-                title="محصولات هفت‌طلایی"
-                lead="نمونه‌ای از کاتالوگ ما. وارد صفحه هر محصول شوید تا شرح کامل، بسته‌بندی و مشخصات فنی را ببینید و پیش‌فاکتور بخواهید."
-                className="flex-1"
-              />
-              <Link to="/shop" className="link-gold hidden md:inline-flex">
-                {isFA ? 'مشاهده همه' : 'View all'}
-                <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-              </Link>
-            </div>
+        {/* ===== PRODUCTS — 3 slow marquee rows by line ===== */}
+        <section className="chapter pb-4 pt-2">
+          <div className="chapter-shell mb-6 md:mb-8">
+            <StoryChapter
+              index="03"
+              eyebrow={sec('products').badge_fa || "PRODUCTS"}
+              title={sec('products').title_fa || "محصولات هفت‌طلایی"}
+            />
           </div>
+          <ProductLineRow title="مشتقات پسته" products={pistachioProducts} speed={0.22} direction={1} />
+          <ProductLineRow title="مشتقات فندق" products={hazelnutProducts} speed={0.2} direction={-1} />
+          <ProductLineRow title="مشتقات بادام" products={almondProducts} speed={0.24} direction={1} />
         </section>
 
-        <section className="chapter pt-0">
-          <div className="chapter-shell">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {allProducts.map((product, i) => (
-                <Reveal key={product.id} delay={(i % 4) * 80} variant="up">
-                  <Link to={`/product/${product.id}`} className="block group">
-                    {/* Simple card — no background, image speaks */}
-                    <div className="relative rounded-2xl overflow-hidden" style={{ aspectRatio: '3 / 4' }}>
-                      <img
-                        src={product.image}
-                        alt={product.nameFA}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                      />
-                      {/* Minimal gradient only at bottom for readability */}
-                      <div className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: 'linear-gradient(to top, rgba(7,6,4,0.92), transparent)' }} />
-                      <div className="absolute bottom-0 right-0 left-0 p-4">
-                        <span className="display-sm block" style={{ color: 'var(--ink)', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
-                          {product.nameFA}
-                        </span>
-                        <span className="font-body text-xs block mt-1" style={{ color: 'var(--gold-2)', fontFamily: 'Kalameh, serif', fontWeight: 500 }}>
-                          {product.category.toUpperCase()}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-            <Reveal delay={200} className="mt-10 text-center md:hidden">
-              <Link to="/shop" className="btn-ghost">
-                {isFA ? 'مشاهده همه' : 'View all'}
-                <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-              </Link>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
+        {/* ===== EXPORT BAND{/* ===== EXPORT BAND{/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
         <MaskText
           image={sec('export_band').image || "/gallery/AQ8A1571AQ8A1571.webp"}
           text={sec('export_band').title_fa || "EXPORT"}
