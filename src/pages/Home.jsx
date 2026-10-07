@@ -187,20 +187,21 @@ export default function Home() {
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
-
-        {/* ===== PRODUCTS — 3 slow marquee rows by line ===== */}
-        <section className="chapter pb-4 pt-2">
-          <div className="chapter-shell mb-6 md:mb-8">
+        {/* ===== PRODUCTS: 3 slow rows by line — pistachio / hazelnut / almond ===== */}
+        <section className="chapter pt-4 pb-2">
+          <div className="chapter-shell mb-6">
             <StoryChapter
               index="03"
-              eyebrow={sec('products').badge_fa || "PRODUCTS"}
-              title={sec('products').title_fa || "محصولات هفت‌طلایی"}
+              eyebrow={(typeof sec === 'function' && sec('products')?.badge_fa) || 'PRODUCTS'}
+              title={(typeof sec === 'function' && sec('products')?.title_fa) || 'محصولات هفت‌طلایی'}
             />
           </div>
-          <ProductLineRow title="مشتقات پسته" products={pistachioProducts} speed={0.22} direction={1} />
-          <ProductLineRow title="مشتقات فندق" products={hazelnutProducts} speed={0.2} direction={-1} />
-          <ProductLineRow title="مشتقات بادام" products={almondProducts} speed={0.24} direction={1} />
+          <ProductLineRow title="مشتقات پسته" products={pistachioProducts} duration={90} />
+          <ProductLineRow title="مشتقات فندق" products={hazelnutProducts} duration={100} reverse />
+          <ProductLineRow title="مشتقات بادام" products={almondProducts} duration={85} />
         </section>
+
+
 
         {/* ===== EXPORT BAND{/* ===== EXPORT BAND{/* ===== EXPORT BAND — focused on export with gallery photo ===== */}
         <MaskText
