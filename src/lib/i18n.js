@@ -5,7 +5,7 @@ export const translations = {
     shop: "محصولات",
     about: "درباره ما",
     awards: "جوایز",
-    gallery: "گالری",
+    news: "اخبار و اطلاعیه‌ها",
     contact: "تماس با ما",
     blog: "مجله",
     search: "جستجو",

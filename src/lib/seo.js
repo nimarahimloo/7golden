@@ -122,7 +122,7 @@ export function breadcrumbJsonLd(items) {
 const BREADCRUMB_LABELS = {
   shop: 'محصولات',
   about: 'درباره ما',
-  gallery: 'گالری',
+  news: 'اخبار و اطلاعیه‌ها',
   blog: 'مجله',
   contact: 'تماس با ما',
 };

@@ -118,3 +118,35 @@ left in place but safe to delete.
 
 ## Removed
 - The standalone **Awards page** (`/awards`, `src/pages/Awards.jsx`) was deleted, along with its route and all nav links. Awards/certificates still appear on the home page (`HomeAwardsSlider`) and About (`AwardsSection`); the awards API/data is untouched.
+- The standalone **Gallery page** (`/gallery`, `src/pages/Gallery.jsx`) and its data module
+  (`src/lib/gallery-content.js`) were deleted. It is replaced by the **News & Announcements**
+  page at `/news` (`src/pages/News.jsx`), and `/gallery` now 301-redirects to `/news`.
+  Nothing user-facing is called "Gallery" any more.
+
+## News & Announcements (`/news`)
+- `src/pages/News.jsx` + `src/lib/news-content.js`. The page carries: the announcements feed
+  (featured card + grid, each opening a detail modal), all 10 production/showroom **videos**
+  and all 85 trade-show/factory **photos** in a lightboxed mosaic (keyboard + touch swipe).
+- News copy is grounded in the verified brand facts — see the header comment in
+  `news-content.js`. Do **not** add invented tonnage, certifications or ISO/HACCP claims.
+- Internal identifiers kept for data continuity: `usePageHero('gallery', …)` and the
+  admin `PageSection` key `gallery` still drive this page's hero (the `GalleryImage` entity
+  and `/api/gallery` route are unchanged). Only the user-visible labels say "اخبار".
+- Sitemap now lists `/news` (`backend/src/routes/sitemap.ts`).
+
+## Support chat — local & free
+- `src/components/SupportChat.jsx` no longer calls any agent/AI service. It answers from an
+  in-repo keyword knowledge base (`KNOWLEDGE` in the same file) with quick-reply chips —
+  no network request, no paid API, works offline. Keep its answers in sync with
+  `corporate-content.js`. (`base44.agents.*` in `src/api/base44Client.js` is a local no-op.)
+
+## Scroll magic (light & smooth)
+- `src/hooks/useScrollMagic.js` — a rAF-throttled, viewport-gated, transform-only parallax
+  drift. Returns a ref to attach to a decorative/media wrapper. Disabled automatically for
+  `prefers-reduced-motion`. Applied on the News page; reuse it anywhere a gentle drift is
+  wanted instead of adding a heavy scroll library.
+
+## Verifying
+- `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/news` → 200
+- `curl -s http://localhost:3000/sitemap.xml | grep news` → lists `/news` for both domains
+- `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
