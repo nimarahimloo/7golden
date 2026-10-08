@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
  * crop — with the Persian name underneath. The photo is always a square shown
  * whole (`object-contain`) so every card looks identical.
  */
-export default function ProductTile({ product, className = '', style }) {
+export default function ProductTile({ product, className = '', style, loading = 'lazy' }) {
   const id = product.slug || product.id;
   const name = product.nameFA || product.name_fa || '';
   return (
@@ -19,7 +19,8 @@ export default function ProductTile({ product, className = '', style }) {
       <img
         src={product.image || '/logo.webp'}
         alt={name}
-        loading="lazy"
+        loading={loading}
+        decoding="async"
         draggable={false}
         className="block w-full aspect-square object-contain transition-transform duration-500 group-hover:scale-[1.04]"
       />

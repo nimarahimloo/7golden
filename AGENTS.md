@@ -55,6 +55,7 @@ docker compose -f docker-compose.base44.yml up -d
 - `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS` passed bare for Vite host allowlisting.
 
 ## Known fixes applied
+- Home product marquees (`ProductLineRow`) were blank for several seconds and the middle row often lagged: `ProductTile` hardcoded `loading="lazy"`, so the below-the-fold slider images only began downloading once scrolled into view (×4 duplicated copies made it worse). `ProductTile` now takes a `loading` prop (default `lazy`, plus `decoding="async"`) and `ProductLineRow` passes `loading="eager"` so all marquee images preload with the page. Keep lazy loading for the Shop grid / related products.
 - `backend/prisma/seed.ts` was out of sync with `schema.prisma` (referenced removed `_en` fields). Fixed to match the current schema (Persian-only fields).
 - `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found "{"`). Fixed by switching to `createMany({ data: [...] })` with a proper array.
 - `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site export. Real product images live in `public/product/*-7golden*.webp` where available; blog images live in `public/banner/`.
