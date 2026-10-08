@@ -11,6 +11,7 @@ import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import { usePageHero } from '@/lib/usePageHero';
+import Eyebrow from '@/components/ui/eyebrow';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
@@ -72,7 +73,7 @@ export default function Contact() {
               >
                 <card.icon size={18} style={{ color: 'var(--accent)' }} />
               </div>
-              <p className="font-body text-[10px] md:text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{card.label}</p>
+              <p className="font-body text-xs md:text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{card.label}</p>
               <p
                 className="font-heading font-black text-xs md:text-sm"
                 style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', direction: card.href?.startsWith('tel') ? 'ltr' : 'inherit' }}
@@ -95,7 +96,7 @@ export default function Contact() {
             className="rounded-3xl"
           >
             <div>
-              <span className="eyebrow block mb-2">VISIT US</span>
+              <Eyebrow className="block mb-2">VISIT US</Eyebrow>
               <span className="display-md" style={{ color: 'var(--ink)' }}>دفتر مرکزی قزوین</span>
             </div>
           </DepthParallax>
@@ -300,7 +301,7 @@ export default function Contact() {
         </div>
         <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
           <Reveal variant="up">
-            <span className="eyebrow block mb-5">TRADE DESK</span>
+            <Eyebrow className="block mb-5">TRADE DESK</Eyebrow>
           </Reveal>
           <Reveal variant="up" delay={80}>
             <h2 className="display-lg" style={{ color: 'var(--ink)' }}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParallax } from '@/components/useParallax';
+import Eyebrow from '@/components/ui/eyebrow';
 
 /**
  * PageHero — the opening frame of every inner page.
@@ -38,7 +39,7 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
 
       <div className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-14 md:pb-20">
         {badge && (
-          <span className="eyebrow block mb-5">{badge}</span>
+          <Eyebrow className="block mb-5">{badge}</Eyebrow>
         )}
         <h1 className="display-xl max-w-4xl" style={{ color: 'var(--ink)' }}>
           <span className="gold-text">{title}</span>

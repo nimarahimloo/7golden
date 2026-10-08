@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
+import Eyebrow from '@/components/ui/eyebrow';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -118,7 +119,7 @@ function SpecialtyCard({ item, index, reduced, reverse }) {
           className={`panel rounded-3xl p-6 md:p-10 ${reverse ? 'lg:col-start-1 lg:row-start-1' : ''}`}
           style={reduced ? undefined : { transform: `translate3d(0, ${fgShift}px, 0)` }}
         >
-          <span className="eyebrow block mb-4">{item.nameFA.toUpperCase()}</span>
+          <Eyebrow className="block mb-4">{item.nameFA.toUpperCase()}</Eyebrow>
           <h3 className="display-lg mb-4">
             <span className="gold-text">{item.nameFA}</span>
           </h3>
@@ -130,7 +131,7 @@ function SpecialtyCard({ item, index, reduced, reverse }) {
             <dl className="grid grid-cols-2 gap-x-6 gap-y-4">
               {item.specs.map((spec) => (
                 <div key={spec.label} className="border-b pb-3" style={{ borderColor: 'var(--hairline)' }}>
-                  <dt className="font-body text-[11px] mb-1" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
+                  <dt className="font-body text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
                   <dd className="font-body text-sm font-bold" style={{ color: 'var(--gold-1)' }}>{spec.value}</dd>
                 </div>
               ))}

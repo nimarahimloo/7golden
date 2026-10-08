@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Eyebrow from '@/components/ui/eyebrow';
 
 const SLIDES = [
   {
@@ -83,7 +84,7 @@ export default function HeroSlider() {
 
           {/* Text — one short block */}
           <div className="order-2 md:order-1">
-            <span className="eyebrow block mb-5">{slide.badge}</span>
+            <Eyebrow className="block mb-5">{slide.badge}</Eyebrow>
             <h1
               key={`t${current}`}
               className="text-rise text-3xl sm:text-4xl md:text-5xl font-black leading-[1.3] mb-9"

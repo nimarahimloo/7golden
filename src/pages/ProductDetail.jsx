@@ -1,20 +1,18 @@
 // @ts-ignore
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { MapPin, ChevronLeft, Package, Award, Leaf, Boxes, Phone, BadgeCheck, Factory, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, Phone, CheckCircle2 } from 'lucide-react';
 import { getProductBySlug, getProducts } from '@/lib/api/content';
-import ProductCard from '@/components/ProductCard';
+import ProductTile from '@/components/ProductTile';
 import { Image } from '@/components/ui/image';
 import Seo from '@/components/Seo';
 import LogoLoader from '@/components/LogoLoader';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, productJsonLd } from '@/lib/seo';
-import { MAIN_PRODUCTS, CERTIFICATES } from '@/lib/corporate-content';
+import { CERTIFICATES } from '@/lib/corporate-content';
+import Eyebrow from '@/components/ui/eyebrow';
 import Reveal from '@/components/story/Reveal';
-import StoryChapter from '@/components/story/StoryChapter';
-import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
-import { getPackagingOptions } from '@/lib/product-facts';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -153,23 +151,19 @@ export default function ProductDetail() {
                         >
                           <Image
                             // @ts-ignore
-                            src={img} alt={name} className="w-full h-full object-cover" fittingType="fill" />
+                            src={img} alt={name} className="w-full h-full object-contain" fittingType="fit" />
                         </button>
                       ))}
                     </div>
                   )}
                   {/* Main image — large and clean */}
                   <div
-                    className="flex-1 rounded-3xl overflow-hidden aspect-square relative"
-                    style={{
-                      background: 'var(--panel-strong)',
-                      border: '1px solid var(--hairline)',
-                    }}
+                    className="flex-1 aspect-square relative"
                   >
                     <div className="absolute inset-0">
                       <Image
                         // @ts-ignore
-                        src={mainImage || product.image} alt={name} className="w-full h-full object-cover" fittingType="fill" />
+                        src={mainImage || product.image} alt={name} className="w-full h-full object-contain" fittingType="fit" />
                     </div>
                   </div>
                 </div>
@@ -193,7 +187,7 @@ export default function ProductDetail() {
                       >
                         <Image
                           // @ts-ignore
-                          src={img} alt={name} className="w-full h-full object-cover" fittingType="fill" />
+                          src={img} alt={name} className="w-full h-full object-contain" fittingType="fit" />
                       </button>
                     ))}
                   </div>
@@ -204,9 +198,9 @@ export default function ProductDetail() {
               <div className="flex flex-col gap-6">
                 {/* Name + description */}
                 <Reveal variant="up">
-                  <span className="eyebrow block mb-3">
-                    {CATEGORY_NAMES[product.category] || 'محصول'} — {origin}
-                  </span>
+                  <Eyebrow className="block mb-3">
+                    {`${CATEGORY_NAMES[product.category] || 'محصول'} — ${origin}`}
+                  </Eyebrow>
                   <h1 className="display-lg leading-tight" style={{ color: 'var(--ink)' }}>
                     <span className="gold-text">{name}</span>
                   </h1>
@@ -275,10 +269,8 @@ export default function ProductDetail() {
                     <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
                   </Link>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
-                  {related.map(p => <ProductCard key={p.
-                    // @ts-ignore
-                    id} product={p} />)}
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 md:gap-x-8">
+                  {related.map(p => <ProductTile key={p.slug || p.id} product={p} />)}
                 </div>
               </div>
             )}

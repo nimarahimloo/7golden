@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import ProductTile from '@/components/ProductTile';
 
 /**
  * ردیف مارکی افقی — حرکت پیوسته با transform (نه scrollLeft).
@@ -120,33 +120,14 @@ export default function ProductLineRow({
           className="flex will-change-transform"
           style={{ width: 'max-content' }}
         >
-          {loop.map((p, i) => {
-            const id = p.slug || p.id;
-            const name = p.nameFA || p.name_fa || '';
-            return (
-              <Link
-                key={`${id}-${i}`}
-                to={`/product/${id}`}
-                className="flex-shrink-0 block text-center px-3 md:px-4 box-content"
-                style={{ width: 'min(46vw, 210px)' }}
-                draggable={false}
-              >
-                <img
-                  src={p.image || '/logo.webp'}
-                  alt={name}
-                  loading="lazy"
-                  draggable={false}
-                  className="block w-full aspect-square object-contain"
-                />
-                <span
-                  className="block mt-3 text-sm md:text-base font-semibold"
-                  style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}
-                >
-                  {name}
-                </span>
-              </Link>
-            );
-          })}
+          {loop.map((p, i) => (
+            <ProductTile
+              key={`${p.slug || p.id}-${i}`}
+              product={p}
+              className="flex-shrink-0 px-3 md:px-4 box-content"
+              style={{ width: 'min(46vw, 210px)' }}
+            />
+          ))}
         </div>
       </div>
     </div>

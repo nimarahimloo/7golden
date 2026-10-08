@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MAIN_PRODUCTS } from '@/lib/corporate-content';
 import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
+import Eyebrow from '@/components/ui/eyebrow';
 
 function AnimatedSection({ children, className = '', delay = 0 }) {
   const { ref, visible } = useScrollAnimation();
@@ -35,7 +36,7 @@ export default function MainProducts({ categories = [], products = [] }) {
 
         {/* Section header — heading kept for structure and SEO */}
         <div className="max-w-2xl mb-8 md:mb-12">
-          <span className="eyebrow block mb-3">MAIN PRODUCTS</span>
+          <Eyebrow className="block mb-3">MAIN PRODUCTS</Eyebrow>
           <h2 className="font-heading text-2xl md:text-4xl font-extrabold" style={{ color: 'var(--ink)', fontFamily: headingFont }}>
             سه ستون تولید هفت‌طلایی
           </h2>
@@ -79,7 +80,7 @@ export default function MainProducts({ categories = [], products = [] }) {
                     />
 
                     <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
-                      <span className="eyebrow block mb-2">{product.category}</span>
+                      <Eyebrow className="block mb-2">{product.category}</Eyebrow>
                       <h3
                         className="font-heading text-2xl md:text-4xl font-black"
                         style={{ color: 'var(--ink)', fontFamily: headingFont }}

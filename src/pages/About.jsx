@@ -14,6 +14,7 @@ import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
+import Eyebrow from '@/components/ui/eyebrow';
 
 export default function About() {
 
@@ -133,7 +134,7 @@ export default function About() {
               className="rounded-3xl"
             >
               <div>
-                <span className="eyebrow block mb-2">PRODUCTION</span>
+                <Eyebrow className="block mb-2">PRODUCTION</Eyebrow>
                 <span className="display-md" style={{ color: 'var(--ink)' }}>خطوط فرآوری صنعتی</span>
               </div>
             </DepthParallax>

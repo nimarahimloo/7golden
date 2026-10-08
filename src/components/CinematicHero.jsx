@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
 import CountUp from '@/components/story/CountUp';
+import Eyebrow from '@/components/ui/eyebrow';
 
 /**
  * CinematicHero — the full-height opening frame of the site.
@@ -107,7 +108,7 @@ export default function CinematicHero({
         className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-28 md:pb-32"
         style={{ willChange: 'transform, opacity' }}
       >
-        {eyebrow && <span className="eyebrow block mb-6">{eyebrow}</span>}
+        {eyebrow && <Eyebrow className="block mb-6">{eyebrow}</Eyebrow>}
 
         <h1 className="display-xl mb-6 max-w-6xl" style={{ color: 'var(--ink)' }}>
           {title}
@@ -157,7 +158,7 @@ export default function CinematicHero({
                     />
                     <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{stat.unit}</span>
                   </div>
-                  <span className="font-body text-[11px] md:text-xs block mt-1" style={{ color: 'var(--fg-muted)' }}>
+                  <span className="font-body text-xs md:text-xs block mt-1" style={{ color: 'var(--fg-muted)' }}>
                     {stat.label}
                   </span>
                 </div>
@@ -169,7 +170,7 @@ export default function CinematicHero({
 
       {/* ---- scroll cue ---- */}
       <div ref={cueRef} className="absolute bottom-32 left-6 md:left-10 z-10 hidden md:flex flex-col items-center gap-3">
-        <span className="font-subheading text-[10px] tracking-[0.3em]" style={{ color: 'var(--fg-muted)', writingMode: 'vertical-rl' }}>
+        <span className="font-subheading text-xs tracking-[0.3em]" style={{ color: 'var(--fg-muted)', writingMode: 'vertical-rl' }}>
           SCROLL
         </span>
         <div className="scroll-cue" />

@@ -56,7 +56,7 @@ export default function ShopFilters({ filters, setFilters, categories = [], acti
               }}
             >
               <span className="font-semibold">{isFA ? 'همه محصولات' : 'All Products'}</span>
-              <span className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>
+              <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
                 {categories.reduce((sum, c) => sum + (c.count || 0), 0)}
               </span>
             </button>
@@ -71,7 +71,7 @@ export default function ShopFilters({ filters, setFilters, categories = [], acti
                 }}
               >
                 <span className="font-semibold">{isFA ? cat.nameFA : cat.nameEN}</span>
-                <span className="font-body text-[10px]" style={{ color: 'var(--fg-muted)' }}>
+                <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
                   {cat.count || 0}
                 </span>
               </button>

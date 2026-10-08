@@ -94,7 +94,7 @@ export default function HomeAwardsSlider() {
                     loading="lazy"
                   />
                   <span
-                    className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-semibold"
+                    className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
                     style={{ background: 'rgba(7,6,4,0.7)', color: 'var(--gold-2)', backdropFilter: 'blur(6px)' }}
                   >
                     <Maximize2 size={11} />

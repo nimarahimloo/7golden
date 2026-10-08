@@ -3,6 +3,7 @@ import { ChevronLeft, Handshake, FlaskConical, Truck } from 'lucide-react';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import DepthParallax from '@/components/story/DepthParallax';
+import Eyebrow from '@/components/ui/eyebrow';
 
 /**
  * HomeOrigin — chapter 03. Its one job: tell an industrial buyer why
@@ -49,7 +50,7 @@ export default function HomeOrigin() {
           className="rounded-3xl"
         >
           <div>
-            <span className="eyebrow block mb-2">از باغ تا کارخانه</span>
+            <Eyebrow className="block mb-2">از باغ تا کارخانه</Eyebrow>
             <span className="display-md" style={{ color: 'var(--ink)' }}>از باغ تا خط تولید شما</span>
           </div>
         </DepthParallax>

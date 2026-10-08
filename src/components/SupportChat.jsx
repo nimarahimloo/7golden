@@ -158,7 +158,7 @@ export default function SupportChat() {
               </div>
               <div>
                 <h3 className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>پشتیبانی هفت‌طلایی</h3>
-                <p className="font-body text-[10px] flex items-center gap-1" style={{ color: '#22c55e' }}>
+                <p className="font-body text-xs flex items-center gap-1" style={{ color: '#22c55e' }}>
                   <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} /> پاسخگویی محلی و بدون وقفه
                 </p>
               </div>
@@ -187,7 +187,7 @@ export default function SupportChat() {
                   <button
                     key={q}
                     onClick={() => ask(q)}
-                    className="px-3 py-1.5 rounded-full font-body text-[11px] transition-all hover:scale-105"
+                    className="px-3 py-1.5 rounded-full font-body text-xs transition-all hover:scale-105"
                     style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid rgba(212,175,55,0.3)', color: 'var(--accent)' }}
                   >
                     {q}
@@ -221,7 +221,7 @@ export default function SupportChat() {
                 <button
                   key={q}
                   onClick={() => ask(q)}
-                  className="px-2.5 py-1 rounded-full font-body text-[10px] transition-all hover:scale-105"
+                  className="px-2.5 py-1 rounded-full font-body text-xs transition-all hover:scale-105"
                   style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.22)', color: 'var(--accent)' }}
                 >
                   {q}

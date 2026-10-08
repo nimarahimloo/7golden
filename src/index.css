@@ -1088,11 +1088,18 @@ body::before {
 /* Small Latin eyebrow label that sits above section headings */
 .eyebrow {
   font-family: 'Kalameh', serif;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--brass);
+}
+
+/* Persian script must never be letter-spaced — it breaks the joined shapes. */
+.eyebrow-fa {
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* Thin hairline rule used to separate blocks */

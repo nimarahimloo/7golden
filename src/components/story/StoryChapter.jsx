@@ -1,5 +1,6 @@
 import React from 'react';
 import Reveal, { RuleGrow } from '@/components/story/Reveal';
+import Eyebrow from '@/components/ui/eyebrow';
 
 /**
  * StoryChapter — the shared heading block for every chapter band:
@@ -22,7 +23,7 @@ export default function StoryChapter({
       <Reveal variant="up">
         <div className={`flex items-center gap-4 mb-5 ${align === 'center' ? 'justify-center' : ''}`}>
           {index && <span className="outline-num text-3xl md:text-4xl leading-none">{index}</span>}
-          {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
         </div>
       </Reveal>
 

@@ -13,7 +13,7 @@
   font-weight: 800;
   font-size: clamp(2.4rem, 8.4vw, 7rem);
   line-height: 1.05;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .display-lg {
@@ -21,7 +21,7 @@
   font-weight: 700;
   font-size: clamp(1.9rem, 5vw, 4rem);
   line-height: 1.12;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
 }
 
 .display-md {
@@ -828,10 +828,9 @@
 
 .process-step-num {
   font-family: 'Kalameh', serif;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--gold-3);
 }
 
@@ -901,9 +900,9 @@
 
 .process-rail-label {
   font-family: 'Kalameh', serif;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0;
   color: var(--fg-muted);
   white-space: nowrap;
 }

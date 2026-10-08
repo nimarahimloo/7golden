@@ -1,5 +1,6 @@
 import React from 'react';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
+import Eyebrow from '@/components/ui/eyebrow';
 
 const STORIES = [
 {
@@ -38,7 +39,7 @@ export default function OriginStory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="max-w-2xl mb-10 md:mb-16">
-          <span className="eyebrow block mb-3">ORIGIN</span>
+          <Eyebrow className="block mb-3">ORIGIN</Eyebrow>
           <span className="font-subheading text-xs uppercase block mb-3" style={{ color: 'var(--brass)', fontFamily: subFont }}>
             {isFA ? 'خاستگاه محصولات' : 'Product Origins'}
           </span>

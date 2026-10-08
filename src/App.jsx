@@ -16,6 +16,7 @@ const ProductDetail = lazy(() => import('@/pages/ProductDetail'));
 // const Checkout = lazy(() => import('@/pages/Checkout')); // retail — disabled
 const About = lazy(() => import('@/pages/About'));
 const News = lazy(() => import('@/pages/News'));
+const NewsArticle = lazy(() => import('@/pages/NewsArticle'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const Admin = lazy(() => import('@/pages/Admin'));
@@ -62,6 +63,7 @@ function AppLayout() {
         </Route> */}
         <Route path="/about" element={<About />} />
         <Route path="/news" element={<News />} />
+        <Route path="/news/:slug" element={<NewsArticle />} />
         <Route path="/gallery" element={<Navigate to="/news" replace />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
