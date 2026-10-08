@@ -19,7 +19,8 @@ export default function ProductLineRow({
 
   const hasProducts = products.length > 0;
   // دو کپی برای لوپ بی‌نهایت
-  const loop = hasProducts ? [...products, ...products] : [];
+  const COPIES = 4;
+  const loop = hasProducts ? Array.from({ length: COPIES }, () => products).flat() : [];
 
   useEffect(() => {
     if (!hasProducts) return;
@@ -27,33 +28,10 @@ export default function ProductLineRow({
     if (!el) return;
     let raf;
     let last = performance.now();
-    let frame = 0;
-
-    // کارت نزدیک مرکز ظرف را روشن می‌کند
-    const updateSpotlight = () => {
-      const container = el.parentElement;
-      if (!container) return;
-      const cRect = container.getBoundingClientRect();
-      const center = cRect.left + cRect.width / 2;
-      const kids = el.children;
-      let best = null;
-      let bestDist = Infinity;
-      for (let i = 0; i < kids.length; i++) {
-        const r = kids[i].getBoundingClientRect();
-        const d = Math.abs(r.left + r.width / 2 - center);
-        if (d < bestDist) {
-          bestDist = d;
-          best = kids[i];
-        }
-      }
-      for (let i = 0; i < kids.length; i++) {
-        kids[i].classList.toggle('is-spotlight', kids[i] === best);
-      }
-    };
 
     const step = (now) => {
       if (!dragRef.current.on && !paused) {
-        const half = el.scrollWidth / 2 || 1;
+        const half = el.scrollWidth / COPIES || 1;
         // یک دور کامل در `duration` ثانیه
         const pxPerMs = half / (duration * 1000);
         const dt = Math.min(now - last, 64);
@@ -63,8 +41,6 @@ export default function ProductLineRow({
         while (offsetRef.current < 0) offsetRef.current += half;
         el.style.transform = `translate3d(${-offsetRef.current}px,0,0)`;
       }
-      if (frame % 3 === 0) updateSpotlight();
-      frame++;
       last = now;
       raf = requestAnimationFrame(step);
     };
@@ -88,7 +64,7 @@ export default function ProductLineRow({
     offsetRef.current = dragRef.current.base + dx;
     const el = trackRef.current;
     if (el) {
-      const half = el.scrollWidth / 2 || 1;
+      const half = el.scrollWidth / COPIES || 1;
       while (offsetRef.current >= half) offsetRef.current -= half;
       while (offsetRef.current < 0) offsetRef.current += half;
       el.style.transform = `translate3d(${-offsetRef.current}px,0,0)`;
@@ -141,7 +117,7 @@ export default function ProductLineRow({
       >
         <div
           ref={trackRef}
-          className="flex gap-4 md:gap-5 will-change-transform"
+          className="flex will-change-transform"
           style={{ width: 'max-content' }}
         >
           {loop.map((p, i) => {
@@ -151,12 +127,8 @@ export default function ProductLineRow({
               <Link
                 key={`${id}-${i}`}
                 to={`/product/${id}`}
-                className="plr-card relative flex-shrink-0 block overflow-hidden"
-                style={{
-                  width: 'min(64vw, 232px)',
-                  aspectRatio: '3 / 4',
-                  background: 'var(--bg-secondary)',
-                }}
+                className="flex-shrink-0 block text-center px-3 md:px-4 box-content"
+                style={{ width: 'min(46vw, 210px)' }}
                 draggable={false}
               >
                 <img
@@ -164,20 +136,14 @@ export default function ProductLineRow({
                   alt={name}
                   loading="lazy"
                   draggable={false}
-                  className="plr-img absolute inset-0 w-full h-full object-cover"
+                  className="block w-full aspect-square object-contain"
                 />
-                <div className="plr-veil absolute inset-0 pointer-events-none" />
-                <div className="plr-shine absolute inset-0 pointer-events-none" />
-                <div
-                  className="absolute inset-x-0 bottom-0 pt-10 pb-3.5 px-3 pointer-events-none"
+                <span
+                  className="block mt-3 text-sm md:text-base font-semibold"
+                  style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}
                 >
-                  <span
-                    className="block text-sm font-semibold text-center"
-                    style={{ color: '#fff', fontFamily: 'Peyda, serif' }}
-                  >
-                    {name}
-                  </span>
-                </div>
+                  {name}
+                </span>
               </Link>
             );
           })}
