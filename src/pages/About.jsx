@@ -108,7 +108,7 @@ export default function About() {
               />
               <div className="flex flex-col gap-10 md:gap-14">
                 {milestones.map((m, i) => (
-                  <Reveal key={m.year} delay={i * 90} variant="left">
+                  <Reveal key={`${m.year}-${i}`} delay={i * 90} variant="left">
                     <div className="flex items-center gap-6 md:gap-10">
                       <span className="outline-num text-3xl md:text-4xl leading-none flex-shrink-0" style={{ width: '6rem', textAlign: 'left', overflow: 'visible' }}>
                         {m.year}
