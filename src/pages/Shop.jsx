@@ -12,10 +12,17 @@ import { usePageHero } from '@/lib/usePageHero';
 import Reveal from '@/components/story/Reveal';
 import ProductTile from '@/components/ProductTile';
 
+// Category card art (kept in sync with the Category rows in the DB seed).
+const CATEGORY_IMAGE = {
+  pistachio: '/product/pistachio-category.webp',
+  hazelnut: '/product/hazelnut-category.webp',
+  almond: '/product/almond-category.webp',
+};
+
 const FALLBACK_LINES = [
-  { slug: 'pistachio', nameFA: 'پسته', image: '/gallery/AQ8A1516AQ8A1516.webp', descFA: 'مغز و خلال پسته صادراتی' },
-  { slug: 'hazelnut', nameFA: 'فندق', image: '/gallery/AQ8A1499AQ8A1499.webp', descFA: 'مغز فندق فرآوری‌شده' },
-  { slug: 'almond', nameFA: 'بادام', image: '/gallery/AQ8A1508AQ8A1508.webp', descFA: 'مغز و خلال بادام' },
+  { slug: 'pistachio', nameFA: 'پسته', image: CATEGORY_IMAGE.pistachio, descFA: 'مغز و خلال پسته صادراتی' },
+  { slug: 'hazelnut', nameFA: 'فندق', image: CATEGORY_IMAGE.hazelnut, descFA: 'مغز فندق فرآوری‌شده' },
+  { slug: 'almond', nameFA: 'بادام', image: CATEGORY_IMAGE.almond, descFA: 'مغز و خلال بادام' },
 ];
 
 export default function Shop() {
