@@ -120,10 +120,8 @@ export default function SupportChat() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed z-50 w-14 h-14 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+          className="support-fab w-14 h-14 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95"
           style={{
-            bottom: 'calc(1.5rem + var(--safe-area-bottom))',
-            left: 'calc(1.5rem + var(--safe-area-left))',
             background: 'var(--accent)',
             color: 'hsl(var(--accent-foreground))',
             boxShadow: '0 8px 32px rgba(212,175,55,0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
@@ -138,10 +136,8 @@ export default function SupportChat() {
       {/* Chat panel */}
       {open && (
         <div
-          className="fixed z-50 w-[calc(100vw-3rem)] max-w-sm rounded-3xl flex flex-col overflow-hidden"
+          className="support-fab w-[calc(100vw-3rem)] max-w-sm rounded-3xl flex flex-col overflow-hidden"
           style={{
-            bottom: 'calc(1.5rem + var(--safe-area-bottom))',
-            left: 'calc(1.5rem + var(--safe-area-left))',
             height: 'min(60vh, 520px)',
             background: 'var(--liquid-glass-strong-bg)',
             backdropFilter: 'blur(56px) saturate(260%)',

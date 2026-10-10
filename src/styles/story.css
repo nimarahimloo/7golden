@@ -1604,6 +1604,38 @@
   background: rgba(212, 175, 55, 0.07);
 }
 
+/* The header's trade-desk controls are desktop-only, but the base
+   .header-phone / .btn-gold `display` rules out-rank Tailwind's `hidden`
+   utility — so on phones the phone number and the quote button stayed
+   visible and crowded the logo + burger. These scoped rules win. */
+.site-header .header-phone { display: none; }
+.site-header .btn-gold.btn-sm { display: none; }
+@media (min-width: 768px) {
+  .site-header .btn-gold.btn-sm { display: inline-flex; }
+}
+@media (min-width: 1280px) {
+  .site-header .header-phone { display: inline-flex; }
+}
+
+/* ===================================================================
+   FLOATING SUPPORT BUTTON + PANEL
+   On phones it clears the bottom tab bar and sits on the right.
+   =================================================================== */
+.support-fab {
+  position: fixed;
+  z-index: 70;
+  bottom: calc(1.5rem + var(--safe-area-bottom));
+  left: calc(1.5rem + var(--safe-area-left));
+}
+
+@media (max-width: 767.98px) {
+  .support-fab {
+    left: auto;
+    right: calc(1rem + var(--safe-area-right));
+    bottom: calc(56px + var(--safe-area-bottom) + 1rem);
+  }
+}
+
 /* ===================================================================
    SITE FOOTER
    =================================================================== */
