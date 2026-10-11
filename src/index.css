@@ -1109,6 +1109,22 @@ body::before {
   background: var(--hairline);
 }
 
+/* ===== FULL-SCREEN SITE SPLASH =====
+   Owns the top layer while the first paint settles, so the header, tab bar
+   and floating buttons never peek through the loading screen. */
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  will-change: opacity;
+}
+.site-loader.is-done {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ===== GLOBAL: no border-radius anywhere ===== */
 *, *::before, *::after {
   border-radius: 0 !important;

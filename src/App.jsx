@@ -36,6 +36,7 @@ import SupportChat from '@/components/SupportChat';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import PageTransition from '@/components/PageTransition';
 import LogoLoader from '@/components/LogoLoader';
+import SiteLoader from '@/components/SiteLoader';
 import BottomTabBar from '@/components/BottomTabBar';
 import GlobalGoldAmbient from '@/components/GlobalGoldAmbient';
 import CursorSpotlight from '@/components/CursorSpotlight';
@@ -78,6 +79,7 @@ function AppLayout() {
       <BottomTabBar />
       {/* <CartDrawer /> — retail cart drawer, disabled */}
       <SupportChat />
+      <SiteLoader />
     </>
   );
 }
