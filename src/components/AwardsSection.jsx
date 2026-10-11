@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Award } from 'lucide-react';
 import { getAwards } from '@/lib/api/content';
-import { Image } from '@/components/ui/image';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
 
 export default function AwardsSection() {

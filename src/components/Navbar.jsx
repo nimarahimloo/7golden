@@ -16,7 +16,7 @@ const NAV_LINKS = [
   { href: '/', label: t('home') },
   { href: '/shop', label: t('shop') },
   { href: '/about', label: t('about') },
-  { href: '/gallery', label: t('gallery') },
+  { href: '/news', label: t('news') },
   { href: '/blog', label: t('blog') },
   { href: '/contact', label: t('contact') },
 ];
@@ -57,7 +57,7 @@ export default function Navbar() {
         <div className="site-header-inner max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-4">
 
           {/* Brand */}
-          <Link to="/" className="flex-shrink-0 flex items-center" aria-label="هفت‌طلایی — صفحه اصلی">
+          <Link to="/" className="header-brand" aria-label="هفت‌طلایی — صفحه اصلی">
             <img src="/logo.webp" alt="7Golden" className="site-header-logo" />
           </Link>
 
@@ -79,7 +79,7 @@ export default function Navbar() {
           </nav>
 
           {/* Trade desk actions */}
-          <div className="flex items-center gap-3">
+          <div className="header-actions">
             <a href="tel:+989121823438" className="header-phone hidden xl:inline-flex" aria-label="تماس با واحد بازرگانی">
               <span className="header-phone-icon"><Phone size={16} /></span>
               <span>۰۹۱۲ ۱۸۲ ۳۴۳۸</span>

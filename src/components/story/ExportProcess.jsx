@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Eyebrow from '@/components/ui/eyebrow';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -136,7 +137,7 @@ export default function ExportProcess({ id }) {
                 <img src={step.image} alt={step.title} loading="lazy" />
               </div>
               <div>
-                <span className="eyebrow block mb-3">{step.eyebrow}</span>
+                <Eyebrow className="block mb-3">{step.eyebrow}</Eyebrow>
                 <h3 className="display-md mb-3" style={{ color: 'var(--ink)' }}>{step.title}</h3>
                 <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>{step.lead}</p>
               </div>

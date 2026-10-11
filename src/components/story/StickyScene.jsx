@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
+import Eyebrow from '@/components/ui/eyebrow';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -108,7 +109,7 @@ export default function StickyScene({ items = [], id }) {
                 <img src={item.image} alt={item.title} loading="lazy" />
               </div>
               <div>
-                <span className="eyebrow block mb-3">{item.eyebrow}</span>
+                <Eyebrow className="block mb-3">{item.eyebrow}</Eyebrow>
                 <h3 className="display-lg mb-3"><span className="gold-text">{item.title}</span></h3>
                 {item.href && (
                   <Link to={item.href} className="link-gold">
@@ -152,7 +153,7 @@ export default function StickyScene({ items = [], id }) {
         <div className="relative z-10 h-full chapter-shell flex items-center">
           <div className="w-full max-w-xl" key={current.key}>
             <div ref={copyRef} className="text-rise">
-              <span className="eyebrow block mb-4">{current.eyebrow}</span>
+              <Eyebrow className="block mb-4">{current.eyebrow}</Eyebrow>
               <h3 className="display-xl">
                 <span className="gold-text">{current.title}</span>
               </h3>
@@ -176,7 +177,7 @@ export default function StickyScene({ items = [], id }) {
                 </span>
               ))}
             </div>
-            <span className="font-subheading text-xs tracking-[0.3em]" style={{ color: 'var(--fg-muted)' }}>
+            <span className="font-subheading text-xs tracking-[0.12em]" style={{ color: 'var(--fg-muted)' }}>
               {String(active + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
             </span>
           </div>

@@ -17,7 +17,7 @@ export default function ProductionGallery({ images }) {
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4" style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)' }}>
               <span className="w-1.5 h-1.5 rounded-full float-orb" style={{ background: 'var(--accent)' }} />
-              <span className="font-subheading text-[10px] sm:text-xs uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
+              <span className="font-subheading text-xs sm:text-xs uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
                 {isFA ? 'فرآیند تولید' : 'Production Process'}
               </span>
             </div>
@@ -108,14 +108,14 @@ function GalleryTile({ image, index, isFA, headingFont, onOpen }) {
       <div className="gallery-gold-ring" />
       <div className="gallery-overlay">
         <div>
-          <span className="font-subheading text-[10px] uppercase tracking-wider block mb-1" style={{ color: '#D4AF37' }}>
+          <span className="font-subheading text-xs uppercase tracking-wider block mb-1" style={{ color: '#D4AF37' }}>
             {isFA ? 'هفت‌طلایی' : '7Golden'}
           </span>
           <h3 className="font-heading font-extrabold text-white text-sm md:text-base leading-tight" style={{ fontFamily: headingFont }}>
             {title}
           </h3>
           {desc && (
-            <p className="font-body text-[11px] mt-1.5 leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
+            <p className="font-body text-xs mt-1.5 leading-relaxed" style={{ color: 'rgba(255,255,255,0.7)' }}>
               {desc}
             </p>
           )}

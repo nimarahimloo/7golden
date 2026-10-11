@@ -48,7 +48,7 @@ export default function TrustBadges() {
             />
           </div>
           <div className="text-center">
-            <p className="font-body text-[10px] font-bold" style={{ color: 'var(--fg)' }}>{badge.name}</p>
+            <p className="font-body text-xs font-bold" style={{ color: 'var(--fg)' }}>{badge.name}</p>
             <p className="font-body text-[9px]" style={{ color: 'var(--fg-muted)' }}>{badge.desc}</p>
           </div>
         </a>

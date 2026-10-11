@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
+import Eyebrow from '@/components/ui/eyebrow';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -72,14 +73,14 @@ export default function VitrineScroll({ items = [], id }) {
                 <img src={item.image} alt={item.title} loading="lazy" />
               </div>
               <div>
-                <span className="eyebrow block mb-3">{item.eyebrow}</span>
+                <Eyebrow className="block mb-3">{item.eyebrow}</Eyebrow>
                 <h3 className="display-lg mb-3"><span className="gold-text">{item.title}</span></h3>
                 <p className="font-body text-sm md:text-base leading-relaxed mb-5" style={{ color: 'var(--fg-muted)' }}>{item.lead}</p>
                 {item.specs?.length > 0 && (
                   <dl className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 max-w-md">
                     {item.specs.map((spec) => (
                       <div key={spec.label}>
-                        <dt className="font-body text-[11px] mb-0.5" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
+                        <dt className="font-body text-xs mb-0.5" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
                         <dd className="font-body text-sm" style={{ color: 'var(--gold-1)' }}>{spec.value}</dd>
                       </div>
                     ))}
@@ -110,7 +111,7 @@ export default function VitrineScroll({ items = [], id }) {
               </div>
               <div className="vitrine-scrim" />
               <div className="vitrine-caption">
-                <span className="eyebrow block mb-3">{item.eyebrow}</span>
+                <Eyebrow className="block mb-3">{item.eyebrow}</Eyebrow>
                 <h3 className="display-lg mb-3"><span className="gold-text">{item.title}</span></h3>
                 <p className="font-body text-sm md:text-base leading-relaxed mb-4" style={{ color: 'var(--fg-muted)' }}>{item.lead}</p>
                 {item.desc && (
@@ -120,7 +121,7 @@ export default function VitrineScroll({ items = [], id }) {
                   <dl className="grid grid-cols-2 gap-x-6 gap-y-3 mb-6 max-w-md">
                     {item.specs.map((spec) => (
                       <div key={spec.label}>
-                        <dt className="font-body text-[11px] mb-0.5" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
+                        <dt className="font-body text-xs mb-0.5" style={{ color: 'var(--fg-muted)' }}>{spec.label}</dt>
                         <dd className="font-body text-sm" style={{ color: 'var(--gold-1)' }}>{spec.value}</dd>
                       </div>
                     ))}
@@ -146,7 +147,7 @@ export default function VitrineScroll({ items = [], id }) {
               </span>
             ))}
           </div>
-          <span className="font-subheading text-xs tracking-[0.3em]" style={{ color: 'var(--fg-muted)' }}>
+          <span className="font-subheading text-xs tracking-[0.12em]" style={{ color: 'var(--fg-muted)' }}>
             {String(active + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
           </span>
         </div>

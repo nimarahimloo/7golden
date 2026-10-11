@@ -55,6 +55,7 @@ docker compose -f docker-compose.base44.yml up -d
 - `__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS` passed bare for Vite host allowlisting.
 
 ## Known fixes applied
+- Home product marquees (`ProductLineRow`) were blank for several seconds and the middle row often lagged: `ProductTile` hardcoded `loading="lazy"`, so the below-the-fold slider images only began downloading once scrolled into view (×4 duplicated copies made it worse). `ProductTile` now takes a `loading` prop (default `lazy`, plus `decoding="async"`) and `ProductLineRow` passes `loading="eager"` so all marquee images preload with the page. Keep lazy loading for the Shop grid / related products.
 - `backend/prisma/seed.ts` was out of sync with `schema.prisma` (referenced removed `_en` fields). Fixed to match the current schema (Persian-only fields).
 - `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found "{"`). Fixed by switching to `createMany({ data: [...] })` with a proper array.
 - `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site export. Real product images live in `public/product/*-7golden*.webp` where available; blog images live in `public/banner/`.
@@ -98,7 +99,10 @@ its foodkeys producer profile). Verified facts used across the site:
 - Raw material is bought straight from growers via the family بنکداری (خشکبار محمدی, 100+ years) — no middleman.
 - Pistachio from Buin-Zahra (Qazvin) and Kerman; hazelnut from Oshnavieh, Alamut (Qazvin) and northern Ashkvarat.
 - Exports: UAE, Qatar, Oman, Iraq, Afghanistan (Europe via traders).
-- Office: قزوین، سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰ (کدپستی ۳۴۱۹۶۱۷۹۴۸). Factory: بلوار ابوترابی، نرسیده به سه راه شهر صنعتی.
+- Office: قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰ (روبروی بانک کشاورزی). Factory: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲. (Updated 2026-10 from the user's contact card; keep `i18n.js`, `seo.js`, `seed.ts` SiteSettings and `SupportChat.jsx` in sync.)
+- The About page tells the story since **۱۳۳۵** (the family بنکداری «خشکبار محمدی»); ۱۳۷۷ is the 7Golden workshop and ۱۳۹۶ the company registration.
+- Awards: 13 seeded (10 in `public/awards/*.webp` + 3 in `public/certificates/*.jpg`). `AwardsSection` renders every certificate in a portrait 4/5 frame with `object-contain`, so landscape documents display vertically.
+- `SiteLoader` (`src/components/SiteLoader.jsx`) is the full-screen splash: `position: fixed; inset: 0; z-index: 9998` (above header 50 / tab bar 60 / support FAB 70). It hides once the document, fonts and on-screen non-lazy images are loaded (safety timeout 8s).
 - Phone ۰۲۸۳۳۲۳۴۰۰۴ / ۰۹۱۲۱۸۲۳۴۳۸, email info@7golden.co.
 Central copy lives in `src/lib/corporate-content.js` (products, capacity figures,
 certificates, export markets), `src/lib/clients.js` (buyer sectors) and
@@ -118,3 +122,47 @@ left in place but safe to delete.
 
 ## Removed
 - The standalone **Awards page** (`/awards`, `src/pages/Awards.jsx`) was deleted, along with its route and all nav links. Awards/certificates still appear on the home page (`HomeAwardsSlider`) and About (`AwardsSection`); the awards API/data is untouched.
+- The standalone **Gallery page** (`/gallery`, `src/pages/Gallery.jsx`) and its data module
+  (`src/lib/gallery-content.js`) were deleted. It is replaced by the **News & Announcements**
+  page at `/news` (`src/pages/News.jsx`), and `/gallery` now 301-redirects to `/news`.
+  Nothing user-facing is called "Gallery" any more.
+
+## News & Announcements (`/news`)
+- `src/pages/News.jsx` + `src/lib/news-content.js`. The page carries: the announcements feed
+  (featured card + grid, each opening a detail modal), all 10 production/showroom **videos**
+  and all 85 trade-show/factory **photos** in a lightboxed mosaic (keyboard + touch swipe).
+- News copy is grounded in the verified brand facts — see the header comment in
+  `news-content.js`. Do **not** add invented tonnage, certifications or ISO/HACCP claims.
+- Internal identifiers kept for data continuity: `usePageHero('gallery', …)` and the
+  admin `PageSection` key `gallery` still drive this page's hero (the `GalleryImage` entity
+  and `/api/gallery` route are unchanged). Only the user-visible labels say "اخبار".
+- Sitemap now lists `/news` (`backend/src/routes/sitemap.ts`).
+
+## Support chat — local & free
+- `src/components/SupportChat.jsx` no longer calls any agent/AI service. It answers from an
+  in-repo keyword knowledge base (`KNOWLEDGE` in the same file) with quick-reply chips —
+  no network request, no paid API, works offline. Keep its answers in sync with
+  `corporate-content.js`. (`base44.agents.*` in `src/api/base44Client.js` is a local no-op.)
+
+## Scroll magic (light & smooth)
+- `src/hooks/useScrollMagic.js` — a rAF-throttled, viewport-gated, transform-only parallax
+  drift. Returns a ref to attach to a decorative/media wrapper. Disabled automatically for
+  `prefers-reduced-motion`. Applied on the News page; reuse it anywhere a gentle drift is
+  wanted instead of adding a heavy scroll library.
+
+## Verifying
+- `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/news` → 200
+- `curl -s http://localhost:3000/sitemap.xml | grep news` → lists `/news` for both domains
+- `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
+
+## Themed map band (Contact) & self-moving awards strip (Home)
+- `src/pages/Contact.jsx` wraps the Google Maps embed in `.map-band` / `.map-frame` (CSS in
+  `src/styles/story.css`). The iframe gets a warm gold/dark `filter`, a load-in fade driven by
+  `data-loaded` (set from the iframe `onLoad`), and a `pointer-events: none` `.map-frame-veil`
+  gradient that blends both edges into `--bg`. Keep the veil non-interactive.
+- `src/components/home/HomeAwardsSlider.jsx` is now a caption-free, self-moving strip
+  (`.awards-marquee`, pure CSS, seamless `-50%` loop, pause on hover, reduced-motion safe).
+  The described awards grid stays on the About page (`AwardsSection`).
+- Partner/customer logos: `HomeClients` reads `src/lib/clients.js`. Drop a real logo file into
+  `public/clients/` and set `logo: '/clients/<file>'` on the entry — `ClientLogo` then renders
+  the image instead of the generated lockup.
