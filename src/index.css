@@ -896,6 +896,16 @@ body {
   overscroll-behavior: none;
 }
 
+/* --- Horizontal guard ---
+   `clip` (not `hidden`) stops the document from ever being scrollable
+   sideways without turning <body> into a scroll container, so the sticky
+   story scenes keep working. Without it a stray off-canvas reveal/particle
+   left the page shifted horizontally on phones — which dragged the fixed
+   header along and clipped its buttons. */
+html {
+  overflow-x: clip;
+}
+
 .overflow-y-auto,
 .overflow-auto {
   overscroll-behavior: contain;

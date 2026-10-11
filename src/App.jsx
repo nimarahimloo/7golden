@@ -75,7 +75,8 @@ function AppLayout() {
       </Suspense>
       </PageTransition>
       <Footer />
-      <div className="h-16 md:hidden" />
+      {/* Clearance for the fixed bottom tab bar (56px + home-indicator inset) */}
+      <div className="md:hidden" style={{ height: 'calc(56px + var(--safe-area-bottom) + 1rem)' }} />
       <BottomTabBar />
       {/* <CartDrawer /> — retail cart drawer, disabled */}
       <SupportChat />
