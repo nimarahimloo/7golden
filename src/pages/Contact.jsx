@@ -9,7 +9,6 @@ import PullToRefresh from '@/components/PullToRefresh';
 import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
-import DepthParallax from '@/components/story/DepthParallax';
 import { usePageHero } from '@/lib/usePageHero';
 import Eyebrow from '@/components/ui/eyebrow';
 
@@ -83,23 +82,6 @@ export default function Contact() {
             </a>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* ===== IMAGE-LED BAND — the facility, telling its own story ===== */}
-      <section className="chapter">
-        <div className="chapter-shell">
-          <DepthParallax
-            src="/gallery/AQ8A1742AQ8A1742.webp"
-            alt="7Golden facility"
-            ratio="aspect-[4/3] md:aspect-[21/9]"
-            className="rounded-3xl"
-          >
-            <div>
-              <Eyebrow className="block mb-2">VISIT US</Eyebrow>
-              <span className="display-md" style={{ color: 'var(--ink)' }}>دفتر مرکزی قزوین</span>
-            </div>
-          </DepthParallax>
         </div>
       </section>
 
@@ -308,7 +290,12 @@ export default function Contact() {
               <span className="gold-text">شریک صادراتی شما</span>
             </h2>
           </Reveal>
-          <Reveal variant="up" delay={160} className="mt-8">
+          <Reveal variant="up" delay={120} className="mt-6">
+            <p className="font-body text-sm md:text-base" style={{ color: 'var(--fg-muted)' }}>
+              کارخانه: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲
+            </p>
+          </Reveal>
+          <Reveal variant="up" delay={200} className="mt-8">
             <a
               href="tel:+989121823438"
               className="btn-gold inline-flex"
@@ -318,6 +305,18 @@ export default function Contact() {
             </a>
           </Reveal>
         </div>
+      </section>
+
+      {/* ===== FULL-WIDTH MAP — factory location ===== */}
+      <section className="w-full" aria-label="نقشه کارخانه هفت طلایی">
+        <iframe
+          title="نقشه کارخانه هفت طلایی — قزوین"
+          src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
+          className="block w-full"
+          style={{ height: '440px', border: 0 }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
       </section>
 
       </PullToRefresh>

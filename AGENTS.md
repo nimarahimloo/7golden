@@ -99,7 +99,10 @@ its foodkeys producer profile). Verified facts used across the site:
 - Raw material is bought straight from growers via the family بنکداری (خشکبار محمدی, 100+ years) — no middleman.
 - Pistachio from Buin-Zahra (Qazvin) and Kerman; hazelnut from Oshnavieh, Alamut (Qazvin) and northern Ashkvarat.
 - Exports: UAE, Qatar, Oman, Iraq, Afghanistan (Europe via traders).
-- Office: قزوین، سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰ (کدپستی ۳۴۱۹۶۱۷۹۴۸). Factory: بلوار ابوترابی، نرسیده به سه راه شهر صنعتی.
+- Office: قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰ (روبروی بانک کشاورزی). Factory: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲. (Updated 2026-10 from the user's contact card; keep `i18n.js`, `seo.js`, `seed.ts` SiteSettings and `SupportChat.jsx` in sync.)
+- The About page tells the story since **۱۳۳۵** (the family بنکداری «خشکبار محمدی»); ۱۳۷۷ is the 7Golden workshop and ۱۳۹۶ the company registration.
+- Awards: 13 seeded (10 in `public/awards/*.webp` + 3 in `public/certificates/*.jpg`). `AwardsSection` renders every certificate in a portrait 4/5 frame with `object-contain`, so landscape documents display vertically.
+- `SiteLoader` (`src/components/SiteLoader.jsx`) is the full-screen splash: `position: fixed; inset: 0; z-index: 9998` (above header 50 / tab bar 60 / support FAB 70). It hides once the document, fonts and on-screen non-lazy images are loaded (safety timeout 8s).
 - Phone ۰۲۸۳۳۲۳۴۰۰۴ / ۰۹۱۲۱۸۲۳۴۳۸, email info@7golden.co.
 Central copy lives in `src/lib/corporate-content.js` (products, capacity figures,
 certificates, export markets), `src/lib/clients.js` (buyer sectors) and

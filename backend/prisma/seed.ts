@@ -74,8 +74,8 @@ async function main() {
       contact_phone: '028-33234004',
       contact_mobile: '0912-1823438',
       contact_email: 'info@7golden.co',
-      hq_address_fa: 'قزوین، خیابان سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰ — کدپستی ۳۴۱۹۶۱۷۹۴۸',
-      tehran_address_fa: 'قزوین، بلوار ابوترابی، نرسیده به سه راه شهر صنعتی (کارخانه)',
+      hq_address_fa: 'قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰ — روبروی بانک کشاورزی',
+      tehran_address_fa: 'قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲ (کارخانه)',
       working_hours_fa: '۹ صبح تا ۹ شب — هر روز هفته',
     },
   });
@@ -1269,6 +1269,27 @@ async function main() {
       desc_fa: 'گواهی پایان کارگاه «پایش تأثیر ضربه آرام و گسسته نیروی اتاق» با تدریس دکتر مهدی باغبان در دانشگاه تهران.',
       image: '/awards/award-10-tech-ut.webp',
       sort_order: 10,
+    },
+    {
+      key: 'award-11-negotiation-ut',
+      title_fa: 'کارگاه اصول و فنون مذاکره تجاری — دانشگاه تهران',
+      desc_fa: 'گواهی پایان کارگاه «اصول و فنون مذاکره تجاری» برگزار شده در دانشگاه تهران (۴ و ۵ بهمن ۱۴۰۰).',
+      image: '/certificates/ut-negotiation.jpg',
+      sort_order: 11,
+    },
+    {
+      key: 'award-12-bmc-marketing',
+      title_fa: 'ششمین کنفرانس بین‌المللی مدیریت کسب‌وکار — استراتژی بازاریابی',
+      desc_fa: 'گواهی شرکت در ششمین کنفرانس بین‌المللی مدیریت کسب‌وکار و کارگاه «مدیریت استراتژی بازاریابی» در تهران.',
+      image: '/certificates/bmc-marketing.jpg',
+      sort_order: 12,
+    },
+    {
+      key: 'award-13-ghadir-mosque',
+      title_fa: 'لوح تقدیر مسجد و مجموعه فرهنگی حضرت امیرالمومنین (ع)',
+      desc_fa: 'تقدیر به پاس حمایت از برگزاری جشن‌های دهه امامت و ولایت و عید سعید غدیر خم.',
+      image: '/certificates/ghadir-mosque.jpg',
+      sort_order: 13,
     },
   ];
 
