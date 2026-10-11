@@ -154,3 +154,15 @@ left in place but safe to delete.
 - `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/news` → 200
 - `curl -s http://localhost:3000/sitemap.xml | grep news` → lists `/news` for both domains
 - `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
+
+## Themed map band (Contact) & self-moving awards strip (Home)
+- `src/pages/Contact.jsx` wraps the Google Maps embed in `.map-band` / `.map-frame` (CSS in
+  `src/styles/story.css`). The iframe gets a warm gold/dark `filter`, a load-in fade driven by
+  `data-loaded` (set from the iframe `onLoad`), and a `pointer-events: none` `.map-frame-veil`
+  gradient that blends both edges into `--bg`. Keep the veil non-interactive.
+- `src/components/home/HomeAwardsSlider.jsx` is now a caption-free, self-moving strip
+  (`.awards-marquee`, pure CSS, seamless `-50%` loop, pause on hover, reduced-motion safe).
+  The described awards grid stays on the About page (`AwardsSection`).
+- Partner/customer logos: `HomeClients` reads `src/lib/clients.js`. Drop a real logo file into
+  `public/clients/` and set `logo: '/clients/<file>'` on the entry — `ClientLogo` then renders
+  the image instead of the generated lockup.

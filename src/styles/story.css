@@ -1888,6 +1888,121 @@
   100% { opacity: 0; transform: translateX(120%); }
 }
 
+/* ===================================================================
+   AWARDS MARQUEE — the homepage award strip drifts on its own, with no
+   captions on the items. The track runs LTR so the -50% loop maths is
+   unambiguous; every frame carries the same trailing margin so the two
+   halves are exactly equal.
+   =================================================================== */
+.awards-marquee {
+  position: relative;
+  direction: ltr;
+  overflow: hidden;
+  padding: 0.5rem 0 1rem;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+.awards-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: awardsMarquee 70s linear infinite;
+  animation-direction: reverse; /* drifts with the RTL reading flow */
+  will-change: transform;
+}
+
+.awards-marquee:hover .awards-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes awardsMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.award-frame {
+  flex: 0 0 auto;
+  margin: 0 1rem 0 0;
+  width: 220px;
+  aspect-ratio: 4 / 5;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #faf9f6;
+  border: 1px solid var(--hairline-strong);
+}
+
+.award-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 640px) {
+  .award-frame { width: 150px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .awards-marquee { overflow-x: auto; }
+  .awards-marquee-track { animation: none; }
+}
+
+/* ===================================================================
+   THEMED MAP BAND — the Google embed eases into the dark gold theme:
+   a soft load-in fade plus gradient veils that blend both edges.
+   =================================================================== */
+.map-band {
+  position: relative;
+  width: 100%;
+  background: var(--bg);
+}
+
+.map-frame {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--hairline);
+}
+
+.map-frame-iframe {
+  display: block;
+  width: 100%;
+  height: 440px;
+  border: 0;
+  /* Warm the bright default map palette toward the site's gold/dark tone */
+  filter: grayscale(0.55) sepia(0.3) saturate(0.85) contrast(0.92) brightness(0.82);
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 1.2s ease, transform 1.6s ease;
+}
+
+.map-frame[data-loaded='true'] .map-frame-iframe {
+  opacity: 1;
+  transform: none;
+}
+
+/* Veils — a gentle fade into the page at both edges, no hard seam.
+   pointer-events: none keeps the map itself fully interactive. */
+.map-frame-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom,
+      var(--bg) 0%,
+      rgba(7, 6, 4, 0) 24%,
+      rgba(7, 6, 4, 0) 76%,
+      var(--bg) 100%),
+    linear-gradient(to right,
+      rgba(7, 6, 4, 0.35) 0%,
+      rgba(7, 6, 4, 0) 12%,
+      rgba(7, 6, 4, 0) 88%,
+      rgba(7, 6, 4, 0.35) 100%);
+}
+
+@media (max-width: 640px) {
+  .map-frame-iframe { height: 320px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cursor-spotlight { display: none; }
   .plr-card,

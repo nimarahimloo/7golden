@@ -16,6 +16,7 @@ export default function Contact() {
   const { refreshSiteMode } = useApp();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -307,16 +308,20 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ===== FULL-WIDTH MAP — factory location ===== */}
-      <section className="w-full" aria-label="نقشه کارخانه هفت طلایی">
-        <iframe
-          title="نقشه کارخانه هفت طلایی — قزوین"
-          src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
-          className="block w-full"
-          style={{ height: '440px', border: 0 }}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      {/* ===== FULL-WIDTH MAP — factory location, eased into the site theme ===== */}
+      <section className="map-band" aria-label="نقشه کارخانه هفت طلایی">
+        <div className="map-frame" data-loaded={mapLoaded ? 'true' : 'false'}>
+          <iframe
+            title="نقشه کارخانه هفت طلایی — قزوین"
+            src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
+            className="map-frame-iframe"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            onLoad={() => setMapLoaded(true)}
+          />
+          {/* Soft veils — the map fades into the page instead of jumping out */}
+          <div className="map-frame-veil" aria-hidden="true" />
+        </div>
       </section>
 
       </PullToRefresh>
