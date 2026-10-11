@@ -10,11 +10,19 @@ import Seo from '@/components/Seo';
 import { SITE_SEO } from '@/lib/seo';
 import { usePageHero } from '@/lib/usePageHero';
 import Reveal from '@/components/story/Reveal';
+import ProductTile from '@/components/ProductTile';
+
+// Category card art (kept in sync with the Category rows in the DB seed).
+const CATEGORY_IMAGE = {
+  pistachio: '/product/pistachio-category.webp',
+  hazelnut: '/product/hazelnut-category.webp',
+  almond: '/product/almond-category.webp',
+};
 
 const FALLBACK_LINES = [
-  { slug: 'pistachio', nameFA: 'پسته', image: '/gallery/AQ8A1516AQ8A1516.webp', descFA: 'مغز و خلال پسته صادراتی' },
-  { slug: 'hazelnut', nameFA: 'فندق', image: '/gallery/AQ8A1499AQ8A1499.webp', descFA: 'مغز فندق فرآوری‌شده' },
-  { slug: 'almond', nameFA: 'بادام', image: '/gallery/AQ8A1508AQ8A1508.webp', descFA: 'مغز و خلال بادام' },
+  { slug: 'pistachio', nameFA: 'پسته', image: CATEGORY_IMAGE.pistachio, descFA: 'مغز و خلال پسته صادراتی' },
+  { slug: 'hazelnut', nameFA: 'فندق', image: CATEGORY_IMAGE.hazelnut, descFA: 'مغز فندق فرآوری‌شده' },
+  { slug: 'almond', nameFA: 'بادام', image: CATEGORY_IMAGE.almond, descFA: 'مغز و خلال بادام' },
 ];
 
 export default function Shop() {
@@ -205,33 +213,10 @@ export default function Shop() {
                   هنوز محصولی در این گروه ثبت نشده است.
                 </p>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 md:gap-x-8 md:gap-y-12">
                   {lineProducts.map((product, i) => (
-                    <Reveal key={product.slug || product.id} delay={i * 70}>
-                      <Link
-                        to={`/product/${product.slug || product.id}`}
-                        className="group block overflow-hidden rounded-2xl transition-all duration-500 hover:shadow-lg"
-                        style={{ background: 'var(--card, var(--bg))' }}
-                      >
-                        <div className="relative aspect-[4/3] overflow-hidden">
-                          <img
-                            src={product.image || '/logo.webp'}
-                            alt={product.nameFA || ''}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            loading="lazy"
-                            width={800}
-                            height={600}
-                          />
-                        </div>
-                        <div className="p-5">
-                          <h3
-                            className="text-lg font-semibold"
-                            style={{ fontFamily: 'Peyda, serif', color: 'var(--fg)' }}
-                          >
-                            {product.nameFA}
-                          </h3>
-</div>
-                      </Link>
+                    <Reveal key={product.slug || product.id} delay={(i % 4) * 70}>
+                      <ProductTile product={product} />
                     </Reveal>
                   ))}
                 </div>

@@ -40,7 +40,7 @@ export const ORGANIZATION_JSONLD = {
   },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'خیابان سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰',
+    streetAddress: 'انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰',
     addressLocality: 'قزوین',
     postalCode: '3419617948',
     addressCountry: 'IR',
@@ -122,7 +122,7 @@ export function breadcrumbJsonLd(items) {
 const BREADCRUMB_LABELS = {
   shop: 'محصولات',
   about: 'درباره ما',
-  gallery: 'گالری',
+  news: 'اخبار و اطلاعیه‌ها',
   blog: 'مجله',
   contact: 'تماس با ما',
 };

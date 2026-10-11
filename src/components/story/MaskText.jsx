@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '@/components/useScrollAnimation';
+import Eyebrow from '@/components/ui/eyebrow';
 
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -81,9 +82,9 @@ export default function MaskText({
       dir="rtl"
     >
       {eyebrow && (
-        <span className="eyebrow block text-center mb-5 reveal reveal-up" style={{ opacity: visible ? 1 : undefined }}>
+        <Eyebrow className="block text-center mb-5 reveal reveal-up" style={{ opacity: visible ? 1 : undefined }}>
           {eyebrow}
-        </span>
+        </Eyebrow>
       )}
       <h2
         className={`mask-word ${reduced ? 'is-static' : ''} reveal reveal-clip ${visible ? 'is-visible' : ''}`}

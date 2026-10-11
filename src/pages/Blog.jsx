@@ -15,6 +15,7 @@ import StoryChapter from '@/components/story/StoryChapter';
 import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
 import { usePageHero } from '@/lib/usePageHero';
+import Eyebrow from '@/components/ui/eyebrow';
 
 export default function Blog() {
   const isFA = true;
@@ -89,7 +90,7 @@ export default function Blog() {
                 className="rounded-3xl"
               >
                 <div>
-                  <span className="eyebrow block mb-3">{isFA ? 'ویژه' : 'Featured'}</span>
+                  <Eyebrow className="block mb-3">{isFA ? 'ویژه' : 'Featured'}</Eyebrow>
                   <h2 className="display-md mb-3" style={{ color: 'var(--ink)' }}>
                     {isFA ? featured.titleFA : featured.titleEN}
                   </h2>
@@ -202,7 +203,7 @@ export default function Blog() {
           </div>
           <div className="relative z-10 chapter-shell py-20 text-center">
             <Reveal variant="up">
-              <span className="eyebrow block mb-5">EXPLORE</span>
+              <Eyebrow className="block mb-5">EXPLORE</Eyebrow>
             </Reveal>
             <Reveal variant="up" delay={80}>
               <h2 className="display-lg" style={{ color: 'var(--ink)' }}>

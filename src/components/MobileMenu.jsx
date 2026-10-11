@@ -7,7 +7,7 @@ const LINKS = [
   { href: '/', label: t('home'), desc: 'صفحه اصلی' },
   { href: '/shop', label: t('shop'), desc: 'پسته، بادام و فندق' },
   { href: '/about', label: t('about'), desc: 'داستان و ظرفیت تولید' },
-  { href: '/gallery', label: t('gallery'), desc: 'ویدئو و نمایشگاه‌ها' },
+  { href: '/news', label: t('news'), desc: 'خبر، ویدئو و نمایشگاه‌ها' },
   { href: '/blog', label: t('blog'), desc: 'اخبار و مطالب' },
   { href: '/contact', label: t('contact'), desc: 'درخواست قیمت و نمونه' },
 ];

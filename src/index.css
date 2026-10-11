@@ -896,6 +896,16 @@ body {
   overscroll-behavior: none;
 }
 
+/* --- Horizontal guard ---
+   `clip` (not `hidden`) stops the document from ever being scrollable
+   sideways without turning <body> into a scroll container, so the sticky
+   story scenes keep working. Without it a stray off-canvas reveal/particle
+   left the page shifted horizontally on phones — which dragged the fixed
+   header along and clipped its buttons. */
+html {
+  overflow-x: clip;
+}
+
 .overflow-y-auto,
 .overflow-auto {
   overscroll-behavior: contain;
@@ -1088,11 +1098,18 @@ body::before {
 /* Small Latin eyebrow label that sits above section headings */
 .eyebrow {
   font-family: 'Kalameh', serif;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--brass);
+}
+
+/* Persian script must never be letter-spaced — it breaks the joined shapes. */
+.eyebrow-fa {
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* Thin hairline rule used to separate blocks */
@@ -1100,6 +1117,22 @@ body::before {
   height: 1px;
   border: 0;
   background: var(--hairline);
+}
+
+/* ===== FULL-SCREEN SITE SPLASH =====
+   Owns the top layer while the first paint settles, so the header, tab bar
+   and floating buttons never peek through the loading screen. */
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  will-change: opacity;
+}
+.site-loader.is-done {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ===== GLOBAL: no border-radius anywhere ===== */

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   Package, Tags, FileText, Image as ImageIcon, Settings, Mail,
   LayoutDashboard, Home, LogOut, Loader2, Award, MessageSquareQuote,
-  ShoppingBag, BarChart3, LayoutTemplate
+  BarChart3, LayoutTemplate
 } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import EntityCrud from '@/components/admin/EntityCrud';
@@ -18,7 +18,7 @@ const SECTIONS = [
   { id: 'dashboard', label: 'داشبورد', icon: BarChart3 },
   { id: 'products', label: 'محصولات', icon: Package },
   { id: 'categories', label: 'دسته‌بندی', icon: Tags },
-  { id: 'gallery', label: 'گالری', icon: ImageIcon },
+  { id: 'gallery', label: 'اخبار', icon: ImageIcon },
   { id: 'blog', label: 'مجله / بلاگ', icon: FileText },
   { id: 'awards', label: 'مجوزها و جوایز', icon: Award },
   { id: 'testimonials', label: 'نظرات مشتریان', icon: MessageSquareQuote },
@@ -67,7 +67,7 @@ export default function Admin() {
         {active === 'dashboard' && <DashboardSection />}
         {active === 'products' && <ProductsSection />}
         {active === 'categories' && <CategoriesSection />}
-        {active === 'gallery' && <GallerySection />}
+        {active === 'gallery' && <MediaSection />}
         {active === 'blog' && <BlogSection />}
         {active === 'awards' && <AwardsAdminSection />}
         {active === 'testimonials' && <TestimonialsSection />}
@@ -249,7 +249,7 @@ function ProductsSection() {
           const opt = catOptions.find(o => o.value === r.category);
           return opt ? opt.label : (r.category || '—');
         }},
-        { key: 'gallery', label: 'گالری', render: r => {
+        { key: 'gallery', label: 'تصاویر', render: r => {
           const g = Array.isArray(r.gallery) ? r.gallery : [];
           return `${g.length} تصویر`;
         }},
@@ -270,7 +270,7 @@ function ProductsSection() {
         { key: 'origin_fa', label: 'خاستگاه (اختیاری)' },
         { key: 'desc_fa', label: 'توضیحات / محتوای محصول', type: 'richtext' },
         { key: 'image', label: 'تصویر اصلی (کاور)', type: 'image', required: true },
-        { key: 'gallery', label: 'گالری تصاویر (تا ۲۰ عدد)', type: 'gallery', max: 20 },
+        { key: 'gallery', label: 'تصاویر محصول (تا ۲۰ عدد)', type: 'gallery', max: 20 },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
         { key: 'sort_order', label: 'ترتیب نمایش', type: 'number', default: 0 },
       ]}
@@ -299,7 +299,7 @@ function CategoriesSection() {
   );
 }
 
-function GallerySection() {
+function MediaSection() {
   return (
     <EntityCrud
       entityName="GalleryImage"
@@ -471,7 +471,7 @@ const PAGE_KEYS = [
   { value: 'contact', label: 'تماس با ما' },
   { value: 'blog', label: 'وبلاگ' },
   { value: 'awards', label: 'جوایز' },
-  { value: 'gallery', label: 'گالری' },
+  { value: 'gallery', label: 'اخبار و اطلاعیه‌ها' },
 ];
 
 function PageSectionsSection() {

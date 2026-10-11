@@ -12,7 +12,6 @@ import PullToRefresh from '@/components/PullToRefresh';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
-import DepthParallax from '@/components/story/DepthParallax';
 import MaskText from '@/components/story/MaskText';
 
 export default function About() {
@@ -31,6 +30,7 @@ export default function About() {
   });
 
   const milestones = [
+    { year: '۱۳۳۵', label: 'آغاز بنکداری خانوادگی خشکبار محمدی در بازار قزوین' },
     { year: '۱۳۷۷', label: 'آغاز کار در کارگاهی کوچک در قزوین' },
     { year: '۱۳۹۶', label: 'ثبت رسمی شرکت خشکبار و بسته‌بندی هفت طلایی' },
     { year: '۱۳۹۶', label: 'تأمین مستقیم از کشاورز از طریق بنکداری خشکبار محمدی' },
@@ -71,7 +71,7 @@ export default function About() {
               />
               <Reveal delay={140}>
                 <p className="font-body text-sm leading-relaxed mt-6 mb-4" style={{ color: 'var(--fg-muted)' }}>
-                  فعالیت جدی ما از سال ۱۳۷۷ در کارگاهی کوچک در قزوین شروع شد. کم‌کم تجربه جمع کردیم، به نیروهای جوان و متعهد تکیه کردیم و پس از فراز و نشیب‌های زیاد، جایگاه قابل توجهی در تولید و فرآوری فندق، پسته و خشکبار به دست آوردیم. در سال ۱۳۹۶ شرکت خشکبار و بسته‌بندی هفت طلایی را ثبت کردیم و کار را صنعتی‌تر ادامه دادیم.
+                  ریشهٔ ما به سال ۱۳۳۵ و بنکداری خانوادگی خشکبار محمدی برمی‌گردد؛ فعالیت جدی هفت‌طلایی از سال ۱۳۷۷ در کارگاهی کوچک در قزوین شروع شد. کم‌کم تجربه جمع کردیم، به نیروهای جوان و متعهد تکیه کردیم و پس از فراز و نشیب‌های زیاد، جایگاه قابل توجهی در تولید و فرآوری فندق، پسته و خشکبار به دست آوردیم. در سال ۱۳۹۶ شرکت خشکبار و بسته‌بندی هفت طلایی را ثبت کردیم و کار را صنعتی‌تر ادامه دادیم.
                 </p>
               </Reveal>
               <Reveal delay={220}>
@@ -101,16 +101,16 @@ export default function About() {
             />
 
             <div className="relative">
-              {/* gold rail */}
+              {/* gold rail — aligned with the dot column */}
               <div
                 className="absolute top-0 bottom-0 w-px hidden md:block"
-                style={{ right: '6.5rem', background: 'linear-gradient(to bottom, transparent, var(--hairline-strong) 12%, var(--hairline-strong) 88%, transparent)' }}
+                style={{ right: '8.75rem', background: 'linear-gradient(to bottom, transparent, var(--hairline-strong) 12%, var(--hairline-strong) 88%, transparent)' }}
               />
               <div className="flex flex-col gap-10 md:gap-14">
                 {milestones.map((m, i) => (
-                  <Reveal key={m.year} delay={i * 90} variant="left">
+                  <Reveal key={`${m.year}-${i}`} delay={i * 90} variant="left">
                     <div className="flex items-center gap-6 md:gap-10">
-                      <span className="outline-num text-3xl md:text-5xl leading-none flex-shrink-0" style={{ minWidth: '5rem', textAlign: 'left' }}>
+                      <span className="outline-num text-3xl md:text-4xl leading-none flex-shrink-0" style={{ width: '6rem', textAlign: 'left', overflow: 'visible' }}>
                         {m.year}
                       </span>
                       <span className="hidden md:block w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-2)', boxShadow: '0 0 14px rgba(212,175,55,0.7)' }} />
@@ -123,27 +123,36 @@ export default function About() {
           </div>
         </section>
 
-        {/* ===== CHAPTER 03 — gallery (cinematic depth parallax) ===== */}
+        {/* ===== CHAPTER 03 — the long story (scroll-driven) ===== */}
         <section className="chapter">
-          <div className="chapter-shell">
-            <DepthParallax
-              src="/gallery/AQ8A1640AQ8A1640.webp"
-              alt="7Golden production line"
-              ratio="aspect-[4/3] md:aspect-[21/9]"
-              className="rounded-3xl"
-            >
-              <div>
-                <span className="eyebrow block mb-2">PRODUCTION</span>
-                <span className="display-md" style={{ color: 'var(--ink)' }}>خطوط فرآوری صنعتی</span>
-              </div>
-            </DepthParallax>
-          </div>
-        </section>
-
-        <section className="chapter pt-0">
-          <div className="chapter-shell grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-            <ParallaxMedia src="/gallery/AQ8A1748AQ8A1748.webp" alt="7Golden packaging" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.2} />
-            <ParallaxMedia src="/gallery/AQ8A1665AQ8A1665.webp" alt="7Golden processing" ratio="aspect-[4/3]" className="rounded-3xl" speed={0.18} />
+          <div className="chapter-shell max-w-4xl">
+            <StoryChapter
+              index="۰۳"
+              eyebrow="ریشه‌های ما"
+              title="از سال ۱۳۳۵ — سه نسل در دل خشکبار"
+            />
+            <div className="flex flex-col gap-7 mt-9">
+              <Reveal delay={80}>
+                <p className="font-body text-base md:text-lg leading-loose" style={{ color: 'var(--fg)' }}>
+                  داستان هفت‌طلایی از سال ۱۳۳۵ آغاز می‌شود؛ سالی که بنکداری خانوادگی «خشکبار محمدی» در بازار قزوین پا گرفت. آن روزها پسته و بادام را کیسه‌به‌کیسه از باغداران می‌خریدیم، با دست پاک می‌کردیم و به قنادی‌های شهر می‌رساندیم. همان اعتماد قدیمی، سنگ‌بنای کاری شد که امروز سه نسل ادامه‌اش می‌دهیم.
+                </p>
+              </Reveal>
+              <Reveal delay={140}>
+                <p className="font-body text-base md:text-lg leading-loose" style={{ color: 'var(--fg-muted)' }}>
+                  سال‌ها گذشت و تجربه جای خود را به دانش داد. در سال ۱۳۷۷ کارگاهی کوچک در قزوین راه انداختیم و فرآوری مغز فندق، خلال پسته و بادام را جدی‌تر گرفتیم. نیروهای جوان و متعهد کنارمان ایستادند، خطوط را یکی‌یکی کامل کردیم و پس از فراز و نشیب‌های بسیار، جایگاه قابل توجهی در صنعت خشکبار به دست آوردیم.
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <p className="font-body text-base md:text-lg leading-loose" style={{ color: 'var(--fg-muted)' }}>
+                  در سال ۱۳۹۶ شرکت «خشکبار و بسته‌بندی هفت طلایی» را رسماً ثبت کردیم و کار را صنعتی‌تر ادامه دادیم. اما آنچه هرگز تغییر نکرد، همان اصل قدیمی بنکداری بود: خرید مستقیم از کشاورز، بدون واسطه. حذف واسطه یعنی سود بیشتر برای کشاورز و محصول تازه‌تر با قیمت منصفانه‌تر برای شما.
+                </p>
+              </Reveal>
+              <Reveal delay={260}>
+                <p className="font-body text-base md:text-lg leading-loose" style={{ color: 'var(--fg-muted)' }}>
+                  امروز محصول ما به امارات، قطر، عمان، عراق و افغانستان صادر می‌شود و از طریق بازرگانان به برخی کشورهای اروپایی هم می‌رسد. هفت‌طلایی — نامی که از دل بازار قزوین برخاسته — حالا شریک تجاری کارخانه‌های شکلات، بستنی، قنادی و صنایع غذایی است.
+                </p>
+              </Reveal>
+            </div>
           </div>
         </section>
 
@@ -151,14 +160,14 @@ export default function About() {
         <MaskText
           image="/gallery/AQ8A1628AQ8A1628.webp"
           text="QAZVIN"
-          eyebrow="EST. ۱۳۷۷ · قزوین"
+          eyebrow="EST. ۱۳۳۵ · قزوین"
         />
 
         {/* ===== CHAPTER 04 — values ===== */}
         <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>
           <div className="chapter-shell">
             <StoryChapter
-              index="03"
+              index="۰۴"
               eyebrow="ارزش‌های ما"
               title="چرا کارخانه‌ها به هفت‌طلایی اعتماد می‌کنند؟"
               className="mb-12"

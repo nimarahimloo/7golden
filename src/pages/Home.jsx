@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
 import { getProducts, getCategories } from '@/lib/api/content';
 import { getPageHero, getPageSections } from '@/lib/api/content';
 import LogoLoader from '@/components/LogoLoader';
@@ -10,7 +8,6 @@ import Seo from '@/components/Seo';
 import PullToRefresh from '@/components/PullToRefresh';
 
 import CinematicHero from '@/components/CinematicHero';
-import StickyScene from '@/components/story/StickyScene';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';

@@ -9,13 +9,14 @@ import PullToRefresh from '@/components/PullToRefresh';
 import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
-import DepthParallax from '@/components/story/DepthParallax';
 import { usePageHero } from '@/lib/usePageHero';
+import Eyebrow from '@/components/ui/eyebrow';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -72,7 +73,7 @@ export default function Contact() {
               >
                 <card.icon size={18} style={{ color: 'var(--accent)' }} />
               </div>
-              <p className="font-body text-[10px] md:text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{card.label}</p>
+              <p className="font-body text-xs md:text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{card.label}</p>
               <p
                 className="font-heading font-black text-xs md:text-sm"
                 style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', direction: card.href?.startsWith('tel') ? 'ltr' : 'inherit' }}
@@ -82,23 +83,6 @@ export default function Contact() {
             </a>
             </Reveal>
           ))}
-        </div>
-      </section>
-
-      {/* ===== IMAGE-LED BAND — the facility, telling its own story ===== */}
-      <section className="chapter">
-        <div className="chapter-shell">
-          <DepthParallax
-            src="/gallery/AQ8A1742AQ8A1742.webp"
-            alt="7Golden facility"
-            ratio="aspect-[4/3] md:aspect-[21/9]"
-            className="rounded-3xl"
-          >
-            <div>
-              <span className="eyebrow block mb-2">VISIT US</span>
-              <span className="display-md" style={{ color: 'var(--ink)' }}>دفتر مرکزی قزوین</span>
-            </div>
-          </DepthParallax>
         </div>
       </section>
 
@@ -216,7 +200,7 @@ export default function Contact() {
               className="mb-8"
             />
             <Reveal variant="up" delay={120}>
-            <div className="p-8 rounded-3xl panel-strong">
+            <div className="p-5 md:p-8 rounded-3xl panel-strong">
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div
@@ -300,14 +284,19 @@ export default function Contact() {
         </div>
         <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
           <Reveal variant="up">
-            <span className="eyebrow block mb-5">TRADE DESK</span>
+            <Eyebrow className="block mb-5">TRADE DESK</Eyebrow>
           </Reveal>
           <Reveal variant="up" delay={80}>
             <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
               <span className="gold-text">شریک صادراتی شما</span>
             </h2>
           </Reveal>
-          <Reveal variant="up" delay={160} className="mt-8">
+          <Reveal variant="up" delay={120} className="mt-6">
+            <p className="font-body text-sm md:text-base" style={{ color: 'var(--fg-muted)' }}>
+              کارخانه: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲
+            </p>
+          </Reveal>
+          <Reveal variant="up" delay={200} className="mt-8">
             <a
               href="tel:+989121823438"
               className="btn-gold inline-flex"
@@ -316,6 +305,22 @@ export default function Contact() {
               تماس مستقیم
             </a>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ===== FULL-WIDTH MAP — factory location, eased into the site theme ===== */}
+      <section className="map-band" aria-label="نقشه کارخانه هفت طلایی">
+        <div className="map-frame" data-loaded={mapLoaded ? 'true' : 'false'}>
+          <iframe
+            title="نقشه کارخانه هفت طلایی — قزوین"
+            src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
+            className="map-frame-iframe"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            onLoad={() => setMapLoaded(true)}
+          />
+          {/* Soft veils — the map fades into the page instead of jumping out */}
+          <div className="map-frame-veil" aria-hidden="true" />
         </div>
       </section>
 
