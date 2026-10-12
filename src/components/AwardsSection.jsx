@@ -37,11 +37,11 @@ export default function AwardsSection() {
             {isFA ? 'اعتبار و افتخارات' : 'Certifications & Awards'}
           </span>
           <h2 className="font-heading font-black text-2xl md:text-4xl leading-tight" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-            {isFA ? 'مجوزها و جوایز' : 'Licenses & Awards'}
+            {isFA ? 'مدارک و تقدیرنامه‌ها' : 'Documents & Recognition'}
           </h2>
           <p className="font-body text-sm mt-4 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
             {isFA
-              ? 'کیفیت و استانداردهای بین‌المللی محصولات هفت‌طلایی با مجوزها و گواهینامه‌های معتبر تأیید می‌شود.'
+              ? 'در این بخش، تصاویر مدارک و تقدیرنامه‌های ثبت‌شده برای مجموعه هفت طلایی را می‌بینید.'
               : 'The quality and international standards of 7Golden products are certified by accredited licenses and awards.'}
           </p>
           <div className="gold-divider" />

@@ -15,8 +15,8 @@ export default function ProductionCapacity() {
       <div className="chapter-shell">
         <StoryChapter
           index="04"
-          eyebrow="CAPACITY"
-          title="مقیاس صنعتی، تحویل زمان‌بندی‌شده"
+          eyebrow="توانمندی‌های فرآوری"
+          title="محصولات و شکل‌های فرآوری"
           className="mb-10"
         />
 
@@ -58,7 +58,7 @@ export default function ProductionCapacity() {
 
         <div className="flex items-center gap-3 mt-10" style={{ color: 'var(--fg-muted)' }}>
           <Factory size={16} style={{ color: 'var(--gold-2)' }} />
-          <span className="font-body text-xs">ظرفیت تولید و فرآوری — قزوین، ایران</span>
+          <span className="font-body text-xs">فرآوری خشکبار — قزوین، ایران</span>
         </div>
       </div>
     </section>

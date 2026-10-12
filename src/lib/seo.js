@@ -6,16 +6,16 @@
 export const SITE_SEO = {
   siteNameFA: 'هفت‌طلایی',
   siteNameEN: '7Golden',
-  defaultTitleFA: 'هفت‌طلایی | تولید و صادرات مغز فندق، خلال پسته و بادام صنعتی',
-  defaultTitleEN: '7Golden | Hazelnut, Pistachio & Almond Producer and Exporter',
-  defaultDescriptionFA: 'هفت‌طلایی از سال ۱۳۷۷ در قزوین، مغز و خلال فندق، پسته و بادام را مستقیم از باغستان تأمین و برای کارخانه‌های شکلات، قنادی و بستنی فرآوری می‌کند. تأمین عمده، کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده.',
-  defaultDescriptionEN: 'Since 1998, 7Golden in Qazvin has sourced hazelnut kernels, pistachio slices and almond kernels straight from orchards and processed them for chocolate, confectionery and ice-cream factories. Bulk supply, lab-tested quality, scheduled delivery.',
+  defaultTitleFA: 'هفت طلایی | فرآوری مغز فندق، پسته و بادام',
+  defaultTitleEN: '7Golden | Hazelnut, Pistachio & Almond Processing',
+  defaultDescriptionFA: 'هفت طلایی در قزوین از سال ۱۳۷۷ در زمینه فرآوری خشکبار فعالیت می‌کند. محصولات مجموعه شامل مغز فندق و فرآورده‌های آن، مغز و خلال پسته و شکل‌های مختلف بادام برای صنایع غذایی است.',
+  defaultDescriptionEN: 'Based in Qazvin, 7Golden has processed hazelnut, pistachio and almond products since 1998 for use in chocolate, confectionery, ice cream and other food products.',
   ogImage: 'https://7golden.co/banner/Hero-main.webp',
   baseUrl: 'https://7golden.co',
   baseUrlIr: 'https://7golden.ir',
   twitterHandle: '@7golden',
-  keywordsFA: 'صادرات فندق, صادرات پسته, صادرات بادام, مغز فندق, خلال پسته, مغز بادام, تأمین عمده خشکبار, خمیر فندق, گرانول فندق, پرک بادام, هفت طلایی, 7golden, بازرگانی خشکبار قزوین',
-  keywordsEN: 'hazelnut exporter, pistachio exporter, almond exporter, bulk nuts supplier, hazelnut kernels, pistachio slices, almond flakes, hazelnut paste, hazelnut granules, Iranian nuts, 7golden, B2B nuts, Qazvin nuts',
+  keywordsFA: 'هفت طلایی, 7golden, فرآوری خشکبار قزوین, مغز فندق, خمیر فندق, گرانول فندق, مغز پسته, خلال پسته, مغز بادام, خلال بادام, پرک بادام, صنایع غذایی',
+  keywordsEN: '7Golden, Qazvin nut processing, hazelnut kernels, pistachio kernels, pistachio slices, almond flakes, hazelnut paste, hazelnut granules, food industry ingredients',
 };
 
 export const ORGANIZATION_JSONLD = {
@@ -25,7 +25,7 @@ export const ORGANIZATION_JSONLD = {
   alternateName: 'هفت‌طلایی',
   url: 'https://7golden.co',
   logo: 'https://7golden.co/logo.webp',
-  description: 'تولیدکننده و صادرکننده مغز و خلال فندق، پسته و بادام صنعتی از سال ۱۳۷۷ در قزوین — تأمین مستقیم از باغستان، کنترل کیفی آزمایشگاهی و تحویل زمان‌بندی‌شده برای صنایع شکلات، قنادی و بستنی.',
+  description: 'هفت طلایی در قزوین از سال ۱۳۷۷ در زمینه فرآوری خشکبار فعالیت می‌کند؛ محصولات اصلی مجموعه شامل فندق، پسته و بادام در شکل‌های مختلف برای صنایع غذایی است.',
   foundingDate: '1998',
   sameAs: [
     'https://7golden.co',

@@ -1,8 +1,7 @@
-// Industries that buy from 7Golden, shown in the home-page buyer wall.
+// Food-industry application sectors shown on the 7Golden homepage.
 //
-// These are the real, verifiable sectors the company supplies — chocolate &
-// cocoa, ice-cream, confectionery, sesame/halva, biscuit & cake, dairy and
-// export groups — instead of made-up brand names. Each entry renders as a
+// These labels describe product-use sectors, not named customer companies.
+// Each entry renders as a
 // generated lockup (emblem + wordmark) unless a real customer logo is supplied:
 // drop the file into /public/clients/ and set
 //   logo: '/clients/your-file.svg'
@@ -20,7 +19,7 @@ export const CLIENTS = [
   { id: 'biscuit', nameFA: 'بیسکوییت و ویفر', sectorFA: 'صنایع پخت', icon: 'Cookie', shape: 'hex', font: 'Kalameh', weight: 700 },
   { id: 'bakery', nameFA: 'کیک و شیرینی خشک', sectorFA: 'صنایع پخت', icon: 'Gem', shape: 'circle', font: 'Peyda', weight: 700 },
   { id: 'dairy', nameFA: 'لبنیات و دسر', sectorFA: 'لبنیات', icon: 'IceCreamCone', shape: 'square', font: 'YekanBakh', weight: 700 },
-  { id: 'export', nameFA: 'گروه‌های صادراتی', sectorFA: 'بازرگانی و صادرات', icon: 'Building2', shape: 'diamond', font: 'Peyda', weight: 800 },
+  { id: 'food-products', nameFA: 'فرآورده‌های غذایی', sectorFA: 'صنایع غذایی', icon: 'Building2', shape: 'diamond', font: 'Peyda', weight: 800 },
   { id: 'nuts', nameFA: 'آجیل و خشکبار', sectorFA: 'پخش عمده', icon: 'Wheat', shape: 'arch', font: 'YekanBakh', weight: 700 },
   { id: 'snack', nameFA: 'تنقلات و اسنک', sectorFA: 'صنایع غذایی', icon: 'TreePine', shape: 'hex', font: 'Kalameh', weight: 800 },
 ];
