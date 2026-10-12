@@ -2,10 +2,29 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import path from 'path'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
+  },
+  esbuild: {
+    // Ship a leaner production bundle — no console/debugger statements.
+    drop: mode === 'production' ? ['console', 'debugger'] : [],
+  },
+  build: {
+    target: 'es2020',
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        // Split the heavy framework/vendor code out of the entry chunk so the
+        // first paint only downloads what it needs and vendors stay cached.
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'motion-vendor': ['framer-motion'],
+        },
+      },
+    },
   },
   server: {
     host: '0.0.0.0',
@@ -26,4 +45,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))

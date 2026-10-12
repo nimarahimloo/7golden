@@ -157,6 +157,22 @@ left in place but safe to delete.
 - `curl -s http://localhost:3000/sitemap.xml | grep news` → lists `/news` for both domains
 - `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
 
+## Performance & SEO (2026-10)
+- **Product marquee loading**: `ProductLineRow` now eager-loads only the **first** product copy; the
+  duplicated copies (which are off-screen and only needed after a full loop) are `loading="lazy"`.
+  This cut the home page's initial eager image count from ~80 to 20 and stops the duplicated
+  marquee images from competing with the hero image for bandwidth. The first copy still covers
+  the visible viewport on mobile and desktop, so the rows never render blank — keep it eager.
+- **Production bundle**: `vite.config.js` splits `react`/`react-dom`/`react-router-dom` and
+  `framer-motion` into cacheable vendor chunks (`manualChunks`), targets `es2020`, and drops
+  `console`/`debugger` in production only (`esbuild.drop`). Entry chunk went 348 kB → 162 kB
+  (gzip 112 kB → 51 kB). Dev behaviour is unchanged.
+- **`index.html`**: preloads the two primary fonts (`PeydaWeb-Bold`, `YekanBakhFaNum-Regular`)
+  used by the hero `<h1>` and body copy, adds `apple-touch-icon` + `sitemap` link, and carries a
+  `<noscript>` block with the brand name, description, address, phone and email so crawlers and
+  JS-disabled visitors still see real content. Keep the preloaded font list in sync with the
+  font families actually used above the fold.
+
 ## Themed map band (Contact) & self-moving awards strip (Home)
 - `src/pages/Contact.jsx` wraps the Google Maps embed in `.map-band` / `.map-frame` (CSS in
   `src/styles/story.css`). The iframe gets a warm gold/dark `filter`, a load-in fade driven by
