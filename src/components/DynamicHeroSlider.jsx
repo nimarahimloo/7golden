@@ -12,6 +12,7 @@ export default function DynamicHeroSlider({
   fallback = { image: '/banner/Hero.webp', title: '', subtitle: '', badge: '' },
   height = '72svh',
   intervalMs = 6000,
+  copyOverride,
 }) {
   const [slides, setSlides] = useState([]);
   const [current, setCurrent] = useState(0);
@@ -26,15 +27,15 @@ export default function DynamicHeroSlider({
           .filter((s) => s.image || s.title_fa)
           .map((s) => ({
             image: s.image || fallback.image,
-            title: s.title_fa || fallback.title,
-            subtitle: s.subtitle_fa || fallback.subtitle,
-            badge: s.badge_fa || fallback.badge,
+            title: copyOverride?.title || s.title_fa || fallback.title,
+            subtitle: copyOverride?.subtitle || s.subtitle_fa || fallback.subtitle,
+            badge: copyOverride?.badge || s.badge_fa || fallback.badge,
           }));
         setSlides(mapped.length ? mapped : [fallback]);
       })
       .catch(() => setSlides([fallback]));
     return () => { on = false; };
-  }, [pageKey]);
+  }, [pageKey, fallback.image, fallback.title, fallback.subtitle, fallback.badge, copyOverride?.title, copyOverride?.subtitle, copyOverride?.badge]);
 
   const n = slides.length || 1;
   const next = useCallback(() => setCurrent((c) => (c + 1) % n), [n]);

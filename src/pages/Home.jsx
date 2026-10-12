@@ -32,21 +32,9 @@ import {
 } from '@/lib/corporate-content';
 
 const ORDER_STEPS = [
-  {
-    number: '۰۱',
-    title: 'انتخاب محصول',
-    text: 'پسته، بادام، فندق یا فرآورده‌های متنوع آن‌ها؛ انتخاب بر اساس نوع مصرف و نیاز مجموعه شما انجام می‌شود.',
-  },
-  {
-    number: '۰۲',
-    title: 'تعیین مشخصات سفارش',
-    text: 'نوع محصول، شکل فرآوری، مقدار و بسته‌بندی موردنیاز، متناسب با جزئیات سفارش مشخص می‌شوند.',
-  },
-  {
-    number: '۰۳',
-    title: 'هماهنگی و آماده‌سازی',
-    text: 'پس از مشخص‌شدن جزئیات سفارش، هماهنگی‌های لازم برای آماده‌سازی و زمان تحویل انجام می‌شود.',
-  },
+  { number: '۰۱', title: 'انتخاب محصول', text: 'از مغز فندق و خمیر فندق تا مغز و خلال پسته و فرآورده‌های بادام؛ محصول را بر اساس کاربرد آن در شکلات، بستنی یا قنادی انتخاب کنید.' },
+  { number: '۰۲', title: 'بررسی مشخصات سفارش', text: 'شکل محصول، مقدار موردنیاز و نوع بسته‌بندی هنگام استعلام قیمت مشخص می‌شوند.' },
+  { number: '۰۳', title: 'هماهنگی تحویل', text: 'زمان آماده‌سازی و تحویل بر اساس موجودی و جزئیات نهایی سفارش هماهنگ می‌شود.' },
 ];
 
 const DEFAULT_SECTION_IMAGES = {
@@ -55,18 +43,18 @@ const DEFAULT_SECTION_IMAGES = {
 };
 
 export default function Home() {
-  const [products, setProducts] = useState < any[] > ([]);
-  const [heroConfig, setHeroConfig] = useState < any > (null);
-  const [sectionMap, setSectionMap] = useState < Record < string, any>> ({});
+  const [products, setProducts] = useState([]);
+  const [heroConfig, setHeroConfig] = useState(null);
+  const [sectionMap, setSectionMap] = useState({});
   const [loading, setLoading] = useState(true);
 
   const loadData = useCallback(
-    async (isActive: () => boolean = () => true) => {
-      let timeoutId: ReturnType<typeof setTimeout> | undefined;
-      let nextProducts: any[] = FALLBACK_PRODUCTS;
+    async (isActive = () => true) => {
+      let timeoutId;
+      let nextProducts = FALLBACK_PRODUCTS;
 
       try {
-        const timeout = new Promise < never > ((_, reject) => {
+        const timeout = new Promise((_, reject) => {
           timeoutId = setTimeout(() => {
             reject(new Error('Product request timed out'));
           }, 6000);
@@ -113,7 +101,7 @@ export default function Home() {
       .then((sections) => {
         if (!active) return;
 
-        const map: Record<string, any> = {};
+        const map = {};
 
         (sections || []).forEach((section) => {
           const key = String(section.section_key || '')
@@ -154,7 +142,7 @@ export default function Home() {
     };
   }, [loadData]);
 
-  const byCat = (slug: string) =>
+  const byCat = (slug) =>
     products.filter(
       (product) =>
         product.category === slug &&
@@ -165,7 +153,7 @@ export default function Home() {
   const almondProducts = byCat('almond');
   const hazelnutProducts = byCat('hazelnut');
 
-  const sec = (key: string) => sectionMap[key] || {};
+  const sec = (key) => sectionMap[key] || {};
 
   const sectionImages = {
     capacity:
@@ -215,9 +203,9 @@ export default function Home() {
             '/banner/tray-pistachio-almond.webp'
           }
           eyebrow="۷ گلدن · از ۱۳۷۷"
-          title="دنیای خشکبار ممتاز"
-          titleAccent="به انتخاب ۷ گلدن"
-          lead="از پسته و بادام تا فندق و فرآورده‌های متنوع آن‌ها؛ ۷ گلدن بر شناخت محصول، دقت در آماده‌سازی و ارائه‌ای درخور کسب‌وکارهای حرفه‌ای تمرکز دارد."
+          title="مغز فندق، پسته و بادام"
+          titleAccent="برای صنایع غذایی"
+          lead="هفت طلایی در قزوین از سال ۱۳۷۷ در زمینه فرآوری خشکبار فعالیت می‌کند. محصولات مجموعه شامل مغز فندق و فرآورده‌های آن، مغز و خلال پسته و شکل‌های مختلف بادام است؛ برای استفاده در شکلات، بستنی، قنادی و دیگر فرآورده‌های غذایی."
           stats={CAPACITY_STATS}
           primary={{
             label: 'مشاوره و استعلام قیمت',
@@ -245,8 +233,8 @@ export default function Home() {
                 <StoryChapter
                   index="02"
                   eyebrow="توانمندی‌های ۷ گلدن"
-                  title="تخصص در محصول، دقت در فرآوری"
-                  lead="شناخت ویژگی‌های پسته، بادام و فندق، در انتخاب شکل مناسب محصول و نحوه آماده‌سازی آن نقش دارد. تنوع محصولات و توجه به جزئیات، امکان انتخاب متناسب با نیاز مجموعه‌های حرفه‌ای را فراهم می‌کند."
+                  title="فرآوری خشکبار در قزوین"
+                  lead="فعالیت فرآوری هفت طلایی از سال ۱۳۷۷ آغاز شده است. فهرست محصولات مجموعه شامل مغز فندق، خمیر و گرانول فندق، مغز و خلال پسته و شکل‌های مختلف بادام است."
                 />
 
                 <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
@@ -309,8 +297,8 @@ export default function Home() {
             <StoryChapter
               index="04"
               eyebrow="مجموعه محصولات"
-              title="پسته، بادام و فندق؛ با انتخابی دقیق"
-              lead="هر محصول ویژگی‌های خاص خود را دارد. مجموعه ۷ گلدن، گونه‌های مختلف این سه گروه و فرآورده‌های متنوع آن‌ها را برای کاربردهای گوناگون عرضه می‌کند."
+              title="محصولات هفت طلایی"
+              lead="در فهرست محصولات، پسته، بادام و فندق در شکل‌های مختلف آماده‌سازی عرضه می‌شوند؛ از مغز و خلال تا پرک، خمیر، گرانول و پودر."
             />
           </div>
 
