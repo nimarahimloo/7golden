@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, CheckCircle, MessageCircle } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import DynamicHeroSlider from '@/components/DynamicHeroSlider';
@@ -53,7 +53,7 @@ export default function Contact() {
     { icon: Phone, label: 'تلفن دفتر', value: '۰۲۸۳۳۲۳۴۰۰۴', href: 'tel:+982833234004' },
     { icon: Phone, label: 'موبایل / واتساپ', value: '۰۹۱۲۱۸۲۳۴۳۸', href: 'tel:+989121823438' },
     { icon: Mail, label: 'ایمیل', value: 'info@7golden.co', href: 'mailto:info@7golden.co' },
-  ];  ];
+  ];
 
   return (
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
@@ -183,10 +183,11 @@ export default function Contact() {
                   href="https://wa.me/989121823438"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="پیام در واتس‌اپ"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
                   style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
                 >
-                  <Phone size={18} style={{ color: 'var(--accent)' }} />
+                  <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="tel:+989121823438"
@@ -329,10 +330,10 @@ export default function Contact() {
       </section>
 
       {/* ===== FULL-WIDTH MAP — factory location, eased into the site theme ===== */}
-      <section className="map-band" aria-label="نقشه کارخانه هفت طلایی">
+      <section className="map-band" aria-label="نقشه و موقعیت شهرک صنعتی کاسپین ۲ در قزوین">
         <div className="map-frame" data-loaded={mapLoaded ? 'true' : 'false'}>
           <iframe
-            title="نقشه کارخانه هفت طلایی — قزوین"
+            title="موقعیت شهرک صنعتی کاسپین ۲ در قزوین"
             src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
             className="map-frame-iframe"
             loading="lazy"

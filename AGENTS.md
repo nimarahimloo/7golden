@@ -66,18 +66,7 @@ docker compose -f docker-compose.base44.yml up -d
 - Studio food photography downloaded from the user into `public/banner/` (hero-nuts-bowl, banner-spoons-set, almond-milk, hazelnut-bowl, pistachio-dishes-teal, banner-four-bowls, hero-chopped-scoop, product-nuts-assortment) and placed across Home/Shop/About/Blog/ExportProcess pages as scene/hero/banner images. Note: the media upload served `4.jpeg`==`4-1.jpeg` and `8.jpeg`==`8-1.jpeg` as byte-identical files.
 
 ## Home Page Structure (current)
-The home page now reads top→bottom as:
-1. `CinematicHero` (hero-nuts-bowl)
-2. Chapter 01 — `StickyScene` 3 pillars (pistachio-kernels, tray-pistachio-almond, hazelnut-spoon — new premium product photos)
-3. Chapter 02 — Capacity stats (`img-6052.jpg` parallax)
-4. Chapter 03 — Origin story (`banner-spoons-set` depth parallax)
-5. `MaskText` 7GOLDEN band (`banner-four-bowls`)
-6. Chapter 04/Showcase — `PRODUCT_STRIP` 4-card premium product-photo grid (hazelnut-spoon, pistachio-bowl-green, pistachio-kernels, product-4-stack) with `SCENE_IMAGE` scenes
-7. `StickyScene`-driven product grid (from API products)
-8. Chapter 06 — `ExportProcess` (export journey)
-9. **Chapter 07 — `HomeAwardsSlider`** (`src/components/home/HomeAwardsSlider.jsx`) — awards shown as a full-view slider (image large & centered, prev/next, dots, auto-advance 6s), reads `/api/awards`, fallback curated list. Matches 7golden.co push to show awards full & clear on home.
-10. **Chapter 08 — `HomeClients`** (`src/components/home/HomeClients.jsx`) — product-application examples for food manufacturing. Do not present sectors as clients or endorsements.
-11. **Chapter 09 — `HomeContactForm`** (`src/components/home/HomeContactForm.jsx`) — a product-question form (name / phone / email / message) that POSTs to the real backend via `createContactMessage()` (`POST /api/contact`), so submissions land in the admin `ContactMessage` inbox. Has idle → sending → sent/error states. The standalone `/contact` page form is separate and still client-only (does not submit).
+Current public home-page structure is defined in `src/pages/Home.jsx`. Product rows appear only when real API products exist; awards come from published CMS records and are omitted if none are available; the application section describes possible industry uses and must not be presented as a list of customers; both inquiry forms submit to the backend. Keep this note synchronized with the actual component tree.
 
 New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pistachio-bowl-green.jpg`, `pistachio-kernels.jpg`, `tray-pistachio-almond.jpg`, `product-4-stack.jpg`, `hazelnut-chopped-dark.jpg`, `img-6052-split.jpg`.
 
@@ -126,7 +115,7 @@ Do not publish unverified claims about export markets, direct-from-grower sourci
 
 ## Verifying
 - `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/blog` → 200
-- `curl -s http://localhost:3000/sitemap.xml | grep blog` → lists `/news` for both domains
+- `curl -s http://localhost:3000/sitemap.xml | grep blog` → lists static public pages and published, non-legacy CMS posts; legacy `/news` paths are not indexed.
 - `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
 
 ## Performance & SEO (2026-10)

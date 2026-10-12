@@ -25,8 +25,6 @@ const STATIC_PAGES = [
   { path: '/contact', priority: '0.6', changefreq: 'monthly' },
 ];
 
-function escapeXml];
-
 function escapeXml(str: string) {
   return String(str)
     .replace(/&/g, '&amp;')
