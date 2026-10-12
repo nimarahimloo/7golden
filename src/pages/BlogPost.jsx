@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Calendar, ChevronLeft, Tag } from 'lucide-react';
 import { categoryLabel } from '@/lib/i18n';
 import { getBlogPostBySlug, getBlogPosts } from '@/lib/api/content';
@@ -13,6 +13,8 @@ import ReactMarkdown from 'react-markdown';
 
 export default function BlogPost() {
   const { slug } = useParams();
+  const { pathname } = useLocation();
+  const basePath = pathname.startsWith('/news/') ? '/news' : '/blog';
   const isFA = true;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
   const ArrowIcon = isFA ? ArrowLeft : ArrowRight;
@@ -56,7 +58,7 @@ export default function BlogPost() {
           <p className="font-body text-lg mb-4" style={{ color: 'var(--fg-muted)' }}>
             {isFA ? 'مقاله یافت نشد' : 'Article not found'}
           </p>
-          <Link to="/blog" className="font-body text-sm" style={{ color: 'var(--accent)' }}>
+          <Link to={basePath} className="font-body text-sm" style={{ color: 'var(--accent)' }}>
             {isFA ? 'بازگشت به مجله' : 'Back to blog'}
           </Link>
         </div>
@@ -76,7 +78,7 @@ export default function BlogPost() {
         description={excerpt}
         image={post.image}
         type="article"
-        canonical={`${SITE_SEO.baseUrl}/blog/${post.slug}`}
+        canonical={`${SITE_SEO.baseUrl}${basePath}/${post.slug}`}
         jsonLd={articleJsonLd(post)}
       />
 
@@ -131,7 +133,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-2 font-body text-sm mb-8" style={{ color: 'var(--fg-muted)' }}>
             <Link to="/" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'خانه' : 'Home'}</Link>
             <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-            <Link to="/blog" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'مجله' : 'Blog'}</Link>
+            <Link to={basePath} style={{ color: 'var(--fg-muted)' }}>{basePath === '/news' ? 'اخبار و مطالب' : (isFA ? 'مجله' : 'Blog')}</Link>
             <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             <span className="truncate" style={{ color: 'var(--fg)' }}>{title}</span>
           </div>
@@ -162,7 +164,7 @@ export default function BlogPost() {
 
           {/* Footer of article */}
           <div className="mt-10 pt-6 flex items-center justify-between gap-4" style={{ borderTop: '1px solid var(--border)' }}>
-            <Link to="/blog" className="inline-flex items-center gap-2 font-body text-sm font-semibold transition-all hover:gap-3" style={{ color: 'var(--accent)' }}>
+            <Link to={basePath} className="inline-flex items-center gap-2 font-body text-sm font-semibold transition-all hover:gap-3" style={{ color: 'var(--accent)' }}>
               <ArrowIcon size={14} />
               {isFA ? 'بازگشت به مجله' : 'Back to blog'}
             </Link>

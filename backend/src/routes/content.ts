@@ -25,21 +25,6 @@ const UNVERIFIED_LEGACY_BLOG_SLUGS = [
   "pistachio-export-global-markets",
   "hazelnut-paste-chocolate-artisans"
 ];
-const UNVERIFIED_LEGACY_AWARD_IDS = [
-  "award-01-tabriz-exhibition",
-  "award-02-qazvin-appreciation",
-  "award-03-tabriz-university",
-  "award-04-training-ut",
-  "award-05-coaching-ut",
-  "award-06-membership",
-  "award-07-talieh-charity",
-  "award-08-certificate-training",
-  "award-09-marketing-ut",
-  "award-10-tech-ut",
-  "award-11-negotiation-ut",
-  "award-12-bmc-marketing",
-  "award-13-ghadir-mosque"
-];
 const UNVERIFIED_TESTIMONIAL_NAMES = [
   "بستنی گلستان",
   "قنادی برتر",
@@ -151,12 +136,10 @@ router.get('/gallery', async (_req, res) => {
 });
 
 // Awards
-router.get('/awards', optionalAuth, async (req: AuthRequest, res) => {
+router.get('/awards', async (_req, res) => {
   try {
-    const where: any = { published: true };
-    if (req.user?.role !== 'admin') where.id = { notIn: UNVERIFIED_LEGACY_AWARD_IDS };
     const items = await prisma.award.findMany({
-      where,
+      where: { published: true },
       orderBy: { sort_order: 'asc' },
       take: 100,
     });
