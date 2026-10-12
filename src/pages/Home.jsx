@@ -17,6 +17,7 @@ import ExportProcess from '@/components/story/ExportProcess';
 import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
+import HomeContactForm from '@/components/home/HomeContactForm';
 import ProductLineRow from '@/components/home/ProductLineRow';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
@@ -184,7 +185,7 @@ export default function Home() {
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
-        {/* ===== PRODUCTS: 3 slow rows by line — pistachio / hazelnut / almond ===== */}
+        {/* ===== PRODUCTS: one self-moving row per category ===== */}
         <section className="chapter pt-4 pb-2">
           <div className="chapter-shell mb-6">
             <StoryChapter
@@ -194,8 +195,8 @@ export default function Home() {
             />
           </div>
           <ProductLineRow title="مشتقات پسته" products={pistachioProducts} duration={90} />
-          <ProductLineRow title="مشتقات فندق" products={hazelnutProducts} duration={100} reverse />
           <ProductLineRow title="مشتقات بادام" products={almondProducts} duration={85} />
+          <ProductLineRow title="مشتقات فندق" products={hazelnutProducts} duration={100} reverse />
         </section>
 
 
@@ -225,6 +226,9 @@ export default function Home() {
 
         {/* ===== CHAPTER 07 — featured buyers brand slider ===== */}
         <HomeClients />
+
+        {/* ===== CHAPTER 09 — product question form ===== */}
+        <HomeContactForm />
 
       </PullToRefresh>
     </div>

@@ -280,7 +280,7 @@ export default function Contact() {
       {/* ===== Closing parallax band ===== */}
       <section className="closing-band" style={{ minHeight: '50vh' }}>
         <div className="closing-band-bg">
-          <img src="/gallery/AQ8A1750AQ8A1750.webp" alt="" />
+          <img src="/gallery/AQ8A1750AQ8A1750.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
           <Reveal variant="up">

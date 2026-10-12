@@ -89,7 +89,7 @@ export default function NewsArticle() {
 
       {/* ===== HERO ===== */}
       <header className="relative w-full overflow-hidden" style={{ height: 'clamp(340px, 62svh, 560px)' }}>
-        <img src={item.image} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: 'brightness(0.6)' }} />
+        <img src={item.image} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: 'brightness(0.6)' }} fetchpriority="high" decoding="async" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(7,6,4,0.45) 0%, rgba(7,6,4,0.25) 40%, rgba(7,6,4,0.96) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
           <div className="max-w-4xl mx-auto px-5 sm:px-8 pb-10 md:pb-14 w-full text-center">

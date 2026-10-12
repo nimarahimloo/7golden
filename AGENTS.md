@@ -56,6 +56,8 @@ docker compose -f docker-compose.base44.yml up -d
 
 ## Known fixes applied
 - Home product marquees (`ProductLineRow`) were blank for several seconds and the middle row often lagged: `ProductTile` hardcoded `loading="lazy"`, so the below-the-fold slider images only began downloading once scrolled into view (×4 duplicated copies made it worse). `ProductTile` now takes a `loading` prop (default `lazy`, plus `decoding="async"`) and `ProductLineRow` passes `loading="eager"` so all marquee images preload with the page. Keep lazy loading for the Shop grid / related products.
+- `ProductLineRow` marquees ran **blank** after a few seconds in the RTL page: the row's track overflowed to the *left* while the JS transform moved it left too, so products slid off and the row emptied before the loop wrapped. Fixed by giving `.plr-viewport` `direction: ltr` (the same trick `.awards-marquee` and `.logo-marquee` already use) so the `translate3d(-offset)` loop math is unambiguous. Any new marquee MUST set `direction: ltr` on its track/viewport.
+- The home product band is three separate self-moving rows, one per category (پسته / بادام / فندق), each a `ProductLineRow`. (A single navigable arrow/dot carousel was tried and removed — the user wants per-category auto-moving rows.)
 - `backend/prisma/seed.ts` was out of sync with `schema.prisma` (referenced removed `_en` fields). Fixed to match the current schema (Persian-only fields).
 - `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found "{"`). Fixed by switching to `createMany({ data: [...] })` with a proper array.
 - `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site export. Real product images live in `public/product/*-7golden*.webp` where available; blog images live in `public/banner/`.
@@ -75,6 +77,7 @@ The home page now reads top→bottom as:
 8. Chapter 06 — `ExportProcess` (export journey)
 9. **Chapter 07 — `HomeAwardsSlider`** (`src/components/home/HomeAwardsSlider.jsx`) — awards shown as a full-view slider (image large & centered, prev/next, dots, auto-advance 6s), reads `/api/awards`, fallback curated list. Matches 7golden.co push to show awards full & clear on home.
 10. **Chapter 08 — `HomeClients`** (`src/components/home/HomeClients.jsx`) — featured-buyers/testimonials band reading `/api/testimonials`, fallback `FALLBACK_CLIENTS`. Shows quote + stars + buyer name/role.
+11. **Chapter 09 — `HomeContactForm`** (`src/components/home/HomeContactForm.jsx`) — a product-question form (name / phone / email / message) that POSTs to the real backend via `createContactMessage()` (`POST /api/contact`), so submissions land in the admin `ContactMessage` inbox. Has idle → sending → sent/error states. The standalone `/contact` page form is separate and still client-only (does not submit).
 
 New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pistachio-bowl-green.jpg`, `pistachio-kernels.jpg`, `tray-pistachio-almond.jpg`, `product-4-stack.jpg`, `hazelnut-chopped-dark.jpg`, `img-6052-split.jpg`.
 
@@ -154,6 +157,35 @@ left in place but safe to delete.
 - `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/news` → 200
 - `curl -s http://localhost:3000/sitemap.xml | grep news` → lists `/news` for both domains
 - `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
+
+## Performance & SEO (2026-10)
+- **Image weight (site-wide)**: the source images were massively oversized — gallery photos were
+  4–7.6 MB each and the home `MaskText` bands loaded a 6 MB image, product photos 200–570 kB.
+  All of `public/gallery`, `public/banner`, `public/product`, `public/awards` and
+  `public/certificates` were re-encoded with `sharp` (max width 1920 for gallery/banner, 1200 for
+  product/awards, webp q80 / jpeg q82): **~470 MB → ~25 MB total**. Keep new uploads under a few
+  hundred kB — run the same resize before committing new photos. `public/old` (35 MB) and
+  `public/migrated` (12 MB) are unused leftovers, safe to delete.
+- **Lazy/eager discipline**: hero images (`CinematicHero`, `PageHero`, article covers in
+  `NewsArticle`/`BlogPost`) stay eager and carry `fetchpriority="high"` + `decoding="async"`;
+  everything below the fold (Blog/Contact closing bands, `HomeClients` pinned background, Shop
+  line banner) is `loading="lazy" decoding="async"`. Note: React 18 needs the **lowercase**
+  `fetchpriority` attribute (no camelCase alias before React 19) — the `react/no-unknown-property`
+  rule is configured to ignore it.
+- **Product marquee loading**: `ProductLineRow` now eager-loads only the **first** product copy; the
+  duplicated copies (which are off-screen and only needed after a full loop) are `loading="lazy"`.
+  This cut the home page's initial eager image count from ~80 to 20 and stops the duplicated
+  marquee images from competing with the hero image for bandwidth. The first copy still covers
+  the visible viewport on mobile and desktop, so the rows never render blank — keep it eager.
+- **Production bundle**: `vite.config.js` splits `react`/`react-dom`/`react-router-dom` and
+  `framer-motion` into cacheable vendor chunks (`manualChunks`), targets `es2020`, and drops
+  `console`/`debugger` in production only (`esbuild.drop`). Entry chunk went 348 kB → 162 kB
+  (gzip 112 kB → 51 kB). Dev behaviour is unchanged.
+- **`index.html`**: preloads the two primary fonts (`PeydaWeb-Bold`, `YekanBakhFaNum-Regular`)
+  used by the hero `<h1>` and body copy, adds `apple-touch-icon` + `sitemap` link, and carries a
+  `<noscript>` block with the brand name, description, address, phone and email so crawlers and
+  JS-disabled visitors still see real content. Keep the preloaded font list in sync with the
+  font families actually used above the fold.
 
 ## Themed map band (Contact) & self-moving awards strip (Home)
 - `src/pages/Contact.jsx` wraps the Google Maps embed in `.map-band` / `.map-frame` (CSS in

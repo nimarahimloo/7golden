@@ -144,7 +144,7 @@ export default function ProductLineRow({
             <ProductTile
               key={`${p.slug || p.id}-${i}`}
               product={p}
-              loading="eager"
+              loading={i < products.length ? 'eager' : 'lazy'}
               className="flex-shrink-0 px-3 md:px-4 box-content"
               style={{ width: 'min(46vw, 210px)' }}
             />
