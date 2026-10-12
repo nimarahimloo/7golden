@@ -123,12 +123,12 @@
 .chapter-shell {
   max-width: 80rem;
   margin: 0 auto;
-  padding-inline: 1.25rem;
+  padding-inline: 1rem;
 }
 
 @media (min-width: 640px) {
   .chapter-shell {
-    padding-inline: 2rem;
+    padding-inline: 1.5rem;
   }
 }
 
