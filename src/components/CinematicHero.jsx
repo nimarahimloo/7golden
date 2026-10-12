@@ -110,16 +110,9 @@ export default function CinematicHero({
         className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-28 md:pb-32"
         style={{ willChange: 'transform, opacity' }}
       >
-        {eyebrow && <Eyebrow className="block mb-6">{eyebrow}</Eyebrow>}
 
         <h1 className="display-xl mb-6 max-w-6xl" style={{ color: 'var(--ink)' }}>
           {title}
-          {titleAccent && (
-            <>
-              <br />
-              <span className="gold-text">{titleAccent}</span>
-            </>
-          )}
         </h1>
 
         {lead && (
