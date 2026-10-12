@@ -6,11 +6,32 @@ import {
   serializeGeneric,
   normalizeRowMedia,
   prepareOrderData,
-  normalizeRowMedia,
 } from '../lib/serialize.js';
 import { requireAuth, requireAdmin, optionalAuth, type AuthRequest } from '../middleware/auth.js';
 
 const router = Router();
+
+const UNVERIFIED_LEGACY_BLOG_SLUGS = [
+  "sweets-and-chocolates-1402",
+  "our-honors",
+  "decrease-in-purchasing-power",
+  "difference-walnut-grades",
+  "pistachio-health-benefits",
+  "hazelnut-processing-industrial",
+  "export-standards-dried-fruits",
+  "choosing-quality-pistachio-kernel",
+  "almond-slices-in-confectionery",
+  "moisture-control-dried-nuts-storage",
+  "pistachio-export-global-markets",
+  "hazelnut-paste-chocolate-artisans"
+];
+const UNVERIFIED_TESTIMONIAL_NAMES = [
+  "بستنی گلستان",
+  "قنادی برتر",
+  "شکلات‌سازی آریا",
+  "هلدینگ خواروبار پارس",
+  "گروه صنایع غذایی سرو"
+];
 
 // Products
 router.get('/products', async (req, res) => {
@@ -57,7 +78,7 @@ router.get('/blog', async (req, res) => {
   try {
     const limit = Math.min(Number(req.query.limit) || 100, 500);
     const items = await prisma.blogPost.findMany({
-      where: { published: true },
+      where: { published: true, slug: { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS } },
       orderBy: { sort_order: 'asc' },
       take: limit,
     });
@@ -69,6 +90,9 @@ router.get('/blog', async (req, res) => {
 
 router.get('/blog/:slug', async (req, res) => {
   try {
+    if (UNVERIFIED_LEGACY_BLOG_SLUGS.includes(req.params.slug)) {
+      return res.status(404).json({ error: 'Not found' });
+    }
     const item = await prisma.blogPost.findFirst({
       where: { slug: req.params.slug, published: true },
     });
@@ -82,7 +106,11 @@ router.get('/blog/:slug', async (req, res) => {
 // Testimonials
 router.get('/testimonials', async (_req, res) => {
   try {
-    const items = await prisma.testimonial.findMany({ orderBy: { sort_order: 'asc' }, take: 100 });
+    const items = await prisma.testimonial.findMany({
+      where: { published: true, name_fa: { notIn: UNVERIFIED_TESTIMONIAL_NAMES } },
+      orderBy: { sort_order: 'asc' },
+      take: 100,
+    });
     res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });

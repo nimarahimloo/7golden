@@ -28,7 +28,6 @@ import ProductLineRow from '@/components/home/ProductLineRow';
 
 import {
   CAPACITY_STATS,
-  FALLBACK_PRODUCTS,
 } from '@/lib/corporate-content';
 
 const ORDER_STEPS = [
@@ -51,7 +50,7 @@ export default function Home() {
   const loadData = useCallback(
     async (isActive = () => true) => {
       let timeoutId;
-      let nextProducts = FALLBACK_PRODUCTS;
+      let nextProducts = [];
 
       try {
         const timeout = new Promise((_, reject) => {
@@ -65,12 +64,9 @@ export default function Home() {
           timeout,
         ]);
 
-        nextProducts =
-          Array.isArray(result) && result.length > 0
-            ? result
-            : FALLBACK_PRODUCTS;
+        nextProducts = Array.isArray(result) ? result : [];
       } catch {
-        nextProducts = FALLBACK_PRODUCTS;
+        nextProducts = [];
       } finally {
         if (timeoutId !== undefined) {
           clearTimeout(timeoutId);
@@ -290,37 +286,28 @@ export default function Home() {
           eyebrow="از ۱۳۷۷ · قزوین"
         />
 
-        {/* 04 — محصولات */}
+        {products.length > 0 && (
+          <section className="chapter pt-4 pb-2">
+            <div className="chapter-shell mb-6">
+              <StoryChapter
+                index="04"
+                eyebrow="مجموعه محصولات"
+                title="محصولات هفت طلایی"
+                lead="در فهرست محصولات، پسته، بادام و فندق در شکل‌های مختلف آماده‌سازی عرضه می‌شوند؛ از مغز و خلال تا پرک، خمیر، گرانول و پودر."
+              />
+            </div>
 
-        <section className="chapter pt-4 pb-2">
-          <div className="chapter-shell mb-6">
-            <StoryChapter
-              index="04"
-              eyebrow="مجموعه محصولات"
-              title="محصولات هفت طلایی"
-              lead="در فهرست محصولات، پسته، بادام و فندق در شکل‌های مختلف آماده‌سازی عرضه می‌شوند؛ از مغز و خلال تا پرک، خمیر، گرانول و پودر."
-            />
-          </div>
-
-          <ProductLineRow
-            title="محصولات پسته"
-            products={pistachioProducts}
-            duration={90}
-          />
-
-          <ProductLineRow
-            title="محصولات بادام"
-            products={almondProducts}
-            duration={85}
-          />
-
-          <ProductLineRow
-            title="محصولات فندق"
-            products={hazelnutProducts}
-            duration={100}
-            reverse
-          />
-        </section>
+            {pistachioProducts.length > 0 && (
+              <ProductLineRow title="محصولات پسته" products={pistachioProducts} duration={90} />
+            )}
+            {almondProducts.length > 0 && (
+              <ProductLineRow title="محصولات بادام" products={almondProducts} duration={85} />
+            )}
+            {hazelnutProducts.length > 0 && (
+              <ProductLineRow title="محصولات فندق" products={hazelnutProducts} duration={100} reverse />
+            )}
+          </section>
+        )}
 
         {/* 05 — فرایند همکاری */}
 

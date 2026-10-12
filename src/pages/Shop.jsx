@@ -19,16 +19,11 @@ const CATEGORY_IMAGE = {
   almond: '/product/almond-category.webp',
 };
 
-const FALLBACK_LINES = [
-  { slug: 'pistachio', nameFA: 'پسته', image: CATEGORY_IMAGE.pistachio, descFA: 'مغز و خلال پسته صادراتی' },
-  { slug: 'hazelnut', nameFA: 'فندق', image: CATEGORY_IMAGE.hazelnut, descFA: 'مغز فندق فرآوری‌شده' },
-  { slug: 'almond', nameFA: 'بادام', image: CATEGORY_IMAGE.almond, descFA: 'مغز و خلال بادام' },
-];
-
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [lines, setLines] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const activeSlug = searchParams.get('line') || '';
 
@@ -42,21 +37,27 @@ export default function Shop() {
   const loadData = async () => {
     try {
       const [prods, cats] = await Promise.all([getProducts(), getCategories()]);
-      setProducts(Array.isArray(prods) ? prods : []);
-      const fromApi = (cats || []).map((c) => ({
-        slug: c.slug || c.id,
-        nameFA: c.nameFA || c.name_fa || c.slug,
-        descFA: c.descFA || c.desc_fa || '',
-        image: c.image || FALLBACK_LINES.find((f) => f.slug === c.slug)?.image || '/logo.webp',
-        count: (prods || []).filter((p) => p.category === c.slug).length,
-      }));
-      setLines(fromApi.length ? fromApi : FALLBACK_LINES.map((f) => ({
-        ...f,
-        count: (prods || []).filter((p) => p.category === f.slug).length,
-      })));
+      const validProducts = Array.isArray(prods) ? prods : [];
+      const validCategories = Array.isArray(cats) ? cats : [];
+      setProducts(validProducts);
+      const fromApi = validCategories
+        .map((category) => {
+          const slug = category.slug || category.id;
+          return {
+            slug,
+            nameFA: category.nameFA || category.name_fa || slug,
+            descFA: category.descFA || category.desc_fa || '',
+            image: category.image || CATEGORY_IMAGE[slug] || '/logo.webp',
+            count: validProducts.filter((product) => product.category === slug).length,
+          };
+        })
+        .filter((category) => category.slug && category.nameFA);
+      setLines(fromApi);
+      setLoadError(false);
     } catch {
-      setLines(FALLBACK_LINES);
+      setLines([]);
       setProducts([]);
+      setLoadError(true);
     }
   };
 
@@ -92,7 +93,7 @@ export default function Shop() {
             ? `${activeLine.nameFA} — ${SITE_SEO.siteNameFA || 'هفت طلایی'}`
             : `محصولات — ${SITE_SEO.siteNameFA || 'هفت طلایی'}`
         }
-        description={activeLine?.descFA || hero.subtitle}
+        description={activeLine?.descFA || hero.subtitle || SITE_SEO.defaultDescriptionFA}
         image={activeLine?.image || hero.image || SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/shop${activeSlug ? `?line=${activeSlug}` : ''}`}
       />
@@ -115,48 +116,59 @@ export default function Shop() {
                 </h2>
 </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-                {lines.map((line, i) => (
-                  <Reveal key={line.slug} delay={i * 90}>
-                    <button
-                      type="button"
-                      onClick={() => openLine(line.slug)}
-                      className="group relative w-full text-right overflow-hidden rounded-3xl transition-all duration-500 hover:scale-[1.01]"
-                      style={{
-                        background: 'var(--card, var(--bg))',
-                        boxShadow: 'var(--shadow-sm, none)',
-                        minHeight: '320px',
-                      }}
-                    >
-                      <div className="absolute inset-0">
-                        <img
-                          src={line.image}
-                          alt={line.nameFA}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          loading="lazy"
-                          width={800}
-                          height={1000}
-                        />
-                        <div
-                          className="absolute inset-0"
-                          style={{
-                            background:
-                              'linear-gradient(to top, rgba(7,6,4,0.92) 0%, rgba(7,6,4,0.35) 45%, rgba(7,6,4,0.15) 100%)',
-                          }}
-                        />
-                      </div>
-                      <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-8 min-h-[320px]">
-<h3
-                          className="text-2xl md:text-3xl font-semibold"
-                          style={{ fontFamily: 'Peyda, serif', color: 'var(--ink, #fff)' }}
-                        >
-                          {line.nameFA}
-                        </h3>
-</div>
-                    </button>
-                  </Reveal>
-                ))}
-              </div>
+              {lines.length === 0 ? (
+                <div className="rounded-3xl panel-strong p-8 md:p-12 text-center" role="status">
+                  <h3 className="display-sm mb-3" style={{ color: 'var(--fg)' }}>
+                    {loadError ? 'بارگذاری فهرست محصولات انجام نشد.' : 'گروه محصولی برای نمایش ثبت نشده است.'}
+                  </h3>
+                  <p className="font-body text-sm leading-relaxed mb-6" style={{ color: 'var(--fg-muted)' }}>
+                    {loadError
+                      ? 'برای مشاهده محصولات، لطفاً دوباره تلاش کنید یا از راه‌های تماس با مجموعه استعلام بگیرید.'
+                      : 'برای اطلاع از موجودی و شکل‌های قابل‌عرضه محصول، با مجموعه تماس بگیرید.'}
+                  </p>
+                  <Link to="/contact" className="btn-gold inline-flex">تماس و استعلام محصول</Link>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                  {lines.map((line, i) => (
+                    <Reveal key={line.slug} delay={i * 90}>
+                      <button
+                        type="button"
+                        onClick={() => openLine(line.slug)}
+                        className="group relative w-full text-right overflow-hidden rounded-3xl transition-all duration-500 hover:scale-[1.01]"
+                        style={{
+                          background: 'var(--card, var(--bg))',
+                          boxShadow: 'var(--shadow-sm, none)',
+                          minHeight: '320px',
+                        }}
+                      >
+                        <div className="absolute inset-0">
+                          <img
+                            src={line.image}
+                            alt={line.nameFA}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy"
+                            width={800}
+                            height={1000}
+                          />
+                          <div
+                            className="absolute inset-0"
+                            style={{
+                              background:
+                                'linear-gradient(to top, rgba(7,6,4,0.92) 0%, rgba(7,6,4,0.35) 45%, rgba(7,6,4,0.15) 100%)',
+                            }}
+                          />
+                        </div>
+                        <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-8 min-h-[320px]">
+                          <h3 className="text-2xl md:text-3xl font-semibold" style={{ fontFamily: 'Peyda, serif', color: 'var(--ink, #fff)' }}>
+                            {line.nameFA}
+                          </h3>
+                        </div>
+                      </button>
+                    </Reveal>
+                  ))}
+                </div>
+              )}
             </div>
           </section>
         )}
@@ -197,7 +209,7 @@ export default function Shop() {
                     className="display-md"
                     style={{ fontFamily: 'Peyda, serif', color: 'var(--ink, #fff)' }}
                   >
-                    {activeLine?.nameFA || activeSlug}
+                    {activeLine?.nameFA || 'گروه محصول پیدا نشد'}
                   </h1>
                   {activeLine?.descFA ? (
                     <p

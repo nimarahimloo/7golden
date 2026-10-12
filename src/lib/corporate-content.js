@@ -51,92 +51,6 @@ export const MAIN_PRODUCTS = [
   },
 ];
 
-// Fallback product data — used when the Base44 backend has no products yet,
-// so the home page's product strip and links always render. Each item maps
-// to the same shape as normalizeProduct() in lib/api/content.js.
-export const FALLBACK_PRODUCTS = [
-  {
-    id: 'pistachio-kernel',
-    slug: 'pistachio-kernel',
-    nameFA: 'مغز پسته قزوین',
-    nameEN: 'Qazvin Pistachio Kernel',
-    category: 'pistachio',
-    image: '/product/qazvin-pistachio-nuts.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'pistachio-slice',
-    slug: 'pistachio-slice',
-    nameFA: 'خلال پسته قزوین',
-    nameEN: 'Pistachio Slice',
-    category: 'pistachio',
-    image: '/product/khelal-qazvin-slice.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'hazelnut-kernel',
-    slug: 'hazelnut-kernel',
-    nameFA: 'مغز فندق خام',
-    nameEN: 'Raw Hazelnut Kernel',
-    category: 'hazelnut',
-    image: '/product/brain-hazelnut.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'hazelnut-paste',
-    slug: 'hazelnut-paste',
-    nameFA: 'خمیر فندق',
-    nameEN: 'Hazelnut Paste',
-    category: 'hazelnut',
-    image: '/product/hazelnut-paste.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'almond-kernel',
-    slug: 'almond-kernel',
-    nameFA: 'پرک بادام درختی',
-    nameEN: 'Almond Flakes',
-    category: 'almond',
-    image: '/product/almond-flakes.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'almond-slice',
-    slug: 'almond-slice',
-    nameFA: 'خلال بادام زمینی',
-    nameEN: 'Sliced Peanuts',
-    category: 'almond',
-    image: '/product/sliced-peanuts.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'pistachio-akbari',
-    slug: 'pistachio-akbari',
-    nameFA: 'مغز پسته پوست کنده',
-    nameEN: 'Peeled Pistachio',
-    category: 'pistachio',
-    image: '/product/peeled-pistachio.webp',
-    featured: true,
-    published: true,
-  },
-  {
-    id: 'hazelnut-raw',
-    slug: 'hazelnut-raw',
-    nameFA: 'فندق خندان',
-    nameEN: 'Smiling Hazelnut',
-    category: 'hazelnut',
-    image: '/product/smiling-hazelnut.webp',
-    featured: true,
-    published: true,
-  },
-];
-
 // Specialty products — the flagship grades the user wants emphasized.
 export const SPECIALTY_PRODUCTS = [
   {
@@ -178,17 +92,6 @@ export const SPECIALTY_PRODUCTS = [
       { label: 'بسته‌بندی', value: 'کیسه ۱۰/۲۵ کیلو' },
     ],
   },
-];
-
-// Export destinations and standards shown in the "Export & Global Markets" section.
-// Neighbouring markets are direct; European sales move through traders.
-export const EXPORT_MARKETS = ['امارات', 'قطر', 'عمان', 'عراق', 'افغانستان', 'اروپا (واسطه‌ای)'];
-
-export const CERTIFICATES = [
-  'پروانه بهره‌برداری و مجوزهای بهداشتی واحد تولید',
-  'فاکتور رسمی و مدارک مربوط به سفارش',
-  'مشخصات محصول و جزئیات بسته‌بندی سفارش',
-  'اطلاعات قابل ارائه درباره محصول و شکل فرآوری آن',
 ];
 
 // Brand milestones and current product groups used throughout the site.

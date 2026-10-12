@@ -2,15 +2,6 @@ import { useEffect, useState } from 'react';
 import { getAwards } from '@/lib/api/content';
 import StoryChapter from '@/components/story/StoryChapter';
 
-const FALLBACK_AWARDS = [
-  { id: 'award-01', image: '/awards/award-01-tabriz-exhibition.webp', alt: 'حضور در نمایشگاه تبریز' },
-  { id: 'award-02', image: '/awards/award-02-qazvin-appreciation.webp', alt: 'تقدیر از مجموعه هفت طلایی در قزوین' },
-  { id: 'award-03', image: '/awards/award-03-tabriz-university.webp', alt: 'لوح تقدیر دانشگاه تبریز' },
-  { id: 'award-04', image: '/awards/award-04-training-ut.webp', alt: 'مدرک آموزشی' },
-  { id: 'award-05', image: '/awards/award-05-coaching-ut.webp', alt: 'مدرک آموزشی' },
-  { id: 'award-06', image: '/awards/award-06-membership.webp', alt: 'مدرک عضویت' },
-];
-
 export default function HomeAwardsSlider() {
   const [awards, setAwards] = useState([]);
 
@@ -23,7 +14,7 @@ export default function HomeAwardsSlider() {
         const validItems = items.filter(
           (item) => item && typeof item.image === 'string' && item.image.trim().length > 0,
         );
-        if (validItems.length > 0) setAwards(validItems);
+        setAwards(validItems);
       } catch {
         // Keep local fallback data available.
       }
@@ -32,7 +23,9 @@ export default function HomeAwardsSlider() {
     return () => { active = false; };
   }, []);
 
-  const list = awards.length > 0 ? awards : FALLBACK_AWARDS;
+  if (awards.length === 0) return null;
+
+  const list = awards;
   const loop = [...list, ...list];
 
   return (

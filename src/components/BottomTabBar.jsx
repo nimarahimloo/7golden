@@ -16,7 +16,7 @@ const TABS = [
 const TAB_PREFIXES = [
   { path: '/', prefixes: ['/'] },
   { path: '/shop', prefixes: ['/shop', '/product'] },
-  { path: '/about', prefixes: ['/about', '/news'] },
+  { path: '/about', prefixes: ['/about'] },
   { path: '/blog', prefixes: ['/blog'] },
   { path: '/contact', prefixes: ['/contact'] },
 ];
