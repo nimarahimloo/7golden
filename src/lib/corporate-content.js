@@ -2,12 +2,10 @@
 // Edit the numbers and copy here — the home page, products page and about page
 // all read from this single file.
 //
-// All facts below are taken from the brand's own public sources (7golden.co and
-// its producer profile): serious work began in ۱۳۷۷ in a small Qazvin workshop;
-// the company "شرکت خشکبار و بسته‌بندی هفت طلایی" was registered in ۱۳۹۶; raw
-// material is bought straight from growers via the family بنکداری (خشکبار
-// محمدی, 100+ years); pistachio comes from Buin-Zahra (Qazvin) and Kerman,
-// hazelnut from Oshnavieh, Alamut (Qazvin) and northern Ashkvarat.
+// Brand history: family dry-nut trading in Qazvin began in ۱۳۳۵;
+// processing started in a small Qazvin workshop in ۱۳۷۷, and the company
+// "شرکت خشکبار و بسته‌بندی هفت طلایی" was registered in ۱۳۹۶.
+// The catalog below describes the company's main product groups and forms.
 
 // The three flagship products. `category` matches the Category/Product slug in
 // the Base44 entities so images and links stay in sync with the CMS.

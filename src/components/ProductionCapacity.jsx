@@ -14,7 +14,7 @@ export default function ProductionCapacity() {
     <section className="chapter">
       <div className="chapter-shell">
         <StoryChapter
-          index="04"
+          index="۰۵"
           eyebrow="توانمندی‌های فرآوری"
           title="محصولات و شکل‌های فرآوری"
           className="mb-10"

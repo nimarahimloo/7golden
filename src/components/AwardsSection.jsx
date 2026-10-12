@@ -34,7 +34,7 @@ export default function AwardsSection() {
         <div className="text-center mb-14">
           <span className="glass-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-body text-xs font-semibold mb-4" style={{ color: 'var(--accent)' }}>
             <Award size={13} />
-            {isFA ? 'اعتبار و افتخارات' : 'Certifications & Awards'}
+            {isFA ? 'مدارک و تقدیرنامه‌ها' : 'Documents & Recognition'}
           </span>
           <h2 className="font-heading font-black text-2xl md:text-4xl leading-tight" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
             {isFA ? 'مدارک و تقدیرنامه‌ها' : 'Documents & Recognition'}
@@ -42,7 +42,7 @@ export default function AwardsSection() {
           <p className="font-body text-sm mt-4 max-w-2xl mx-auto leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
             {isFA
               ? 'در این بخش، تصاویر مدارک و تقدیرنامه‌های ثبت‌شده برای مجموعه هفت طلایی را می‌بینید.'
-              : 'The quality and international standards of 7Golden products are certified by accredited licenses and awards.'}
+              : 'This section presents documents and recognitions recorded for 7Golden.'}
           </p>
           <div className="gold-divider" />
         </div>
