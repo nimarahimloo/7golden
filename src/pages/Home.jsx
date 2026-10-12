@@ -15,6 +15,7 @@ import PullToRefresh from '@/components/PullToRefresh';
 
 import HeroSlider from '@/components/HeroSlider';
 import HomeVideoShowcase from '@/components/home/HomeVideoShowcase';
+import HomeVisualGallery from '@/components/home/HomeVisualGallery';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
@@ -294,12 +295,14 @@ export default function Home() {
 
         <HomeVideoShowcase />
 
-        {/* 06 — فرایند همکاری */}
+        <HomeVisualGallery />
+
+        {/* 07 — فرایند همکاری */}
 
         <section className="chapter">
           <div className="chapter-shell">
             <StoryChapter
-              index="06"
+              index="07"
               eyebrow="فرایند همکاری"
               title="از انتخاب محصول تا آماده‌سازی سفارش"
               lead="هر سفارش با شناخت نیاز مجموعه شما آغاز می‌شود. مشخصات محصول، مقدار و نوع بسته‌بندی در کنار هم بررسی می‌شوند تا مسیر سفارش بر مبنای نیاز واقعی شما شکل بگیرد."
