@@ -77,6 +77,7 @@ The home page now reads top→bottom as:
 8. Chapter 06 — `ExportProcess` (export journey)
 9. **Chapter 07 — `HomeAwardsSlider`** (`src/components/home/HomeAwardsSlider.jsx`) — awards shown as a full-view slider (image large & centered, prev/next, dots, auto-advance 6s), reads `/api/awards`, fallback curated list. Matches 7golden.co push to show awards full & clear on home.
 10. **Chapter 08 — `HomeClients`** (`src/components/home/HomeClients.jsx`) — featured-buyers/testimonials band reading `/api/testimonials`, fallback `FALLBACK_CLIENTS`. Shows quote + stars + buyer name/role.
+11. **Chapter 09 — `HomeContactForm`** (`src/components/home/HomeContactForm.jsx`) — a product-question form (name / phone / email / message) that POSTs to the real backend via `createContactMessage()` (`POST /api/contact`), so submissions land in the admin `ContactMessage` inbox. Has idle → sending → sent/error states. The standalone `/contact` page form is separate and still client-only (does not submit).
 
 New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pistachio-bowl-green.jpg`, `pistachio-kernels.jpg`, `tray-pistachio-almond.jpg`, `product-4-stack.jpg`, `hazelnut-chopped-dark.jpg`, `img-6052-split.jpg`.
 

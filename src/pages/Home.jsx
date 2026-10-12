@@ -17,6 +17,7 @@ import ExportProcess from '@/components/story/ExportProcess';
 import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
+import HomeContactForm from '@/components/home/HomeContactForm';
 import ProductLineRow from '@/components/home/ProductLineRow';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
@@ -225,6 +226,9 @@ export default function Home() {
 
         {/* ===== CHAPTER 07 — featured buyers brand slider ===== */}
         <HomeClients />
+
+        {/* ===== CHAPTER 09 — product question form ===== */}
+        <HomeContactForm />
 
       </PullToRefresh>
     </div>
