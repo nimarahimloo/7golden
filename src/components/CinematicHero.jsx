@@ -111,7 +111,7 @@ export default function CinematicHero({
         style={{ willChange: 'transform, opacity' }}
       >
 
-        <h1 className="display-xl mb-6 max-w-6xl" style={{ color: 'var(--ink)' }}>
+        <h1 className="display-xl font-black mb-6 max-w-6xl" style={{ color: 'var(--ink)' }}>
           {title}
         </h1>
 
