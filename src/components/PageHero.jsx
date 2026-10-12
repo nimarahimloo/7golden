@@ -26,6 +26,8 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ willChange: 'transform' }}
+          fetchpriority="high"
+          decoding="async"
         />
       </div>
 

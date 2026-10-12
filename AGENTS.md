@@ -158,6 +158,19 @@ left in place but safe to delete.
 - `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
 
 ## Performance & SEO (2026-10)
+- **Image weight (site-wide)**: the source images were massively oversized — gallery photos were
+  4–7.6 MB each and the home `MaskText` bands loaded a 6 MB image, product photos 200–570 kB.
+  All of `public/gallery`, `public/banner`, `public/product`, `public/awards` and
+  `public/certificates` were re-encoded with `sharp` (max width 1920 for gallery/banner, 1200 for
+  product/awards, webp q80 / jpeg q82): **~470 MB → ~25 MB total**. Keep new uploads under a few
+  hundred kB — run the same resize before committing new photos. `public/old` (35 MB) and
+  `public/migrated` (12 MB) are unused leftovers, safe to delete.
+- **Lazy/eager discipline**: hero images (`CinematicHero`, `PageHero`, article covers in
+  `NewsArticle`/`BlogPost`) stay eager and carry `fetchpriority="high"` + `decoding="async"`;
+  everything below the fold (Blog/Contact closing bands, `HomeClients` pinned background, Shop
+  line banner) is `loading="lazy" decoding="async"`. Note: React 18 needs the **lowercase**
+  `fetchpriority` attribute (no camelCase alias before React 19) — the `react/no-unknown-property`
+  rule is configured to ignore it.
 - **Product marquee loading**: `ProductLineRow` now eager-loads only the **first** product copy; the
   duplicated copies (which are off-screen and only needed after a full loop) are `loading="lazy"`.
   This cut the home page's initial eager image count from ~80 to 20 and stops the duplicated

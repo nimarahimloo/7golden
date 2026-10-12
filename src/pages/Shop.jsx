@@ -182,6 +182,8 @@ export default function Shop() {
                   className="absolute inset-0 w-full h-full object-cover"
                   width={1600}
                   height={600}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div
                   className="absolute inset-0"

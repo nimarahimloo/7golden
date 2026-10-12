@@ -51,6 +51,8 @@ export default function HomeClients() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
           style={{ willChange: 'transform', opacity: 0.18 }}
+          loading="lazy"
+          decoding="async"
         />
         <div
           className="absolute inset-0"

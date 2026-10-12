@@ -90,6 +90,8 @@ export default function CinematicHero({
           src={image}
           alt=""
           style={{ objectPosition: 'center 46%' }}
+          fetchpriority="high"
+          decoding="async"
         />
       </div>
 

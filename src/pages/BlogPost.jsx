@@ -88,6 +88,8 @@ export default function BlogPost() {
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
           style={{ animation: 'kenBurns 20s ease-out forwards', filter: 'brightness(0.6)' }}
+          fetchpriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0" style={{
           background: 'linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.95) 100%)',

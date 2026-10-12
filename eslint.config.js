@@ -52,7 +52,9 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/no-unknown-property": [
         "error",
-        { ignore: ["cmdk-input-wrapper", "toast-close"] },
+        // React 18 passes lowercase `fetchpriority` straight through to the DOM
+        // (it has no camelCase alias before React 19).
+        { ignore: ["cmdk-input-wrapper", "toast-close", "fetchpriority"] },
       ],
       "react-hooks/rules-of-hooks": "error",
     },
