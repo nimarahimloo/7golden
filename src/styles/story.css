@@ -10,7 +10,7 @@
    --------------------------------------------------------------- */
 .display-xl {
   font-family: 'Peyda', serif;
-  font-weight: 800;
+  font-weight: 900;
   font-size: clamp(2.4rem, 8.4vw, 7rem);
   line-height: 1.05;
   letter-spacing: 0;
@@ -99,6 +99,7 @@
 /* Phones: a sideways entrance drags the whole page out of place in RTL,
    so the horizontal variants rise instead of sliding. */
 @media (max-width: 767.98px) {
+
   .reveal-left,
   .reveal-right {
     transform: translateY(28px);
@@ -268,8 +269,13 @@
 }
 
 @keyframes sceneKenBurns {
-  from { transform: scale(1) translate(0, 0); }
-  to { transform: scale(1.15) translate(-1.5%, -1%); }
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+
+  to {
+    transform: scale(1.15) translate(-1.5%, -1%);
+  }
 }
 
 /* Gold light beam that sweeps across the scene with scroll */
@@ -471,9 +477,17 @@
    HERO KEN BURNS — slow zoom on the hero video
    --------------------------------------------------------------- */
 @keyframes heroKenBurns {
-  0% { transform: scale(1) translate(0, 0); }
-  50% { transform: scale(1.08) translate(-1%, -0.5%); }
-  100% { transform: scale(1) translate(0, 0); }
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.08) translate(-1%, -0.5%);
+  }
+
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
 }
 
 .hero-kenburns {
@@ -829,6 +843,7 @@
     opacity: 0;
     transform: translateY(28px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -999,8 +1014,15 @@
 }
 
 @keyframes goldDustDrift {
-  0% { transform: translateY(0) translateX(0); opacity: 0.6; }
-  100% { transform: translateY(-20px) translateX(10px); opacity: 1; }
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 1;
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -1143,6 +1165,7 @@
    MOBILE PARALLAX REFINEMENTS
    --------------------------------------------------------------- */
 @media (max-width: 767px) {
+
   /* Sticky scenes — slightly shorter track on mobile for snappier feel */
   .scene-viewport {
     min-height: 480px;
@@ -1228,6 +1251,7 @@
   .process-rail-steps {
     display: none;
   }
+
   .process-rail-wrap {
     gap: 0;
   }
@@ -1421,7 +1445,8 @@
   display: flex;
   width: max-content;
   animation: logoMarquee 95s linear infinite;
-  animation-direction: reverse; /* drifts with the RTL reading flow */
+  animation-direction: reverse;
+  /* drifts with the RTL reading flow */
   will-change: transform;
 }
 
@@ -1430,8 +1455,13 @@
 }
 
 @keyframes logoMarquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .client-logo {
@@ -1475,14 +1505,24 @@
   color: var(--gold-1);
 }
 
-.client-mark--circle { border-radius: 50%; }
-.client-mark--square { border-radius: 14px; }
-.client-mark--arch { border-radius: 27px 27px 10px 10px; }
+.client-mark--circle {
+  border-radius: 50%;
+}
+
+.client-mark--square {
+  border-radius: 14px;
+}
+
+.client-mark--arch {
+  border-radius: 27px 27px 10px 10px;
+}
+
 .client-mark--hex {
   border: 0;
   background: rgba(212, 175, 55, 0.16);
   clip-path: polygon(50% 0, 94% 25%, 94% 75%, 50% 100%, 6% 75%, 6% 25%);
 }
+
 .client-mark--diamond {
   width: 46px;
   height: 46px;
@@ -1490,7 +1530,10 @@
   border-radius: 10px;
   transform: rotate(45deg);
 }
-.client-mark--diamond > svg { transform: rotate(-45deg); }
+
+.client-mark--diamond>svg {
+  transform: rotate(-45deg);
+}
 
 .client-logo-text {
   display: flex;
@@ -1513,8 +1556,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-marquee { overflow-x: auto; }
-  .logo-marquee-track { animation: none; }
+  .logo-marquee {
+    overflow-x: auto;
+  }
+
+  .logo-marquee-track {
+    animation: none;
+  }
 }
 
 /* ===================================================================
@@ -1546,8 +1594,13 @@
 
 /* Fallback for browsers without backdrop-filter support: keep the header readable. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .site-header { background: rgba(12, 10, 7, 0.9); }
-  .site-header.is-scrolled { background: rgba(12, 10, 7, 0.95); }
+  .site-header {
+    background: rgba(12, 10, 7, 0.9);
+  }
+
+  .site-header.is-scrolled {
+    background: rgba(12, 10, 7, 0.95);
+  }
 }
 
 .site-header-inner {
@@ -1564,13 +1617,26 @@
   transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
-.site-header-logo:hover { opacity: 0.88; }
+.site-header-logo:hover {
+  opacity: 0.88;
+}
 
 @media (min-width: 1024px) {
-  .site-header-inner { height: 92px; }
-  .site-header-logo { height: 68px; }
-  .site-header.is-scrolled .site-header-inner { height: 70px; }
-  .site-header.is-scrolled .site-header-logo { height: 50px; }
+  .site-header-inner {
+    height: 92px;
+  }
+
+  .site-header-logo {
+    height: 68px;
+  }
+
+  .site-header.is-scrolled .site-header-inner {
+    height: 70px;
+  }
+
+  .site-header.is-scrolled .site-header-logo {
+    height: 50px;
+  }
 }
 
 /* Phones: the bar holds only the logo and the burger. Keep both from ever
@@ -1590,13 +1656,28 @@
 }
 
 @media (max-width: 1023.98px) {
-  .site-header-inner { padding-inline: 1rem; }
-  .site-header-logo { height: 42px; max-width: 40vw; }
-  .site-header.is-scrolled .site-header-logo { height: 36px; }
+  .site-header-inner {
+    padding-inline: 1rem;
+  }
+
+  .site-header-logo {
+    height: 42px;
+    max-width: 40vw;
+  }
+
+  .site-header.is-scrolled .site-header-logo {
+    height: 36px;
+  }
 }
 
-.site-header .nav-gold-sheen { opacity: 0; transition: opacity 0.45s ease; }
-.site-header.is-scrolled .nav-gold-sheen { opacity: 1; }
+.site-header .nav-gold-sheen {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.site-header.is-scrolled .nav-gold-sheen {
+  opacity: 1;
+}
 
 .site-header .nav-link {
   color: #fff;
@@ -1604,7 +1685,9 @@
   padding: 0.5rem 0.85rem;
 }
 
-.site-header .nav-link.is-active { color: var(--gold-2); }
+.site-header .nav-link.is-active {
+  color: var(--gold-2);
+}
 
 .btn-gold.btn-sm {
   padding: 0.62rem 1.35rem;
@@ -1624,7 +1707,9 @@
   transition: color 0.3s ease;
 }
 
-.header-phone:hover { color: var(--gold-2); }
+.header-phone:hover {
+  color: var(--gold-2);
+}
 
 .header-phone-icon {
   display: grid;
@@ -1641,13 +1726,24 @@
    .header-phone / .btn-gold `display` rules out-rank Tailwind's `hidden`
    utility — so on phones the phone number and the quote button stayed
    visible and crowded the logo + burger. These scoped rules win. */
-.site-header .header-phone { display: none; }
-.site-header .btn-gold.btn-sm { display: none; }
-@media (min-width: 768px) {
-  .site-header .btn-gold.btn-sm { display: inline-flex; }
+.site-header .header-phone {
+  display: none;
 }
+
+.site-header .btn-gold.btn-sm {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .site-header .btn-gold.btn-sm {
+    display: inline-flex;
+  }
+}
+
 @media (min-width: 1280px) {
-  .site-header .header-phone { display: inline-flex; }
+  .site-header .header-phone {
+    display: inline-flex;
+  }
 }
 
 /* ===================================================================
@@ -1838,12 +1934,10 @@
   transition: opacity 0.6s ease;
   mix-blend-mode: screen;
   will-change: transform;
-  background: radial-gradient(
-    circle,
-    rgba(212, 175, 55, 0.16) 0%,
-    rgba(212, 175, 55, 0.06) 38%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(212, 175, 55, 0.16) 0%,
+      rgba(212, 175, 55, 0.06) 38%,
+      transparent 70%);
 }
 
 /* ---------------------------------------------------------------
@@ -1893,24 +1987,20 @@
 }
 
 .plr-veil {
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.86) 0%,
-    rgba(0, 0, 0, 0.3) 42%,
-    rgba(0, 0, 0, 0.05) 68%,
-    transparent 100%
-  );
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.86) 0%,
+      rgba(0, 0, 0, 0.3) 42%,
+      rgba(0, 0, 0, 0.05) 68%,
+      transparent 100%);
 }
 
 /* Gold shimmer that sweeps across the spotlighted card */
 .plr-shine {
   opacity: 0;
-  background: linear-gradient(
-    115deg,
-    transparent 35%,
-    rgba(245, 220, 142, 0.28) 50%,
-    transparent 65%
-  );
+  background: linear-gradient(115deg,
+      transparent 35%,
+      rgba(245, 220, 142, 0.28) 50%,
+      transparent 65%);
   transform: translateX(-120%);
 }
 
@@ -1920,10 +2010,24 @@
 }
 
 @keyframes plrSweep {
-  0% { opacity: 0; transform: translateX(-120%); }
-  18% { opacity: 1; }
-  55% { opacity: 1; transform: translateX(120%); }
-  100% { opacity: 0; transform: translateX(120%); }
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
 }
 
 /* ===================================================================
@@ -1945,7 +2049,8 @@
   display: flex;
   width: max-content;
   animation: awardsMarquee 70s linear infinite;
-  animation-direction: reverse; /* drifts with the RTL reading flow */
+  animation-direction: reverse;
+  /* drifts with the RTL reading flow */
   will-change: transform;
 }
 
@@ -1954,8 +2059,13 @@
 }
 
 @keyframes awardsMarquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .award-frame {
@@ -1977,12 +2087,19 @@
 }
 
 @media (max-width: 640px) {
-  .award-frame { width: 150px; }
+  .award-frame {
+    width: 150px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .awards-marquee { overflow-x: auto; }
-  .awards-marquee-track { animation: none; }
+  .awards-marquee {
+    overflow-x: auto;
+  }
+
+  .awards-marquee-track {
+    animation: none;
+  }
 }
 
 /* ===================================================================
@@ -2038,17 +2155,29 @@
 }
 
 @media (max-width: 640px) {
-  .map-frame-iframe { height: 320px; }
+  .map-frame-iframe {
+    height: 320px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cursor-spotlight { display: none; }
+  .cursor-spotlight {
+    display: none;
+  }
+
   .plr-card,
   .plr-card.is-spotlight,
-  .plr-card:hover { transform: none; opacity: 1; }
+  .plr-card:hover {
+    transform: none;
+    opacity: 1;
+  }
+
   .plr-card.is-spotlight .plr-shine,
-  .plr-card:hover .plr-shine { animation: none; }
-  .plr-img { transition: none; }
+  .plr-card:hover .plr-shine {
+    animation: none;
+  }
+
+  .plr-img {
+    transition: none;
+  }
 }
-
-
