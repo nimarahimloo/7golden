@@ -233,7 +233,7 @@ export default function Contact() {
                     پیام شما ثبت شد.
                   </h3>
                   <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-                    در اسرع وقت با شما تماس می‌گیریم.
+                    پیام شما در سامانه ثبت شد. برای پیگیری، با دفتر مجموعه تماس بگیرید.
                   </p>
                 </div>
               ) : (

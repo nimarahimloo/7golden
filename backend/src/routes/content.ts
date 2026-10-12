@@ -25,6 +25,21 @@ const UNVERIFIED_LEGACY_BLOG_SLUGS = [
   "pistachio-export-global-markets",
   "hazelnut-paste-chocolate-artisans"
 ];
+const UNVERIFIED_LEGACY_AWARD_IDS = [
+  "award-01-tabriz-exhibition",
+  "award-02-qazvin-appreciation",
+  "award-03-tabriz-university",
+  "award-04-training-ut",
+  "award-05-coaching-ut",
+  "award-06-membership",
+  "award-07-talieh-charity",
+  "award-08-certificate-training",
+  "award-09-marketing-ut",
+  "award-10-tech-ut",
+  "award-11-negotiation-ut",
+  "award-12-bmc-marketing",
+  "award-13-ghadir-mosque"
+];
 const UNVERIFIED_TESTIMONIAL_NAMES = [
   "بستنی گلستان",
   "قنادی برتر",
@@ -74,11 +89,13 @@ router.get('/categories', async (_req, res) => {
 });
 
 // Blog
-router.get('/blog', async (req, res) => {
+router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {
   try {
     const limit = Math.min(Number(req.query.limit) || 100, 500);
+    const where: any = { published: true };
+    if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };
     const items = await prisma.blogPost.findMany({
-      where: { published: true, slug: { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS } },
+      where,
       orderBy: { sort_order: 'asc' },
       take: limit,
     });
@@ -88,9 +105,9 @@ router.get('/blog', async (req, res) => {
   }
 });
 
-router.get('/blog/:slug', async (req, res) => {
+router.get('/blog/:slug', optionalAuth, async (req: AuthRequest, res) => {
   try {
-    if (UNVERIFIED_LEGACY_BLOG_SLUGS.includes(req.params.slug)) {
+    if (req.user?.role !== 'admin' && UNVERIFIED_LEGACY_BLOG_SLUGS.includes(req.params.slug)) {
       return res.status(404).json({ error: 'Not found' });
     }
     const item = await prisma.blogPost.findFirst({
@@ -104,10 +121,12 @@ router.get('/blog/:slug', async (req, res) => {
 });
 
 // Testimonials
-router.get('/testimonials', async (_req, res) => {
+router.get('/testimonials', optionalAuth, async (req: AuthRequest, res) => {
   try {
+    const where: any = { published: true };
+    if (req.user?.role !== 'admin') where.name_fa = { notIn: UNVERIFIED_TESTIMONIAL_NAMES };
     const items = await prisma.testimonial.findMany({
-      where: { published: true, name_fa: { notIn: UNVERIFIED_TESTIMONIAL_NAMES } },
+      where,
       orderBy: { sort_order: 'asc' },
       take: 100,
     });
@@ -132,10 +151,12 @@ router.get('/gallery', async (_req, res) => {
 });
 
 // Awards
-router.get('/awards', async (_req, res) => {
+router.get('/awards', optionalAuth, async (req: AuthRequest, res) => {
   try {
+    const where: any = { published: true };
+    if (req.user?.role !== 'admin') where.id = { notIn: UNVERIFIED_LEGACY_AWARD_IDS };
     const items = await prisma.award.findMany({
-      where: { published: true },
+      where,
       orderBy: { sort_order: 'asc' },
       take: 100,
     });

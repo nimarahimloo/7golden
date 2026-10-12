@@ -35,8 +35,8 @@ export const translations = {
     cat_mixed: "مخلوط ویژه",
     cat_products: "محصول",
     cat_nuts_desc: "مغز و فرآورده‌های خشکبار برای کاربردهای مختلف غذایی",
-    cat_dried_fruits_desc: "میوه‌های خشک‌شده با روش سنتی و بدون افزودنی",
-    cat_snacks_desc: "ترکیب‌های خوشمزه برای هر لحظه از روز",
+    cat_dried_fruits_desc: "میوه خشک برای کاربردهای غذایی",
+    cat_snacks_desc: "محصولات خوراکی برای کاربردهای مختلف",
     
     // Products
     products_title: "محصولات",
@@ -115,7 +115,7 @@ export const translations = {
     factory_address: "قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲",
     support_phone: "۰۲۸۳۳۲۳۴۰۰۴",
     support_mobile: "۰۹۱۲۱۸۲۳۴۳۸",
-    working_hours: "۹ صبح تا ۹ شب — هر روز هفته",
+    working_hours: "برای اطلاع از ساعات پاسخگویی، با دفتر مجموعه تماس بگیرید.",
     send_message: "بفرست پیام",
     message: "محصول و جزئیات درخواست",
     name: "نام و نام خانوادگی",
@@ -125,7 +125,7 @@ export const translations = {
     footer_rights: "تمامی حقوق محفوظ است",
     quick_links: "دسترسی سریع",
     newsletter: "خبرنامه",
-    newsletter_desc: "اولین کسی باشید که از محصولات و اخبار جدید باخبر می‌شود",
+    newsletter_desc: "برای اطلاع از مطالب و محصولات منتشرشده، صفحه محصولات و مجله را ببینید.",
     subscribe: "عضو شو",
     email_placeholder: "ایمیلت رو بنویس",
     
@@ -182,7 +182,7 @@ export const translations = {
     
     // Bestsellers
     bestsellers_title: "پرفروش‌ترین‌ها",
-    bestsellers_sub: "محصولاتی که مشتریان ما بیشتر از همه سفارش می‌دهند",
+    bestsellers_sub: "مروری بر گروه‌های اصلی محصول؛ فهرست و موجودی در صفحه محصولات به‌روز می‌شود.",
     
     // Corporate trust points — replaced the retail shipping / payment badges
     trust_1_title: "سه گروه اصلی محصول",
@@ -192,7 +192,7 @@ export const translations = {
     trust_3_title: "درخواست‌های عمده",
     trust_3_desc: "جزئیات محصول، مقدار و بسته‌بندی هنگام استعلام مشخص می‌شود",
     trust_4_title: "دفتر هفت طلایی در قزوین",
-    trust_4_desc: "۹ صبح تا ۹ شب، هر روز هفته در دسترس",
+    trust_4_desc: "برای ساعات پاسخگویی، با دفتر هفت طلایی تماس بگیرید.",
 
     // --- Retail cart & checkout extras: disabled ---
     // promo_code: "کد تخفیف",
