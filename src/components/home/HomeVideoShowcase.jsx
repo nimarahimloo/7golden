@@ -36,7 +36,7 @@ export default function HomeVideoShowcase() {
   const [featured, ...secondary] = FILMS;
 
   return (
-    <section className="chapter relative overflow-hidden" aria-labelledby="home-video-heading">
+    <section className="chapter relative overflow-hidden" aria-label="ویدیوهای معرفی مجموعه هفت طلایی">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80" aria-hidden="true"
         style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(190,151,62,.09), transparent 70%)' }} />
       <div className="chapter-shell relative">

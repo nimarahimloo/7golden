@@ -35,8 +35,9 @@ export default function HeroSlider({ cmsHero = null }) {
     return {
       ...slide,
       image: typeof cmsHero.image === 'string' && cmsHero.image.trim() ? cmsHero.image.trim() : slide.image,
-      badge: cmsHero.badge || slide.badge,
+      badge: cmsHero.badge_fa || cmsHero.badge || slide.badge,
       title: cmsHero.title_fa || slide.title,
+      accent: cmsHero.title_fa ? (cmsHero.title_accent_fa || '') : slide.accent,
       description: cmsHero.subtitle_fa || slide.description,
     };
   }), [cmsHero?.image, cmsHero?.badge, cmsHero?.title_fa, cmsHero?.subtitle_fa]);
@@ -59,11 +60,12 @@ export default function HeroSlider({ cmsHero = null }) {
     touchStart.current = event.touches[0]?.clientX ?? null;
   };
   const handleTouchEnd = (event) => {
+    const start = touchStart.current;
     const end = event.changedTouches[0]?.clientX;
-    if (touchStart.current === null || typeof end !== 'number') return;
-    const delta = touchStart.current - end;
-    if (Math.abs(delta) >= 50) delta > 0 ? next() : previous();
     touchStart.current = null;
+    if (start === null || typeof end !== 'number') return;
+    const delta = start - end;
+    if (Math.abs(delta) >= 50) delta > 0 ? next() : previous();
   };
 
   const slide = slides[current] || slides[0];
@@ -75,7 +77,7 @@ export default function HeroSlider({ cmsHero = null }) {
       aria-roledescription="carousel"
       role="region"
       className="relative isolate w-full overflow-hidden bg-[#100f0c] text-white"
-      style={{ minHeight: 'min(820px, 100svh)', height: '100svh', maxHeight: '980px' }}
+      style={{ minHeight: 'min(820px, 100svh)', height: '100svh' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -121,7 +123,7 @@ export default function HeroSlider({ cmsHero = null }) {
         <div key={current} className="max-w-4xl animate-in fade-in slide-in-from-bottom-3 duration-700">
           <h1 className="mb-6 font-black leading-[1.22] tracking-normal" style={{ fontFamily: 'Peyda, serif', fontSize: 'clamp(2.6rem, 6.1vw, 5.7rem)' }}>
             <span className="block text-white">{slide.title}</span>
-            <span className="mt-1 block text-[#d7b765]">{slide.accent}</span>
+            {slide.accent && <span className="mt-1 block text-[#d7b765]">{slide.accent}</span>}
           </h1>
           <p className="mb-8 max-w-2xl text-sm leading-8 text-white/80 sm:text-base sm:leading-9 md:mb-10 md:text-lg">
             {slide.description}
