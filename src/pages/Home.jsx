@@ -18,7 +18,6 @@ import HomeOrigin from '@/components/home/HomeOrigin';
 import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 import ProductLineRow from '@/components/home/ProductLineRow';
-import HomeProductSlider from '@/components/home/HomeProductSlider';
 
 import { MAIN_PRODUCTS, CAPACITY_STATS, FALLBACK_PRODUCTS } from '@/lib/corporate-content';
 
@@ -185,7 +184,7 @@ export default function Home() {
           text="7GOLDEN"
           eyebrow="EST. ۱۳۷۷ · QAZVIN"
         />
-        {/* ===== PRODUCTS: navigable slider carousel ===== */}
+        {/* ===== PRODUCTS: one self-moving row per category ===== */}
         <section className="chapter pt-4 pb-2">
           <div className="chapter-shell mb-6">
             <StoryChapter
@@ -194,10 +193,9 @@ export default function Home() {
               title={(typeof sec === 'function' && sec('products')?.title_fa) || 'هر محصولی که می‌خواهید، اینجا فرآوری می‌شود'}
             />
           </div>
-          <HomeProductSlider
-            title="محصولات هفت‌طلایی"
-            products={products.filter((p) => p.published !== false)}
-          />
+          <ProductLineRow title="مشتقات پسته" products={pistachioProducts} duration={90} />
+          <ProductLineRow title="مشتقات بادام" products={almondProducts} duration={85} />
+          <ProductLineRow title="مشتقات فندق" products={hazelnutProducts} duration={100} reverse />
         </section>
 
 

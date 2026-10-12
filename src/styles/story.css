@@ -2046,13 +2046,4 @@
   .plr-img { transition: none; }
 }
 
-/* ===================================================================
-   HOME PRODUCT SLIDER — navigable carousel with arrows + dots
-   =================================================================== */
-.hps-track::-webkit-scrollbar { display: none; }
-.hps-track { scrollbar-width: none; -ms-overflow-style: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hps-track { scroll-behavior: auto; }
-}
 
