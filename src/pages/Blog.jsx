@@ -23,21 +23,24 @@ export default function Blog() {
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
 
   const { hero } = usePageHero('blog', {
     image: '/banner/hazelnut-bowl.webp',
     title: t('blog_title'),
-    subtitle: 'اخبار و آموزش',
+    subtitle: 'مطالب مربوط به محصولات و کاربردهای آن‌ها',
     badge: 'وبلاگ',
   });
 
   const loadData = async () => {
     try {
       const items = await getBlogPosts();
-      setPosts(items);
-    } catch (e) {
-      // graceful
+      setPosts(Array.isArray(items) ? items : []);
+      setLoadError(false);
+    } catch {
+      setPosts([]);
+      setLoadError(true);
     }
   };
 
@@ -60,7 +63,7 @@ export default function Blog() {
 
       <Seo
         title={isFA ? `مجله ${SITE_SEO.siteNameFA} — اخبار و آموزش` : `${SITE_SEO.siteNameEN} Blog — News & Education`}
-        description={isFA ? 'آخرین اخبار، مقالات و آموزش‌های دنیای خشکبار و آجیل در مجله هفت‌طلایی.' : 'Latest news, articles, and education about dried fruits and nuts from 7Golden blog.'}
+        description={isFA ? 'مطالب منتشرشده درباره محصولات فندق، پسته و بادام و کاربرد آن‌ها در صنایع غذایی.' : 'Published information about hazelnut, pistachio and almond products and their food-industry applications.'}
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/blog`}
       />
@@ -155,7 +158,7 @@ export default function Blog() {
           ) : posts.length === 0 ? (
             <div className="text-center py-20">
               <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-                {isFA ? 'به‌زودی مطالب جدید منتشر خواهد شد.' : 'New articles coming soon.'}
+                {loadError ? 'دریافت مطالب با مشکل روبه‌رو شد. لطفاً دوباره تلاش کنید.' : (isFA ? 'در حال حاضر مطلب منتشرشده‌ای برای نمایش نیست.' : 'No published articles are currently available.')}
               </p>
             </div>
           ) : (
@@ -219,7 +222,7 @@ export default function Blog() {
         </section>
       )}
 
-      <Marquee items={['پسته', 'بادام', 'فندق', 'صادرات', 'کیفیت', 'صنایع غذایی']} />
+      <Marquee items={['پسته', 'بادام', 'فندق', 'فرآوری', 'کاربرد محصول', 'صنایع غذایی']} />
       </PullToRefresh>
     </div>
   );

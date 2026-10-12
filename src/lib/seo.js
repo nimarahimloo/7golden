@@ -13,7 +13,6 @@ export const SITE_SEO = {
   ogImage: 'https://7golden.co/banner/Hero-main.webp',
   baseUrl: 'https://7golden.co',
   baseUrlIr: 'https://7golden.ir',
-  twitterHandle: '@7golden',
   keywordsFA: 'هفت طلایی, 7golden, فرآوری خشکبار قزوین, مغز فندق, خمیر فندق, گرانول فندق, مغز پسته, خلال پسته, مغز بادام, خلال بادام, پرک بادام, صنایع غذایی',
   keywordsEN: '7Golden, Qazvin nut processing, hazelnut kernels, pistachio kernels, pistachio slices, almond flakes, hazelnut paste, hazelnut granules, food industry ingredients',
 };
@@ -26,17 +25,13 @@ export const ORGANIZATION_JSONLD = {
   url: 'https://7golden.co',
   logo: 'https://7golden.co/logo.webp',
   description: 'هفت طلایی در قزوین از سال ۱۳۷۷ در زمینه فرآوری خشکبار فعالیت می‌کند؛ محصولات اصلی مجموعه شامل فندق، پسته و بادام در شکل‌های مختلف برای صنایع غذایی است.',
-  foundingDate: '1998',
-  sameAs: [
-    'https://7golden.co',
-    'https://7golden.ir',
-  ],
+  foundingDate: '2017',
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+98-912-182-3438',
     contactType: 'sales',
-    areaServed: ['IR', 'AE', 'QA', 'OM', 'IQ', 'AF', 'TR', 'DE', 'NL'],
-    availableLanguage: ['fa', 'en'],
+    areaServed: ['IR'],
+    availableLanguage: ['fa'],
   },
   address: {
     '@type': 'PostalAddress',

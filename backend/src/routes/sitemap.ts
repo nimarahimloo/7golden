@@ -3,20 +3,24 @@ import prisma from '../lib/prisma.js';
 
 const router = Router();
 const DOMAINS = ['https://7golden.co', 'https://7golden.ir'];
+const UNVERIFIED_LEGACY_BLOG_SLUGS = [
+  "sweets-and-chocolates-1402",
+  "our-honors",
+  "decrease-in-purchasing-power",
+  "difference-walnut-grades",
+  "pistachio-health-benefits",
+  "hazelnut-processing-industrial",
+  "export-standards-dried-fruits",
+  "choosing-quality-pistachio-kernel",
+  "almond-slices-in-confectionery",
+  "moisture-control-dried-nuts-storage",
+  "pistachio-export-global-markets",
+  "hazelnut-paste-chocolate-artisans"
+];
 const STATIC_PAGES = [
   { path: '/', priority: '1.0', changefreq: 'daily' },
   { path: '/shop', priority: '0.9', changefreq: 'daily' },
   { path: '/about', priority: '0.7', changefreq: 'monthly' },
-  { path: '/news', priority: '0.8', changefreq: 'weekly' },
-  { path: '/news/expo-food-industry', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/direct-hazelnut-sourcing', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/pistachio-export-gulf', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/quality-lab-docs', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/hazelnut-paste-line', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/pistachio-harvest', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/almond-slice-grade', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/factory-tour', priority: '0.6', changefreq: 'monthly' },
-  { path: '/news/trade-desk-hours', priority: '0.6', changefreq: 'monthly' },
   { path: '/blog', priority: '0.8', changefreq: 'weekly' },
   { path: '/contact', priority: '0.6', changefreq: 'monthly' },
 ];
@@ -34,7 +38,7 @@ router.get('/sitemap.xml', async (_req, res) => {
   try {
     const [products, blogPosts] = await Promise.all([
       prisma.product.findMany({ where: { published: true }, orderBy: { updatedAt: 'desc' }, take: 500 }),
-      prisma.blogPost.findMany({ where: { published: true }, orderBy: { updatedAt: 'desc' }, take: 500 }),
+      prisma.blogPost.findMany({ where: { published: true, slug: { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS } }, orderBy: { updatedAt: 'desc' }, take: 500 }),
     ]);
     const now = new Date().toISOString().split('T')[0];
     const urls: string[] = [];

@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Cake, Candy, Cookie, IceCreamCone } from 'lucide-react';
 
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
-import ClientLogo from '@/components/home/ClientLogo';
-import { CLIENTS } from '@/lib/clients';
+import { APPLICATIONS } from '@/lib/clients';
+
+const ICONS = { Cake, Candy, Cookie, IceCreamCone };
 
 export default function HomeClients() {
   const sectionRef = useRef(null);
@@ -27,8 +28,7 @@ export default function HomeClients() {
           1,
           (viewportHeight - rect.top) / (viewportHeight + rect.height),
         ));
-        background.style.transform =
-          `translate3d(0, ${(progress - 0.5) * 60}px, 0) scale(1.15)`;
+        background.style.transform = `translate3d(0, ${(progress - 0.5) * 36}px, 0) scale(1.1)`;
       });
     };
 
@@ -42,8 +42,6 @@ export default function HomeClients() {
       if (frameId) window.cancelAnimationFrame(frameId);
     };
   }, []);
-
-  const loop = [...CLIENTS, ...CLIENTS];
 
   return (
     <section
@@ -75,30 +73,39 @@ export default function HomeClients() {
         <div className="chapter-shell pt-16 md:pt-20">
           <StoryChapter
             index="۰۷"
-            eyebrow="حوزه‌های کاربرد"
-            title="خشکبار در صنایع غذایی"
-            lead="مغز فندق، خمیر فندق، مغز و خلال پسته و فرآورده‌های بادام در تهیه شکلات، بستنی، شیرینی، کیک و دیگر محصولات غذایی کاربرد دارند."
+            eyebrow="نمونه کاربردها"
+            title="کاربرد محصولات در صنایع غذایی"
+            lead="این موارد، نمونه‌هایی از کاربرد رایج فرآورده‌های فندق، پسته و بادام هستند؛ استفاده دقیق هر محصول به مشخصات آن و فرمول تولیدکننده بستگی دارد."
             className="mb-10"
           />
         </div>
 
-        <div className="logo-marquee" aria-label="حوزه‌های کاربرد محصولات هفت طلایی">
-          <div className="logo-marquee-track">
-            {loop.map((sector, index) => (
-              <div
-                key={`${sector.id}-${index}`}
-                aria-hidden={index >= CLIENTS.length ? true : undefined}
-              >
-                <ClientLogo client={sector} />
-              </div>
-            ))}
+        <div className="chapter-shell pb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {APPLICATIONS.map((application, index) => {
+              const Icon = ICONS[application.icon] || Cookie;
+              return (
+                <Reveal key={application.id} delay={index * 80}>
+                  <article className="fact-card h-full p-6 rounded-3xl">
+                    <div
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
+                      style={{ background: 'rgba(212,175,55,0.1)', border: '1px solid var(--hairline-strong)' }}
+                    >
+                      <Icon size={21} style={{ color: 'var(--gold-2)' }} aria-hidden="true" />
+                    </div>
+                    <h3 className="display-sm mb-3" style={{ color: 'var(--fg)' }}>{application.titleFA}</h3>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>{application.textFA}</p>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
 
         <div className="chapter-shell pb-16 md:pb-20">
-          <Reveal delay={160} className="mt-12 text-center">
+          <Reveal delay={160} className="mt-8 text-center">
             <Link to="/contact" className="btn-ghost">
-              استعلام برای کسب‌وکار شما
+              درباره محصول و سفارش استعلام بگیرید
               <ChevronLeft size={16} style={{ transform: 'scaleX(-1)' }} />
             </Link>
           </Reveal>

@@ -1,7 +1,7 @@
 // @ts-ignore
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronLeft, Phone, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, Phone } from 'lucide-react';
 import { getProductBySlug, getProducts } from '@/lib/api/content';
 import ProductTile from '@/components/ProductTile';
 import { Image } from '@/components/ui/image';
@@ -9,7 +9,6 @@ import Seo from '@/components/Seo';
 import LogoLoader from '@/components/LogoLoader';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, productJsonLd } from '@/lib/seo';
-import { CERTIFICATES } from '@/lib/corporate-content';
 import Eyebrow from '@/components/ui/eyebrow';
 import Reveal from '@/components/story/Reveal';
 import Marquee from '@/components/story/Marquee';
@@ -243,15 +242,9 @@ export default function ProductDetail() {
                 </Reveal>
 
 
-                {/* Standards strip */}
-                <div className="grid grid-cols-1 gap-3 py-4" style={{ borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)' }}>
-                  {CERTIFICATES.slice(0, 2).map(item => (
-                    <div key={item} className="flex items-start gap-2.5 p-3 rounded-2xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--hairline)' }}>
-                      <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0" style={{ color: 'var(--accent)' }} />
-                      <span className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg)' }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
+                <p className="font-body text-xs leading-relaxed py-4" style={{ borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)', color: 'var(--fg-muted)' }}>
+                  موجودی هر گرید و جزئیات بسته‌بندی باید در زمان استعلام نهایی شود.
+                </p>
               </div>
             </div>
 
@@ -277,7 +270,7 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        <Marquee items={CERTIFICATES.map(c => c.split('—')[0].trim())} />
+        <Marquee items={['فندق', 'پسته', 'بادام', 'صنایع غذایی']} />
       </div>
     </PullToRefresh >
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, Instagram, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, CheckCircle, MessageCircle } from 'lucide-react';
 import { useApp } from '@/lib/AppContext';
 import { t } from '@/lib/i18n';
 import DynamicHeroSlider from '@/components/DynamicHeroSlider';
@@ -10,12 +10,15 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import { usePageHero } from '@/lib/usePageHero';
+import { createContactMessage } from '@/lib/api/content';
 import Eyebrow from '@/components/ui/eyebrow';
 
 export default function Contact() {
   const { refreshSiteMode } = useApp();
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
   const [mapLoaded, setMapLoaded] = useState(false);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
@@ -23,20 +26,33 @@ export default function Contact() {
   const { hero } = usePageHero('contact', {
     image: '/banner/banner-spoons-set.webp',
     title: t('contact_title'),
-    subtitle: 'همیشه در دسترس شما هستیم',
+    subtitle: 'شماره تماس، ایمیل و ثبت درخواست',
     badge: 'تماس با ما',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    setSendError('');
+    try {
+      await createContactMessage({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        message: form.message.trim(),
+      });
+      setSent(true);
+    } catch {
+      setSendError('ارسال پیام انجام نشد. لطفاً دوباره تلاش کنید یا با دفتر مجموعه تماس بگیرید.');
+    } finally {
+      setSending(false);
+    }
   };
 
   const contactCards = [
     { icon: Phone, label: 'تلفن دفتر', value: '۰۲۸۳۳۲۳۴۰۰۴', href: 'tel:+982833234004' },
     { icon: Phone, label: 'موبایل / واتساپ', value: '۰۹۱۲۱۸۲۳۴۳۸', href: 'tel:+989121823438' },
     { icon: Mail, label: 'ایمیل', value: 'info@7golden.co', href: 'mailto:info@7golden.co' },
-    { icon: Clock, label: 'ساعات کاری', value: '۹ صبح الی ۹ شب — هر روز', href: null },
   ];
 
   return (
@@ -57,7 +73,7 @@ export default function Contact() {
 
       {/* Contact Cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
           {contactCards.map((card, i) => (
             <Reveal key={i} delay={i * 80} variant="up">
             <a
@@ -149,7 +165,7 @@ export default function Contact() {
             <Reveal variant="up" delay={120}>
             <ParallaxMedia
               src="/gallery/AQ8A1628AQ8A1628.webp"
-              alt="7Golden orchard"
+              alt="فضای مجموعه هفت طلایی"
               ratio="aspect-[16/9]"
               className="rounded-3xl"
               speed={0.2}
@@ -160,17 +176,18 @@ export default function Contact() {
             <Reveal variant="up" delay={200} className="mt-6">
             <div className="p-6 rounded-3xl liquid-glass-strong">
               <h3 className="font-heading font-black text-sm mb-4" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                ما را دنبال کنید
+                راه‌های ارتباطی
               </h3>
               <div className="flex gap-3">
                 <a
-                  href="https://instagram.com"
+                  href="https://wa.me/989121823438"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="پیام در واتس‌اپ"
                   className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
                   style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
                 >
-                  <Instagram size={18} style={{ color: 'var(--accent)' }} />
+                  <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
                 </a>
                 <a
                   href="tel:+989121823438"
@@ -213,10 +230,10 @@ export default function Contact() {
                     <CheckCircle size={36} style={{ color: '#22c55e' }} />
                   </div>
                   <h3 className="font-heading text-xl font-black mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                    پیام شما ارسال شد!
+                    پیام شما ثبت شد.
                   </h3>
                   <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-                    در اسرع وقت با شما تماس می‌گیریم.
+                    پیام شما در سامانه ثبت شد. برای پیگیری، با دفتر مجموعه تماس بگیرید.
                   </p>
                 </div>
               ) : (
@@ -230,6 +247,7 @@ export default function Contact() {
                       <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{f.label}</label>
                       <input
                         type={f.type}
+                        required={f.key === 'name'}
                         value={form[f.key]}
                         onChange={e => set(f.key, e.target.value)}
                         className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none transition-all"
@@ -246,6 +264,7 @@ export default function Contact() {
                     <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{t('message')}</label>
                     <textarea
                       rows={4}
+                      required
                       value={form.message}
                       onChange={e => set('message', e.target.value)}
                       className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none resize-none transition-all"
@@ -257,9 +276,11 @@ export default function Contact() {
                       }}
                     />
                   </div>
+                  {sendError && <p className="font-body text-xs leading-relaxed" style={{ color: '#f87171' }} role="alert">{sendError}</p>}
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+                    disabled={sending}
+                    className="w-full py-4 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
                     style={{
                       background: 'var(--accent)',
                       color: 'hsl(var(--accent-foreground))',
@@ -267,7 +288,7 @@ export default function Contact() {
                     }}
                   >
                     <Send size={16} />
-                    {t('send_message')}
+                    {sending ? 'در حال ارسال…' : t('send_message')}
                   </button>
                 </form>
               )}
@@ -284,11 +305,11 @@ export default function Contact() {
         </div>
         <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
           <Reveal variant="up">
-            <Eyebrow className="block mb-5">TRADE DESK</Eyebrow>
+            <Eyebrow className="block mb-5">CONTACT</Eyebrow>
           </Reveal>
           <Reveal variant="up" delay={80}>
             <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
-              <span className="gold-text">شریک صادراتی شما</span>
+              <span className="gold-text">برای سفارش و همکاری با ما تماس بگیرید</span>
             </h2>
           </Reveal>
           <Reveal variant="up" delay={120} className="mt-6">
@@ -309,10 +330,10 @@ export default function Contact() {
       </section>
 
       {/* ===== FULL-WIDTH MAP — factory location, eased into the site theme ===== */}
-      <section className="map-band" aria-label="نقشه کارخانه هفت طلایی">
+      <section className="map-band" aria-label="نقشه و موقعیت شهرک صنعتی کاسپین ۲ در قزوین">
         <div className="map-frame" data-loaded={mapLoaded ? 'true' : 'false'}>
           <iframe
-            title="نقشه کارخانه هفت طلایی — قزوین"
+            title="موقعیت شهرک صنعتی کاسپین ۲ در قزوین"
             src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
             className="map-frame-iframe"
             loading="lazy"

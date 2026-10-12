@@ -66,23 +66,13 @@ docker compose -f docker-compose.base44.yml up -d
 - Studio food photography downloaded from the user into `public/banner/` (hero-nuts-bowl, banner-spoons-set, almond-milk, hazelnut-bowl, pistachio-dishes-teal, banner-four-bowls, hero-chopped-scoop, product-nuts-assortment) and placed across Home/Shop/About/Blog/ExportProcess pages as scene/hero/banner images. Note: the media upload served `4.jpeg`==`4-1.jpeg` and `8.jpeg`==`8-1.jpeg` as byte-identical files.
 
 ## Home Page Structure (current)
-The home page now reads top→bottom as:
-1. `CinematicHero` (hero-nuts-bowl)
-2. Chapter 01 — `StickyScene` 3 pillars (pistachio-kernels, tray-pistachio-almond, hazelnut-spoon — new premium product photos)
-3. Chapter 02 — Capacity stats (`img-6052.jpg` parallax)
-4. Chapter 03 — Origin story (`banner-spoons-set` depth parallax)
-5. `MaskText` 7GOLDEN band (`banner-four-bowls`)
-6. Chapter 04/Showcase — `PRODUCT_STRIP` 4-card premium product-photo grid (hazelnut-spoon, pistachio-bowl-green, pistachio-kernels, product-4-stack) with `SCENE_IMAGE` scenes
-7. `StickyScene`-driven product grid (from API products)
-8. Chapter 06 — `ExportProcess` (export journey)
-9. **Chapter 07 — `HomeAwardsSlider`** (`src/components/home/HomeAwardsSlider.jsx`) — awards shown as a full-view slider (image large & centered, prev/next, dots, auto-advance 6s), reads `/api/awards`, fallback curated list. Matches 7golden.co push to show awards full & clear on home.
-10. **Chapter 08 — `HomeClients`** (`src/components/home/HomeClients.jsx`) — featured-buyers/testimonials band reading `/api/testimonials`, fallback `FALLBACK_CLIENTS`. Shows quote + stars + buyer name/role.
-11. **Chapter 09 — `HomeContactForm`** (`src/components/home/HomeContactForm.jsx`) — a product-question form (name / phone / email / message) that POSTs to the real backend via `createContactMessage()` (`POST /api/contact`), so submissions land in the admin `ContactMessage` inbox. Has idle → sending → sent/error states. The standalone `/contact` page form is separate and still client-only (does not submit).
+Current public home-page structure is defined in `src/pages/Home.jsx`. Product rows appear only when real API products exist; awards come from published CMS records and are omitted if none are available; the application section describes possible industry uses and must not be presented as a list of customers; both inquiry forms submit to the backend. Keep this note synchronized with the actual component tree.
 
 New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pistachio-bowl-green.jpg`, `pistachio-kernels.jpg`, `tray-pistachio-almond.jpg`, `product-4-stack.jpg`, `hazelnut-chopped-dark.jpg`, `img-6052-split.jpg`.
 
-## Testimonials seed
-`backend/prisma/seed.ts` testimonial block now **syncs** (create-if-missing + delete placeholders + re-sequence sort_order) instead of only seeding when count===0 — so the DB always converges to the curated 5 buyer testimonials (بستنی گلستان, قنادی برتر, شکلاتسازی آریا, هلدینگ خواروبار پارس, گروه صنایع غذایی سرو). After editing. restart backend to re-run seed: `docker compose restart backend`.
+## Testimonials and customer references
+
+Do not create or ship sample customer quotations, customer names, customer logos, case studies, buyer ratings or endorsement-style wordmarks. A quote may be displayed only after its source and explicit permission to publish have been confirmed. Legacy unverified quotes are unpublished and are not a fallback source.
 
 ## Verifying
 - `docker compose -f docker-compose.base44.yml ps` — all three services should be `healthy`
@@ -95,57 +85,27 @@ New premium product photos placed in `public/banner/`: `hazelnut-spoon.jpg`, `pi
 - Structured data is injected client-side by `src/components/Seo.jsx`: Organization + WebSite always, plus per-page JSON-LD and an auto-derived `BreadcrumbList` (`breadcrumbForPath` in `src/lib/seo.js`, static routes only).
 - Palette is golden (`#D4AF37`) — the gold ramp lives in `src/index.css` (`--accent`, `--gold-1..4`, `--hairline*`, HSL `46 65% 52%`).
 
-## Real brand content (source of truth)
-All marketing copy is grounded in the brand's own public sources (7golden.co and
-its foodkeys producer profile). Verified facts used across the site:
-- Work began ۱۳۷۷ in a small Qazvin workshop; the company **شرکت خشکبار و بسته‌بندی هفت طلایی** was registered in ۱۳۹۶.
-- Raw material is bought straight from growers via the family بنکداری (خشکبار محمدی, 100+ years) — no middleman.
-- Pistachio from Buin-Zahra (Qazvin) and Kerman; hazelnut from Oshnavieh, Alamut (Qazvin) and northern Ashkvarat.
-- Exports: UAE, Qatar, Oman, Iraq, Afghanistan (Europe via traders).
-- Office: قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰ (روبروی بانک کشاورزی). Factory: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲. (Updated 2026-10 from the user's contact card; keep `i18n.js`, `seo.js`, `seed.ts` SiteSettings and `SupportChat.jsx` in sync.)
-- The About page tells the story since **۱۳۳۵** (the family بنکداری «خشکبار محمدی»); ۱۳۷۷ is the 7Golden workshop and ۱۳۹۶ the company registration.
-- Awards: 13 seeded (10 in `public/awards/*.webp` + 3 in `public/certificates/*.jpg`). `AwardsSection` renders every certificate in a portrait 4/5 frame with `object-contain`, so landscape documents display vertically.
-- `SiteLoader` (`src/components/SiteLoader.jsx`) is the full-screen splash: `position: fixed; inset: 0; z-index: 9998` (above header 50 / tab bar 60 / support FAB 70). It hides once the document, fonts and on-screen non-lazy images are loaded (safety timeout 8s).
-- Phone ۰۲۸۳۳۲۳۴۰۰۴ / ۰۹۱۲۱۸۲۳۴۳۸, email info@7golden.co.
-Central copy lives in `src/lib/corporate-content.js` (products, capacity figures,
-certificates, export markets), `src/lib/clients.js` (buyer sectors) and
-`src/lib/i18n.js` (trust points, contact). Do **not** reintroduce invented
-numbers (ISO 22000/HACCP claims, fabricated tonnage) — keep it to the facts above.
-The buyer wall in `src/lib/clients.js` lists real **industry sectors**, not brand
-names; drop real customer logos into `public/clients/` and set `logo:` per entry.
+## Content integrity and public claims
 
-The editable `SiteSettings` row (phone, mobile, addresses, hours — shown in the
-admin panel) is seeded with the same real values as `corporate-content.js` /
-`i18n.js`; keep them in sync when the seed runs. All image references in `src/`
-and `backend/` resolve to files under `public/` (verified with a broken-ref
-scan). Legacy unused components (`BusinessCTA`, `OriginStory`, `TrustBadges`,
-`ProvenanceSection`, `MainProducts`, `ExportMarkets`, `SpecialtyShowcase`,
-`ProductAbout`, `ProductTabs`, `PromoBanner`) are no longer imported anywhere —
-left in place but safe to delete.
+Verified brand history for public copy:
+- The family dry-goods wholesale business «خشکبار محمدی» has a history in Qazvin market dating to ۱۳۳۵.
+- Dry-fruit processing began in a small Qazvin workshop in ۱۳۷۷.
+- «شرکت خشکبار و بسته‌بندی هفت طلایی» was registered in ۱۳۹۶.
+- The company's core product families are hazelnut, pistachio and almond products for use in food manufacturing.
+- Office contact: قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰. Processing site: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲.
+- Contact numbers are ۰۲۸۳۳۲۳۴۰۰۴ and ۰۹۱۲۱۸۲۳۴۳۸; email is info@7golden.co.
 
-## Removed
-- The standalone **Awards page** (`/awards`, `src/pages/Awards.jsx`) was deleted, along with its route and all nav links. Awards/certificates still appear on the home page (`HomeAwardsSlider`) and About (`AwardsSection`); the awards API/data is untouched.
-- The standalone **Gallery page** (`/gallery`, `src/pages/Gallery.jsx`) and its data module
-  (`src/lib/gallery-content.js`) were deleted. It is replaced by the **News & Announcements**
-  page at `/news` (`src/pages/News.jsx`), and `/gallery` now 301-redirects to `/news`.
-  Nothing user-facing is called "Gallery" any more.
+Do not publish unverified claims about export markets, direct-from-grower sourcing, laboratory testing, traceability, certifications, production tonnage, guaranteed delivery, market leadership or customer results. Do not use customer logos, testimonials or event reports as placeholders. Claims about awards and certificates must correspond to real, reviewed documents.
 
-## News & Announcements (`/news`)
-- `src/pages/News.jsx` + `src/lib/news-content.js`. The page carries: the announcements feed
-  (featured card + grid, each opening a detail modal), all 10 production/showroom **videos**
-  and all 85 trade-show/factory **photos** in a lightboxed mosaic (keyboard + touch swipe).
-- News copy is grounded in the verified brand facts — see the header comment in
-  `news-content.js`. Do **not** add invented tonnage, certifications or ISO/HACCP claims.
-- Internal identifiers kept for data continuity: `usePageHero('gallery', …)` and the
-  admin `PageSection` key `gallery` still drive this page's hero (the `GalleryImage` entity
-  and `/api/gallery` route are unchanged). Only the user-visible labels say "اخبار".
-- Sitemap now lists `/news` (`backend/src/routes/sitemap.ts`).
+## CMS and seed data safety
 
-## Support chat — local & free
-- `src/components/SupportChat.jsx` no longer calls any agent/AI service. It answers from an
-  in-repo keyword knowledge base (`KNOWLEDGE` in the same file) with quick-reply chips —
-  no network request, no paid API, works offline. Keep its answers in sync with
-  `corporate-content.js`. (`base44.agents.*` in `src/api/base44Client.js` is a local no-op.)
+- Published CMS records are the public source of truth for products, categories, blog posts, gallery assets, awards and contact settings.
+- Empty CMS/API results must produce a real empty state; API failure must produce a clear error or contact path, never a fabricated fallback catalogue.
+- Seed data may initialize missing defaults. It must not delete CMS additions or overwrite later admin edits; use create-if-missing/upsert with an empty update object.
+- The old bundled blog posts contain unverified event, customer, export and laboratory claims. Existing records are retained for editorial review but are unpublished. The public blog lists only approved CMS entries.
+- Legacy /news URLs redirect to the blog index; do not restore hard-coded announcement content.
+- Industry application examples describe possible use cases only; they are not customer references or endorsements.
+- CMS hero titles, subtitles and images take precedence over safe factual fallback content.
 
 ## Scroll magic (light & smooth)
 - `src/hooks/useScrollMagic.js` — a rAF-throttled, viewport-gated, transform-only parallax
@@ -154,8 +114,8 @@ left in place but safe to delete.
   wanted instead of adding a heavy scroll library.
 
 ## Verifying
-- `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/news` → 200
-- `curl -s http://localhost:3000/sitemap.xml | grep news` → lists `/news` for both domains
+- `curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/blog` → 200
+- `curl -s http://localhost:3000/sitemap.xml | grep blog` → lists static public pages and published, non-legacy CMS posts; legacy `/news` paths are not indexed.
 - `docker compose -f docker-compose.base44.yml exec -T frontend npx eslint src --quiet` → clean
 
 ## Performance & SEO (2026-10)
@@ -167,7 +127,7 @@ left in place but safe to delete.
   hundred kB — run the same resize before committing new photos. `public/old` (35 MB) and
   `public/migrated` (12 MB) are unused leftovers, safe to delete.
 - **Lazy/eager discipline**: hero images (`CinematicHero`, `PageHero`, article covers in
-  `NewsArticle`/`BlogPost`) stay eager and carry `fetchpriority="high"` + `decoding="async"`;
+  `BlogPost`) stay eager and carry `fetchpriority="high"` + `decoding="async"`;
   everything below the fold (Blog/Contact closing bands, `HomeClients` pinned background, Shop
   line banner) is `loading="lazy" decoding="async"`. Note: React 18 needs the **lowercase**
   `fetchpriority` attribute (no camelCase alias before React 19) — the `react/no-unknown-property`

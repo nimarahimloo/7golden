@@ -58,7 +58,6 @@ export default function About() {
               image: hero?.image || '/banner/pistachio-dishes-teal.webp',
               ...ABOUT_HERO_COPY,
             }}
-            copyOverride={ABOUT_HERO_COPY}
           />
         </div>
 
