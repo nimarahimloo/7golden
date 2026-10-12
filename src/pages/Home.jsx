@@ -13,7 +13,9 @@ import GoldenEssence from '@/components/GoldenEssence';
 import Seo from '@/components/Seo';
 import PullToRefresh from '@/components/PullToRefresh';
 
-import CinematicHero from '@/components/CinematicHero';
+import HeroSlider from '@/components/HeroSlider';
+import HomeVideoShowcase from '@/components/home/HomeVideoShowcase';
+import HomeVisualGallery from '@/components/home/HomeVisualGallery';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
@@ -193,25 +195,7 @@ export default function Home() {
 
         {/* 01 — معرفی برند */}
 
-        <CinematicHero
-          image={
-            heroConfig?.image ||
-            '/banner/tray-pistachio-almond.webp'
-          }
-          eyebrow="۷ گلدن · از ۱۳۷۷"
-          title="مغز فندق، پسته و بادام"
-          titleAccent="برای صنایع غذایی"
-          lead="هفت طلایی در قزوین از سال ۱۳۷۷ در زمینه فرآوری خشکبار فعالیت می‌کند. محصولات مجموعه شامل مغز فندق و فرآورده‌های آن، مغز و خلال پسته و شکل‌های مختلف بادام است؛ برای استفاده در شکلات، بستنی، قنادی و دیگر فرآورده‌های غذایی."
-          stats={CAPACITY_STATS}
-          primary={{
-            label: 'مشاوره و استعلام قیمت',
-            href: '/contact',
-          }}
-          secondary={{
-            label: 'مشاهده محصولات',
-            href: '/shop',
-          }}
-        />
+        <HeroSlider cmsHero={heroConfig} />
 
         {/* 02 — توانمندی‌ها */}
 
@@ -309,12 +293,16 @@ export default function Home() {
           </section>
         )}
 
-        {/* 05 — فرایند همکاری */}
+        <HomeVideoShowcase />
+
+        <HomeVisualGallery />
+
+        {/* 07 — فرایند همکاری */}
 
         <section className="chapter">
           <div className="chapter-shell">
             <StoryChapter
-              index="05"
+              index="07"
               eyebrow="فرایند همکاری"
               title="از انتخاب محصول تا آماده‌سازی سفارش"
               lead="هر سفارش با شناخت نیاز مجموعه شما آغاز می‌شود. مشخصات محصول، مقدار و نوع بسته‌بندی در کنار هم بررسی می‌شوند تا مسیر سفارش بر مبنای نیاز واقعی شما شکل بگیرد."
