@@ -1,32 +1,31 @@
 import { Link } from 'react-router-dom';
-import { ChevronLeft, Handshake, FlaskConical, Truck } from 'lucide-react';
+import {
+  ChevronLeft,
+  Eye,
+  PackageCheck,
+  Handshake,
+} from 'lucide-react';
+
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import DepthParallax from '@/components/story/DepthParallax';
 import Eyebrow from '@/components/ui/eyebrow';
 
-/**
- * HomeOrigin — chapter 03. Its one job: tell an industrial buyer why
- * sourcing straight from the orchards of Qazvin and Oshnavieh is a
- * commercial advantage (price, quality control, reliable supply) and send
- * them to request a sample. Every claim here is already stated elsewhere
- * on the site (About page, product copy, capacity notes).
- */
 const PROOFS = [
   {
+    icon: Eye,
+    title: 'شناخت دقیق محصول',
+    text: 'طعم، بافت، اندازه و ویژگی‌های هر محصول، بخشی از هویت آن هستند. شناخت این جزئیات، مبنای انتخاب پسته، بادام و فندق در ۷ گلدن است.',
+  },
+  {
+    icon: PackageCheck,
+    title: 'فرآوری متناسب با کاربرد',
+    text: 'از مغز تا خلال، شکل ارائه محصول با نوع مصرف آن ارتباط دارد. انتخاب محصول با توجه به نیاز صنایع غذایی و مجموعه‌های حرفه‌ای انجام می‌شود.',
+  },
+  {
     icon: Handshake,
-    title: 'خرید مستقیم، قیمت شفاف',
-    text: 'واسطه را حذف کرده‌ایم. بخش بیشتری از ارزش به کشاورز می‌رسد و شما محصول با کیفیت بهتر و قیمت منصفانه‌تری می‌گیرید — همه می‌برند.',
-  },
-  {
-    icon: FlaskConical,
-    title: 'کنترل کیفی از برداشت تا بسته‌بندی',
-    text: 'رطوبت، آفلاتوکسین و سلامت محصول را در آزمایشگاهمان می‌سنجیم تا هر محموله دقیقاً مطابق مشخصات سفارش شما باشد — نه شانسی.',
-  },
-  {
-    icon: Truck,
-    title: 'تأمین پایدار، تحویل سر موعد',
-    text: 'رابطه مستقیم با باغ‌داران یعنی تأمین مداوم مواد اولیه و تحویل طبق برنامه قرارداد. در خط تولیدتان غافلگیری نخواهید داشت.',
+    title: 'همکاری در مقیاس حرفه‌ای',
+    text: 'مشخصات محصول، مقدار سفارش و نوع بسته‌بندی در کنار هم تعریف می‌شوند تا نیاز هر مجموعه، مبنای انتخاب و برنامه‌ریزی سفارش باشد.',
   },
 ];
 
@@ -36,22 +35,30 @@ export default function HomeOrigin() {
       <div className="chapter-shell">
         <StoryChapter
           index="03"
-          eyebrow="تأمین مستقیم"
-          title="کیفیتی که از باغ شروع می‌شود، نه از انبار واسطه"
-          lead="محصول را مستقیم از باغستان‌های قزوین و اشنویه می‌خریم؛ به همین دلیل می‌دانیم هر محموله از کجا آمده و تا بسته‌بندی چه مراحلی را گذرانده. برای کارخانه‌ای که هر ماه مواد اولیه یکسان می‌خواهد، این یعنی کیفیت قابل پیش‌بینی و قیمت شفاف."
+          eyebrow="نگاه ۷ گلدن"
+          title="شناخت محصول، امضای ۷ گلدن است."
+          lead="پسته، بادام و فندق هرکدام ویژگی‌های خاص خود را دارند. شناخت طعم، بافت، اندازه و کاربرد، مبنای انتخاب محصول برای مصارف حرفه‌ای و تجاری در ۷ گلدن است."
           align="center"
           className="mb-12 md:mb-16"
         />
 
         <DepthParallax
           src="/banner/banner-spoons-set.webp"
-          alt="باغستان‌های قزوین و اشنویه"
+          alt="محصولات خشکبار ۷ گلدن"
           ratio="aspect-[4/3] md:aspect-[21/9]"
           className="rounded-3xl"
         >
           <div>
-            <Eyebrow className="block mb-2">از باغ تا کارخانه</Eyebrow>
-            <span className="display-md" style={{ color: 'var(--ink)' }}>از باغ تا خط تولید شما</span>
+            <Eyebrow className="block mb-2">
+              معیارهای انتخاب
+            </Eyebrow>
+
+            <span
+              className="display-md"
+              style={{ color: 'var(--ink)' }}
+            >
+              کیفیت، حاصل انتخاب دقیق است.
+            </span>
           </div>
         </DepthParallax>
 
@@ -61,23 +68,47 @@ export default function HomeOrigin() {
               <div className="fact-card h-full">
                 <div
                   className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
-                  style={{ background: 'rgba(227,194,99,0.1)', border: '1px solid var(--hairline-strong)' }}
+                  style={{
+                    background: 'rgba(227,194,99,0.1)',
+                    border: '1px solid var(--hairline-strong)',
+                  }}
                 >
-                  <item.icon size={20} style={{ color: 'var(--gold-2)' }} />
+                  <item.icon
+                    size={20}
+                    style={{ color: 'var(--gold-2)' }}
+                  />
                 </div>
-                <h3 className="display-sm mb-3" style={{ color: '#fff' }}>{item.title}</h3>
-                <p className="font-body text-sm leading-relaxed" style={{ color: '#fff' }}>{item.text}</p>
+
+                <h3
+                  className="display-sm mb-3"
+                  style={{ color: '#fff' }}
+                >
+                  {item.title}
+                </h3>
+
+                <p
+                  className="font-body text-sm leading-relaxed"
+                  style={{ color: '#fff' }}
+                >
+                  {item.text}
+                </p>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <Reveal delay={120} className="mt-12 flex flex-wrap items-center justify-center gap-3">
+        <Reveal
+          delay={120}
+          className="mt-12 flex flex-wrap items-center justify-center gap-3"
+        >
           <Link to="/contact" className="btn-gold">
-            درخواست نمونه و قیمت
+            مشاوره و سفارش
             <ChevronLeft size={16} />
           </Link>
-          <Link to="/about" className="btn-ghost">داستان ما را بخوانید</Link>
+
+          <Link to="/about" className="btn-ghost">
+            آشنایی با ۷ گلدن
+          </Link>
         </Reveal>
       </div>
     </section>
