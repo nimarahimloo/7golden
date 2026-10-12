@@ -40,7 +40,7 @@ export default function HeroSlider({ cmsHero = null }) {
       accent: cmsHero.title_fa ? (cmsHero.title_accent_fa || '') : slide.accent,
       description: cmsHero.subtitle_fa || slide.description,
     };
-  }), [cmsHero?.image, cmsHero?.badge, cmsHero?.title_fa, cmsHero?.subtitle_fa]);
+  }), [cmsHero?.image, cmsHero?.badge_fa, cmsHero?.badge, cmsHero?.title_fa, cmsHero?.title_accent_fa, cmsHero?.subtitle_fa]);
 
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
