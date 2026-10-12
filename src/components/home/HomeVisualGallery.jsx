@@ -23,18 +23,17 @@ export default function HomeVisualGallery() {
 
   useEffect(() => {
     if (!isOpen) return undefined;
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') close();
-      if (event.key === 'ArrowLeft') next();
-      if (event.key === 'ArrowRight') previous();
-    };
-    document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  const handleLightboxKeyDown = (event) => {
+    if (event.key === 'Escape') close();
+    if (event.key === 'ArrowLeft') next();
+    if (event.key === 'ArrowRight') previous();
+  };
 
   return (
     <section className="chapter relative overflow-hidden" aria-label="گالری تصاویر هفت طلایی">
@@ -87,6 +86,8 @@ export default function HomeVisualGallery() {
           role="dialog"
           aria-modal="true"
           aria-label="نمایش بزرگ تصویر"
+          tabIndex={-1}
+          onKeyDown={handleLightboxKeyDown}
           onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}
         >
           <button type="button" className="visual-lightbox-close" onClick={close} aria-label="بستن تصویر"><X size={21} /></button>
