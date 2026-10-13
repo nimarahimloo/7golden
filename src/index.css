@@ -161,22 +161,22 @@
 @layer base {
   :root {
     /* Nocturnal Orchard — deep luxury dark palette */
-    --bg: #070604;
-    --bg-secondary: #0C0A07;
-    --fg: #FFF;
-    --fg-muted: #FFFFFF;
-    --accent: #D4AF37;
-    --accent-hover: #E7C75A;
-    --accent-gold: #D4AF37;
+    --bg: #0B0907;
+    --bg-secondary: #13100C;
+    --fg: #F4F0E7;
+    --fg-muted: #B7B0A2;
+    --accent: #C9A86A;
+    --accent-hover: #E2C785;
+    --accent-gold: #C9A86A;
 
     /* Gold ramp — the scroll-story layer reads these for gradients,
        numerals, rails and hairlines. */
-    --gold-1: #F5DC8E;
-    --gold-2: #D4AF37;
-    --gold-3: #A17C22;
-    --gold-4: #57400F;
-    --border: rgba(212, 175, 55, 0.18);
-    --card-bg: rgba(8, 6, 3, 0.82);
+    --gold-1: #F2E1B7;
+    --gold-2: #C9A86A;
+    --gold-3: #967747;
+    --gold-4: #59472C;
+    --border: rgba(201, 168, 106, 0.16);
+    --card-bg: rgba(15, 12, 8, 0.88);
     --glass: rgba(6, 4, 2, 0.5);
     --glass-strong: rgba(6, 4, 2, 0.65);
     --liquid-glass-bg: rgba(8, 6, 3, 0.42);
@@ -186,7 +186,7 @@
     --glass-input-bg: rgba(0, 0, 0, 0.25);
     --glass-input-border: rgba(255, 255, 255, 0.07);
     --glass-pill-bg: rgba(255, 255, 255, 0.05);
-    --glass-pill-border: rgba(212, 175, 55, 0.12);
+    --glass-pill-border: rgba(201, 168, 106, 0.12);
     --surface-subtle: rgba(255, 255, 255, 0.03);
     --surface-border: rgba(255, 255, 255, 0.06);
     --bottom-bar-bg: rgba(2, 1, 0, 0.78);
@@ -197,35 +197,35 @@
     --shadow-lg: 0 24px 80px rgba(0,0,0,0.8);
 
     /* Aliases the section components read on every page (dark & gold theme) */
-    --ink: #FFFFFF;
-    --brass: #D4AF37;
-    --hairline: rgba(212, 175, 55, 0.22);
-    --hairline-strong: rgba(212, 175, 55, 0.4);
+    --ink: #F4F0E7;
+    --brass: #C9A86A;
+    --hairline: rgba(201, 168, 106, 0.18);
+    --hairline-strong: rgba(201, 168, 106, 0.36);
     --soft-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 
     /* Surfaces for the scroll-story bands */
     --panel: rgba(12, 10, 6, 0.6);
     --panel-strong: rgba(9, 7, 4, 0.82);
 
-    --background: 40 30% 2%;
-    --foreground: 0 0% 100%;
-    --card: 40 25% 5%;
-    --card-foreground: 0 0% 100%;
-    --popover: 40 25% 5%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 46 65% 52%;
+    --background: 35 24% 4%;
+    --foreground: 42 28% 95%;
+    --card: 35 22% 7%;
+    --card-foreground: 42 28% 95%;
+    --popover: 35 22% 7%;
+    --popover-foreground: 42 28% 95%;
+    --primary: 39 45% 61%;
     --primary-foreground: 0 0% 5%;
     --secondary: 40 20% 8%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary-foreground: 42 28% 95%;
     --muted: 40 20% 8%;
-    --muted-foreground: 0 0% 100%;
-    --accent-hsl: 46 65% 52%;
+    --muted-foreground: 38 14% 68%;
+    --accent-hsl: 39 45% 61%;
     --accent-foreground: 0 0% 5%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 48 50% 18%;
-    --input: 48 50% 18%;
-    --ring: 46 65% 52%;
+    --border: 36 18% 22%;
+    --input: 36 18% 22%;
+    --ring: 39 45% 61%;
     --radius: 0.75rem;
   }
 }
@@ -960,12 +960,12 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 40% at 85% 100%, rgba(212, 175, 55, 0.05) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 35% at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+    radial-gradient(ellipse 80% 50% at 15% 0%, rgba(201, 168, 106, 0.045) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 40% at 85% 100%, rgba(201, 168, 106, 0.025) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 50% 50%, rgba(201, 168, 106, 0.012) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
-  animation: auroraShift 25s ease-in-out infinite alternate;
+  animation: none;
 }
 
 @keyframes auroraShift {
@@ -1135,7 +1135,4 @@ body::before {
   pointer-events: none;
 }
 
-/* ===== GLOBAL: no border-radius anywhere ===== */
-*, *::before, *::after {
-  border-radius: 0 !important;
-}
+/* Preserve component-specific radii as part of the visual system. */
