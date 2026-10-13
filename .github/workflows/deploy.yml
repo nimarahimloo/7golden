@@ -1,6 +1,9 @@
 name: CI and Deploy to 7Golden Server
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -50,6 +53,7 @@ jobs:
 
   deploy:
     name: Deploy frontend to server
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     needs: verify
     timeout-minutes: 10
