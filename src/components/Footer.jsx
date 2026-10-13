@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mail, Phone } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
@@ -42,7 +43,7 @@ export default function Footer() {
         style={{ background: 'radial-gradient(ellipse at 88% 0%, rgba(193,154,57,.10), transparent 42%), radial-gradient(ellipse at 8% 100%, rgba(193,154,57,.06), transparent 35%)' }} />
 
       <div className="chapter-shell relative z-10">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8 lg:gap-14">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 md:gap-8 lg:gap-10">
           <div>
             <img src="/logo-white.webp" alt="هفت طلایی" className="mb-5 h-14 w-auto object-contain object-right" />
             <div className="mb-5 h-px w-14" style={{ background: 'var(--gold-2)' }} />
@@ -62,6 +63,17 @@ export default function Footer() {
                   <span dir="ltr" className="text-xs text-white/45">{display}</span>
                 </a>
               ))}
+            </nav>
+          </div>
+
+          <div>
+            <h2 className="mb-5 text-sm font-bold text-white">دسترسی سریع</h2>
+            <nav className="footer-nav-list" aria-label="دسترسی سریع">
+              <Link to="/shop" className="footer-nav-link">محصولات</Link>
+              <Link to="/about" className="footer-nav-link">درباره هفت طلایی</Link>
+              <Link to="/news" className="footer-nav-link">اخبار و اطلاعیه‌ها</Link>
+              <Link to="/blog" className="footer-nav-link">مجله تخصصی</Link>
+              <Link to="/contact" className="footer-nav-link">تماس با ما</Link>
             </nav>
           </div>
 
