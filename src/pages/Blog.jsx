@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { t, categoryLabel } from '@/lib/i18n';
 import { getBlogPosts } from '@/lib/api/content';
+import { EDITORIAL_BLOG_POSTS } from '@/lib/editorial-blog-content';
 import { Image } from '@/components/ui/image';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
@@ -33,13 +34,25 @@ export default function Blog() {
     badge: 'وبلاگ',
   });
 
+  const mergeEditorialPosts = (cmsPosts = []) => {
+    const merged = [...(Array.isArray(cmsPosts) ? cmsPosts : [])];
+    const knownSlugs = new Set(merged.map((post) => post.slug).filter(Boolean));
+    EDITORIAL_BLOG_POSTS.forEach((post) => {
+      if (!knownSlugs.has(post.slug)) merged.push(post);
+    });
+    return merged;
+  };
+
   const loadData = async () => {
     try {
       const items = await getBlogPosts();
-      setPosts(Array.isArray(items) ? items : []);
+      setPosts(mergeEditorialPosts(items));
       setLoadError(false);
     } catch {
-      setPosts([]);
+      // Keep the magazine useful if the CMS is temporarily unavailable.
+      // CMS posts remain authoritative whenever they exist; original editorial
+      // posts fill gaps without overwriting entries that editors manage.
+      setPosts(mergeEditorialPosts([]));
       setLoadError(true);
     }
   };
@@ -62,8 +75,8 @@ export default function Blog() {
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
-        title={isFA ? `مجله ${SITE_SEO.siteNameFA} — اخبار و آموزش` : `${SITE_SEO.siteNameEN} Blog — News & Education`}
-        description={isFA ? 'مطالب منتشرشده درباره محصولات فندق، پسته و بادام و کاربرد آن‌ها در صنایع غذایی.' : 'Published information about hazelnut, pistachio and almond products and their food-industry applications.'}
+        title={isFA ? `مجله ${SITE_SEO.siteNameFA} — راهنمای تخصصی صنایع غذایی` : `${SITE_SEO.siteNameEN} Magazine — Ingredient Guides`}
+        description={isFA ? 'راهنماهای کاربردی برای انتخاب مغز و فرآورده‌های فندق، پسته و بادام در تولید شکلات، بستنی، قنادی و صنایع غذایی.' : 'Practical guides to choosing hazelnut, pistachio and almond ingredients for confectionery and food production.'}
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/blog`}
       />
