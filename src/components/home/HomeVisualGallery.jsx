@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
@@ -14,6 +14,8 @@ const PHOTOS = [
 
 export default function HomeVisualGallery() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const dialogRef = useRef(null);
+  const openerRef = useRef(null);
   const isOpen = activeIndex !== null;
   const activePhoto = isOpen ? PHOTOS[activeIndex] : null;
 
@@ -23,17 +25,55 @@ export default function HomeVisualGallery() {
 
   useEffect(() => {
     if (!isOpen) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = openerRef.current;
     document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setActiveIndex(null);
+        return;
+      }
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setActiveIndex((index) => (index - 1 + PHOTOS.length) % PHOTOS.length);
+        return;
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        setActiveIndex((index) => (index + 1) % PHOTOS.length);
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const dialog = dialogRef.current;
+      const focusable = dialog?.querySelectorAll('button:not([disabled])');
+      if (!focusable?.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === dialog)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus?.isConnected) previousFocus.focus();
     };
   }, [isOpen]);
-
-  const handleLightboxKeyDown = (event) => {
-    if (event.key === 'Escape') close();
-    if (event.key === 'ArrowLeft') next();
-    if (event.key === 'ArrowRight') previous();
-  };
 
   return (
     <section className="chapter relative overflow-hidden" aria-label="گالری تصاویر هفت طلایی">
@@ -59,7 +99,7 @@ export default function HomeVisualGallery() {
             <Reveal key={photo.src} delay={index * 65} variant="scale" className={'visual-gallery-item visual-gallery-' + photo.shape}>
               <button
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={(event) => { openerRef.current = event.currentTarget; setActiveIndex(index); }}
                 className="visual-gallery-trigger group"
                 aria-label={'نمایش تصویر ' + (index + 1) + ' از ' + PHOTOS.length}
               >
@@ -83,11 +123,11 @@ export default function HomeVisualGallery() {
       {isOpen && activePhoto && (
         <div
           className="visual-lightbox"
+          ref={dialogRef}
           role="dialog"
           aria-modal="true"
           aria-label="نمایش بزرگ تصویر"
           tabIndex={-1}
-          onKeyDown={handleLightboxKeyDown}
           onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}
         >
           <button type="button" className="visual-lightbox-close" onClick={close} aria-label="بستن تصویر"><X size={21} /></button>
