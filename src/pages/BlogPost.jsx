@@ -10,6 +10,7 @@ import LogoLoader from '@/components/LogoLoader';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, articleJsonLd } from '@/lib/seo';
 import ReactMarkdown from 'react-markdown';
+import { EDITORIAL_BLOG_POSTS } from '@/lib/editorial-blog-content';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -24,16 +25,28 @@ export default function BlogPost() {
   const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
+    let cmsPost = null;
+    let cmsPosts = [];
     try {
-      const p = await getBlogPostBySlug(slug);
-      setPost(p);
-      if (p) {
-        const all = await getBlogPosts();
-        setRelated(all.filter(x => x.slug !== p.slug).slice(0, 3));
-      }
-    } catch (e) {
-      // graceful
+      cmsPost = await getBlogPostBySlug(slug);
+    } catch {
+      // Editorial content below remains available without the CMS.
     }
+    try {
+      cmsPosts = await getBlogPosts();
+    } catch {
+      cmsPosts = [];
+    }
+
+    const post = cmsPost || EDITORIAL_BLOG_POSTS.find((item) => item.slug === slug) || null;
+    setPost(post);
+
+    const merged = [...(Array.isArray(cmsPosts) ? cmsPosts : [])];
+    const knownSlugs = new Set(merged.map((item) => item.slug).filter(Boolean));
+    EDITORIAL_BLOG_POSTS.forEach((item) => {
+      if (!knownSlugs.has(item.slug)) merged.push(item);
+    });
+    setRelated(merged.filter((item) => item.slug && item.slug !== post?.slug).slice(0, 3));
   };
 
   useEffect(() => {
@@ -59,7 +72,7 @@ export default function BlogPost() {
             {isFA ? 'مقاله یافت نشد' : 'Article not found'}
           </p>
           <Link to={basePath} className="font-body text-sm" style={{ color: 'var(--accent)' }}>
-            {isFA ? 'بازگشت به مجله' : 'Back to blog'}
+            {isFA ? (basePath === '/news' ? 'بازگشت به اخبار و اطلاعیه‌ها' : 'بازگشت به مجله') : (basePath === '/news' ? 'Back to news' : 'Back to magazine')}
           </Link>
         </div>
       </div>
@@ -133,7 +146,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-2 font-body text-sm mb-8" style={{ color: 'var(--fg-muted)' }}>
             <Link to="/" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'خانه' : 'Home'}</Link>
             <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-            <Link to={basePath} style={{ color: 'var(--fg-muted)' }}>{basePath === '/news' ? 'اخبار و مطالب' : (isFA ? 'مجله' : 'Blog')}</Link>
+            <Link to={basePath} style={{ color: 'var(--fg-muted)' }}>{basePath === '/news' ? 'اخبار و اطلاعیه‌ها' : (isFA ? 'مجله' : 'Magazine')}</Link>
             <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
             <span className="truncate" style={{ color: 'var(--fg)' }}>{title}</span>
           </div>
