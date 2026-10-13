@@ -29,7 +29,7 @@ export default function HomeMagazine() {
               <Link to={`/blog/${post.slug}`} className="home-magazine-card group">
                 <div className="home-magazine-image">
                   <img src={post.image} alt="" loading="lazy" decoding="async" />
-                  <span className="home-magazine-number">۰{index + ۱}</span>
+                  <span className="home-magazine-number">۰{index + 1}</span>
                 </div>
                 <div className="home-magazine-copy">
                   <span>{post.category === 'industry' ? 'نگاه صنعتی' : 'راهنمای محصول'}</span>
