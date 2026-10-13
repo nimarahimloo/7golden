@@ -27,6 +27,7 @@ import HomeClients from '@/components/home/HomeClients';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 import HomeContactForm from '@/components/home/HomeContactForm';
 import HomeNews from '@/components/home/HomeNews';
+import HomeMagazine from '@/components/home/HomeMagazine';
 import ProductLineRow from '@/components/home/ProductLineRow';
 
 import {
@@ -302,12 +303,14 @@ export default function Home() {
 
         <HomeNews />
 
-        {/* 08 — فرایند همکاری */}
+        <HomeMagazine />
+
+        {/* 09 — فرایند همکاری */}
 
         <section className="chapter">
           <div className="chapter-shell">
             <StoryChapter
-              index="08"
+              index="09"
               eyebrow="فرایند همکاری"
               title="از انتخاب محصول تا آماده‌سازی سفارش"
               lead="هر سفارش با شناخت نیاز مجموعه شما آغاز می‌شود. مشخصات محصول، مقدار و نوع بسته‌بندی در کنار هم بررسی می‌شوند تا مسیر سفارش بر مبنای نیاز واقعی شما شکل بگیرد."
