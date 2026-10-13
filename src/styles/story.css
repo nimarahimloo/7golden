@@ -1982,6 +1982,25 @@
   line-height: 1;
 }
 
+.footer-nav-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .7rem;
+}
+
+.footer-nav-link {
+  color: rgba(244, 240, 231, .62);
+  font-size: .86rem;
+  line-height: 1.7;
+  transition: color .25s ease, transform .25s ease;
+}
+
+.footer-nav-link:hover {
+  color: var(--gold-1);
+  transform: translateX(-2px);
+}
+
 .footer-social-pending {
   opacity: 0.66;
   cursor: default;
