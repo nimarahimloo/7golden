@@ -10,8 +10,8 @@ export const EDITORIAL_BLOG_POSTS = [
     excerptFA: 'پیش از استعلام قیمت، کاربرد نهایی، شکل محصول، رنگ مورد انتظار و میزان خردشدگی قابل‌قبول را روشن کنید تا مقایسه تأمین‌کنندگان دقیق‌تر باشد.',
     excerptEN: 'Define the final application, product form, desired appearance and acceptable breakage before requesting a quote.',
     date: '۱۴۰۵/۰۷/۲۱',
-    dateEN: 'October 13, 2026',
-    category: 'product-guide',
+    dateEN: '2026-10-13',
+    category: 'education',
     image: '/banner/pistachio-kernels.webp',
     content: `## انتخاب را از کاربرد نهایی شروع کنید
 
@@ -49,8 +49,8 @@ export const EDITORIAL_BLOG_POSTS = [
     excerptFA: 'فندق در خط تولید فقط یک ماده اولیه با یک شکل ثابت نیست؛ انتخاب میان مغز، خمیر، گرانول و پودر به بافت و نقش آن در فرمول بستگی دارد.',
     excerptEN: 'The right hazelnut form depends on whether the recipe needs flavour, texture, visible pieces or fine distribution.',
     date: '۱۴۰۵/۰۷/۲۱',
-    dateEN: 'October 13, 2026',
-    category: 'product-guide',
+    dateEN: '2026-10-13',
+    category: 'education',
     image: '/banner/hazelnut-spoon.webp',
     content: `## یک ماده اولیه، چند شکل مصرف
 
@@ -82,8 +82,8 @@ export const EDITORIAL_BLOG_POSTS = [
     excerptFA: 'شکل بادام بر ظاهر، بافت و نحوه توزیع آن در محصول اثر می‌گذارد؛ انتخاب دقیق از مشخص‌کردن نقش بادام در فرمول شروع می‌شود.',
     excerptEN: 'Almond form influences appearance, texture and distribution. Start by defining its role in the recipe.',
     date: '۱۴۰۵/۰۷/۲۱',
-    dateEN: 'October 13, 2026',
-    category: 'product-guide',
+    dateEN: '2026-10-13',
+    category: 'education',
     image: '/banner/almond-milk.webp',
     content: `## نقش بادام در محصول را مشخص کنید
 
@@ -115,7 +115,7 @@ export const EDITORIAL_BLOG_POSTS = [
     excerptFA: 'یک درخواست خرید دقیق باید بیش از نام محصول باشد: کاربرد، فرم، مقدار، مقصد و شرایط تحویل را روشن کنید تا پیشنهادها قابل مقایسه شوند.',
     excerptEN: 'A useful B2B request defines application, product form, volume, destination and delivery expectations.',
     date: '۱۴۰۵/۰۷/۲۱',
-    dateEN: 'October 13, 2026',
+    dateEN: '2026-10-13',
     category: 'industry',
     image: '/gallery/AQ8A1505AQ8A1505.webp',
     content: `## خرید صنعتی با یک نام محصول تمام نمی‌شود
@@ -152,7 +152,7 @@ export const EDITORIAL_BLOG_POSTS = [
     excerptFA: 'قیمت فقط زمانی قابل مقایسه است که دو پیشنهاد درباره یک فرم و مشخصات یکسان باشند؛ این مقاله چارچوبی برای ارزیابی پیشنهادهای خرید ارائه می‌کند.',
     excerptEN: 'Price comparisons only make sense when quotes refer to comparable product forms and specifications.',
     date: '۱۴۰۵/۰۷/۲۱',
-    dateEN: 'October 13, 2026',
+    dateEN: '2026-10-13',
     category: 'industry',
     image: '/gallery/AQ8A1618AQ8A1618.webp',
     content: `## قیمت بدون مشخصات، مقایسه دقیقی نیست
