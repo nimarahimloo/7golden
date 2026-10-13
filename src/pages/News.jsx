@@ -84,7 +84,7 @@ export default function News() {
 
         <section className="chapter news-feed-section">
           <div className="chapter-shell">
-            <StoryChapter index="01" eyebrow="NEWSROOM" title="اخبار و اطلاعیه‌ها" lead="روایت‌های تصویری از هفت طلایی؛ از محصولات و فرآوری تا حضور مجموعه در رویدادها." className="mb-10 md:mb-14" />
+            <StoryChapter index="01" eyebrow="NEWSROOM" title="اخبار و اطلاعیه‌ها" lead="اطلاعیه‌های مجموعه، معرفی سبد محصولات و اطلاعات کاربردی برای شروع گفت‌وگوی تجاری." className="mb-10 md:mb-14" />
             <Reveal variant="up"><NewsCard item={featured} onSelect={setArticle} featured /></Reveal>
             <div className="news-feed-grid mt-4 md:mt-6">
               {rest.map((item, index) => <Reveal key={item.id} delay={(index % 3) * 80} variant="up"><NewsCard item={item} onSelect={setArticle} /></Reveal>)}
@@ -111,7 +111,18 @@ export default function News() {
 
       {article && (
         <div className="news-modal" role="dialog" aria-modal="true" aria-label="جزئیات خبر" onMouseDown={(event) => { if (event.target === event.currentTarget) setArticle(null); }}>
-          <article className="news-article-modal"><img src={article.image} alt="" /><button type="button" onClick={() => setArticle(null)} aria-label="بستن"><X size={20} /></button><div><span>{NEWS_CATEGORIES[article.category]?.label} · {article.date}</span><h1>{article.title}</h1><p>{article.excerpt}</p></div></article>
+          <article className="news-article-modal" style={{ maxHeight: 'min(88svh, 900px)', overflowY: 'auto' }}>
+            <img src={article.image} alt="" />
+            <button type="button" onClick={() => setArticle(null)} aria-label="بستن"><X size={20} /></button>
+            <div className="news-article-copy">
+              <span>{NEWS_CATEGORIES[article.category]?.label} · {article.date}</span>
+              <h1>{article.title}</h1>
+              <p className="news-article-lead">{article.excerpt}</p>
+              <div className="news-article-body">
+                {(article.body || []).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+              </div>
+            </div>
+          </article>
         </div>
       )}
 

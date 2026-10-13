@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { href: '/shop', label: t('shop') },
   { href: '/about', label: t('about') },
   { href: '/news', label: 'اخبار' },
+  { href: '/blog', label: 'مجله' },
   { href: '/contact', label: t('contact') },
 ];
 

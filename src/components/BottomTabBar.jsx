@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home as HomeIcon, Package, Info, FileText, Mail } from 'lucide-react';
+import { Home as HomeIcon, Package, Info, FileText, Mail, BookOpen } from 'lucide-react';
 
 // Tabs are business-facing only — no shop/account tabs.
 const TABS = [
@@ -8,6 +8,7 @@ const TABS = [
   { path: '/shop', icon: Package, labelFA: 'محصولات', labelEN: 'Products' },
   { path: '/about', icon: Info, labelFA: 'درباره ما', labelEN: 'About' },
   { path: '/news', icon: FileText, labelFA: 'اخبار', labelEN: 'News' },
+  { path: '/blog', icon: BookOpen, labelFA: 'مجله', labelEN: 'Magazine' },
   { path: '/contact', icon: Mail, labelFA: 'تماس', labelEN: 'Contact' },
 ];
 
@@ -17,7 +18,8 @@ const TAB_PREFIXES = [
   { path: '/', prefixes: ['/'] },
   { path: '/shop', prefixes: ['/shop', '/product'] },
   { path: '/about', prefixes: ['/about'] },
-  { path: '/news', prefixes: ['/news', '/blog'] },
+  { path: '/news', prefixes: ['/news'] },
+  { path: '/blog', prefixes: ['/blog'] },
   { path: '/contact', prefixes: ['/contact'] },
 ];
 
