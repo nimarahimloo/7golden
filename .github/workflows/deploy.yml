@@ -76,13 +76,13 @@ jobs:
               exit 1
             fi
           done
+          if [[ ! "$FRONTEND_WEB_ROOT" =~ ^/[a-zA-Z0-9._/-]+$ ]] || [[ "$FRONTEND_WEB_ROOT" == *"/../"* ]] || [[ "$FRONTEND_WEB_ROOT" == */.. ]]; then
+            echo "::error::FRONTEND_WEB_ROOT must be a safe absolute path without shell metacharacters or parent-directory traversal"
+            exit 1
+          fi
           case "$FRONTEND_WEB_ROOT" in
-            /*) ;;
-            *) echo "::error::FRONTEND_WEB_ROOT must be an absolute server path"; exit 1 ;;
-          esac
-          case "$FRONTEND_WEB_ROOT" in
-            /|/var/www|/var/www/html)
-              echo "::error::Refusing to deploy to a generic web root that could contain the legacy WordPress site"
+            /|/var/www|/var/www/html|/var/www/7golden|/var/www/7golden/)
+              echo "::error::Refusing generic web roots and the project source directory; target the exact frontend document root (for example, a dedicated dist directory)"
               exit 1
               ;;
           esac
