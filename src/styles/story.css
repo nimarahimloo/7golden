@@ -2143,9 +2143,9 @@
   transform: translateX(-120%);
 }
 
-.plr-card.is-spotlight .plr-shine,
+/* A single restrained glint on deliberate hover; never animate every spotlighted card continuously. */
 .plr-card:hover .plr-shine {
-  animation: plrSweep 2.4s ease-in-out infinite;
+  animation: plrSweep 1.5s ease-out 1;
 }
 
 @keyframes plrSweep {
