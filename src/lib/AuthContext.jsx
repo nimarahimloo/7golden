@@ -5,22 +5,30 @@ const TOKEN_KEY = 'access_token';
 
 async function api(path, options = {}) {
   const token = localStorage.getItem(TOKEN_KEY);
-  const res = await fetch(`/api${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const err = new Error(data.error || res.statusText || 'Request failed');
-    err.status = res.status;
-    err.data = data;
-    throw err;
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 8000);
+
+  try {
+    const res = await fetch(`/api${path}`, {
+      ...options,
+      signal: options.signal || controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+      },
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      const err = new Error(data.error || res.statusText || 'Request failed');
+      err.status = res.status;
+      err.data = data;
+      throw err;
+    }
+    return data;
+  } finally {
+    window.clearTimeout(timeoutId);
   }
-  return data;
 }
 
 export const AuthProvider = ({ children }) => {
@@ -40,14 +48,19 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsLoadingPublicSettings(true);
       setAuthError(null);
-      // Soft public settings (local backend stub or ignore)
+      // Public pages must remain available even when the settings service is slow.
+      const settingsController = new AbortController();
+      const settingsTimeoutId = window.setTimeout(() => settingsController.abort(), 4000);
       try {
-        const settings = await fetch('/api/settings').then((r) => (r.ok ? r.json() : null));
+        const response = await fetch('/api/settings', { signal: settingsController.signal });
+        const settings = response.ok ? await response.json().catch(() => null) : null;
         setAppPublicSettings(settings || { site_mode: 'corporate', public: true });
       } catch {
         setAppPublicSettings({ site_mode: 'corporate', public: true });
+      } finally {
+        window.clearTimeout(settingsTimeoutId);
+        setIsLoadingPublicSettings(false);
       }
-      setIsLoadingPublicSettings(false);
 
       if (localStorage.getItem(TOKEN_KEY)) {
         await checkUserAuth();
