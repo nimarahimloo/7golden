@@ -39,12 +39,12 @@ export default function HomeVisualGallery() {
       }
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        setActiveIndex((index) => (index - 1 + PHOTOS.length) % PHOTOS.length);
+        setActiveIndex((index) => (index + 1) % PHOTOS.length);
         return;
       }
       if (event.key === 'ArrowRight') {
         event.preventDefault();
-        setActiveIndex((index) => (index + 1) % PHOTOS.length);
+        setActiveIndex((index) => (index - 1 + PHOTOS.length) % PHOTOS.length);
         return;
       }
       if (event.key !== 'Tab') return;
