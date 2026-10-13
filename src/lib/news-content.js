@@ -1,14 +1,7 @@
 // Central content for the 7Golden «اخبار و اطلاعیه‌ها» (News & Announcements) page.
 //
-// Every item below is grounded in the brand's own verified facts (see
-// corporate-content.js): work began ۱۳۷۷ in a small Qazvin workshop; the company
-// «شرکت خشکبار و بسته‌بندی هفت طلایی» was registered in ۱۳۹۶; raw material is
-// bought straight from growers via the family بنکداری (خشکبار محمدی, 100+ years);
-// pistachio comes from Buin-Zahra (Qazvin) and Kerman, hazelnut from Oshnavieh,
-// Alamut (Qazvin) and northern Ashkvarat; exports go to the UAE, Qatar, Oman,
-// Iraq and Afghanistan (plus Europe via traders).
-//
-// Do NOT introduce invented numbers, tonnage or certification claims here.
+// News and announcement copy uses verified company history and the public product catalogue.
+// Do not claim specific exhibitions, exports, lab tests, certifications, capacity or hours without evidence.
 
 export const NEWS_CATEGORIES = {
   announcement: { label: 'اطلاعیه', tone: 'var(--gold-2)' },
