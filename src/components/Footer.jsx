@@ -10,8 +10,8 @@ const CONTACT_LINKS = [
 const SOCIAL_CANDIDATES = [
   { id: 'instagram', label: 'اینستاگرام', href: import.meta.env.VITE_INSTAGRAM_URL, icon: '/social/instagram.svg', hosts: ['instagram.com'] },
   { id: 'rubika', label: 'روبیکا', href: import.meta.env.VITE_RUBIKA_URL, icon: '/social/rubika.png', hosts: ['rubika.ir'] },
-  { id: 'telegram', label: 'تلگرام', href: import.meta.env.VITE_TELEGRAM_URL, Icon: Send, hosts: ['t.me', 'telegram.me'] },
-  { id: 'facebook', label: 'فیسبوک', href: import.meta.env.VITE_FACEBOOK_URL, mark: 'f', hosts: ['facebook.com', 'fb.com'] },
+  { id: 'telegram', label: 'تلگرام', href: import.meta.env.VITE_TELEGRAM_URL, icon: '/social/telegram.svg', hosts: ['t.me', 'telegram.me'] },
+  { id: 'bale', label: 'بله', href: import.meta.env.VITE_BALE_URL, mark: 'ب', hosts: ['ble.ir', 'bale.ai'] },
 ];
 
 function isValidProfileUrl(value, hosts) {
@@ -27,8 +27,11 @@ function isValidProfileUrl(value, hosts) {
 }
 
 const SOCIAL_LINKS = [
-  { id: 'whatsapp', label: 'واتس‌اپ', href: 'https://wa.me/989121823438', icon: '/social/whatsapp.svg' },
-  ...SOCIAL_CANDIDATES.filter((item) => isValidProfileUrl(item.href, item.hosts)),
+  { id: 'whatsapp', label: 'واتس‌اپ', href: 'https://wa.me/989121823438', icon: '/social/whatsapp.svg', enabled: true },
+  ...SOCIAL_CANDIDATES.map((item) => ({
+    ...item,
+    enabled: isValidProfileUrl(item.href, item.hosts),
+  })),
 ];
 
 export default function Footer() {
@@ -66,19 +69,26 @@ export default function Footer() {
             <h2 className="mb-3 text-sm font-bold text-white">در ارتباط بمانیم</h2>
             <p className="mb-5 max-w-sm text-xs leading-7 text-white/55">برای گفت‌وگو درباره محصولات و سفارش، از مسیرهای ارتباطی زیر استفاده کنید.</p>
             <nav className="flex flex-wrap items-center gap-3" aria-label="شبکه‌های اجتماعی">
-              {SOCIAL_LINKS.map((social) => (
-                <a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer"
-                  aria-label={social.label} title={social.label}
-                  className="footer-social border border-white/10 bg-white/[0.03]" style={{ color: 'var(--gold-2)' }}>
-                  {social.icon ? (
-                    <img src={social.icon} alt="" aria-hidden="true" loading="lazy" width="20" height="20" className="h-5 w-5 object-contain" />
-                  ) : social.mark ? (
-                    <span className="footer-social-mark" aria-hidden="true">{social.mark}</span>
-                  ) : (
-                    <social.Icon size={19} strokeWidth={1.7} aria-hidden="true" />
-                  )}
-                </a>
-              ))}
+              {SOCIAL_LINKS.map((social) => {
+                const mark = social.icon
+                  ? <img src={social.icon} alt="" aria-hidden="true" loading="lazy" width="20" height="20" className="h-5 w-5 object-contain" />
+                  : <span className="footer-social-mark" aria-hidden="true">{social.mark}</span>;
+                const className = `footer-social border border-white/10 bg-white/[0.03] ${social.enabled ? '' : 'footer-social-pending'}`;
+
+                return social.enabled ? (
+                  <a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer"
+                    aria-label={social.label} title={social.label} className={className}
+                    style={{ color: 'var(--gold-2)' }}>
+                    {mark}
+                  </a>
+                ) : (
+                  <span key={social.id} aria-label={`${social.label}؛ نشانی رسمی هنوز ثبت نشده`}
+                    title={`${social.label}؛ نشانی رسمی هنوز ثبت نشده`} aria-disabled="true"
+                    className={className} style={{ color: 'var(--gold-2)' }}>
+                    {mark}
+                  </span>
+                );
+              })}
             </nav>
           </div>
         </div>
