@@ -77,7 +77,7 @@ export default function HeroSlider({ cmsHero = null }) {
       aria-roledescription="carousel"
       role="region"
       className="luxury-hero relative isolate w-full overflow-hidden bg-[#100f0c] text-white"
-      style={{ minHeight: 'min(800px, 100svh)', height: '100svh' }}
+      style={{ minHeight: 'min(800px, max(100svh, 680px))', height: 'max(100svh, 680px)' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -94,6 +94,7 @@ export default function HeroSlider({ cmsHero = null }) {
             src={item.image}
             alt=""
             loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : 'low'}
             decoding="async"
             className="hero-kenburns absolute inset-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-in-out"
             style={{ objectPosition: item.imagePosition, opacity: index === current ? 1 : 0 }}
@@ -119,11 +120,11 @@ export default function HeroSlider({ cmsHero = null }) {
       />
 
       <div className="chapter-shell relative z-10 flex h-full flex-col justify-end pb-32 pt-28 sm:pb-36 md:pb-40">
-        <div className="mb-6 flex items-center gap-3 text-[11px] tracking-[.14em] text-white/75 sm:mb-8 sm:text-xs">
+        <div className="mb-6 flex items-center gap-3 text-[11px] text-white/75 sm:mb-8 sm:text-xs">
           <span className="h-px w-10 bg-[#c7a75b]" aria-hidden="true" />
           <span>{slide.badge}</span>
           <span className="hidden h-1 w-1 rounded-full bg-[#c7a75b] sm:block" aria-hidden="true" />
-          <span className="hidden text-white/50 sm:block">EST. 1998</span>
+          <span className="hidden text-white/50 sm:block">فرآوری از ۱۳۷۷</span>
         </div>
 
         <div key={current} className="luxury-hero-copy hero-copy-entrance max-w-4xl">
