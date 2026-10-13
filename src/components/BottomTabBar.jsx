@@ -7,7 +7,7 @@ const TABS = [
   { path: '/', icon: HomeIcon, labelFA: 'خانه', labelEN: 'Home' },
   { path: '/shop', icon: Package, labelFA: 'محصولات', labelEN: 'Products' },
   { path: '/about', icon: Info, labelFA: 'درباره ما', labelEN: 'About' },
-  { path: '/blog', icon: FileText, labelFA: 'مجله', labelEN: 'Journal' },
+  { path: '/news', icon: FileText, labelFA: 'اخبار', labelEN: 'News' },
   { path: '/contact', icon: Mail, labelFA: 'تماس', labelEN: 'Contact' },
 ];
 
@@ -17,7 +17,7 @@ const TAB_PREFIXES = [
   { path: '/', prefixes: ['/'] },
   { path: '/shop', prefixes: ['/shop', '/product'] },
   { path: '/about', prefixes: ['/about'] },
-  { path: '/blog', prefixes: ['/blog'] },
+  { path: '/news', prefixes: ['/news', '/blog'] },
   { path: '/contact', prefixes: ['/contact'] },
 ];
 

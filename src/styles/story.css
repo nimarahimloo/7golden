@@ -494,6 +494,136 @@
   animation: heroKenBurns 20s ease-in-out infinite;
 }
 
+/* The home entry point uses editorial framing rather than a generic full-bleed
+   slider. All controls remain inside the safe area on narrow screens. */
+.luxury-hero::before,
+.luxury-hero::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.luxury-hero::before {
+  inset: clamp(0.75rem, 2vw, 1.75rem);
+  border: 1px solid rgba(231, 202, 129, 0.20);
+  border-bottom-color: transparent;
+}
+
+.luxury-hero::after {
+  right: clamp(1rem, 3vw, 3.5rem);
+  top: 32%;
+  height: 8.5rem;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(216, 185, 104, .8), transparent);
+}
+
+.luxury-hero-grain {
+  z-index: 1;
+  opacity: .26;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.luxury-hero-orbit {
+  position: absolute;
+  z-index: 1;
+  width: min(58vw, 50rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(218, 185, 103, .18);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.luxury-hero-orbit-one { left: -24vw; top: -27vw; }
+.luxury-hero-orbit-two { left: -12vw; top: -13vw; transform: scale(.54); border-color: rgba(255,255,255,.14); }
+
+.luxury-hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: 0 0 1rem;
+  color: rgba(239, 221, 172, .82);
+  font-size: .68rem;
+  letter-spacing: .13em;
+}
+
+.luxury-hero-kicker::before {
+  content: '';
+  width: 1.7rem;
+  height: 1px;
+  background: var(--gold-2);
+}
+
+@keyframes heroCopyEntrance {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-copy-entrance {
+  animation: heroCopyEntrance .7s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.luxury-hero-slide-button {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: .6rem;
+  width: 2.75rem;
+  height: 2.5rem;
+  padding: .18rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  background: rgba(9, 8, 5, .42);
+  color: #fff;
+  text-align: right;
+  transition: width .45s cubic-bezier(.16, 1, .3, 1), border-color .25s ease, background .25s ease;
+}
+
+.luxury-hero-slide-button img {
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: .75;
+}
+
+.luxury-hero-slide-button span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .08rem;
+  opacity: 0;
+  transform: translateX(7px);
+  transition: opacity .25s ease .12s, transform .3s ease .12s;
+}
+
+.luxury-hero-slide-button b { color: var(--gold-2); font-size: .62rem; font-weight: 600; }
+.luxury-hero-slide-button em { overflow: hidden; max-width: 8rem; color: rgba(255,255,255,.8); font-size: .65rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.luxury-hero-slide-button:hover { border-color: rgba(218,185,103,.8); }
+.luxury-hero-slide-button.is-active { width: min(12.5rem, calc(100vw - 3rem)); border-color: rgba(218,185,103,.85); background: rgba(11, 9, 5, .76); }
+.luxury-hero-slide-button.is-active img { opacity: 1; }
+.luxury-hero-slide-button.is-active span { opacity: 1; transform: translateX(0); }
+
+@media (max-width: 639px) {
+  .luxury-hero::before { inset: .55rem; border-color: rgba(231,202,129,.13); }
+  .luxury-hero::after, .luxury-hero-orbit { display: none; }
+  .luxury-hero-copy { padding-bottom: 1.25rem; }
+  .luxury-hero-details { bottom: 5.35rem; }
+  .luxury-hero-slides { display: none; }
+  .luxury-hero-slide-button { height: 2.3rem; }
+  .luxury-hero-slide-button img { width: 1.82rem; height: 1.82rem; flex-basis: 1.82rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-hero-slide-button, .luxury-hero-slide-button span, .hero-copy-entrance { transition: none; animation: none; }
+}
+
 /* ---------------------------------------------------------------
    SCROLL CUE
    --------------------------------------------------------------- */
@@ -1841,6 +1971,13 @@
 .footer-social:hover {
   transform: translateY(-3px);
   background: rgba(212, 175, 55, 0.18);
+}
+
+.footer-social-mark {
+  font-family: Arial, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1;
 }
 
 /* ===================================================================

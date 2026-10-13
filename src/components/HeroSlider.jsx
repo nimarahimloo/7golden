@@ -7,25 +7,25 @@ const BASE_SLIDES = [
     image: '/banner/hero-nuts-bowl.webp',
     imagePosition: 'center 54%',
     badge: 'هفت طلایی · قزوین',
-    title: 'خشکبار،',
-    accent: 'با نگاه صنعتی',
+    title: 'خشکبار هفت طلایی',
+    accent: 'برای صنایع غذایی',
     description: 'فرآوری فندق، پسته و بادام برای کاربرد در صنایع غذایی؛ با سابقه فعالیت کارگاهی از سال ۱۳۷۷.',
   },
   {
-    image: '/product/brain-hazelnut.webp',
-    imagePosition: 'center 54%',
+    image: '/banner/hazelnut-spoon.webp',
+    imagePosition: 'center 48%',
     badge: 'محصولات فندق',
-    title: 'از مغز فندق',
-    accent: 'تا فرآورده‌های آن',
-    description: 'مغز، خمیر و گرانول فندق برای استفاده در شکلات، قنادی، بستنی و دیگر فرآورده‌های غذایی.',
+    title: 'فندق، در اوج ظرافت',
+    accent: 'برای تولید حرفه‌ای',
+    description: 'مغز، خمیر و گرانول فندق برای شکلات، قنادی، بستنی و دیگر فرآورده‌های غذایی آماده می‌شوند.',
   },
   {
     image: '/banner/tray-pistachio-almond.webp',
     imagePosition: 'center 52%',
     badge: 'پسته و بادام',
-    title: 'انتخاب محصول،',
-    accent: 'بر اساس نیاز شما',
-    description: 'مغز و خلال پسته، مغز و شکل‌های فرآوری‌شده بادام؛ مشخصات سفارش با کاربرد و نیاز هر مجموعه هماهنگ می‌شود.',
+    title: 'پسته و بادام،',
+    accent: 'هم‌راستا با تولید شما',
+    description: 'مغز و خلال پسته، همراه با شکل‌های فرآوری‌شده بادام؛ انتخاب محصول با کاربرد و نیاز هر مجموعه هماهنگ می‌شود.',
   },
 ];
 
@@ -76,8 +76,8 @@ export default function HeroSlider({ cmsHero = null }) {
       aria-label="اسلایدر معرفی هفت طلایی"
       aria-roledescription="carousel"
       role="region"
-      className="relative isolate w-full overflow-hidden bg-[#100f0c] text-white"
-      style={{ minHeight: 'min(820px, 100svh)', height: '100svh' }}
+      className="luxury-hero relative isolate w-full overflow-hidden bg-[#100f0c] text-white"
+      style={{ minHeight: 'min(800px, 100svh)', height: '100svh' }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
@@ -101,6 +101,10 @@ export default function HeroSlider({ cmsHero = null }) {
         ))}
       </div>
 
+      <div className="luxury-hero-grain absolute inset-0" aria-hidden="true" />
+      <div className="luxury-hero-orbit luxury-hero-orbit-one" aria-hidden="true" />
+      <div className="luxury-hero-orbit luxury-hero-orbit-two" aria-hidden="true" />
+
       <div
         className="absolute inset-0"
         aria-hidden="true"
@@ -114,18 +118,21 @@ export default function HeroSlider({ cmsHero = null }) {
         style={{ background: 'linear-gradient(180deg, rgba(8,7,5,.40), transparent)' }}
       />
 
-      <div className="chapter-shell relative z-10 flex h-full flex-col justify-end pb-40 pt-28 sm:pb-44 md:pb-48">
-        <div className="mb-6 flex items-center gap-3 text-xs tracking-[.08em] text-white/75 sm:mb-8">
-          <span className="h-px w-10 bg-[#c7a75b]" />
+      <div className="chapter-shell relative z-10 flex h-full flex-col justify-end pb-32 pt-28 sm:pb-36 md:pb-40">
+        <div className="mb-6 flex items-center gap-3 text-[11px] tracking-[.14em] text-white/75 sm:mb-8 sm:text-xs">
+          <span className="h-px w-10 bg-[#c7a75b]" aria-hidden="true" />
           <span>{slide.badge}</span>
+          <span className="hidden h-1 w-1 rounded-full bg-[#c7a75b] sm:block" aria-hidden="true" />
+          <span className="hidden text-white/50 sm:block">EST. 1998</span>
         </div>
 
-        <div key={current} className="max-w-4xl animate-in fade-in slide-in-from-bottom-3 duration-700">
-          <h1 className="mb-6 font-black leading-[1.22] tracking-normal" style={{ fontFamily: 'Peyda, serif', fontSize: 'clamp(2.6rem, 6.1vw, 5.7rem)' }}>
+        <div key={current} className="luxury-hero-copy hero-copy-entrance max-w-4xl">
+          <p className="luxury-hero-kicker">دقت در انتخاب، کیفیت در فرآوری</p>
+          <h1 className="mb-5 font-black leading-[1.18] tracking-normal sm:mb-6" style={{ fontFamily: 'Peyda, serif', fontSize: 'clamp(2.45rem, 6.1vw, 5.7rem)' }}>
             <span className="block text-white">{slide.title}</span>
             {slide.accent && <span className="mt-1 block text-[#d7b765]">{slide.accent}</span>}
           </h1>
-          <p className="mb-8 max-w-2xl text-sm leading-8 text-white/80 sm:text-base sm:leading-9 md:mb-10 md:text-lg">
+          <p className="mb-7 max-w-xl text-sm leading-8 text-white/80 sm:text-base sm:leading-9 md:mb-9 md:text-lg">
             {slide.description}
           </p>
 
@@ -141,19 +148,15 @@ export default function HeroSlider({ cmsHero = null }) {
           </div>
         </div>
 
-        <div className="absolute bottom-24 left-4 right-4 flex items-end justify-between gap-5 sm:bottom-28 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70 sm:gap-x-7 sm:text-sm">
-            <span>از ۱۳۷۷</span>
-            <span className="h-1 w-1 rounded-full bg-[#d7b765]" />
-            <span>قزوین</span>
-            <span className="h-1 w-1 rounded-full bg-[#d7b765]" />
+        <div className="luxury-hero-details absolute bottom-20 left-4 right-4 flex items-end justify-between gap-5 sm:bottom-24 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
+          <div className="hidden flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70 sm:flex sm:gap-x-7 sm:text-sm">
+            <span>از ۱۳۷۷</span><span className="h-1 w-1 rounded-full bg-[#d7b765]" />
+            <span>قزوین</span><span className="h-1 w-1 rounded-full bg-[#d7b765]" />
             <span>فندق · پسته · بادام</span>
           </div>
 
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <span className="hidden text-xs tabular-nums text-white/70 sm:inline">
-              {String(current + 1).padStart(2, '0')} / {String(slideCount).padStart(2, '0')}
-            </span>
+          <div className="mr-auto flex shrink-0 items-center gap-2 sm:gap-3">
+            <span className="text-xs tabular-nums text-white/70">{String(current + 1).padStart(2, '0')} <span className="text-white/35">/</span> {String(slideCount).padStart(2, '0')}</span>
             <button type="button" onClick={previous} aria-label="اسلاید قبلی" className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/20 text-white transition-colors hover:border-[#d7b765] hover:text-[#d7b765] sm:h-12 sm:w-12">
               <ChevronRight size={19} />
             </button>
@@ -167,15 +170,19 @@ export default function HeroSlider({ cmsHero = null }) {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 z-20 flex justify-center gap-2 pb-4 sm:pb-5" aria-label="انتخاب اسلاید">
+      <div className="luxury-hero-slides absolute bottom-0 left-0 right-0 z-20" aria-label="انتخاب اسلاید">
+        <div className="chapter-shell flex gap-2 overflow-x-auto pb-3 sm:gap-3 sm:pb-4">
         {slides.map((item, index) => (
           <button key={item.image + '-dot-' + index} type="button" onClick={() => setCurrent(index)}
             aria-label={'اسلاید ' + (index + 1) + ' از ' + slideCount}
             aria-current={index === current ? 'true' : undefined}
-            className="h-1.5 rounded-full transition-all duration-300"
-            style={{ width: index === current ? '2rem' : '0.45rem', background: index === current ? '#d7b765' : 'rgba(255,255,255,.5)' }}
-          />
+            className={'luxury-hero-slide-button ' + (index === current ? 'is-active' : '')}
+          >
+            <img src={item.image} alt="" loading="lazy" decoding="async" />
+            <span><b>{String(index + 1).padStart(2, '0')}</b><em>{item.badge}</em></span>
+          </button>
         ))}
+        </div>
       </div>
     </section>
   );

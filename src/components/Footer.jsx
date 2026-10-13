@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, Send } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
 const CONTACT_LINKS = [
@@ -10,7 +10,8 @@ const CONTACT_LINKS = [
 const SOCIAL_CANDIDATES = [
   { id: 'instagram', label: 'اینستاگرام', href: import.meta.env.VITE_INSTAGRAM_URL, icon: '/social/instagram.svg', hosts: ['instagram.com'] },
   { id: 'rubika', label: 'روبیکا', href: import.meta.env.VITE_RUBIKA_URL, icon: '/social/rubika.png', hosts: ['rubika.ir'] },
-  { id: 'bale', label: 'بله', href: import.meta.env.VITE_BALE_URL, icon: '/social/bale.svg', hosts: ['ble.ir', 'bale.ai'] },
+  { id: 'telegram', label: 'تلگرام', href: import.meta.env.VITE_TELEGRAM_URL, Icon: Send, hosts: ['t.me', 'telegram.me'] },
+  { id: 'facebook', label: 'فیسبوک', href: import.meta.env.VITE_FACEBOOK_URL, mark: 'f', hosts: ['facebook.com', 'fb.com'] },
 ];
 
 function isValidProfileUrl(value, hosts) {
@@ -69,7 +70,13 @@ export default function Footer() {
                 <a key={social.id} href={social.href} target="_blank" rel="noopener noreferrer"
                   aria-label={social.label} title={social.label}
                   className="footer-social border border-white/10 bg-white/[0.03]" style={{ color: 'var(--gold-2)' }}>
-                  <img src={social.icon} alt="" aria-hidden="true" loading="lazy" width="20" height="20" className="h-5 w-5 object-contain" />
+                  {social.icon ? (
+                    <img src={social.icon} alt="" aria-hidden="true" loading="lazy" width="20" height="20" className="h-5 w-5 object-contain" />
+                  ) : social.mark ? (
+                    <span className="footer-social-mark" aria-hidden="true">{social.mark}</span>
+                  ) : (
+                    <social.Icon size={19} strokeWidth={1.7} aria-hidden="true" />
+                  )}
                 </a>
               ))}
             </nav>
