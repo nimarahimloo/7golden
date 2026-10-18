@@ -20,7 +20,7 @@ export default function ExportMarkets() {
 
   return (
     <section className="py-12 md:py-16" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="site-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-14">
 
           {/* Markets */}

@@ -35,7 +35,7 @@ export default function OriginStory() {
 
   return (
     <section className="py-16 md:py-24" style={{ background: 'rgba(6, 4, 2, 0.5)' }} dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="site-container">
         {/* Section header */}
         <div className="max-w-2xl mb-10 md:mb-16">
           <span className="eyebrow block mb-3">ORIGIN</span>

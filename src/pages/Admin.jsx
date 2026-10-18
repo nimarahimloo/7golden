@@ -166,7 +166,7 @@ function AdminShell({ active, setActive, user, onLogout, children }) {
 
       {/* Content */}
       <main className="flex-1 p-4 sm:p-6 lg:p-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="site-container">
           <SiteModeToggle />
           <div className="mb-6">
             <h1 className="font-heading font-extrabold text-xl md:text-2xl mb-1" style={{ color: 'var(--fg)' }}>

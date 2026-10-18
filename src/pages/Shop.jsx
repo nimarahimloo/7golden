@@ -73,7 +73,7 @@ export default function Shop() {
         />
 
         {/* ===== FLAGSHIP PRODUCTS ===== */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+        <section className="site-container py-8 md:py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {MAIN_PRODUCTS.map(product => {
               const image = imageFor(product.category);
@@ -121,7 +121,7 @@ export default function Shop() {
 
         {/* ===== OTHER PRODUCTS ===== */}
         {otherProducts.length > 0 && (
-          <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+          <section className="site-container pb-12">
             <h2 className="font-heading text-lg md:text-2xl font-extrabold mb-5" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
               سایر محصولات
             </h2>
@@ -133,7 +133,7 @@ export default function Shop() {
 
         {/* ===== STANDARDS ===== */}
         <section className="border-t" style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border)' }}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+          <div className="site-container py-8">
             <h2 className="font-heading text-lg md:text-xl font-extrabold mb-5" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
               گواهینامه‌ها و استانداردهای صادراتی
             </h2>

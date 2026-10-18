@@ -31,7 +31,7 @@ export default function AwardsSection() {
   return (
     <section dir="rtl" className="section-padding relative overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
       <div className="section-glow" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
+      <div className="site-container relative z-10">
         {/* Header */}
         <div className="text-center mb-14">
           <span className="glass-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-body text-xs font-semibold mb-4" style={{ color: 'var(--accent)' }}>

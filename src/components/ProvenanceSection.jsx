@@ -57,7 +57,7 @@ export default function ProvenanceSection() {
 
   return (
     <section className="section-padding">
-      <div className="max-w-7xl mx-auto">
+      <div className="site-container">
         <div className="text-center mb-12">
           <span
             className="font-subheading text-xs uppercase block mb-3"

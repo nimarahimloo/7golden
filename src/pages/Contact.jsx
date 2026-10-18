@@ -46,13 +46,13 @@ export default function Contact() {
           subtitle="همیشه در دسترس شما هستیم"
           badge="تماس با ما"
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+        <div className="site-container absolute top-0 left-0 right-0 z-20" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/" className="text-white/80 hover:text-white" />
         </div>
       </div>
 
       {/* Contact Cards */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-12">
+      <section className="site-container -mt-12 relative z-10 mb-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {contactCards.map((card, i) => (
             <a
@@ -82,7 +82,7 @@ export default function Contact() {
       </section>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 pb-16">
+      <div className="site-container pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
           {/* Addresses */}

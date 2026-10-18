@@ -124,7 +124,7 @@ export default function Account() {
   return (
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '5rem' }}>
       <PullToRefresh onRefresh={loadUser}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="site-container py-8">
         {/* Back button */}
         <div className="mb-6">
           <BackButton to="/" />

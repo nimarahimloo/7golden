@@ -70,14 +70,14 @@ export default function Awards() {
           subtitle={isFA ? 'مجوزها و گواهینامه‌های معتبر هفت‌طلایی' : 'Certified quality, recognized excellence'}
           badge={isFA ? 'اعتبار و افتخارات' : 'Excellence'}
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+        <div className="site-container absolute top-0 left-0 right-0 z-20" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/" className="text-white/80 hover:text-white" />
         </div>
       </div>
 
       {/* Stats Bar */}
       <section className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-10">
+        <div className="site-container py-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((s, i) => (
               <AnimatedSection key={i} delay={i * 100} className="text-center">
@@ -97,7 +97,7 @@ export default function Awards() {
       </section>
 
       {/* Intro + Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
+      <div className="site-container">
         <section className="section-padding">
           {/* Intro */}
           <AnimatedSection className="text-center mb-14">

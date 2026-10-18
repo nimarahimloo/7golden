@@ -158,7 +158,7 @@ export default function ProductDetail() {
         </div> */}
 
         {/* Main PDP */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-6 pt-32">
+        <div className="site-container py-6 pt-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
             {/* Left: Image Gallery */}

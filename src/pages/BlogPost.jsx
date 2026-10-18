@@ -86,7 +86,7 @@ export default function BlogPost() {
       {/* ===== CINEMATIC HERO ===== */}
       <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden">
         {/* Back button overlay */}
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+        <div className="site-container absolute top-0 left-0 right-0 z-20" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/blog" className="text-white/80 hover:text-white" />
         </div>
         <img
@@ -99,7 +99,7 @@ export default function BlogPost() {
           background: 'linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.95) 100%)',
         }} />
         <div className="absolute inset-0 flex items-end">
-          <div className="max-w-4xl mx-auto px-4 sm:px-8 pb-12 w-full text-center">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
                 <Tag size={11} />
@@ -123,7 +123,7 @@ export default function BlogPost() {
       </div>
 
       {/* ===== ARTICLE BODY ===== */}
-      <article className="max-w-3xl mx-auto px-4 sm:px-8 py-14 md:py-20 -mt-10 relative z-10">
+      <article className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20 -mt-10 relative z-10">
         <div className="rounded-3xl p-8 md:p-14" style={{
           background: 'var(--card-bg)',
           border: '1px solid var(--border)',
@@ -185,7 +185,7 @@ export default function BlogPost() {
 
       {/* ===== RELATED POSTS ===== */}
       {related.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 pb-20">
+        <section className="site-container pb-20">
           <h2 className="font-heading font-black text-xl md:text-2xl mb-8 text-center" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
             {isFA ? 'مطالب مرتبط' : 'Related Articles'}
           </h2>

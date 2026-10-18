@@ -62,7 +62,7 @@ export default function HeroSlider() {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 pt-24 md:pt-32 pb-12 md:pb-20">
+      <div className="site-container pt-24 md:pt-32 pb-12 md:pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
 
           {/* Image — large, one side */}

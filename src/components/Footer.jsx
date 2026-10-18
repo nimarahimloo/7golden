@@ -17,7 +17,7 @@ export default function Footer() {
   return (
     <footer dir="rtl" style={{ background: 'var(--bg-secondary)', position: 'relative', overflow: 'hidden' }}>
       <FooterParticles />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16" style={{ zIndex: 1, paddingBottom: 'calc(3rem + var(--safe-area-bottom))' }}>
+      <div className="site-container relative pt-16" style={{ zIndex: 1, paddingBottom: 'calc(3rem + var(--safe-area-bottom))' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
           {/* Brand */}

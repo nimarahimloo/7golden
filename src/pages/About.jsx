@@ -64,12 +64,12 @@ export default function About() {
           subtitle={t('about_sub')}
           badge={true ? 'داستان ما' : 'Our Story'}
         />
-        <div className="absolute top-0 left-0 right-0 z-20 px-4 sm:px-8" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
+        <div className="site-container absolute top-0 left-0 right-0 z-20" style={{ paddingTop: 'calc(5rem + var(--safe-area-top))' }}>
           <BackButton to="/" className="text-white/80 hover:text-white" />
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
+      <div className="site-container">
 
         {/* Story */}
         <section className="section-padding grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

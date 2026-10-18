@@ -100,7 +100,7 @@ export default function Home() {
 
       {/* ===== ALL PRODUCTS ===== */}
       <section className="py-14 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="site-container">
           <div className="flex items-end justify-between gap-4 mb-6">
             <div>
               <span className="eyebrow block mb-3">PRODUCTS</span>
@@ -126,7 +126,7 @@ export default function Home() {
 
       {/* ===== ABOUT TEASER — image and name only ===== */}
       <section className="py-14 md:py-20" style={{ background: 'rgba(6, 4, 2, 0.55)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="site-container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
             <AnimatedSection>
               <div

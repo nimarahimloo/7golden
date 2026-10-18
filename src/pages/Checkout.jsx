@@ -242,8 +242,8 @@ export default function Checkout() {
       {showGateway && <PaymentGateway amount={grandTotal} onSuccess={completeOrder} onClose={() => setShowGateway(false)} />}
 
       {/* Premium header */}
-      <div className="pt-24 pb-8 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
+      <div className="site-container pt-24 pb-8">
+        <div>
           <div className="mb-5">
             <BackButton to="/shop" />
           </div>
@@ -290,7 +290,7 @@ export default function Checkout() {
       </div>
 
       {/* Main grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="site-container">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
           {/* Left: Form */}

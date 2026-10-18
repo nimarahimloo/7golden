@@ -74,7 +74,7 @@ export default function Blog() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-16">
+      <div className="site-container py-16">
 
         {loading ? (
           <LogoLoader fullScreen={false} />
