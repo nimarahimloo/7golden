@@ -134,7 +134,25 @@
 
 @media (min-width: 1024px) {
   .chapter-shell {
-    padding-inline: 2.5rem;
+    padding-inline: 2rem;
+  }
+}
+
+.reading-shell {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .reading-shell {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .reading-shell {
+    padding-inline: 2rem;
   }
 }
 

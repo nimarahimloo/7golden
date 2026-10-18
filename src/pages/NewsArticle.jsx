@@ -92,7 +92,7 @@ export default function NewsArticle() {
         <img src={item.image} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: 'brightness(0.6)' }} fetchpriority="high" decoding="async" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(7,6,4,0.45) 0%, rgba(7,6,4,0.25) 40%, rgba(7,6,4,0.96) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
-          <div className="max-w-4xl mx-auto px-5 sm:px-8 pb-10 md:pb-14 w-full text-center">
+          <div className="reading-shell pb-10 md:pb-14 w-full text-center">
             <div className="flex items-center justify-center flex-wrap gap-2.5 mb-4">
               <span className="px-3.5 py-1 rounded-full font-body text-xs" style={{ background: 'rgba(7,6,4,0.7)', border: '1px solid var(--hairline-strong)', color: cat?.tone }}>
                 {cat?.label}
@@ -112,7 +112,7 @@ export default function NewsArticle() {
       </header>
 
       {/* ===== ARTICLE ===== */}
-      <article className="max-w-3xl mx-auto px-5 sm:px-8 py-10 md:py-16">
+      <article className="reading-shell py-10 md:py-16">
         <nav aria-label="breadcrumb" className="flex items-center flex-wrap gap-2 font-body text-xs mb-8" style={{ color: 'var(--fg-muted)' }}>
           <Link to="/" style={{ color: 'var(--fg-muted)' }}>خانه</Link>
           <ChevronLeft size={12} />
@@ -182,7 +182,7 @@ export default function NewsArticle() {
       </article>
 
       {/* ===== RELATED ===== */}
-      <section className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 pb-16 md:pb-24">
+      <section className="chapter-shell pb-16 md:pb-24">
         <h2 className="font-heading font-extrabold text-xl md:text-2xl mb-6 md:mb-8" style={{ color: 'var(--ink)' }}>اخبار دیگر</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {related.map((n, i) => (
