@@ -160,23 +160,23 @@
 /* ===== CSS VARIABLES (dark-only — single theme) ===== */
 @layer base {
   :root {
-    /* Nocturnal Orchard — deep luxury dark palette */
-    --bg: #0B0907;
-    --bg-secondary: #13100C;
-    --fg: #F4F0E7;
-    --fg-muted: #B7B0A2;
-    --accent: #C9A86A;
-    --accent-hover: #E2C785;
-    --accent-gold: #C9A86A;
+    /* Maison Gold: champagne highlights, antique-gold body, warm bronze shadow. */
+    --bg: #090806;
+    --bg-secondary: #12100B;
+    --fg: #FBF7EF;
+    --fg-muted: #C9C1B3;
+    --accent: #D6B25E;
+    --accent-hover: #F0D38D;
+    --accent-gold: #D6B25E;
+    --on-gold: #181207;
 
-    /* Gold ramp — the scroll-story layer reads these for gradients,
-       numerals, rails and hairlines. */
-    --gold-1: #F2E1B7;
-    --gold-2: #C9A86A;
-    --gold-3: #967747;
-    --gold-4: #59472C;
-    --border: rgba(201, 168, 106, 0.16);
-    --card-bg: rgba(15, 12, 8, 0.88);
+    /* Gold ramp — use the highlight only for glints, never for body copy. */
+    --gold-1: #FFF2C7;
+    --gold-2: #D6B25E;
+    --gold-3: #A77A2A;
+    --gold-4: #5E431B;
+    --border: rgba(214, 178, 94, 0.22);
+    --card-bg: rgba(18, 15, 9, 0.9);
     --glass: rgba(6, 4, 2, 0.5);
     --glass-strong: rgba(6, 4, 2, 0.65);
     --liquid-glass-bg: rgba(8, 6, 3, 0.42);
@@ -186,7 +186,7 @@
     --glass-input-bg: rgba(0, 0, 0, 0.25);
     --glass-input-border: rgba(255, 255, 255, 0.07);
     --glass-pill-bg: rgba(255, 255, 255, 0.05);
-    --glass-pill-border: rgba(201, 168, 106, 0.12);
+    --glass-pill-border: rgba(214, 178, 94, 0.2);
     --surface-subtle: rgba(255, 255, 255, 0.03);
     --surface-border: rgba(255, 255, 255, 0.06);
     --bottom-bar-bg: rgba(2, 1, 0, 0.78);
@@ -197,35 +197,35 @@
     --shadow-lg: 0 24px 80px rgba(0,0,0,0.8);
 
     /* Aliases the section components read on every page (dark & gold theme) */
-    --ink: #F4F0E7;
-    --brass: #C9A86A;
-    --hairline: rgba(201, 168, 106, 0.18);
-    --hairline-strong: rgba(201, 168, 106, 0.36);
+    --ink: #FBF7EF;
+    --brass: #D6B25E;
+    --hairline: rgba(214, 178, 94, 0.24);
+    --hairline-strong: rgba(214, 178, 94, 0.48);
     --soft-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 
     /* Surfaces for the scroll-story bands */
-    --panel: rgba(12, 10, 6, 0.6);
-    --panel-strong: rgba(9, 7, 4, 0.82);
+    --panel: rgba(18, 15, 9, 0.72);
+    --panel-strong: rgba(12, 10, 6, 0.9);
 
     --background: 35 24% 4%;
-    --foreground: 42 28% 95%;
+    --foreground: 40 55% 96%;
     --card: 35 22% 7%;
-    --card-foreground: 42 28% 95%;
+    --card-foreground: 40 55% 96%;
     --popover: 35 22% 7%;
-    --popover-foreground: 42 28% 95%;
-    --primary: 39 45% 61%;
+    --popover-foreground: 40 55% 96%;
+    --primary: 42 59% 60%;
     --primary-foreground: 0 0% 5%;
     --secondary: 40 20% 8%;
-    --secondary-foreground: 42 28% 95%;
+    --secondary-foreground: 40 55% 96%;
     --muted: 40 20% 8%;
-    --muted-foreground: 38 14% 68%;
-    --accent-hsl: 39 45% 61%;
+    --muted-foreground: 37 18% 75%;
+    --accent-hsl: 42 59% 60%;
     --accent-foreground: 0 0% 5%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
     --border: 36 18% 22%;
     --input: 36 18% 22%;
-    --ring: 39 45% 61%;
+    --ring: 42 59% 60%;
     --radius: 0.75rem;
   }
 }
@@ -244,8 +244,8 @@
     background-color: var(--bg);
     color: var(--fg);
     font-family: 'YekanBakh', 'Peyda', system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.75;
+    font-size: clamp(1rem, 0.975rem + 0.15vw, 1.0625rem);
+    line-height: 1.85;
     letter-spacing: 0.01em;
     transition: background-color 0.6s ease, color 0.4s ease;
     overflow-x: clip;
@@ -272,7 +272,7 @@
 
 .font-body {
   font-family: 'YekanBakh', system-ui, sans-serif;
-  line-height: 1.75;
+  line-height: 1.9;
   letter-spacing: 0.01em;
 }
 
@@ -318,7 +318,7 @@
 /* ===== ACCENT BUTTON ===== */
 .btn-accent {
   background-color: var(--accent);
-  color: #fff;
+  color: var(--on-gold);
   border: none;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -338,7 +338,12 @@
 }
 .btn-outline:hover {
   background: var(--accent);
-  color: #fff;
+  color: var(--on-gold);
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--gold-1);
+  outline-offset: 3px;
 }
 
 /* ===== CARD ===== */
