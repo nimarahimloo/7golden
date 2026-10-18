@@ -11,8 +11,8 @@ export default function ProductionGallery({ images }) {
 
   return (
     <>
-      <section className="section-glow py-12 md:py-20 px-4 sm:px-6 lg:px-8" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section className="section-glow py-12 md:py-20" style={{ background: 'var(--bg)' }}>
+        <div className="chapter-shell relative z-10">
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4" style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.2)' }}>

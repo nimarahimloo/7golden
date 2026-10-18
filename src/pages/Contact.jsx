@@ -72,7 +72,7 @@ export default function Contact() {
       </div>
 
       {/* Contact Cards */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-12">
+      <section className="chapter-shell -mt-12 relative z-10 mb-12">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
           {contactCards.map((card, i) => (
             <Reveal key={i} delay={i * 80} variant="up">
@@ -103,7 +103,7 @@ export default function Contact() {
       </section>
 
       {/* ===== ADDRESSES + FORM ===== */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 pb-16">
+      <div className="chapter-shell pb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
           {/* Addresses */}

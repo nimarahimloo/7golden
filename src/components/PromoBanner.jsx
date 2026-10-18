@@ -8,8 +8,8 @@ export default function PromoBanner({ image, badge, title, subtitle, cta, to = '
   const parallaxRef = useParallax({ speed: 0.2, baseScale: 1.15, clamp: 50 });
 
   return (
-    <section className="px-4 sm:px-6 lg:px-8 py-4">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-4">
+      <div className="chapter-shell">
         <Link
           to={to}
           className="group relative block rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl"

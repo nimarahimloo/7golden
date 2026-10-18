@@ -54,7 +54,7 @@ export default function Navbar() {
           paddingRight: 'var(--safe-area-right)',
         }}
       >
-        <div className="site-header-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-4">
+        <div className="site-header-inner chapter-shell flex items-center justify-between gap-4">
 
           {/* Brand */}
           <Link to="/" className="header-brand" aria-label="هفت‌طلایی — صفحه اصلی">

@@ -32,7 +32,7 @@ export default function MainProducts({ categories = [], products = [] }) {
 
   return (
     <section className="py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="chapter-shell">
 
         {/* Section header — heading kept for structure and SEO */}
         <div className="max-w-2xl mb-8 md:mb-12">

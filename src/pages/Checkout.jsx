@@ -241,8 +241,8 @@ export default function Checkout() {
       {showGateway && <PaymentGateway amount={grandTotal} onSuccess={completeOrder} onClose={() => setShowGateway(false)} />}
 
       {/* Premium header */}
-      <div className="pt-24 pb-8 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
+      <div className="chapter-shell pt-24 pb-8">
+        <div>
           <div className="flex flex-col items-center text-center mb-8">
             <span className="font-subheading text-sm uppercase block mb-2" style={{ color: 'var(--accent)', fontFamily: subFont }}>
               {isFA ? 'تسویه حساب' : 'Checkout'}
@@ -286,7 +286,7 @@ export default function Checkout() {
       </div>
 
       {/* Main grid */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="chapter-shell">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
           {/* Left: Form */}

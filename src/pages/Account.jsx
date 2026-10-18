@@ -123,7 +123,7 @@ export default function Account() {
   return (
     <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '5rem' }}>
       <PullToRefresh onRefresh={loadUser}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="chapter-shell py-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="font-heading text-2xl md:text-3xl font-black mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
