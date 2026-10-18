@@ -10,6 +10,7 @@ const CONTACT_LINKS = [
 
 const SOCIAL_CANDIDATES = [
   { id: 'instagram', label: 'اینستاگرام', href: import.meta.env.VITE_INSTAGRAM_URL, icon: '/social/instagram.svg', hosts: ['instagram.com'] },
+  { id: 'facebook', label: 'فیس‌بوک', href: import.meta.env.VITE_FACEBOOK_URL, icon: '/social/facebook.svg', hosts: ['facebook.com', 'fb.com'] },
   { id: 'rubika', label: 'روبیکا', href: import.meta.env.VITE_RUBIKA_URL, icon: '/social/rubika.png', hosts: ['rubika.ir'] },
   { id: 'telegram', label: 'تلگرام', href: import.meta.env.VITE_TELEGRAM_URL, icon: '/social/telegram.svg', hosts: ['t.me', 'telegram.me'] },
   { id: 'bale', label: 'بله', href: import.meta.env.VITE_BALE_URL, icon: '/social/bale.svg', hosts: ['ble.ir', 'bale.ai'] },
