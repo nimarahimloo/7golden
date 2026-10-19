@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { t, categoryLabel } from '@/lib/i18n';
 import { getBlogPosts } from '@/lib/api/content';
 import { EDITORIAL_BLOG_POSTS } from '@/lib/editorial-blog-content';
-import { Image } from '@/components/ui/image';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
 import DynamicHeroSlider from '@/components/DynamicHeroSlider';
 import PullToRefresh from '@/components/PullToRefresh';
@@ -26,6 +25,7 @@ export default function Blog() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const { hero } = usePageHero('blog', {
     image: '/banner/hazelnut-bowl.webp',
@@ -67,12 +67,18 @@ export default function Blog() {
   }, []);
 
   const categories = [...new Set(posts.map(p => p.category).filter(Boolean))];
-  const filtered = activeCategory === 'all' ? posts : posts.filter(p => p.category === activeCategory);
+  const query = searchQuery.trim().toLocaleLowerCase();
+  const filtered = posts.filter((post) => {
+    const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
+    const searchable = [post.titleFA, post.titleEN, post.excerptFA, post.excerptEN, post.category, post.content]
+      .filter(Boolean).join(' ').toLocaleLowerCase();
+    return matchesCategory && (!query || searchable.includes(query));
+  });
   const featured = filtered[0];
   const rest = filtered.slice(1);
 
   return (
-    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" className="blog-page" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
 
       <Seo
         title={isFA ? `مجله ${SITE_SEO.siteNameFA} — راهنمای تخصصی صنایع غذایی` : `${SITE_SEO.siteNameEN} Magazine — Ingredient Guides`}
@@ -107,7 +113,7 @@ export default function Blog() {
               >
                 <div>
                   <Eyebrow className="block mb-3">{isFA ? 'ویژه' : 'Featured'}</Eyebrow>
-                  <h2 className="display-md mb-3" style={{ color: 'var(--ink)' }}>
+                  <h2 className="display-md mb-3 blog-card-heading" title={isFA ? featured.titleFA : featured.titleEN} style={{ color: 'var(--ink)' }}>
                     {isFA ? featured.titleFA : featured.titleEN}
                   </h2>
                   <p className="font-body text-sm leading-relaxed max-w-xl" style={{ color: 'var(--fg-muted)' }}>
@@ -130,82 +136,116 @@ export default function Blog() {
         </section>
       )}
 
-      {/* ===== Category filter ===== */}
-      {!loading && posts.length > 0 && categories.length > 1 && (
-        <div className="chapter-shell pb-4">
-          <div className="flex flex-wrap gap-2 justify-center">
-            <button
-              onClick={() => setActiveCategory('all')}
-              className="px-4 py-2 rounded-full font-body text-sm font-semibold transition-all"
-              style={{
-                background: activeCategory === 'all' ? 'var(--accent)' : 'transparent',
-                color: activeCategory === 'all' ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
-                border: `1px solid ${activeCategory === 'all' ? 'var(--accent)' : 'var(--hairline)'}`,
-              }}
-            >
-              {isFA ? 'همه' : 'All'}
-            </button>
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className="px-4 py-2 rounded-full font-body text-sm font-semibold transition-all"
-                style={{
-                  background: activeCategory === cat ? 'var(--accent)' : 'transparent',
-                  color: activeCategory === cat ? 'hsl(var(--accent-foreground))' : 'var(--fg)',
-                  border: `1px solid ${activeCategory === cat ? 'var(--accent)' : 'var(--hairline)'}`,
-                }}
-              >
-                {categoryLabel(cat)}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* ===== Grid — cinematic cards ===== */}
+      {/* ===== Blog grid with its own magazine sidebar ===== */}
       <div className="chapter pt-8">
         <div className="chapter-shell">
           {loading ? (
             <LogoLoader fullScreen={false} />
-          ) : posts.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-                {loadError ? 'دریافت مطالب با مشکل روبه‌رو شد. لطفاً دوباره تلاش کنید.' : (isFA ? 'در حال حاضر مطلب منتشرشده‌ای برای نمایش نیست.' : 'No published articles are currently available.')}
-              </p>
-            </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {rest.map((post, i) => (
-                <Reveal key={post.id} delay={(i % 3) * 100} variant="up">
-                  <Link to={`/blog/${post.slug}`} className="group block blog-cine-card" style={{ aspectRatio: '3 / 4' }}>
-                    <div className="blog-cine-card-image absolute inset-0">
-                      <Image
-                        src={post.image}
-                        alt={isFA ? post.titleFA : post.titleEN}
-                        className="w-full h-full"
-                        fittingType="fill"
-                      />
-                    </div>
-                    <div className="blog-cine-overlay" />
-                    <div className="blog-cine-content">
-                      <span className="font-body text-xs block mb-2" style={{ color: 'var(--fg-muted)' }}>
-                        {isFA ? post.date : post.dateEN}
-                      </span>
-                      <h3 className="display-sm mb-2" style={{ color: 'var(--ink)' }}>
-                        {isFA ? post.titleFA : post.titleEN}
-                      </h3>
-                      <p className="font-body text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>
-                        {isFA ? post.excerptFA : post.excerptEN}
-                      </p>
-                      <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
-                        {t('read_more')}
-                        <ArrowIcon size={12} />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
+            <div className="blog-page-layout">
+              <main className="blog-page-main" aria-label="فهرست مطالب وبلاگ">
+                {filtered.length === 0 ? (
+                  <div className="blog-empty-state">
+                    <h2>مطلبی پیدا نشد</h2>
+                    <p>{posts.length === 0 ? (loadError ? 'دریافت مطالب با مشکل روبه‌رو شد. لطفاً دوباره تلاش کنید.' : 'در حال حاضر مطلب منتشرشده‌ای برای نمایش نیست.') : 'عبارت جست‌وجو یا دسته‌بندی انتخاب‌شده را تغییر دهید.'}</p>
+                    <button type="button" onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}>نمایش همهٔ مطالب</button>
+                  </div>
+                ) : rest.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {rest.map((post, i) => (
+                      <Reveal key={post.id || post.slug} delay={(i % 2) * 100} variant="up">
+                        <Link to={`/blog/${post.slug}`} className="group block blog-cine-card" style={{ aspectRatio: '3 / 4' }}>
+                          <div className="blog-cine-card-image absolute inset-0">
+                            <img
+                              src={post.image || '/banner/banner-four-bowls.webp'}
+                              alt={isFA ? post.titleFA : post.titleEN}
+                              loading="lazy"
+                              decoding="async"
+                              onError={(event) => {
+                                event.currentTarget.onerror = null;
+                                event.currentTarget.src = '/banner/banner-four-bowls.webp';
+                              }}
+                            />
+                          </div>
+                          <div className="blog-cine-overlay" />
+                          <div className="blog-cine-content">
+                            <span className="font-body text-xs block mb-2" style={{ color: 'var(--fg-muted)' }}>
+                              {isFA ? post.date : post.dateEN}
+                            </span>
+                            <h3 className="display-sm mb-2 blog-card-title" title={isFA ? post.titleFA : post.titleEN} style={{ color: 'var(--ink)' }}>
+                              {isFA ? post.titleFA : post.titleEN}
+                            </h3>
+                            <p className="font-body text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>
+                              {isFA ? post.excerptFA : post.excerptEN}
+                            </p>
+                            <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                              {t('read_more')}
+                              <ArrowIcon size={12} />
+                            </span>
+                          </div>
+                        </Link>
+                      </Reveal>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="py-8 font-body text-sm" style={{ color: 'var(--fg-muted)' }}>این مطلب در بخش ویژه نمایش داده شده است؛ برای دیدن مطالب بیشتر، فیلتر را تغییر دهید.</p>
+                )}
+              </main>
+
+              <aside className="blog-sidebar" aria-label="ابزارها و دسته‌بندی وبلاگ">
+                <form className="blog-sidebar-search" onSubmit={(event) => event.preventDefault()} role="search">
+                  <label htmlFor="blog-search">جست‌وجو در وبلاگ</label>
+                  <div className="blog-search-control">
+                    <input
+                      id="blog-search"
+                      type="search"
+                      value={searchQuery}
+                      onChange={(event) => setSearchQuery(event.target.value)}
+                      placeholder="عنوان یا موضوع مطلب"
+                    />
+                    <button type="submit" aria-label="جست‌وجو"><Search size={16} /></button>
+                  </div>
+                </form>
+
+                <section className="blog-sidebar-block">
+                  <div className="blog-sidebar-heading">
+                    <h2>موضوعات وبلاگ</h2>
+                    <button type="button" onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}>پاک‌کردن</button>
+                  </div>
+                  <div className="blog-category-list">
+                    <button type="button" className="blog-category-button" data-active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
+                      <span>همهٔ مطالب</span><b>{posts.length.toLocaleString('fa-IR')}</b>
+                    </button>
+                    {categories.map((category) => (
+                      <button type="button" key={category} className="blog-category-button" data-active={activeCategory === category} onClick={() => setActiveCategory(category)}>
+                        <span>{categoryLabel(category)}</span><b>{posts.filter((post) => post.category === category).length.toLocaleString('fa-IR')}</b>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="blog-sidebar-block">
+                  <h2>مطالب پیشنهادی</h2>
+                  <ul className="blog-recent-list">
+                    {posts.filter((post) => post.slug).slice(0, 4).map((post) => (
+                      <li key={post.id || post.slug}>
+                        <Link to={`/blog/${post.slug}`}>
+                          <span>{categoryLabel(post.category)} · {isFA ? post.date : post.dateEN}</span>
+                          <strong className="blog-recent-title" title={isFA ? post.titleFA : post.titleEN}>{isFA ? post.titleFA : post.titleEN}</strong>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+
+                <div className="blog-sidebar-cta">
+                  <span className="blog-sidebar-kicker">راهنمای انتخاب مواد اولیه</span>
+                  <h2>دنبال محصول مناسب خط تولید هستید؟</h2>
+                  <p>فرم محصول و کاربرد نهایی را مشخص کنید تا انتخاب و استعلام دقیق‌تری داشته باشید.</p>
+                  <Link to="/shop">بررسی محصولات <ArrowIcon size={15} /></Link>
+                </div>
+                <Link to="/news" className="blog-sidebar-crosslink">خبرها و اطلاعیه‌های مجموعه <ArrowIcon size={15} /></Link>
+              </aside>
             </div>
           )}
         </div>

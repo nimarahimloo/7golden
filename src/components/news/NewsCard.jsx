@@ -6,7 +6,7 @@ import { NEWS_CATEGORIES } from '@/lib/news-content';
  * One announcement tile — shared by the /news grid and the "related news"
  * strip on an article. The whole tile links to the article page.
  */
-export default function NewsCard({ item }) {
+export default function NewsCard({ item, className = '' }) {
   const cat = NEWS_CATEGORIES[item.category];
   const photoCount = item.photos?.length || 0;
   const videoCount = item.videos?.length || 0;
@@ -14,14 +14,19 @@ export default function NewsCard({ item }) {
   return (
     <Link
       to={`/news/${item.id}`}
-      className="group relative rounded-3xl overflow-hidden gold-frame h-full flex flex-col"
+      className={`group relative rounded-3xl overflow-hidden gold-frame h-full flex flex-col ${className}`} 
       style={{ background: 'var(--surface-subtle, rgba(255,255,255,0.03))' }}
     >
       <div className="relative overflow-hidden" style={{ aspectRatio: '16 / 10' }}>
         <img
-          src={item.image}
-          alt=""
+          src={item.image || '/banner/banner-four-bowls.webp'}
+          alt={item.title}
           loading="lazy"
+          decoding="async"
+          onError={(event) => {
+            event.currentTarget.onerror = null;
+            event.currentTarget.src = '/banner/banner-four-bowls.webp';
+          }}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <span
@@ -33,7 +38,7 @@ export default function NewsCard({ item }) {
       </div>
       <div className="p-5 text-right flex flex-col gap-2 flex-1">
         <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{item.date}</span>
-        <h3 className="font-heading font-bold text-base md:text-lg leading-snug" style={{ color: 'var(--ink)' }}>
+        <h3 className="font-heading font-bold text-base md:text-lg leading-snug news-card-title" title={item.title} style={{ color: 'var(--ink)' }}>
           {item.title}
         </h3>
         <p className="font-body text-sm leading-relaxed line-clamp-3" style={{ color: 'var(--fg-muted)' }}>

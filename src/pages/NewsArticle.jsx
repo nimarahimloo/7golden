@@ -29,11 +29,16 @@ export default function NewsArticle() {
     setLightbox(null);
     const load = LOADERS[`../lib/news-articles/${slug}.js`];
     if (!item || !load) {
-      setSections([]);
+      // The published newsroom entries own their copy in news-content.js.
+      // Use it when there is no dedicated long-form module instead of rendering
+      // an empty article page.
+      setSections(item?.body?.length ? [{ p: item.body }] : []);
       return undefined;
     }
     let active = true;
-    load().then((m) => active && setSections(m.default));
+    load()
+      .then((m) => { if (active) setSections(m.default); })
+      .catch(() => { if (active) setSections(item?.body?.length ? [{ p: item.body }] : []); });
     return () => { active = false; };
   }, [slug, item]);
 
@@ -84,7 +89,7 @@ export default function NewsArticle() {
   ];
 
   return (
-    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" className="news-article-page" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Seo title={`${item.title} | ${SITE_SEO.siteNameFA}`} description={item.excerpt} image={item.image} type="article" canonical={url} jsonLd={jsonLd} />
 
       {/* ===== HERO ===== */}
@@ -106,7 +111,7 @@ export default function NewsArticle() {
                 </span>
               )}
             </div>
-            <h1 className="display-lg" style={{ color: 'var(--ink)' }}>{item.title}</h1>
+            <h1 className="display-lg news-article-title" title={item.title} style={{ color: 'var(--ink)' }}>{item.title}</h1>
           </div>
         </div>
       </header>
@@ -131,9 +136,11 @@ export default function NewsArticle() {
 
         {(sections || []).map((s, i) => (
           <section key={s.h} className={i ? 'mt-10 md:mt-12' : ''}>
-            <h2 className="font-heading font-extrabold text-xl md:text-2xl leading-snug mb-4" style={{ color: 'var(--ink)' }}>
-              {s.h}
-            </h2>
+            {s.h && (
+              <h2 className="font-heading font-extrabold text-xl md:text-2xl leading-snug mb-4" style={{ color: 'var(--ink)' }}>
+                {s.h}
+              </h2>
+            )}
             {(s.p || []).map((para, j) => (
               <p key={j} className="font-body text-[15px] md:text-base leading-[2.05] mb-4" style={{ color: 'var(--fg-muted)' }}>{para}</p>
             ))}
