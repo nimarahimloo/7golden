@@ -145,51 +145,8 @@ export default function Blog() {
       <PullToRefresh onRefresh={() => loadData()}>
         {/* Hero */}
         <div className="relative">
-          <DynamicHeroSlider pageKey="blog" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
+          <DynamicHeroSlider pageKey="blog" fallback={{ image: hero?.image, title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
         </div>
-
-        {/* ===== Featured post — cinematic depth parallax ===== */}
-        {!loading && posts.length > 0 && featured && (
-          <section className="chapter">
-            <div className="chapter-shell">
-              <StoryChapter
-                index="01"
-                eyebrow="FEATURED"
-                title={isFA ? 'مطلب ویژه' : 'Featured'}
-                className="mb-10"
-              />
-              <Reveal variant="up">
-                <Link to={`/blog/${featured.slug}`} className="group block">
-                  <DepthParallax
-                    src={featured.image}
-                    alt={isFA ? featured.titleFA : featured.titleEN}
-                    ratio="aspect-[4/3] md:aspect-[21/9]"
-                    className="rounded-3xl"
-                  >
-                    <div>
-                      <Eyebrow className="block mb-3">{isFA ? 'ویژه' : 'Featured'}</Eyebrow>
-                      <h2 className="display-md mb-3 blog-card-heading" title={isFA ? featured.titleFA : featured.titleEN} style={{ color: 'var(--ink)' }}>
-                        {isFA ? featured.titleFA : featured.titleEN}
-                      </h2>
-                      <p className="font-body text-sm leading-relaxed max-w-xl" style={{ color: 'var(--fg-muted)' }}>
-                        {isFA ? featured.excerptFA : featured.excerptEN}
-                      </p>
-                      <div className="flex items-center gap-2 mt-5">
-                        <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
-                          {isFA ? featured.date : featured.dateEN}
-                        </span>
-                        <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
-                          {t('read_more')}
-                          <ArrowIcon size={14} />
-                        </span>
-                      </div>
-                    </div>
-                  </DepthParallax>
-                </Link>
-              </Reveal>
-            </div>
-          </section>
-        )}
 
         {/* ===== Blog grid with its own magazine sidebar ===== */}
         <div className="chapter pt-8">

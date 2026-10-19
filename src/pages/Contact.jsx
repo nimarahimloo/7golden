@@ -66,284 +66,283 @@ export default function Contact() {
       />
 
       <PullToRefresh onRefresh={refreshSiteMode}>
-      {/* Hero */}
-      <div className="relative">
-        <DynamicHeroSlider pageKey="contact" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
-      </div>
-
-      {/* Contact Cards */}
-      <section className="chapter-shell -mt-12 relative z-10 mb-12">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-          {contactCards.map((card, i) => (
-            <Reveal key={i} delay={i * 80} variant="up">
-            <a
-              href={card.href || undefined}
-              className="rounded-2xl p-4 md:p-5 panel gold-frame transition-all duration-300 group block h-full"
-            >
-              <div
-                className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
-                style={{
-                  background: 'rgba(212,175,55,0.12)',
-                  border: '1px solid var(--hairline-strong)',
-                }}
-              >
-                <card.icon size={18} style={{ color: 'var(--accent)' }} />
-              </div>
-              <p className="font-body text-xs md:text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{card.label}</p>
-              <p
-                className="font-heading font-black text-xs md:text-sm"
-                style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', direction: card.href?.startsWith('tel') ? 'ltr' : 'inherit' }}
-              >
-                {card.value}
-              </p>
-            </a>
-            </Reveal>
-          ))}
+        {/* Hero */}
+        <div className="relative">
+          <DynamicHeroSlider pageKey="contact" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
         </div>
-      </section>
 
-      {/* ===== ADDRESSES + FORM ===== */}
-      <div className="chapter-shell pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-          {/* Addresses */}
-          <div>
-            <StoryChapter
-              index="01"
-              eyebrow="LOCATIONS"
-              title="آدرس‌های ما"
-              className="mb-8"
-            />
-
-            <div className="flex flex-col gap-4 mb-8">
-              {/* HQ */}
-              <Reveal variant="left" delay={80}>
-              <div className="p-6 rounded-3xl liquid-glass-strong">
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}
-                  >
-                    <MapPin size={20} style={{ color: 'var(--accent)' }} />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                      {t('hq_title')}
-                    </h3>
-                    <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      {t('hq_address')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              </Reveal>
-
-              {/* Tehran */}
-              <Reveal variant="left" delay={160}>
-              <div className="p-6 rounded-3xl liquid-glass-strong">
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}
-                  >
-                    <MapPin size={20} style={{ color: 'var(--accent)' }} />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                      {t('factory_title')}
-                    </h3>
-                    <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      {t('factory_address')}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              </Reveal>
-            </div>
-
-            {/* Parallax image strip — the orchard speaks */}
-            <Reveal variant="up" delay={120}>
-            <ParallaxMedia
-              src="/gallery/AQ8A1628AQ8A1628.webp"
-              alt="فضای مجموعه هفت طلایی"
-              ratio="aspect-[16/9]"
-              className="rounded-3xl"
-              speed={0.2}
-            />
-            </Reveal>
-
-            {/* Social */}
-            <Reveal variant="up" delay={200} className="mt-6">
-            <div className="p-6 rounded-3xl liquid-glass-strong">
-              <h3 className="font-heading font-black text-sm mb-4" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                راه‌های ارتباطی
-              </h3>
-              <div className="flex gap-3">
+        {/* Contact Cards */}
+        <section className="chapter-shell -mt-12 relative z-10 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+            {contactCards.map((card, i) => (
+              <Reveal key={i} delay={i * 80} variant="up">
                 <a
-                  href="https://wa.me/989121823438"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="پیام در واتس‌اپ"
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
+                  href={card.href || undefined}
+                  className="rounded-2xl p-4 md:p-5 panel gold-frame transition-all duration-300 group block h-full"
                 >
-                  <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
-                </a>
-                <a
-                  href="tel:+989121823438"
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
-                >
-                  <Phone size={18} style={{ color: 'var(--accent)' }} />
-                </a>
-                <a
-                  href="mailto:info@7golden.co"
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
-                  style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
-                >
-                  <Mail size={18} style={{ color: 'var(--accent)' }} />
-                </a>
-              </div>
-            </div>
-            </Reveal>
-          </div>
-
-          {/* Form */}
-          <div>
-            <StoryChapter
-              index="02"
-              eyebrow="INQUIRY"
-              title="ارسال درخواست همکاری"
-              className="mb-8"
-            />
-            <Reveal variant="up" delay={120}>
-            <div className="p-5 md:p-8 rounded-3xl panel-strong">
-              {sent ? (
-                <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mb-5"
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
                     style={{
-                      background: 'rgba(34,197,94,0.12)',
-                      border: '1px solid rgba(34,197,94,0.25)',
+                      background: 'rgba(212,175,55,0.12)',
+                      border: '1px solid var(--hairline-strong)',
                     }}
                   >
-                    <CheckCircle size={36} style={{ color: '#22c55e' }} />
+                    <card.icon size={18} style={{ color: 'var(--accent)' }} />
                   </div>
-                  <h3 className="font-heading text-xl font-black mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
-                    پیام شما ثبت شد.
-                  </h3>
-                  <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-                    پیام شما در سامانه ثبت شد. برای پیگیری، با دفتر مجموعه تماس بگیرید.
+                  <p className="font-body text-xs md:text-xs mb-1" style={{ color: 'var(--fg-muted)' }}>{card.label}</p>
+                  <p
+                    className="font-heading font-black text-xs md:text-sm"
+                    style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', direction: card.href?.startsWith('tel') ? 'ltr' : 'inherit' }}
+                  >
+                    {card.value}
                   </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  {[
-                    { key: 'name', type: 'text', label: t('name') },
-                    { key: 'email', type: 'email', label: t('email') },
-                    { key: 'phone', type: 'tel', label: t('phone') },
-                  ].map(f => (
-                    <div key={f.key}>
-                      <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{f.label}</label>
-                      <input
-                        type={f.type}
-                        required={f.key === 'name'}
-                        value={form[f.key]}
-                        onChange={e => set(f.key, e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none transition-all"
-                        style={{
-                          background: 'rgba(0,0,0,0.2)',
-                          border: '1px solid var(--hairline)',
-                          color: 'var(--fg)',
-                          boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
-                        }}
-                      />
+                </a>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ===== ADDRESSES + FORM ===== */}
+        <div className="chapter-shell pb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            {/* Addresses */}
+            <div>
+              <StoryChapter
+                index="01"
+                eyebrow="LOCATIONS"
+                title="آدرس‌های ما"
+                className="mb-8"
+              />
+
+              <div className="flex flex-col gap-4 mb-8">
+                {/* HQ */}
+                <Reveal variant="left" delay={80}>
+                  <div className="p-6 rounded-3xl liquid-glass-strong">
+                    <div className="flex items-start gap-4">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}
+                      >
+                        <MapPin size={20} style={{ color: 'var(--accent)' }} />
+                      </div>
+                      <div>
+                        <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
+                          {t('hq_title')}
+                        </h3>
+                        <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+                          {t('hq_address')}
+                        </p>
+                      </div>
                     </div>
-                  ))}
-                  <div>
-                    <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{t('message')}</label>
-                    <textarea
-                      rows={4}
-                      required
-                      value={form.message}
-                      onChange={e => set('message', e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none resize-none transition-all"
-                      style={{
-                        background: 'rgba(0,0,0,0.2)',
-                        border: '1px solid var(--hairline)',
-                        color: 'var(--fg)',
-                        boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
-                      }}
-                    />
                   </div>
-                  {sendError && <p className="font-body text-xs leading-relaxed" style={{ color: '#f87171' }} role="alert">{sendError}</p>}
-                  <button
-                    type="submit"
-                    disabled={sending}
-                    className="w-full py-4 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
-                    style={{
-                      background: 'var(--accent)',
-                      color: 'hsl(var(--accent-foreground))',
-                      boxShadow: '0 8px 32px rgba(212,175,55,0.3), inset 0 1px 1px rgba(255,255,255,0.2)',
-                    }}
-                  >
-                    <Send size={16} />
-                    {sending ? 'در حال ارسال…' : t('send_message')}
-                  </button>
-                </form>
-              )}
+                </Reveal>
+
+                {/* Tehran */}
+                <Reveal variant="left" delay={160}>
+                  <div className="p-6 rounded-3xl liquid-glass-strong">
+                    <div className="flex items-start gap-4">
+                      <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}
+                      >
+                        <MapPin size={20} style={{ color: 'var(--accent)' }} />
+                      </div>
+                      <div>
+                        <h3 className="font-heading font-black text-sm mb-1" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
+                          {t('factory_title')}
+                        </h3>
+                        <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+                          {t('factory_address')}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
+
+              {/* Parallax image strip — the orchard speaks */}
+              <Reveal variant="up" delay={120}>
+                <ParallaxMedia
+                  src="/img-6052.webp"
+                  alt="فضای مجموعه هفت طلایی"
+                  ratio="aspect-[16/9]"
+                  className="rounded-3xl"
+                  speed={0.2}
+                />
+              </Reveal>
+
+              {/* Social */}
+              <Reveal variant="up" delay={200} className="mt-6">
+                <div className="p-6 rounded-3xl liquid-glass-strong">
+                  <h3 className="font-heading font-black text-sm mb-4" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
+                    راه‌های ارتباطی
+                  </h3>
+                  <div className="flex gap-3">
+                    <a
+                      href="https://wa.me/989121823438"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="پیام در واتس‌اپ"
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
+                      style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
+                    >
+                      <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
+                    </a>
+                    <a
+                      href="tel:+989121823438"
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
+                      style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
+                    >
+                      <Phone size={18} style={{ color: 'var(--accent)' }} />
+                    </a>
+                    <a
+                      href="mailto:info@7golden.co"
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
+                      style={{ background: 'rgba(212,175,55,0.06)', border: '1px solid var(--hairline)' }}
+                    >
+                      <Mail size={18} style={{ color: 'var(--accent)' }} />
+                    </a>
+                  </div>
+                </div>
+              </Reveal>
             </div>
-            </Reveal>
+
+            {/* Form */}
+            <div>
+              <StoryChapter
+                index="02"
+                eyebrow="INQUIRY"
+                title="ارسال درخواست همکاری"
+                className="mb-8"
+              />
+              <Reveal variant="up" delay={120}>
+                <div className="p-5 md:p-8 rounded-3xl panel-strong">
+                  {sent ? (
+                    <div className="flex flex-col items-center justify-center py-16 text-center">
+                      <div
+                        className="w-20 h-20 rounded-full flex items-center justify-center mb-5"
+                        style={{
+                          background: 'rgba(34,197,94,0.12)',
+                          border: '1px solid rgba(34,197,94,0.25)',
+                        }}
+                      >
+                        <CheckCircle size={36} style={{ color: '#22c55e' }} />
+                      </div>
+                      <h3 className="font-heading text-xl font-black mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
+                        پیام شما ثبت شد.
+                      </h3>
+                      <p className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+                        پیام شما در سامانه ثبت شد. برای پیگیری، با دفتر مجموعه تماس بگیرید.
+                      </p>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                      {[
+                        { key: 'name', type: 'text', label: t('name') },
+                        { key: 'email', type: 'email', label: t('email') },
+                        { key: 'phone', type: 'tel', label: t('phone') },
+                      ].map(f => (
+                        <div key={f.key}>
+                          <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{f.label}</label>
+                          <input
+                            type={f.type}
+                            required={f.key === 'name'}
+                            value={form[f.key]}
+                            onChange={e => set(f.key, e.target.value)}
+                            className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none transition-all"
+                            style={{
+                              background: 'rgba(0,0,0,0.2)',
+                              border: '1px solid var(--hairline)',
+                              color: 'var(--fg)',
+                              boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
+                            }}
+                          />
+                        </div>
+                      ))}
+                      <div>
+                        <label className="font-body text-xs font-semibold block mb-1.5" style={{ color: 'var(--fg)' }}>{t('message')}</label>
+                        <textarea
+                          rows={4}
+                          required
+                          value={form.message}
+                          onChange={e => set('message', e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none resize-none transition-all"
+                          style={{
+                            background: 'rgba(0,0,0,0.2)',
+                            border: '1px solid var(--hairline)',
+                            color: 'var(--fg)',
+                            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
+                          }}
+                        />
+                      </div>
+                      {sendError && <p className="font-body text-xs leading-relaxed" style={{ color: '#f87171' }} role="alert">{sendError}</p>}
+                      <button
+                        type="submit"
+                        disabled={sending}
+                        className="w-full py-4 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
+                        style={{
+                          background: 'var(--accent)',
+                          color: 'hsl(var(--accent-foreground))',
+                          boxShadow: '0 8px 32px rgba(212,175,55,0.3), inset 0 1px 1px rgba(255,255,255,0.2)',
+                        }}
+                      >
+                        <Send size={16} />
+                        {sending ? 'در حال ارسال…' : t('send_message')}
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* ===== Closing parallax band ===== */}
-      <section className="closing-band" style={{ minHeight: '50vh' }}>
-        <div className="closing-band-bg">
-          <img src="/gallery/AQ8A1750AQ8A1750.webp" alt="" loading="lazy" decoding="async" />
-        </div>
-        <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
-          <Reveal variant="up">
-            <Eyebrow className="block mb-5">CONTACT</Eyebrow>
-          </Reveal>
-          <Reveal variant="up" delay={80}>
-            <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
-              <span className="gold-text">برای سفارش و همکاری با ما تماس بگیرید</span>
-            </h2>
-          </Reveal>
-          <Reveal variant="up" delay={120} className="mt-6">
-            <p className="font-body text-sm md:text-base" style={{ color: 'var(--fg-muted)' }}>
-              کارخانه: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲
-            </p>
-          </Reveal>
-          <Reveal variant="up" delay={200} className="mt-8">
-            <a
-              href="tel:+989121823438"
-              className="btn-gold inline-flex"
-            >
-              <Phone size={16} />
-              تماس مستقیم
-            </a>
-          </Reveal>
-        </div>
-      </section>
+        {/* ===== Closing parallax band ===== */}
+        <section className="closing-band" style={{ minHeight: '50vh' }}>
+          <div className="closing-band-bg">
+            <img src="/hazelnut-spoon.webp" alt="" loading="lazy" decoding="async" />
+          </div>
+          <div className="relative z-10 chapter-shell py-20 md:py-28 text-center">
+            <Reveal variant="up">
+              <Eyebrow className="block mb-5">CONTACT</Eyebrow>
+            </Reveal>
+            <Reveal variant="up" delay={80}>
+              <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
+                <span className="gold-text">برای سفارش و همکاری با ما تماس بگیرید</span>
+              </h2>
+            </Reveal>
+            <Reveal variant="up" delay={120} className="mt-6">
+              <p className="font-body text-sm md:text-base" style={{ color: 'var(--fg-muted)' }}>
+                کارخانه: قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲
+              </p>
+            </Reveal>
+            <Reveal variant="up" delay={200} className="mt-8">
+              <a
+                href="tel:+989121823438"
+                className="btn-gold inline-flex"
+              >
+                <Phone size={16} />
+                تماس مستقیم
+              </a>
+            </Reveal>
+          </div>
+        </section>
 
-      {/* ===== FULL-WIDTH MAP — factory location, eased into the site theme ===== */}
-      <section className="map-band" aria-label="نقشه و موقعیت شهرک صنعتی کاسپین ۲ در قزوین">
-        <div className="map-frame" data-loaded={mapLoaded ? 'true' : 'false'}>
-          <iframe
-            title="موقعیت شهرک صنعتی کاسپین ۲ در قزوین"
-            src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
-            className="map-frame-iframe"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            onLoad={() => setMapLoaded(true)}
-          />
-          {/* Soft veils — the map fades into the page instead of jumping out */}
-          <div className="map-frame-veil" aria-hidden="true" />
-        </div>
-      </section>
+        <section className="map-band" aria-label="نقشه و موقعیت شهرک صنعتی کاسپین ۲ در قزوین">
+          <div className="map-frame" data-loaded={mapLoaded ? 'true' : 'false'}>
+            <iframe
+              title="موقعیت شهرک صنعتی کاسپین ۲ در قزوین"
+              src="https://maps.google.com/maps?q=Qazvin%20Caspian%20Industrial%20Park%202&z=13&output=embed"
+              className="map-frame-iframe"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              onLoad={() => setMapLoaded(true)}
+            />
+            {/* Soft veils — the map fades into the page instead of jumping out */}
+            <div className="map-frame-veil" aria-hidden="true" />
+          </div>
+        </section>
 
       </PullToRefresh>
     </div>
