@@ -27,6 +27,30 @@ const BASE_SLIDES = [
     accent: 'هم‌راستا با تولید شما',
     description: 'مغز و خلال پسته، همراه با شکل‌های فرآوری‌شده بادام؛ انتخاب محصول با کاربرد و نیاز هر مجموعه هماهنگ می‌شود.',
   },
+  {
+    image: '/banner/Hero-Banner-main.webp',
+    imagePosition: 'center 52%',
+    badge: 'پسته و خشکبار ممتاز',
+    title: 'کیفیت در هر دانه',
+    accent: 'از انتخاب تا فرآوری',
+    description: 'تصویری از کیفیت مواد اولیه و دقت در آماده‌سازی محصولات هفت طلایی برای کاربردهای صنایع غذایی.',
+  },
+  {
+    image: '/banner/HeroBanner-1.webp',
+    imagePosition: 'center 52%',
+    badge: 'فندق، پسته و بادام',
+    title: 'طبیعت، با دقت انتخاب‌شده',
+    accent: 'برای تولید حرفه‌ای',
+    description: 'محصولات خشکبار با شکل‌های متنوع فرآوری، متناسب با نیاز قنادی، شکلات‌سازی و صنایع غذایی.',
+  },
+  {
+    image: '/banner/Hero-banner-2.webp',
+    imagePosition: 'center 54%',
+    badge: 'از سال ۱۳۷۷',
+    title: 'تجربه در کنار کیفیت',
+    accent: 'همراه خط تولید شما',
+    description: 'هفت طلایی با تمرکز بر فندق، پسته و بادام، مسیر انتخاب مواد اولیه مناسب را برای کسب‌وکارها ساده‌تر می‌کند.',
+  },
 ];
 
 export default function HeroSlider({ cmsHero = null }) {

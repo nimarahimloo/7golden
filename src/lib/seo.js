@@ -23,7 +23,7 @@ export const ORGANIZATION_JSONLD = {
   name: '7Golden',
   alternateName: 'هفت‌طلایی',
   url: 'https://7golden.co',
-  logo: 'https://7golden.co/logo.webp',
+  logo: 'https://7golden.co/logo-symbol.webp',
   description: 'هفت طلایی در قزوین از سال ۱۳۷۷ در زمینه فرآوری خشکبار فعالیت می‌کند؛ محصولات اصلی مجموعه شامل فندق، پسته و بادام در شکل‌های مختلف برای صنایع غذایی است.',
   foundingDate: '2017',
   contactPoint: {
@@ -90,7 +90,7 @@ export function articleJsonLd(post) {
     publisher: {
       '@type': 'Organization',
       name: '7Golden',
-      logo: { '@type': 'ImageObject', url: 'https://7golden.co/logo.webp' },
+      logo: { '@type': 'ImageObject', url: 'https://7golden.co/logo-symbol.webp' },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

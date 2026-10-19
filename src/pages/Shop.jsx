@@ -47,7 +47,7 @@ export default function Shop() {
             slug,
             nameFA: category.nameFA || category.name_fa || slug,
             descFA: category.descFA || category.desc_fa || '',
-            image: category.image || CATEGORY_IMAGE[slug] || '/logo.webp',
+            image: category.image || CATEGORY_IMAGE[slug] || '/logo-symbol.webp',
             count: validProducts.filter((product) => product.category === slug).length,
           };
         })
@@ -189,7 +189,7 @@ export default function Shop() {
 
               <div className="relative overflow-hidden rounded-3xl mb-12 min-h-[200px] md:min-h-[280px]">
                 <img
-                  src={activeLine?.image || '/logo.webp'}
+                  src={activeLine?.image || '/logo-symbol.webp'}
                   alt={activeLine?.nameFA || ''}
                   className="absolute inset-0 w-full h-full object-cover"
                   width={1600}

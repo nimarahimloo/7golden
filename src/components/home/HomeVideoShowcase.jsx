@@ -87,7 +87,9 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
     return [...base, ...custom].sort((a, b) => a.order - b.order);
   }, [mediaSections, overrideById]);
 
-  const activeItem = media.find((item) => item.id === activeId) || null;
+  // Show a deliberately small five-item selection on the homepage; the admin ordering decides which items lead.
+  const visibleMedia = media.slice(0, 5);
+  const activeItem = visibleMedia.find((item) => item.id === activeId) || null;
 
   useEffect(() => {
     if (!activeItem) return undefined;
@@ -96,9 +98,9 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
     const onKeyDown = (event) => {
       if (event.key === 'Escape') setActiveId(null);
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        const index = media.findIndex((item) => item.id === activeItem.id);
+        const index = visibleMedia.findIndex((item) => item.id === activeItem.id);
         const delta = event.key === 'ArrowLeft' ? 1 : -1;
-        const next = media[(index + delta + media.length) % media.length];
+        const next = visibleMedia[(index + delta + visibleMedia.length) % visibleMedia.length];
         setActiveId(next?.id || null);
       }
     };
@@ -110,12 +112,12 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
   }, [activeItem, media]);
 
   const moveLightbox = (delta) => {
-    if (!activeItem || !media.length) return;
-    const index = media.findIndex((item) => item.id === activeItem.id);
-    setActiveId(media[(index + delta + media.length) % media.length]?.id || null);
+    if (!activeItem || !visibleMedia.length) return;
+    const index = visibleMedia.findIndex((item) => item.id === activeItem.id);
+    setActiveId(visibleMedia[(index + delta + visibleMedia.length) % visibleMedia.length]?.id || null);
   };
 
-  if (!media.length) return null;
+  if (!visibleMedia.length) return null;
 
   return (
     <section className="chapter relative overflow-hidden home-media-section" aria-label="گالری ویدیو و تصاویر هفت طلایی">
@@ -134,7 +136,7 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
         </div>
 
         <div className="home-media-mosaic">
-          {media.map((item, index) => (
+          {visibleMedia.map((item, index) => (
             <article key={item.id} className={`home-media-tile home-media-tile--${item.shape || (index % 7 === 0 ? 'wide' : 'standard')}`}>
               <button type="button" className="home-media-trigger group" onClick={() => setActiveId(item.id)} aria-label={`نمایش ${item.title}`}>
                 {item.type === 'video' ? (

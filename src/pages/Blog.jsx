@@ -15,6 +15,7 @@ import DepthParallax from '@/components/story/DepthParallax';
 import Marquee from '@/components/story/Marquee';
 import { usePageHero } from '@/lib/usePageHero';
 import Eyebrow from '@/components/ui/eyebrow';
+import EditorialCard from '@/components/EditorialCard';
 
 const BLOG_PAGE_SIZE = 8;
 
@@ -212,36 +213,16 @@ export default function Blog() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {rest.map((post, i) => (
                       <Reveal key={post.id || post.slug} delay={(i % 2) * 100} variant="up">
-                        <Link to={`/blog/${post.slug}`} className="group block blog-cine-card" style={{ aspectRatio: '3 / 4' }}>
-                          <div className="blog-cine-card-image absolute inset-0">
-                            <img
-                              src={post.image || '/banner/banner-four-bowls.webp'}
-                              alt={isFA ? post.titleFA : post.titleEN}
-                              loading="lazy"
-                              decoding="async"
-                              onError={(event) => {
-                                event.currentTarget.onerror = null;
-                                event.currentTarget.src = '/banner/banner-four-bowls.webp';
-                              }}
-                            />
-                          </div>
-                          <div className="blog-cine-overlay" />
-                          <div className="blog-cine-content">
-                            <span className="font-body text-xs block mb-2" style={{ color: 'var(--fg-muted)' }}>
-                              {isFA ? post.date : post.dateEN}
-                            </span>
-                            <h3 className="display-sm mb-2 blog-card-title" title={isFA ? post.titleFA : post.titleEN} style={{ color: 'var(--ink)' }}>
-                              {isFA ? post.titleFA : post.titleEN}
-                            </h3>
-                            <p className="font-body text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'var(--fg-muted)' }}>
-                              {isFA ? post.excerptFA : post.excerptEN}
-                            </p>
-                            <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
-                              {t('read_more')}
-                              <ArrowIcon size={12} />
-                            </span>
-                          </div>
-                        </Link>
+                        <EditorialCard
+                          to={`/blog/${post.slug}`}
+                          image={post.image || '/banner/banner-four-bowls.webp'}
+                          alt={isFA ? post.titleFA : post.titleEN}
+                          title={isFA ? post.titleFA : post.titleEN}
+                          category={post.category ? categoryLabel(post.category) : (isFA ? 'وبلاگ' : 'Blog')}
+                          date={isFA ? post.date : post.dateEN}
+                          excerpt={isFA ? post.excerptFA : post.excerptEN}
+                          readMore={t('read_more')}
+                        />
                       </Reveal>
                     ))}
                   </div>
