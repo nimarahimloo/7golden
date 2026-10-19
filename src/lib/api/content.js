@@ -152,9 +152,22 @@ export async function getTestimonials() {
 }
 
 export async function getBlogPosts(opts = {}) {
-  const { limit = 100 } = opts;
-  const items = await get(`/blog?limit=${limit}`);
+  const { limit = 100, skip = 0, category, query } = opts;
+  const params = new URLSearchParams({ limit: String(limit), skip: String(skip) });
+  if (category) params.set('category', category);
+  if (query) params.set('q', query);
+  const items = await get(`/blog?${params.toString()}`);
   return items.map(normalizeBlogPost);
+}
+
+export async function getBlogMeta() {
+  const meta = await get('/blog/meta');
+  return {
+    total: Number(meta?.total) || 0,
+    categories: Array.isArray(meta?.categories)
+      ? meta.categories.filter((item) => item && typeof item.category === 'string' && item.category.trim())
+      : [],
+  };
 }
 
 export async function getBlogPostBySlug(slug) {

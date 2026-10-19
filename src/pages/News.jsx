@@ -14,6 +14,7 @@ import NewsCard from '@/components/news/NewsCard';
 
 const FALLBACK_NEWS_IMAGE = '/banner/banner-four-bowls.webp';
 
+
 export default function News() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
