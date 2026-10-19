@@ -76,7 +76,7 @@ router.get('/categories', async (_req, res) => {
 // Blog
 router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {
   try {
-    const limit = Math.min(Number(req.query.limit) || 100, 500);
+    const limit = Math.min(Number(req.query.limit) || 500, 500);
     const where: any = { published: true };
     if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };
     const items = await prisma.blogPost.findMany({

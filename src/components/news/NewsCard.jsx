@@ -8,12 +8,13 @@ import { NEWS_CATEGORIES } from '@/lib/news-content';
  */
 export default function NewsCard({ item, className = '' }) {
   const cat = NEWS_CATEGORIES[item.category];
+  const categoryLabel = item.categoryLabel || cat?.label || 'خبر';
   const photoCount = item.photos?.length || 0;
   const videoCount = item.videos?.length || 0;
 
   return (
     <Link
-      to={`/news/${item.id}`}
+      to={item.href || `/news/${item.id}`}
       className={`group relative rounded-3xl overflow-hidden gold-frame h-full flex flex-col ${className}`} 
       style={{ background: 'var(--surface-subtle, rgba(255,255,255,0.03))' }}
     >
@@ -31,9 +32,9 @@ export default function NewsCard({ item, className = '' }) {
         />
         <span
           className="absolute top-3 right-3 px-3 py-1 rounded-full font-body text-xs"
-          style={{ background: 'rgba(7,6,4,0.72)', border: '1px solid var(--hairline-strong)', color: cat?.tone, backdropFilter: 'blur(8px)' }}
+          style={{ background: 'rgba(7,6,4,0.72)', border: '1px solid var(--hairline-strong)', color: item.categoryTone || cat?.tone || 'var(--gold-1, var(--accent))', backdropFilter: 'blur(8px)' }}
         >
-          {cat?.label}
+          {categoryLabel}
         </span>
       </div>
       <div className="p-5 text-right flex flex-col gap-2 flex-1">

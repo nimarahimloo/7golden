@@ -152,7 +152,7 @@ export async function getTestimonials() {
 }
 
 export async function getBlogPosts(opts = {}) {
-  const { limit = 100 } = opts;
+  const { limit = 500 } = opts;
   const items = await get(`/blog?limit=${limit}`);
   return items.map(normalizeBlogPost);
 }
