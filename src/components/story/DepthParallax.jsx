@@ -114,7 +114,7 @@ export default function DepthParallax({
         className="depth-layer depth-back"
         aria-hidden
       >
-        {src && <img src={src} alt="" loading="lazy" />}
+        {src && <img src={src} alt="" loading="lazy" decoding="async" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = '/banner/banner-four-bowls.webp'; }} />}
       </div>
 
       {/* ---- mid: sharp picture ---- */}
@@ -122,7 +122,7 @@ export default function DepthParallax({
         ref={midRef}
         className="depth-layer depth-mid"
       >
-        {src && <img src={src} alt={alt} loading="lazy" />}
+        {src && <img src={src} alt={alt} loading="eager" fetchpriority="high" decoding="async" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = '/banner/banner-four-bowls.webp'; }} />}
       </div>
 
       {/* ---- scrim ---- */}

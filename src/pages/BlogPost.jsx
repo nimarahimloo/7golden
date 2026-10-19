@@ -85,7 +85,7 @@ export default function BlogPost() {
   const category = categoryLabel(post.category);
 
   return (
-    <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div dir="rtl" className="blog-article-page" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Seo
         title={`${title} | ${isFA ? SITE_SEO.siteNameFA : SITE_SEO.siteNameEN}`}
         description={excerpt}
@@ -102,6 +102,10 @@ export default function BlogPost() {
           src={post.image}
           alt={title}
           className="absolute inset-0 w-full h-full object-cover"
+          onError={(event) => {
+            event.currentTarget.onerror = null;
+            event.currentTarget.src = '/banner/banner-four-bowls.webp';
+          }}
           style={{ animation: 'kenBurns 20s ease-out forwards', filter: 'brightness(0.6)' }}
           fetchpriority="high"
           decoding="async"
@@ -121,7 +125,7 @@ export default function BlogPost() {
                 {date}
               </span>
             </div>
-            <h1 className="display-lg leading-tight" style={{ color: 'var(--ink)' }}>
+            <h1 className="display-lg leading-tight blog-article-title" title={title} style={{ color: 'var(--ink)' }}>
               <span className="gold-text">{title}</span>
             </h1>
             {excerpt && (
