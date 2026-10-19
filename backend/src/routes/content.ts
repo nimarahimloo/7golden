@@ -73,18 +73,63 @@ router.get('/categories', async (_req, res) => {
   }
 });
 
-// Blog
+// Blog: the database/CMS is the source of truth. Pagination is offset-based,
+// with stable ordering so records are not duplicated or skipped between requests.
 router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {
   try {
-    const limit = Math.min(Number(req.query.limit) || 500, 500);
+    const requestedLimit = Math.trunc(Number(req.query.limit) || 12);
+    const limit = Math.min(Math.max(requestedLimit, 1), 100);
+    const skip = Math.max(0, Math.trunc(Number(req.query.skip) || 0));
     const where: any = { published: true };
     if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };
+
+    const category = String(req.query.category || '').trim();
+    if (category) where.category = category;
+
+    const query = String(req.query.q || '').trim().slice(0, 200);
+    if (query) {
+      where.OR = [
+        { title_fa: { contains: query, mode: 'insensitive' } },
+        { excerpt_fa: { contains: query, mode: 'insensitive' } },
+        { content: { contains: query, mode: 'insensitive' } },
+      ];
+    }
+
     const items = await prisma.blogPost.findMany({
       where,
-      orderBy: { sort_order: 'asc' },
+      orderBy: [{ sort_order: 'asc' }, { createdAt: 'desc' }, { id: 'asc' }],
+      skip,
       take: limit,
     });
     res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Sidebar counts come from published database records, not the currently-loaded page.
+// Keep this route before /blog/:slug so "meta" is not treated as an article slug.
+router.get('/blog/meta', optionalAuth, async (req: AuthRequest, res) => {
+  try {
+    const where: any = { published: true };
+    if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };
+
+    const [total, grouped] = await Promise.all([
+      prisma.blogPost.count({ where }),
+      prisma.blogPost.groupBy({
+        by: ['category'],
+        where,
+        _count: { _all: true },
+        orderBy: { category: 'asc' },
+      }),
+    ]);
+
+    res.json({
+      total,
+      categories: grouped
+        .filter((row) => typeof row.category === 'string' && row.category.trim())
+        .map((row) => ({ category: row.category, count: row._count._all })),
+    });
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, CalendarDays, Search } from 'lucide-react';
 import DynamicHeroSlider from '@/components/DynamicHeroSlider';
@@ -9,48 +9,15 @@ import Reveal from '@/components/story/Reveal';
 import Marquee from '@/components/story/Marquee';
 import { usePageHero } from '@/lib/usePageHero';
 import { SITE_SEO } from '@/lib/seo';
-import { getBlogPosts } from '@/lib/api/content';
 import { NEWS_CATEGORIES, NEWS_ITEMS } from '@/lib/news-content';
 import NewsCard from '@/components/news/NewsCard';
 
 const FALLBACK_NEWS_IMAGE = '/banner/banner-four-bowls.webp';
 
-const CMS_CATEGORY_LABELS = {
-  education: 'آموزشی',
-  industry: 'کاربردهای صنعتی',
-  announcement: 'اطلاعیه',
-  product: 'محصولات',
-  company: 'درباره مجموعه',
-  ordering: 'راهنمای سفارش',
-  media: 'آرشیو تصویری',
-};
-
-function getNewsCategoryLabel(category) {
-  return NEWS_CATEGORIES[category]?.label
-    || CMS_CATEGORY_LABELS[category]
-    || (category ? String(category).replace(/[-_]/g, ' ') : 'سایر خبرها');
-}
 
 export default function News() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [cmsPosts, setCmsPosts] = useState([]);
-  const [cmsLoadError, setCmsLoadError] = useState(false);
-
-  const refreshCmsPosts = useCallback(async () => {
-    try {
-      const items = await getBlogPosts({ limit: 500 });
-      setCmsPosts(Array.isArray(items) ? items : []);
-      setCmsLoadError(false);
-    } catch {
-      // Keep the verified newsroom notices visible, but signal a CMS/API failure.
-      setCmsLoadError(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    void refreshCmsPosts();
-  }, [refreshCmsPosts]);
   const { hero } = usePageHero('news', {
     image: FALLBACK_NEWS_IMAGE,
     title: 'اخبار و اطلاعیه‌ها',
@@ -58,59 +25,28 @@ export default function News() {
     badge: 'اخبار',
   });
 
-  const cmsNewsItems = useMemo(() => cmsPosts
-    .filter((post) => post?.slug && (post.titleFA || post.titleEN))
-    .map((post) => ({
-      id: post.slug,
-      href: `/blog/${encodeURIComponent(post.slug)}`,
-      category: post.category || 'announcement',
-      categoryLabel: getNewsCategoryLabel(post.category || 'announcement'),
-      categoryTone: NEWS_CATEGORIES[post.category]?.tone || 'var(--gold-1, var(--accent))',
-      date: post.date || post.dateEN || '',
-      title: post.titleFA || post.titleEN || post.slug,
-      excerpt: post.excerptFA || post.excerptEN || '',
-      image: post.image || FALLBACK_NEWS_IMAGE,
-      body: post.content ? [post.content] : [],
-      source: 'cms',
-    })), [cmsPosts]);
-
-  // Keep the verified newsroom items already authored for this page, and add all
-  // public CMS blog records. A matching slug is shown once, with CMS content first.
-  const allItems = useMemo(() => {
-    const cmsSlugs = new Set(cmsNewsItems.map((item) => item.id));
-    return [...cmsNewsItems, ...NEWS_ITEMS.filter((item) => !cmsSlugs.has(item.id))];
-  }, [cmsNewsItems]);
-
-  const categories = useMemo(() => {
-    const counts = new Map();
-    allItems.forEach((item) => {
-      if (item.category) counts.set(item.category, (counts.get(item.category) || 0) + 1);
-    });
-    return Array.from(counts.entries()).map(([key, count]) => ({
+  const categories = useMemo(() => Object.entries(NEWS_CATEGORIES)
+    .map(([key, category]) => ({
       key,
-      label: getNewsCategoryLabel(key),
-      tone: NEWS_CATEGORIES[key]?.tone || 'var(--accent)',
-      count,
-    }));
-  }, [allItems]);
+      ...category,
+      count: NEWS_ITEMS.filter((item) => item.category === key).length,
+    }))
+    .filter((category) => category.count > 0), []);
 
   const filteredItems = useMemo(() => {
     const query = searchQuery.trim().toLocaleLowerCase();
-    return allItems.filter((item) => {
+    return NEWS_ITEMS.filter((item) => {
       const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
-      const categoryName = getNewsCategoryLabel(item.category);
+      const categoryName = NEWS_CATEGORIES[item.category]?.label || '';
       const searchable = [item.title, item.excerpt, categoryName, ...(item.body || [])]
         .filter(Boolean).join(' ').toLocaleLowerCase();
       return matchesCategory && (!query || searchable.includes(query));
     });
-  }, [activeCategory, allItems, searchQuery]);
+  }, [activeCategory, searchQuery]);
 
   const featured = filteredItems[0] || null;
-  const recentItems = allItems.slice(0, 4);
-  const featuredCategory = featured ? {
-    label: getNewsCategoryLabel(featured.category),
-    tone: NEWS_CATEGORIES[featured.category]?.tone || 'var(--accent)',
-  } : null;
+  const recentItems = NEWS_ITEMS.slice(0, 4);
+  const featuredCategory = featured ? NEWS_CATEGORIES[featured.category] : null;
 
   const resetFilters = () => {
     setActiveCategory('all');
@@ -126,7 +62,7 @@ export default function News() {
         canonical={`${SITE_SEO.baseUrl}/news`}
       />
 
-      <PullToRefresh onRefresh={refreshCmsPosts}>
+      <PullToRefresh onRefresh={() => Promise.resolve()}>
         <DynamicHeroSlider
           pageKey="news"
           fallback={{
@@ -139,11 +75,6 @@ export default function News() {
 
         <section className="chapter news-feed-section">
           <div className="chapter-shell">
-            {cmsLoadError && (
-              <p className="news-source-status" role="status">
-                دریافت مطالب از پایگاه محتوا با مشکل روبه‌رو شد؛ اطلاعیه‌های موجود نمایش داده شده‌اند.
-              </p>
-            )}
             <StoryChapter
               index="01"
               eyebrow="NEWSROOM"
@@ -156,7 +87,7 @@ export default function News() {
               <main className="news-main" aria-label="فهرست اخبار">
                 {featured ? (
                   <Reveal variant="up">
-                    <Link to={featured.href || `/news/${featured.id}`} className="news-featured-card group">
+                    <Link to={`/news/${featured.id}`} className="news-featured-card group">
                       <div className="news-featured-media">
                         <img
                           src={featured.image || FALLBACK_NEWS_IMAGE}
@@ -241,7 +172,7 @@ export default function News() {
                       data-active={activeCategory === 'all'}
                       onClick={() => setActiveCategory('all')}
                     >
-                      <span>همهٔ خبرها</span><b>{allItems.length.toLocaleString('fa-IR')}</b>
+                      <span>همهٔ خبرها</span><b>{NEWS_ITEMS.length.toLocaleString('fa-IR')}</b>
                     </button>
                     {categories.map((category) => (
                       <button
@@ -262,8 +193,8 @@ export default function News() {
                   <ul className="news-recent-list">
                     {recentItems.map((item) => (
                       <li key={item.id}>
-                        <Link to={item.href || `/news/${item.id}`}>
-                          <span>{getNewsCategoryLabel(item.category)} · {item.date}</span>
+                        <Link to={`/news/${item.id}`}>
+                          <span>{NEWS_CATEGORIES[item.category]?.label || 'خبر'} · {item.date}</span>
                           <strong className="news-recent-title" title={item.title}>{item.title}</strong>
                         </Link>
                       </li>

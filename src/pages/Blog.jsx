@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { t, categoryLabel } from '@/lib/i18n';
-import { getBlogPosts } from '@/lib/api/content';
-import { EDITORIAL_BLOG_POSTS } from '@/lib/editorial-blog-content';
+import { getBlogMeta, getBlogPosts } from '@/lib/api/content';
 import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
 import LogoLoader from '@/components/LogoLoader';
 import DynamicHeroSlider from '@/components/DynamicHeroSlider';
@@ -17,15 +16,25 @@ import Marquee from '@/components/story/Marquee';
 import { usePageHero } from '@/lib/usePageHero';
 import Eyebrow from '@/components/ui/eyebrow';
 
+const BLOG_PAGE_SIZE = 8;
+
 export default function Blog() {
   const isFA = true;
   const ArrowIcon = isFA ? ArrowLeft : ArrowRight;
   const headingFont = isFA ? 'Peyda, serif' : 'Georgia, serif';
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [appliedQuery, setAppliedQuery] = useState('');
+  const [blogMeta, setBlogMeta] = useState({ total: 0, categories: [] });
+  const sentinelRef = useRef(null);
+  const skipRef = useRef(0);
+  const requestIdRef = useRef(0);
+  const loadingMoreRef = useRef(false);
 
   const { hero } = usePageHero('blog', {
     image: '/banner/hazelnut-bowl.webp',
@@ -34,46 +43,91 @@ export default function Blog() {
     badge: 'وبلاگ',
   });
 
-  const mergeEditorialPosts = (cmsPosts = []) => {
-    const merged = [...(Array.isArray(cmsPosts) ? cmsPosts : [])];
-    const knownSlugs = new Set(merged.map((post) => post.slug).filter(Boolean));
-    EDITORIAL_BLOG_POSTS.forEach((post) => {
-      if (!knownSlugs.has(post.slug)) merged.push(post);
-    });
-    return merged;
-  };
+  const fetchPage = useCallback(async ({ reset = false } = {}) => {
+    if (!reset && loadingMoreRef.current) return;
 
-  const loadData = async () => {
+    const requestId = reset ? requestIdRef.current + 1 : requestIdRef.current;
+    if (reset) {
+      requestIdRef.current = requestId;
+      skipRef.current = 0;
+      setPosts([]);
+      setLoading(true);
+      setLoadingMore(false);
+      loadingMoreRef.current = false;
+      setLoadError(false);
+      setHasMore(true);
+    } else {
+      loadingMoreRef.current = true;
+      setLoadingMore(true);
+    }
+
+    const skip = reset ? 0 : skipRef.current;
     try {
-      const items = await getBlogPosts();
-      setPosts(mergeEditorialPosts(items));
+      const items = await getBlogPosts({
+        limit: BLOG_PAGE_SIZE,
+        skip,
+        category: activeCategory === 'all' ? undefined : activeCategory,
+        query: appliedQuery || undefined,
+      });
+      if (requestId !== requestIdRef.current) return;
+
+      const page = Array.isArray(items) ? items : [];
+      setPosts((current) => {
+        if (reset) return page;
+        const knownSlugs = new Set(current.map((post) => post.slug).filter(Boolean));
+        return [...current, ...page.filter((post) => post.slug && !knownSlugs.has(post.slug))];
+      });
+      // Advance by server rows, not deduplicated UI rows, so offset pagination stays correct.
+      skipRef.current = skip + page.length;
+      setHasMore(page.length === BLOG_PAGE_SIZE);
       setLoadError(false);
     } catch {
-      // Keep the magazine useful if the CMS is temporarily unavailable.
-      // CMS posts remain authoritative whenever they exist; original editorial
-      // posts fill gaps without overwriting entries that editors manage.
-      setPosts(mergeEditorialPosts([]));
-      setLoadError(true);
+      if (requestId === requestIdRef.current) {
+        setLoadError(true);
+        setHasMore(false);
+      }
+    } finally {
+      if (requestId === requestIdRef.current) {
+        if (reset) setLoading(false);
+        else {
+          setLoadingMore(false);
+          loadingMoreRef.current = false;
+        }
+      }
     }
-  };
+  }, [activeCategory, appliedQuery]);
+
+  const loadData = useCallback(() => fetchPage({ reset: true }), [fetchPage]);
+  const loadMore = useCallback(() => {
+    if (hasMore && !loading && !loadingMore) void fetchPage();
+  }, [fetchPage, hasMore, loading, loadingMore]);
+
+  useEffect(() => {
+    void loadData();
+  }, [loadData]);
 
   useEffect(() => {
     let active = true;
-    (async () => {
-      await loadData();
-      if (active) setLoading(false);
-    })();
+    getBlogMeta()
+      .then((meta) => { if (active) setBlogMeta(meta); })
+      .catch(() => { if (active) setBlogMeta({ total: 0, categories: [] }); });
     return () => { active = false; };
   }, []);
 
-  const categories = [...new Set(posts.map(p => p.category).filter(Boolean))];
-  const query = searchQuery.trim().toLocaleLowerCase();
-  const filtered = posts.filter((post) => {
-    const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
-    const searchable = [post.titleFA, post.titleEN, post.excerptFA, post.excerptEN, post.category, post.content]
-      .filter(Boolean).join(' ').toLocaleLowerCase();
-    return matchesCategory && (!query || searchable.includes(query));
-  });
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || !hasMore || loading || loadingMore || loadError) return undefined;
+    if (typeof IntersectionObserver === 'undefined') return undefined;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) loadMore();
+    }, { rootMargin: '480px 0px' });
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, loadError, loading, loadingMore, loadMore]);
+
+  const categories = blogMeta.categories.map((item) => item.category);
+  const filtered = posts; // Search and category filtering are applied across the complete CMS dataset by the API.
   const featured = filtered[0];
   const rest = filtered.slice(1);
 
@@ -87,7 +141,7 @@ export default function Blog() {
         canonical={`${SITE_SEO.baseUrl}/blog`}
       />
 
-      <PullToRefresh onRefresh={loadData}>
+      <PullToRefresh onRefresh={() => loadData()}>
       {/* Hero */}
       <div className="relative">
         <DynamicHeroSlider pageKey="blog" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
@@ -147,8 +201,12 @@ export default function Blog() {
                 {filtered.length === 0 ? (
                   <div className="blog-empty-state">
                     <h2>مطلبی پیدا نشد</h2>
-                    <p>{posts.length === 0 ? (loadError ? 'دریافت مطالب با مشکل روبه‌رو شد. لطفاً دوباره تلاش کنید.' : 'در حال حاضر مطلب منتشرشده‌ای برای نمایش نیست.') : 'عبارت جست‌وجو یا دسته‌بندی انتخاب‌شده را تغییر دهید.'}</p>
-                    <button type="button" onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}>نمایش همهٔ مطالب</button>
+                    <p>{loadError ? 'دریافت مطالب از پایگاه داده با مشکل روبه‌رو شد.' : (blogMeta.total === 0 ? 'در حال حاضر مقالهٔ منتشرشده‌ای برای نمایش نیست.' : 'با این جست‌وجو یا دسته‌بندی مطلبی پیدا نشد.')}</p>
+                    {loadError ? (
+                      <button type="button" onClick={() => void loadData()}>تلاش دوباره</button>
+                    ) : (
+                      <button type="button" onClick={() => { setSearchQuery(''); setAppliedQuery(''); setActiveCategory('all'); }}>نمایش همهٔ مطالب</button>
+                    )}
                   </div>
                 ) : rest.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -190,10 +248,20 @@ export default function Blog() {
                 ) : (
                   <p className="py-8 font-body text-sm" style={{ color: 'var(--fg-muted)' }}>این مطلب در بخش ویژه نمایش داده شده است؛ برای دیدن مطالب بیشتر، فیلتر را تغییر دهید.</p>
                 )}
+                <div ref={sentinelRef} className="blog-load-more-sentinel" aria-hidden="true" />
+                {loadingMore && <p className="blog-load-more-status" role="status">در حال بارگذاری مطالب بیشتر…</p>}
+                {loadError && posts.length > 0 && (
+                  <p className="blog-load-more-status" role="status">
+                    دریافت ادامهٔ مطالب ناموفق بود. <button type="button" onClick={() => void fetchPage()}>تلاش دوباره</button>
+                  </p>
+                )}
+                {!hasMore && posts.length > 0 && !loadError && (
+                  <p className="blog-load-more-status">همهٔ مطالب منتشرشده نمایش داده شدند.</p>
+                )}
               </main>
 
               <aside className="blog-sidebar" aria-label="ابزارها و دسته‌بندی وبلاگ">
-                <form className="blog-sidebar-search" onSubmit={(event) => event.preventDefault()} role="search">
+                <form className="blog-sidebar-search" onSubmit={(event) => { event.preventDefault(); setAppliedQuery(searchQuery.trim()); }} role="search">
                   <label htmlFor="blog-search">جست‌وجو در وبلاگ</label>
                   <div className="blog-search-control">
                     <input
@@ -210,15 +278,15 @@ export default function Blog() {
                 <section className="blog-sidebar-block">
                   <div className="blog-sidebar-heading">
                     <h2>موضوعات وبلاگ</h2>
-                    <button type="button" onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}>پاک‌کردن</button>
+                    <button type="button" onClick={() => { setSearchQuery(''); setAppliedQuery(''); setActiveCategory('all'); }}>پاک‌کردن</button>
                   </div>
                   <div className="blog-category-list">
                     <button type="button" className="blog-category-button" data-active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
-                      <span>همهٔ مطالب</span><b>{posts.length.toLocaleString('fa-IR')}</b>
+                      <span>همهٔ مطالب</span><b>{blogMeta.total.toLocaleString('fa-IR')}</b>
                     </button>
                     {categories.map((category) => (
                       <button type="button" key={category} className="blog-category-button" data-active={activeCategory === category} onClick={() => setActiveCategory(category)}>
-                        <span>{categoryLabel(category)}</span><b>{posts.filter((post) => post.category === category).length.toLocaleString('fa-IR')}</b>
+                        <span>{categoryLabel(category)}</span><b>{(blogMeta.categories.find((item) => item.category === category)?.count || 0).toLocaleString('fa-IR')}</b>
                       </button>
                     ))}
                   </div>
