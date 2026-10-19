@@ -76,7 +76,7 @@ export default function About() {
                 </p>
               </Reveal>
             </div>
-            <ParallaxMedia src="/gallery/AQ8A1499AQ8A1499.webp" alt="محیط کاری هفت طلایی در قزوین" ratio="aspect-[4/3]" className="rounded-3xl" />
+            <ParallaxMedia src="/hazeInut-bowl.webp" alt="محیط کاری هفت طلایی در قزوین" ratio="aspect-[4/3]" className="rounded-3xl" />
           </div>
         </section>
 
