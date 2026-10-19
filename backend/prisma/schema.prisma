@@ -67,6 +67,23 @@ model BlogPost {
   updatedAt  DateTime @updatedAt
 }
 
+model NewsPost {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title_fa   String
+  excerpt_fa String?
+  content    String?
+  date_fa    String?
+  category   String?
+  image      String
+  photos     String?  // Optional JSON array of gallery paths
+  videos     String?  // Optional JSON array of video metadata
+  published  Boolean  @default(true)
+  sort_order Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
 model Award {
   id         String   @id @default(cuid())
   title_fa   String?
@@ -144,6 +161,8 @@ model PageSection {
   subtitle_fa String?
   badge_fa    String?
   image       String?
+  media_url   String?  // Local public path, e.g. /video/processing-1.mp4
+  media_type  String   @default("image") // image | video
   published   Boolean  @default(true)
   sort_order  Int      @default(0)
   createdAt   DateTime @default(now())

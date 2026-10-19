@@ -4,6 +4,7 @@ import {
   serializeProduct,
   serializeOrder,
   serializeGeneric,
+  serializeNewsPost,
   normalizeRowMedia,
   prepareOrderData,
 } from '../lib/serialize.js';
@@ -11,20 +12,6 @@ import { requireAuth, requireAdmin, optionalAuth, type AuthRequest } from '../mi
 
 const router = Router();
 
-const UNVERIFIED_LEGACY_BLOG_SLUGS = [
-  "sweets-and-chocolates-1402",
-  "our-honors",
-  "decrease-in-purchasing-power",
-  "difference-walnut-grades",
-  "pistachio-health-benefits",
-  "hazelnut-processing-industrial",
-  "export-standards-dried-fruits",
-  "choosing-quality-pistachio-kernel",
-  "almond-slices-in-confectionery",
-  "moisture-control-dried-nuts-storage",
-  "pistachio-export-global-markets",
-  "hazelnut-paste-chocolate-artisans"
-];
 const UNVERIFIED_TESTIMONIAL_NAMES = [
   "بستنی گلستان",
   "قنادی برتر",
@@ -81,9 +68,7 @@ router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {
     const limit = Math.min(Math.max(requestedLimit, 1), 100);
     const skip = Math.max(0, Math.trunc(Number(req.query.skip) || 0));
     const where: any = { published: true };
-    if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };
-
-    const category = String(req.query.category || '').trim();
+const category = String(req.query.category || '').trim();
     if (category) where.category = category;
 
     const query = String(req.query.q || '').trim().slice(0, 200);
@@ -112,9 +97,7 @@ router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {
 router.get('/blog/meta', optionalAuth, async (req: AuthRequest, res) => {
   try {
     const where: any = { published: true };
-    if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };
-
-    const [total, grouped] = await Promise.all([
+const [total, grouped] = await Promise.all([
       prisma.blogPost.count({ where }),
       prisma.blogPost.groupBy({
         by: ['category'],
@@ -137,14 +120,77 @@ router.get('/blog/meta', optionalAuth, async (req: AuthRequest, res) => {
 
 router.get('/blog/:slug', optionalAuth, async (req: AuthRequest, res) => {
   try {
-    if (req.user?.role !== 'admin' && UNVERIFIED_LEGACY_BLOG_SLUGS.includes(req.params.slug)) {
-      return res.status(404).json({ error: 'Not found' });
-    }
-    const item = await prisma.blogPost.findFirst({
+const item = await prisma.blogPost.findFirst({
       where: { slug: req.params.slug, published: true },
     });
     if (!item) return res.status(404).json({ error: 'Not found' });
     res.json(normalizeRowMedia(serializeGeneric(item)));
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// News: published NewsPost records are independent from the blog collection.
+router.get('/news', optionalAuth, async (req: AuthRequest, res) => {
+  try {
+    const requestedLimit = Math.trunc(Number(req.query.limit) || 12);
+    const limit = Math.min(Math.max(requestedLimit, 1), 100);
+    const skip = Math.max(0, Math.trunc(Number(req.query.skip) || 0));
+    const where: any = { published: true };
+
+    const category = String(req.query.category || '').trim();
+    if (category) where.category = category;
+    const query = String(req.query.q || '').trim().slice(0, 200);
+    if (query) {
+      where.OR = [
+        { title_fa: { contains: query, mode: 'insensitive' } },
+        { excerpt_fa: { contains: query, mode: 'insensitive' } },
+        { content: { contains: query, mode: 'insensitive' } },
+      ];
+    }
+
+    const items = await prisma.newsPost.findMany({
+      where,
+      orderBy: [{ sort_order: 'asc' }, { createdAt: 'desc' }, { id: 'asc' }],
+      skip,
+      take: limit,
+    });
+    res.json(items.map((item) => normalizeRowMedia(serializeNewsPost(item))));
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.get('/news/meta', async (req, res) => {
+  try {
+    const where: any = { published: true };
+    const [total, grouped] = await Promise.all([
+      prisma.newsPost.count({ where }),
+      prisma.newsPost.groupBy({
+        by: ['category'],
+        where,
+        _count: { _all: true },
+        orderBy: { category: 'asc' },
+      }),
+    ]);
+    res.json({
+      total,
+      categories: grouped
+        .filter((row) => typeof row.category === 'string' && row.category.trim())
+        .map((row) => ({ category: row.category, count: row._count._all })),
+    });
+  } catch (e: any) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+router.get('/news/:slug', optionalAuth, async (req: AuthRequest, res) => {
+  try {
+    const item = await prisma.newsPost.findFirst({
+      where: { slug: req.params.slug, published: true },
+    });
+    if (!item) return res.status(404).json({ error: 'Not found' });
+    res.json(normalizeRowMedia(serializeNewsPost(item)));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }
@@ -214,17 +260,20 @@ router.post('/contact', async (req, res) => {
   }
 });
 
-// Page Sections (public)
+// Page Sections (public). Unpublished rows expose only a visibility marker so the
+// homepage can honor an admin's hide toggle without leaking hidden copy/media.
 router.get('/page-sections', async (req, res) => {
   try {
-    const where: any = { published: true };
+    const where: any = {};
     if (req.query.page) where.page_key = String(req.query.page);
     const items = await prisma.pageSection.findMany({
       where,
       orderBy: { sort_order: 'asc' },
       take: 200,
     });
-    res.json(items.map((x) => normalizeRowMedia(serializeGeneric(x))));
+    res.json(items.map((row) => row.published === false
+      ? { id: row.id, page_key: row.page_key, section_key: row.section_key, published: false, sort_order: row.sort_order }
+      : normalizeRowMedia(serializeGeneric(row))));
   } catch (e: any) {
     res.status(500).json({ error: e.message });
   }

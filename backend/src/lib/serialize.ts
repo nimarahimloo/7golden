@@ -34,6 +34,15 @@ export function serializeGeneric(r: any) {
   };
 }
 
+export function serializeNewsPost(r: any) {
+  if (!r) return r;
+  return {
+    ...serializeGeneric(r),
+    photos: safeJson(r.photos, []),
+    videos: safeJson(r.videos, []),
+  };
+}
+
 function safeJson(val: any, fallback: any) {
   if (val == null) return fallback;
   if (typeof val !== 'string') return val;
@@ -141,6 +150,19 @@ export function normalizeRowMedia(row: any) {
     if (typeof r[k] === 'string') r[k] = normalizeMediaUrl(r[k]);
   }
   if (Array.isArray(r.gallery)) r.gallery = r.gallery.map((g: any) => normalizeMediaUrl(g));
+  if (Array.isArray(r.photos)) r.photos = r.photos.map((src: any) => normalizeMediaUrl(src));
+  if (Array.isArray(r.videos)) {
+    r.videos = r.videos.map((video: any) => {
+      if (typeof video === 'string') return normalizeMediaUrl(video);
+      if (!video || typeof video !== 'object') return video;
+      return {
+        ...video,
+        image: normalizeMediaUrl(video.image),
+        src: normalizeMediaUrl(video.src),
+        url: normalizeMediaUrl(video.url),
+      };
+    });
+  }
   return r;
 }
 
@@ -156,6 +178,9 @@ export const ENTITY_WRITE_FIELDS: Record<string, string[]> = {
   BlogPost: [
     'slug','title_fa','excerpt_fa','content','date_fa','category','image','published','sort_order',
   ],
+  NewsPost: [
+    'slug','title_fa','excerpt_fa','content','date_fa','category','image','photos','videos','published','sort_order',
+  ],
   Award: ['title_fa','desc_fa','image','sort_order','published'],
   GalleryImage: ['title_fa','image','sort_order','published'],
   Testimonial: ['name_fa','role_fa','text_fa','avatar','rating','sort_order','published'],
@@ -170,7 +195,7 @@ export const ENTITY_WRITE_FIELDS: Record<string, string[]> = {
     'hq_address_fa','tehran_address_fa','working_hours_fa',
   ],
   User: ['email','name','role'],
-  PageSection: ['page_key','section_key','title_fa','subtitle_fa','badge_fa','image','published','sort_order'],
+  PageSection: ['page_key','section_key','title_fa','subtitle_fa','badge_fa','image','media_url','media_type','published','sort_order'],
 };
 
 /** Map aliases from admin UI → schema names */

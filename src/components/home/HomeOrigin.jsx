@@ -24,21 +24,21 @@ const PRODUCT_GROUPS = [
   },
 ];
 
-export default function HomeOrigin() {
+export default function HomeOrigin({ section = {} }) {
   return (
     <section className="chapter">
       <div className="chapter-shell">
         <StoryChapter
           index="03"
-          eyebrow="محصولات هفت طلایی"
-          title="سه گروه محصول؛ کاربردهای متنوع"
-          lead="فهرست محصولات هفت طلایی بر فندق، پسته و بادام متمرکز است. هر گروه در شکل‌های مختلف فرآوری عرضه می‌شود تا برای کاربردهای متفاوت در صنایع غذایی قابل انتخاب باشد."
+          eyebrow={section.badge_fa || 'محصولات هفت طلایی'}
+          title={section.title_fa || 'سه گروه محصول؛ کاربردهای متنوع'}
+          lead={section.subtitle_fa || 'فهرست محصولات هفت طلایی بر فندق، پسته و بادام متمرکز است. هر گروه در شکل‌های مختلف فرآوری عرضه می‌شود تا برای کاربردهای متفاوت در صنایع غذایی قابل انتخاب باشد.'}
           align="center"
           className="mb-12 md:mb-16"
         />
 
         <DepthParallax
-          src="/banner/banner-spoons-set.webp"
+          src={section.image || '/banner/banner-spoons-set.webp'}
           alt="فرآورده‌های فندق، پسته و بادام هفت طلایی"
           ratio="aspect-[4/3] md:aspect-[21/9]"
           className="rounded-3xl"

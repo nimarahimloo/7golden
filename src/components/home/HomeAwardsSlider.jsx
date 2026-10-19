@@ -11,7 +11,7 @@ const FALLBACK_AWARDS = [
   { id: 'award-06', image: '/awards/award-06-membership.webp', alt: 'مدرک عضویت' },
 ];
 
-export default function HomeAwardsSlider() {
+export default function HomeAwardsSlider({ section = {} }) {
   const [awards, setAwards] = useState([]);
 
   useEffect(() => {
@@ -40,8 +40,9 @@ export default function HomeAwardsSlider() {
       <div className="chapter-shell">
         <StoryChapter
           index="۰۶"
-          eyebrow="افتخارات و مدارک"
-          title="مروری بر سوابق هفت طلایی"
+          eyebrow={section.badge_fa || 'افتخارات و مدارک'}
+          title={section.title_fa || 'مروری بر سوابق هفت طلایی'}
+          lead={section.subtitle_fa || undefined}
           className="mb-10"
         />
       </div>

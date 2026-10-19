@@ -8,7 +8,7 @@ import { APPLICATIONS } from '@/lib/clients';
 
 const ICONS = { Cake, Candy, Cookie, IceCreamCone };
 
-export default function HomeClients() {
+export default function HomeClients({ section = {} }) {
   const sectionRef = useRef(null);
   const bgRef = useRef(null);
 
@@ -53,7 +53,7 @@ export default function HomeClients() {
       <div className="absolute inset-0" style={{ zIndex: 0 }} aria-hidden="true">
         <img
           ref={bgRef}
-          src="/gallery/AQ8A1683AQ8A1683.webp"
+          src={section.image || '/gallery/AQ8A1683AQ8A1683.webp'}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
           style={{ willChange: 'transform', opacity: 0.18 }}
@@ -73,9 +73,9 @@ export default function HomeClients() {
         <div className="chapter-shell pt-16 md:pt-20">
           <StoryChapter
             index="۰۷"
-            eyebrow="نمونه کاربردها"
-            title="کاربرد محصولات در صنایع غذایی"
-            lead="این موارد، نمونه‌هایی از کاربرد رایج فرآورده‌های فندق، پسته و بادام هستند؛ استفاده دقیق هر محصول به مشخصات آن و فرمول تولیدکننده بستگی دارد."
+            eyebrow={section.badge_fa || 'نمونه کاربردها'}
+            title={section.title_fa || 'کاربرد محصولات در صنایع غذایی'}
+            lead={section.subtitle_fa || 'این موارد، نمونه‌هایی از کاربرد رایج فرآورده‌های فندق، پسته و بادام هستند؛ استفاده دقیق هر محصول به مشخصات آن و فرمول تولیدکننده بستگی دارد.'}
             className="mb-10"
           />
         </div>
