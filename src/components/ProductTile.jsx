@@ -17,7 +17,7 @@ export default function ProductTile({ product, className = '', style, loading = 
       draggable={false}
     >
       <img
-        src={product.image || '/logo.webp'}
+        src={product.image || '/logo-symbol.webp'}
         alt={name}
         loading={loading}
         decoding="async"

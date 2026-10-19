@@ -13,8 +13,7 @@ const SOCIAL_CANDIDATES = [
   { id: 'facebook', label: 'فیس‌بوک', href: import.meta.env.VITE_FACEBOOK_URL, icon: '/social/facebook.svg', hosts: ['facebook.com', 'fb.com'] },
   { id: 'rubika', label: 'روبیکا', href: import.meta.env.VITE_RUBIKA_URL, icon: '/social/rubika.png', hosts: ['rubika.ir'] },
   { id: 'telegram', label: 'تلگرام', href: import.meta.env.VITE_TELEGRAM_URL, icon: '/social/telegram.svg', hosts: ['t.me', 'telegram.me'] },
-  { id: 'bale', label: 'بله', href: import.meta.env.VITE_BALE_URL, icon: '/social/bale.svg', hosts: ['ble.ir', 'bale.ai'] },
-];
+  ];
 
 function isValidProfileUrl(value, hosts) {
   if (typeof value !== 'string' || !value.trim()) return false;
@@ -46,7 +45,7 @@ export default function Footer() {
       <div className="chapter-shell relative z-10">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 md:gap-8 lg:gap-10">
           <div>
-            <img src="/logo-white.webp" alt="هفت طلایی" className="mb-5 h-14 w-auto object-contain object-right" />
+            <img src="/logo-symbol.webp" alt="هفت طلایی" className="mb-5 h-14 w-auto object-contain object-right" />
             <div className="mb-5 h-px w-14" style={{ background: 'var(--gold-2)' }} />
             <p className="max-w-sm text-sm leading-8 text-white/75">{t('footer_tagline')}</p>
             <p className="mt-3 text-xs tracking-wide text-white/45">قزوین <span className="px-2 text-[#c9a958]">·</span> از ۱۳۷۷</p>

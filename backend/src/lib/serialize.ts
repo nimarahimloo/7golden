@@ -63,7 +63,7 @@ export function prepareProductData(body: any) {
   if (data.featured === undefined) data.featured = false;
   if (data.badge === undefined) data.badge = null;
   if (!data.image && Array.isArray(data.gallery) && data.gallery[0]) data.image = data.gallery[0];
-  if (!data.image) data.image = '/logo.webp';
+  if (!data.image) data.image = '/logo-symbol.webp';
   // corporate defaults
   if (data.gallery !== undefined && typeof data.gallery !== 'string') {
     data.gallery = JSON.stringify(data.gallery);
@@ -103,7 +103,7 @@ export function prepareBlogPostData(body: any) {
   if (data.cover && !data.image) data.image = data.cover;
   if (data.body_fa && !data.content) data.content = data.body_fa;
   if (data.body && !data.content) data.content = data.body;
-  if (!data.image) data.image = '/logo.webp';
+  if (!data.image) data.image = '/logo-symbol.webp';
   delete data.cover;
   delete data.body_fa;
     delete data.body;

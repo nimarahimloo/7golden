@@ -3944,3 +3944,224 @@
 @media (prefers-reduced-motion: reduce) {
   .home-media-trigger > img, .home-media-video { transition: none; }
 }
+
+
+/* 7GOLDEN_LUXURY_VISUAL_REFINEMENT_V1: calm champagne gold, ivory copy,
+   consistent editorial cards, wider title areas, and a restrained home mosaic. */
+:root {
+  --fg-muted: #F0EBE2;
+  --muted-foreground: 40 26% 91%;
+  --accent: #CDB273;
+  --accent-hover: #E8D9AC;
+  --accent-gold: #CDB273;
+  --gold-1: #F5E9C8;
+  --gold-2: #D2B779;
+  --gold-3: #9B7942;
+  --gold-4: #5F4824;
+  --brass: #D2B779;
+  --hairline: rgba(210, 183, 121, .22);
+  --hairline-strong: rgba(210, 183, 121, .44);
+}
+
+/* Gold emphasis stays elegant and still; no animated yellow sweep. */
+.gold-text {
+  background: linear-gradient(105deg, #A98B50 0%, #D2B779 32%, #F5E9C8 50%, #D2B779 68%, #A98B50 100%);
+  background-size: 100% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: none;
+}
+
+/* Shared card pattern: image first, details below, category outside the title row. */
+.editorial-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, rgba(255,255,255,.018), rgba(255,255,255,.004)), var(--bg-secondary);
+  color: var(--ink);
+  box-shadow: 0 16px 42px rgba(0,0,0,.18);
+  transition: transform .38s cubic-bezier(.16,1,.3,1), border-color .38s ease, box-shadow .38s ease;
+}
+.editorial-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--hairline-strong);
+  box-shadow: 0 22px 54px rgba(0,0,0,.28);
+}
+.editorial-card-media {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--bg-secondary);
+}
+.editorial-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 45% 0 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(7,6,4,.24));
+}
+.editorial-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .7s cubic-bezier(.16,1,.3,1), filter .5s ease;
+}
+.editorial-card:hover .editorial-card-media img { transform: scale(1.045); filter: saturate(1.04); }
+.editorial-card-category {
+  position: absolute;
+  z-index: 1;
+  top: .8rem;
+  inset-inline-start: .8rem;
+  max-width: calc(100% - 1.6rem);
+  overflow: hidden;
+  padding: .32rem .68rem;
+  border: 1px solid rgba(210,183,121,.42);
+  border-radius: 999px;
+  background: rgba(8,7,5,.76);
+  backdrop-filter: blur(9px);
+  font-size: .68rem;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.editorial-card-copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding: clamp(.95rem, 1.4vw, 1.3rem);
+  text-align: right;
+}
+.editorial-card-date {
+  display: block;
+  margin-bottom: .38rem;
+  color: rgba(255,252,245,.78);
+  font-size: .7rem;
+  line-height: 1.7;
+}
+.editorial-card-title {
+  display: -webkit-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 0 .5rem;
+  overflow: hidden;
+  color: #FFFDF8;
+  font-family: 'Peyda', sans-serif;
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  font-weight: 850;
+  line-height: 1.65;
+  white-space: normal;
+  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.editorial-card-excerpt {
+  display: -webkit-box;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: rgba(255,252,245,.84);
+  font-size: .82rem;
+  line-height: 1.95;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.editorial-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+.editorial-card-readmore {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: .35rem;
+  color: var(--gold-1);
+  font-size: .77rem;
+  font-weight: 800;
+}
+.editorial-card-counts,
+.editorial-card-counts > span {
+  display: inline-flex;
+  align-items: center;
+  gap: .32rem;
+}
+.editorial-card-counts { color: rgba(255,252,245,.78); font-size: .7rem; gap: .75rem; }
+
+/* Wider reading column: avoid three cramped news cards and narrow titles. */
+.blog-page-layout,
+.news-page-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(12.5rem, 15rem);
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+.news-feed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; }
+.blog-page-main > .grid { gap: 1.15rem; }
+
+/* Remove legacy one-line/ellipsis rules that were clipping meaningful headings. */
+.blog-page h1,
+.blog-page .display-lg,
+.blog-page .display-md,
+.blog-page .display-sm,
+.blog-page .blog-card-heading,
+.blog-page .blog-card-title,
+.news-page h1,
+.news-page .display-lg,
+.news-page .display-md,
+.news-page .display-sm,
+.news-page .news-featured-title,
+.news-page .news-section-heading h2,
+.blog-article-page .blog-article-title,
+.news-article-page .news-article-title {
+  max-width: 100%;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  text-overflow: clip;
+}
+.blog-card-title,
+.blog-card-heading,
+.news-featured-title,
+.news-section-heading h2 { overflow: visible; }
+
+/* Use the calm ivory tone for muted UI copy while retaining hierarchy by size. */
+.blog-sidebar-search label,
+.news-sidebar-search label,
+.blog-recent-list span,
+.news-recent-list span,
+.blog-recent-title,
+.news-recent-title,
+.blog-sidebar p,
+.news-sidebar p,
+.news-featured-meta,
+.news-section-heading span,
+.blog-load-more-status,
+.news-load-more-status { color: rgba(255,252,245,.82); }
+
+@media (max-width: 1023px) {
+  .blog-page-layout,
+  .news-page-layout { grid-template-columns: minmax(0, 1fr); }
+  .blog-sidebar,
+  .news-sidebar { position: static; order: -1; }
+  .news-feed-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .news-feed-grid,
+  .blog-page-main > .grid { grid-template-columns: minmax(0, 1fr); }
+  .editorial-card-copy { padding: 1rem; }
+  .editorial-card-title { font-size: 1.02rem; }
+}

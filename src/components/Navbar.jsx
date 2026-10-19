@@ -58,7 +58,7 @@ export default function Navbar() {
 
           {/* Brand */}
           <Link to="/" className="header-brand" aria-label="هفت‌طلایی — صفحه اصلی">
-            <img src="/logo.webp" alt="7Golden" className="site-header-logo" />
+            <img src="/logo-symbol.webp" alt="7Golden" className="site-header-logo" />
           </Link>
 
           {/* Primary navigation */}
