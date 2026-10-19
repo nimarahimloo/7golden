@@ -143,188 +143,188 @@ export default function Blog() {
       />
 
       <PullToRefresh onRefresh={() => loadData()}>
-      {/* Hero */}
-      <div className="relative">
-        <DynamicHeroSlider pageKey="blog" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
-      </div>
-
-      {/* ===== Featured post — cinematic depth parallax ===== */}
-      {!loading && posts.length > 0 && featured && (
-        <section className="chapter">
-          <div className="chapter-shell">
-            <StoryChapter
-              index="01"
-              eyebrow="FEATURED"
-              title={isFA ? 'مطلب ویژه' : 'Featured'}
-              className="mb-10"
-            />
-            <Reveal variant="up">
-            <Link to={`/blog/${featured.slug}`} className="group block">
-              <DepthParallax
-                src={featured.image}
-                alt={isFA ? featured.titleFA : featured.titleEN}
-                ratio="aspect-[4/3] md:aspect-[21/9]"
-                className="rounded-3xl"
-              >
-                <div>
-                  <Eyebrow className="block mb-3">{isFA ? 'ویژه' : 'Featured'}</Eyebrow>
-                  <h2 className="display-md mb-3 blog-card-heading" title={isFA ? featured.titleFA : featured.titleEN} style={{ color: 'var(--ink)' }}>
-                    {isFA ? featured.titleFA : featured.titleEN}
-                  </h2>
-                  <p className="font-body text-sm leading-relaxed max-w-xl" style={{ color: 'var(--fg-muted)' }}>
-                    {isFA ? featured.excerptFA : featured.excerptEN}
-                  </p>
-                  <div className="flex items-center gap-2 mt-5">
-                    <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
-                      {isFA ? featured.date : featured.dateEN}
-                    </span>
-                    <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
-                      {t('read_more')}
-                      <ArrowIcon size={14} />
-                    </span>
-                  </div>
-                </div>
-              </DepthParallax>
-            </Link>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
-      {/* ===== Blog grid with its own magazine sidebar ===== */}
-      <div className="chapter pt-8">
-        <div className="chapter-shell">
-          {loading ? (
-            <LogoLoader fullScreen={false} />
-          ) : (
-            <div className="blog-page-layout">
-              <main className="blog-page-main" aria-label="فهرست مطالب وبلاگ">
-                {filtered.length === 0 ? (
-                  <div className="blog-empty-state">
-                    <h2>مطلبی پیدا نشد</h2>
-                    <p>{loadError ? 'دریافت مطالب از پایگاه داده با مشکل روبه‌رو شد.' : (blogMeta.total === 0 ? 'در حال حاضر مقالهٔ منتشرشده‌ای برای نمایش نیست.' : 'با این جست‌وجو یا دسته‌بندی مطلبی پیدا نشد.')}</p>
-                    {loadError ? (
-                      <button type="button" onClick={() => void loadData()}>تلاش دوباره</button>
-                    ) : (
-                      <button type="button" onClick={() => { setSearchQuery(''); setAppliedQuery(''); setActiveCategory('all'); }}>نمایش همهٔ مطالب</button>
-                    )}
-                  </div>
-                ) : rest.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {rest.map((post, i) => (
-                      <Reveal key={post.id || post.slug} delay={(i % 2) * 100} variant="up">
-                        <EditorialCard
-                          to={`/blog/${post.slug}`}
-                          image={post.image || '/banner/banner-four-bowls.webp'}
-                          alt={isFA ? post.titleFA : post.titleEN}
-                          title={isFA ? post.titleFA : post.titleEN}
-                          category={post.category ? categoryLabel(post.category) : (isFA ? 'وبلاگ' : 'Blog')}
-                          date={isFA ? post.date : post.dateEN}
-                          excerpt={isFA ? post.excerptFA : post.excerptEN}
-                          readMore={t('read_more')}
-                        />
-                      </Reveal>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="py-8 font-body text-sm" style={{ color: 'var(--fg-muted)' }}>این مطلب در بخش ویژه نمایش داده شده است؛ برای دیدن مطالب بیشتر، فیلتر را تغییر دهید.</p>
-                )}
-                <div ref={sentinelRef} className="blog-load-more-sentinel" aria-hidden="true" />
-                {loadingMore && <p className="blog-load-more-status" role="status">در حال بارگذاری مطالب بیشتر…</p>}
-                {loadError && posts.length > 0 && (
-                  <p className="blog-load-more-status" role="status">
-                    دریافت ادامهٔ مطالب ناموفق بود. <button type="button" onClick={() => void fetchPage()}>تلاش دوباره</button>
-                  </p>
-                )}
-                {!hasMore && posts.length > 0 && !loadError && (
-                  <p className="blog-load-more-status">همهٔ مطالب منتشرشده نمایش داده شدند.</p>
-                )}
-              </main>
-
-              <aside className="blog-sidebar" aria-label="ابزارها و دسته‌بندی وبلاگ">
-                <form className="blog-sidebar-search" onSubmit={(event) => { event.preventDefault(); setAppliedQuery(searchQuery.trim()); }} role="search">
-                  <label htmlFor="blog-search">جست‌وجو در وبلاگ</label>
-                  <div className="blog-search-control">
-                    <input
-                      id="blog-search"
-                      type="search"
-                      value={searchQuery}
-                      onChange={(event) => setSearchQuery(event.target.value)}
-                      placeholder="عنوان یا موضوع مطلب"
-                    />
-                    <button type="submit" aria-label="جست‌وجو"><Search size={16} /></button>
-                  </div>
-                </form>
-
-                <section className="blog-sidebar-block">
-                  <div className="blog-sidebar-heading">
-                    <h2>موضوعات وبلاگ</h2>
-                    <button type="button" onClick={() => { setSearchQuery(''); setAppliedQuery(''); setActiveCategory('all'); }}>پاک‌کردن</button>
-                  </div>
-                  <div className="blog-category-list">
-                    <button type="button" className="blog-category-button" data-active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
-                      <span>همهٔ مطالب</span><b>{blogMeta.total.toLocaleString('fa-IR')}</b>
-                    </button>
-                    {categories.map((category) => (
-                      <button type="button" key={category} className="blog-category-button" data-active={activeCategory === category} onClick={() => setActiveCategory(category)}>
-                        <span>{categoryLabel(category)}</span><b>{(blogMeta.categories.find((item) => item.category === category)?.count || 0).toLocaleString('fa-IR')}</b>
-                      </button>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="blog-sidebar-block">
-                  <h2>مطالب پیشنهادی</h2>
-                  <ul className="blog-recent-list">
-                    {posts.filter((post) => post.slug).slice(0, 4).map((post) => (
-                      <li key={post.id || post.slug}>
-                        <Link to={`/blog/${post.slug}`}>
-                          <span>{categoryLabel(post.category)} · {isFA ? post.date : post.dateEN}</span>
-                          <strong className="blog-recent-title" title={isFA ? post.titleFA : post.titleEN}>{isFA ? post.titleFA : post.titleEN}</strong>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-
-                <div className="blog-sidebar-cta">
-                  <span className="blog-sidebar-kicker">راهنمای انتخاب مواد اولیه</span>
-                  <h2>دنبال محصول مناسب خط تولید هستید؟</h2>
-                  <p>فرم محصول و کاربرد نهایی را مشخص کنید تا انتخاب و استعلام دقیق‌تری داشته باشید.</p>
-                  <Link to="/shop">بررسی محصولات <ArrowIcon size={15} /></Link>
-                </div>
-                <Link to="/news" className="blog-sidebar-crosslink">خبرها و اطلاعیه‌های مجموعه <ArrowIcon size={15} /></Link>
-              </aside>
-            </div>
-          )}
+        {/* Hero */}
+        <div className="relative">
+          <DynamicHeroSlider pageKey="blog" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />
         </div>
-      </div>
 
-      {/* ===== Closing parallax band ===== */}
-      {!loading && posts.length > 0 && (
-        <section className="closing-band" style={{ minHeight: '40vh' }}>
-          <div className="closing-band-bg">
-            <img src="/gallery/AQ8A1547AQ8A1547.webp" alt="" loading="lazy" decoding="async" />
-          </div>
-          <div className="relative z-10 chapter-shell py-20 text-center">
-            <Reveal variant="up">
-              <Eyebrow className="block mb-5">EXPLORE</Eyebrow>
-            </Reveal>
-            <Reveal variant="up" delay={80}>
-              <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
-                <span className="gold-text">دنیای خشکبار</span>
-              </h2>
-            </Reveal>
-            <Reveal variant="up" delay={160} className="mt-8">
-              <Link to="/shop" className="btn-gold inline-flex">
-                {isFA ? 'مشاهده محصولات' : 'View products'}
-              </Link>
-            </Reveal>
-          </div>
-        </section>
-      )}
+        {/* ===== Featured post — cinematic depth parallax ===== */}
+        {!loading && posts.length > 0 && featured && (
+          <section className="chapter">
+            <div className="chapter-shell">
+              <StoryChapter
+                index="01"
+                eyebrow="FEATURED"
+                title={isFA ? 'مطلب ویژه' : 'Featured'}
+                className="mb-10"
+              />
+              <Reveal variant="up">
+                <Link to={`/blog/${featured.slug}`} className="group block">
+                  <DepthParallax
+                    src={featured.image}
+                    alt={isFA ? featured.titleFA : featured.titleEN}
+                    ratio="aspect-[4/3] md:aspect-[21/9]"
+                    className="rounded-3xl"
+                  >
+                    <div>
+                      <Eyebrow className="block mb-3">{isFA ? 'ویژه' : 'Featured'}</Eyebrow>
+                      <h2 className="display-md mb-3 blog-card-heading" title={isFA ? featured.titleFA : featured.titleEN} style={{ color: 'var(--ink)' }}>
+                        {isFA ? featured.titleFA : featured.titleEN}
+                      </h2>
+                      <p className="font-body text-sm leading-relaxed max-w-xl" style={{ color: 'var(--fg-muted)' }}>
+                        {isFA ? featured.excerptFA : featured.excerptEN}
+                      </p>
+                      <div className="flex items-center gap-2 mt-5">
+                        <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>
+                          {isFA ? featured.date : featured.dateEN}
+                        </span>
+                        <span className="flex items-center gap-1.5 font-body text-xs font-semibold" style={{ color: 'var(--accent)' }}>
+                          {t('read_more')}
+                          <ArrowIcon size={14} />
+                        </span>
+                      </div>
+                    </div>
+                  </DepthParallax>
+                </Link>
+              </Reveal>
+            </div>
+          </section>
+        )}
 
-      <Marquee items={['پسته', 'بادام', 'فندق', 'فرآوری', 'کاربرد محصول', 'صنایع غذایی']} />
+        {/* ===== Blog grid with its own magazine sidebar ===== */}
+        <div className="chapter pt-8">
+          <div className="chapter-shell">
+            {loading ? (
+              <LogoLoader fullScreen={false} />
+            ) : (
+              <div className="blog-page-layout">
+                <main className="blog-page-main" aria-label="فهرست مطالب وبلاگ">
+                  {filtered.length === 0 ? (
+                    <div className="blog-empty-state">
+                      <h2>مطلبی پیدا نشد</h2>
+                      <p>{loadError ? 'دریافت مطالب از پایگاه داده با مشکل روبه‌رو شد.' : (blogMeta.total === 0 ? 'در حال حاضر مقالهٔ منتشرشده‌ای برای نمایش نیست.' : 'با این جست‌وجو یا دسته‌بندی مطلبی پیدا نشد.')}</p>
+                      {loadError ? (
+                        <button type="button" onClick={() => void loadData()}>تلاش دوباره</button>
+                      ) : (
+                        <button type="button" onClick={() => { setSearchQuery(''); setAppliedQuery(''); setActiveCategory('all'); }}>نمایش همهٔ مطالب</button>
+                      )}
+                    </div>
+                  ) : rest.length > 0 ? (
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 grid-cols-1 gap-6">
+                      {rest.map((post, i) => (
+                        <Reveal key={post.id || post.slug} delay={(i % 2) * 100} variant="up">
+                          <EditorialCard
+                            to={`/blog/${post.slug}`}
+                            image={post?.image}
+                            alt={isFA ? post.titleFA : post.titleEN}
+                            title={isFA ? post.titleFA : post.titleEN}
+                            category={post.category ? categoryLabel(post.category) : (isFA ? 'وبلاگ' : 'Blog')}
+                            date={isFA ? post.date : post.dateEN}
+                            excerpt={isFA ? post.excerptFA : post.excerptEN}
+                            readMore={t('read_more')}
+                          />
+                        </Reveal>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="py-8 font-body text-sm" style={{ color: 'var(--fg-muted)' }}>این مطلب در بخش ویژه نمایش داده شده است؛ برای دیدن مطالب بیشتر، فیلتر را تغییر دهید.</p>
+                  )}
+                  <div ref={sentinelRef} className="blog-load-more-sentinel" aria-hidden="true" />
+                  {loadingMore && <p className="blog-load-more-status" role="status">در حال بارگذاری مطالب بیشتر…</p>}
+                  {loadError && posts.length > 0 && (
+                    <p className="blog-load-more-status" role="status">
+                      دریافت ادامهٔ مطالب ناموفق بود. <button type="button" onClick={() => void fetchPage()}>تلاش دوباره</button>
+                    </p>
+                  )}
+                  {!hasMore && posts.length > 0 && !loadError && (
+                    <p className="blog-load-more-status">همهٔ مطالب منتشرشده نمایش داده شدند.</p>
+                  )}
+                </main>
+
+                <aside className="blog-sidebar" aria-label="ابزارها و دسته‌بندی وبلاگ">
+                  <form className="blog-sidebar-search" onSubmit={(event) => { event.preventDefault(); setAppliedQuery(searchQuery.trim()); }} role="search">
+                    <label htmlFor="blog-search">جست‌وجو در وبلاگ</label>
+                    <div className="blog-search-control">
+                      <input
+                        id="blog-search"
+                        type="search"
+                        value={searchQuery}
+                        onChange={(event) => setSearchQuery(event.target.value)}
+                        placeholder="عنوان یا موضوع مطلب"
+                      />
+                      <button type="submit" aria-label="جست‌وجو"><Search size={16} /></button>
+                    </div>
+                  </form>
+
+                  <section className="blog-sidebar-block">
+                    <div className="blog-sidebar-heading">
+                      <h2>موضوعات وبلاگ</h2>
+                      <button type="button" onClick={() => { setSearchQuery(''); setAppliedQuery(''); setActiveCategory('all'); }}>پاک‌کردن</button>
+                    </div>
+                    <div className="blog-category-list">
+                      <button type="button" className="blog-category-button" data-active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
+                        <span>همهٔ مطالب</span><b>{blogMeta.total.toLocaleString('fa-IR')}</b>
+                      </button>
+                      {categories.map((category) => (
+                        <button type="button" key={category} className="blog-category-button" data-active={activeCategory === category} onClick={() => setActiveCategory(category)}>
+                          <span>{categoryLabel(category)}</span><b>{(blogMeta.categories.find((item) => item.category === category)?.count || 0).toLocaleString('fa-IR')}</b>
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section className="blog-sidebar-block">
+                    <h2>مطالب پیشنهادی</h2>
+                    <ul className="blog-recent-list">
+                      {posts.filter((post) => post.slug).slice(0, 4).map((post) => (
+                        <li key={post.id || post.slug}>
+                          <Link to={`/blog/${post.slug}`}>
+                            <span>{categoryLabel(post.category)} · {isFA ? post.date : post.dateEN}</span>
+                            <strong className="blog-recent-title" title={isFA ? post.titleFA : post.titleEN}>{isFA ? post.titleFA : post.titleEN}</strong>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+
+                  <div className="blog-sidebar-cta">
+                    <span className="blog-sidebar-kicker">راهنمای انتخاب مواد اولیه</span>
+                    <h2>دنبال محصول مناسب خط تولید هستید؟</h2>
+                    <p>فرم محصول و کاربرد نهایی را مشخص کنید تا انتخاب و استعلام دقیق‌تری داشته باشید.</p>
+                    <Link to="/shop">بررسی محصولات <ArrowIcon size={15} /></Link>
+                  </div>
+                  <Link to="/news" className="blog-sidebar-crosslink">خبرها و اطلاعیه‌های مجموعه <ArrowIcon size={15} /></Link>
+                </aside>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ===== Closing parallax band ===== */}
+        {!loading && posts.length > 0 && (
+          <section className="closing-band" style={{ minHeight: '40vh' }}>
+            <div className="closing-band-bg">
+              <img src="/gallery/AQ8A1547AQ8A1547.webp" alt="" loading="lazy" decoding="async" />
+            </div>
+            <div className="relative z-10 chapter-shell py-20 text-center">
+              <Reveal variant="up">
+                <Eyebrow className="block mb-5">EXPLORE</Eyebrow>
+              </Reveal>
+              <Reveal variant="up" delay={80}>
+                <h2 className="display-lg" style={{ color: 'var(--ink)' }}>
+                  <span className="gold-text">دنیای خشکبار</span>
+                </h2>
+              </Reveal>
+              <Reveal variant="up" delay={160} className="mt-8">
+                <Link to="/shop" className="btn-gold inline-flex">
+                  {isFA ? 'مشاهده محصولات' : 'View products'}
+                </Link>
+              </Reveal>
+            </div>
+          </section>
+        )}
+
+        <Marquee items={['پسته', 'بادام', 'فندق', 'فرآوری', 'کاربرد محصول', 'صنایع غذایی']} />
       </PullToRefresh>
     </div>
   );

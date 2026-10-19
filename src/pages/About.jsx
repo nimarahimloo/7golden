@@ -18,12 +18,12 @@ const ABOUT_HERO_COPY = {
   badge: 'درباره هفت طلایی',
 };
 
-const MILESTONES = [
-  { year: '۱۳۳۵', label: 'آغاز فعالیت خانوادگی خشکبار محمدی در بازار قزوین' },
-  { year: '۱۳۷۷', label: 'شروع فرآوری خشکبار در کارگاهی کوچک در قزوین' },
-  { year: '۱۳۹۶', label: 'ثبت رسمی شرکت خشکبار و بسته‌بندی هفت طلایی' },
-  { year: 'امروز', label: 'تمرکز بر فرآورده‌های فندق، پسته و بادام برای صنایع غذایی' },
-];
+// const MILESTONES = [
+//   { year: '۱۳۳۵', label: 'آغاز فعالیت خانوادگی خشکبار محمدی در بازار قزوین' },
+//   { year: '۱۳۷۷', label: 'شروع فرآوری خشکبار در کارگاهی کوچک در قزوین' },
+//   { year: '۱۳۹۶', label: 'ثبت رسمی شرکت خشکبار و بسته‌بندی هفت طلایی' },
+//   { year: 'امروز', label: 'تمرکز بر فرآورده‌های فندق، پسته و بادام برای صنایع غذایی' },
+// ];
 
 const AREAS = [
   { icon: History, title: 'پیشینه در بازار قزوین', desc: 'فعالیت خانوادگی خشکبار محمدی از سال ۱۳۳۵ در بازار قزوین آغاز شد؛ پیشینه‌ای که بخشی از داستان شکل‌گیری هفت طلایی است.' },
@@ -80,7 +80,7 @@ export default function About() {
           </div>
         </section>
 
-        <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>
+        {/* <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>
           <div className="chapter-shell">
             <StoryChapter index="۰۲" eyebrow="مسیر فعالیت" title="سه تاریخ در مسیر هفت طلایی" className="mb-14" />
             <div className="relative">
@@ -103,7 +103,7 @@ export default function About() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         <section className="chapter">
           <div className="chapter-shell max-w-4xl">
