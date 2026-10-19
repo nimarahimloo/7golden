@@ -96,121 +96,121 @@ export default function BlogPost() {
       />
 
       <PullToRefresh onRefresh={loadData}>
-      {/* ===== CINEMATIC HERO ===== */}
-      <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden">
-        <img
-          src={post.image}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
-          onError={(event) => {
-            event.currentTarget.onerror = null;
-            event.currentTarget.src = '/banner/banner-four-bowls.webp';
-          }}
-          style={{ animation: 'kenBurns 20s ease-out forwards', filter: 'brightness(0.6)' }}
-          fetchpriority="high"
-          decoding="async"
-        />
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.95) 100%)',
-        }} />
-        <div className="absolute inset-0 flex items-end">
-          <div className="reading-shell pb-12 w-full text-center">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
-                <Tag size={11} />
-                {category}
-              </span>
-              <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
-                <Calendar size={11} />
-                {date}
-              </span>
-            </div>
-            <h1 className="display-lg leading-tight blog-article-title" title={title} style={{ color: 'var(--ink)' }}>
-              <span className="gold-text">{title}</span>
-            </h1>
-            {excerpt && (
-              <p className="font-body text-sm md:text-base mt-5 max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
-                {excerpt}
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* ===== ARTICLE BODY ===== */}
-      <article className="reading-shell py-14 md:py-20 -mt-10 relative z-10">
-        <div className="rounded-3xl p-5 md:p-8 lg:p-14" style={{
-          background: 'var(--panel-strong)',
-          border: '1px solid var(--hairline)',
-          backdropFilter: 'blur(32px) saturate(200%)',
-          WebkitBackdropFilter: 'blur(32px) saturate(200%)',
-          boxShadow: 'var(--shadow-lg)',
-        }}>
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 font-body text-sm mb-8" style={{ color: 'var(--fg-muted)' }}>
-            <Link to="/" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'خانه' : 'Home'}</Link>
-            <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-            <Link to={basePath} style={{ color: 'var(--fg-muted)' }}>{basePath === '/news' ? 'اخبار و اطلاعیه‌ها' : (isFA ? 'مجله' : 'Magazine')}</Link>
-            <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
-            <span className="truncate" style={{ color: 'var(--fg)' }}>{title}</span>
-          </div>
-
-          {/* Gold divider */}
-          <div className="gold-divider mb-10" style={{ marginLeft: 0 }} />
-
-          {/* Markdown content */}
-          <div className="prose-content font-body text-[15px] leading-[2]">
-            <ReactMarkdown
-              components={{
-                h1: ({node, ...p}) => <h2 className="font-heading font-black text-xl md:text-2xl mt-10 mb-5 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }} {...p} />,
-                h2: ({node, ...p}) => <h2 className="font-heading font-black text-xl md:text-2xl mt-10 mb-5 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }} {...p} />,
-                h3: ({node, ...p}) => <h3 className="font-heading font-extrabold text-lg mt-8 mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }} {...p} />,
-                p: ({node, ...p}) => <p className="mb-5" style={{ color: 'var(--fg-muted)' }} {...p} />,
-                ul: ({node, ...p}) => <ul className="mb-5 space-y-2.5" style={{ color: 'var(--fg-muted)' }} {...p} />,
-                ol: ({node, ...p}) => <ol className="mb-5 space-y-2.5 list-decimal ms-6" style={{ color: 'var(--fg-muted)' }} {...p} />,
-                li: ({node, ...p}) => <li className="flex gap-2.5 items-start" {...p}><span className="mt-2.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'var(--accent)' }} /><span>{p.children}</span></li>,
-                strong: ({node, ...p}) => <strong className="font-bold" style={{ color: 'var(--fg)' }} {...p} />,
-                blockquote: ({node, ...p}) => <blockquote className="my-7 px-6 py-4 rounded-2xl" style={{ background: 'rgba(212,175,55,0.06)', borderInlineStart: '3px solid var(--accent)', color: 'var(--fg)' }} {...p} />,
-                a: ({node, ...p}) => <a className="transition-colors underline" style={{ color: 'var(--accent)' }} {...p} />,
-                img: ({node, ...p}) => <img className="rounded-2xl my-6 w-full" {...p} />,
-              }}
-            >
-              {post.content || ''}
-            </ReactMarkdown>
-          </div>
-
-          {/* Footer of article */}
-          <div className="mt-10 pt-6 flex items-center justify-between gap-4" style={{ borderTop: '1px solid var(--border)' }}>
-            <Link to={basePath} className="inline-flex items-center gap-2 font-body text-sm font-semibold transition-all hover:gap-3" style={{ color: 'var(--accent)' }}>
-              <ArrowIcon size={14} />
-              {isFA ? 'بازگشت به مجله' : 'Back to blog'}
-            </Link>
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'var(--accent)' }}>
-                <span className="font-heading font-black text-sm" style={{ color: 'hsl(var(--accent-foreground))' }}>7G</span>
+        {/* ===== CINEMATIC HERO ===== */}
+        <div className="relative h-[60vh] min-h-[420px] w-full overflow-hidden">
+          <img
+            src={post.image}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src = '/banner/banner-four-bowls.webp';
+            }}
+            style={{ animation: 'kenBurns 20s ease-out forwards', filter: 'brightness(0.6)' }}
+            fetchpriority="high"
+            decoding="async"
+          />
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(to bottom, rgba(13,13,13,0.5) 0%, rgba(13,13,13,0.3) 40%, rgba(13,13,13,0.95) 100%)',
+          }} />
+          <div className="absolute inset-0 flex items-end">
+            <div className="reading-shell pb-12 w-full text-center">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+                  <Tag size={11} />
+                  {category}
+                </span>
+                <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+                  <Calendar size={11} />
+                  {date}
+                </span>
               </div>
-              <div>
-                <div className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{isFA ? 'هفت‌طلایی' : '7Golden'}</div>
-                <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'تحریریه مجله' : 'Editorial'}</div>
-              </div>
+              <h1 className="display-lg leading-tight blog-article-title" title={title} style={{ color: 'var(--ink)' }}>
+                <span className="gold-text">{title}</span>
+              </h1>
+              {excerpt && (
+                <p className="font-body text-sm md:text-base mt-5 max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                  {excerpt}
+                </p>
+              )}
             </div>
           </div>
         </div>
-      </article>
 
-      {/* ===== RELATED POSTS ===== */}
-      {related.length > 0 && (
-        <section className="chapter-shell pb-20">
-          <h2 className="font-heading font-black text-xl md:text-2xl mb-8 text-center" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
-            {isFA ? 'مطالب مرتبط' : 'Related Articles'}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {related.map((rp, i) => (
-              <BlogCard key={rp.id} post={rp} delay={i * 100} isFA={isFA} headingFont={headingFont} ArrowIcon={ArrowIcon} />
-            ))}
+        {/* ===== ARTICLE BODY ===== */}
+        <article className="reading-shell py-14 md:py-20 -mt-10 relative z-10">
+          <div className="rounded-3xl p-5 md:p-8 lg:p-14" style={{
+            background: 'var(--panel-strong)',
+            border: '1px solid var(--hairline)',
+            backdropFilter: 'blur(32px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(32px) saturate(200%)',
+            boxShadow: 'var(--shadow-lg)',
+          }}>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 font-body text-sm mb-8" style={{ color: 'var(--fg-muted)' }}>
+              <Link to="/" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'خانه' : 'Home'}</Link>
+              <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+              <Link to={basePath} style={{ color: 'var(--fg-muted)' }}>{basePath === '/news' ? 'اخبار و اطلاعیه‌ها' : (isFA ? 'مجله' : 'Magazine')}</Link>
+              <ChevronLeft size={12} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+              <span className="truncate" style={{ color: 'var(--fg)' }}>{title}</span>
+            </div>
+
+            {/* Gold divider */}
+            <div className="gold-divider mb-10" style={{ marginLeft: 0 }} />
+
+            {/* Markdown content */}
+            <div className="prose-content font-body text-[15px] leading-[2]">
+              <ReactMarkdown
+                components={{
+                  h1: ({ node, ...p }) => <h2 className="font-heading font-black text-xl md:text-2xl mt-10 mb-5 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }} {...p} />,
+                  h2: ({ node, ...p }) => <h2 className="font-heading font-black text-xl md:text-2xl mt-10 mb-5 leading-snug" style={{ color: 'var(--fg)', fontFamily: headingFont }} {...p} />,
+                  h3: ({ node, ...p }) => <h3 className="font-heading font-extrabold text-lg mt-8 mb-4" style={{ color: 'var(--fg)', fontFamily: headingFont }} {...p} />,
+                  p: ({ node, ...p }) => <p className="mb-5" style={{ color: 'var(--fg-muted)' }} {...p} />,
+                  ul: ({ node, ...p }) => <ul className="mb-5 space-y-2.5" style={{ color: 'var(--fg-muted)' }} {...p} />,
+                  ol: ({ node, ...p }) => <ol className="mb-5 space-y-2.5 list-decimal ms-6" style={{ color: 'var(--fg-muted)' }} {...p} />,
+                  li: ({ node, ...p }) => <li className="flex gap-2.5 items-start" {...p}><span className="mt-2.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'var(--accent)' }} /><span>{p.children}</span></li>,
+                  strong: ({ node, ...p }) => <strong className="font-bold" style={{ color: 'var(--fg)' }} {...p} />,
+                  blockquote: ({ node, ...p }) => <blockquote className="my-7 px-6 py-4 rounded-2xl" style={{ background: 'rgba(212,175,55,0.06)', borderInlineStart: '3px solid var(--accent)', color: 'var(--fg)' }} {...p} />,
+                  a: ({ node, ...p }) => <a className="transition-colors underline" style={{ color: 'var(--accent)' }} {...p} />,
+                  img: ({ node, ...p }) => <img className="rounded-2xl my-6 w-full" {...p} />,
+                }}
+              >
+                {post?.content || ''}
+              </ReactMarkdown>
+            </div>
+
+            {/* Footer of article */}
+            <div className="mt-10 pt-6 flex items-center justify-between gap-4" style={{ borderTop: '1px solid var(--border)' }}>
+              <Link to={basePath} className="inline-flex items-center gap-2 font-body text-sm font-semibold transition-all hover:gap-3" style={{ color: 'var(--accent)' }}>
+                <ArrowIcon size={14} />
+                {isFA ? 'بازگشت به مجله' : 'Back to blog'}
+              </Link>
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'var(--accent)' }}>
+                  <span className="font-heading font-black text-sm" style={{ color: 'hsl(var(--accent-foreground))' }}>7G</span>
+                </div>
+                <div>
+                  <div className="font-body text-sm font-semibold" style={{ color: 'var(--fg)' }}>{isFA ? 'هفت‌طلایی' : '7Golden'}</div>
+                  <div className="font-body text-sm" style={{ color: 'var(--fg-muted)' }}>{isFA ? 'تحریریه مجله' : 'Editorial'}</div>
+                </div>
+              </div>
+            </div>
           </div>
-        </section>
-      )}
+        </article>
+
+        {/* ===== RELATED POSTS ===== */}
+        {related.length > 0 && (
+          <section className="chapter-shell pb-20">
+            <h2 className="font-heading font-black text-xl md:text-2xl mb-8 text-center" style={{ color: 'var(--fg)', fontFamily: headingFont }}>
+              {isFA ? 'مطالب مرتبط' : 'Related Articles'}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {related.map((rp, i) => (
+                <BlogCard key={rp.id} post={rp} delay={i * 100} isFA={isFA} headingFont={headingFont} ArrowIcon={ArrowIcon} />
+              ))}
+            </div>
+          </section>
+        )}
       </PullToRefresh>
     </div>
   );
