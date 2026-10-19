@@ -11,7 +11,7 @@ const FIELDS = [
   { key: 'email', type: 'email', label: 'آدرس ایمیل', required: false, autoComplete: 'email' },
 ];
 
-export default function HomeContactForm() {
+export default function HomeContactForm({ section = {} }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
 
@@ -51,9 +51,9 @@ export default function HomeContactForm() {
       <div className="chapter-shell">
         <StoryChapter
           index="۰۸"
-          eyebrow="ارتباط با هفت طلایی"
-          title="استعلام قیمت محصولات"
-          lead="برای اطلاع از قیمت مغز فندق، خمیر فندق، مغز و خلال پسته یا فرآورده‌های بادام، درخواست خود را ثبت کنید یا با دفتر هفت طلایی تماس بگیرید."
+          eyebrow={section.badge_fa || 'ارتباط با هفت طلایی'}
+          title={section.title_fa || 'استعلام قیمت محصولات'}
+          lead={section.subtitle_fa || 'برای اطلاع از قیمت مغز فندق، خمیر فندق، مغز و خلال پسته یا فرآورده‌های بادام، درخواست خود را ثبت کنید یا با دفتر هفت طلایی تماس بگیرید.'}
           className="mb-10"
         />
 

@@ -4,6 +4,7 @@ import {
   serializeProduct,
   serializeOrder,
   serializeGeneric,
+  serializeNewsPost,
   prepareProductData,
   prepareBlogPostData,
   fillEnFromFa,
@@ -22,6 +23,7 @@ type ModelName =
   | 'product'
   | 'category'
   | 'blogPost'
+  | 'newsPost'
   | 'award'
   | 'galleryImage'
   | 'testimonial'
@@ -35,6 +37,7 @@ const ENTITY_MAP: Record<string, ModelName> = {
   Product: 'product',
   Category: 'category',
   BlogPost: 'blogPost',
+  NewsPost: 'newsPost',
   Award: 'award',
   GalleryImage: 'galleryImage',
   Testimonial: 'testimonial',
@@ -47,7 +50,7 @@ const ENTITY_MAP: Record<string, ModelName> = {
 
 const PUBLIC_CREATE = new Set(['ContactMessage']);
 const PUBLIC_READ_ALL = new Set(['Category', 'Testimonial', 'SiteSettings', 'PageSection']);
-const HAS_PUBLISHED = new Set(['Product', 'BlogPost', 'Award', 'GalleryImage', 'PageSection']);
+const HAS_PUBLISHED = new Set(['Product', 'BlogPost', 'NewsPost', 'Award', 'GalleryImage', 'PageSection']);
 
 function getDelegate(name: ModelName) {
   return (prisma as any)[name];
@@ -88,6 +91,7 @@ function serialize(entity: string, row: any) {
   let out: any;
   if (entity === 'Product') out = serializeProduct(row);
   else if (entity === 'Order') out = serializeOrder(row);
+  else if (entity === 'NewsPost') out = serializeNewsPost(row);
   else out = serializeGeneric(row);
   return normalizeRowMedia(out);
 }
@@ -96,7 +100,7 @@ function prepare(entity: string, body: any) {
   let data: any = applyFieldAliases(entity, body || {});
 
   if (entity === 'Product') data = prepareProductData(data);
-  else if (entity === 'BlogPost') data = prepareBlogPostData(data);
+  else if (entity === 'BlogPost' || entity === 'NewsPost') data = prepareBlogPostData(data);
   else if (entity === 'Order') data = prepareOrderData(data);
   else {
     data = { ...data };

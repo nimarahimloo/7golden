@@ -94,6 +94,25 @@ function normalizeBlogPost(r) {
   };
 }
 
+function normalizeNewsPost(r) {
+  const photos = Array.isArray(r.photos) ? r.photos : [];
+  const videos = Array.isArray(r.videos) ? r.videos : [];
+  return {
+    id: r.slug || r.id,
+    slug: r.slug,
+    title: r.title_fa,
+    excerpt: r.excerpt_fa || '',
+    content: r.content || '',
+    date: r.date_fa || '',
+    category: r.category || 'announcement',
+    categoryLabel: r.category_label || '',
+    image: r.image || '/banner/banner-four-bowls.webp',
+    photos,
+    videos,
+    published: r.published !== false,
+  };
+}
+
 function normalizeGalleryImage(r) {
   return {
     id: r.id,
@@ -179,6 +198,33 @@ export async function getBlogPostBySlug(slug) {
   }
 }
 
+export async function getNewsPosts(opts = {}) {
+  const { limit = 8, skip = 0, category, query } = opts;
+  const params = new URLSearchParams({ limit: String(limit), skip: String(skip) });
+  if (category) params.set('category', category);
+  if (query) params.set('q', query);
+  const items = await get(`/news?${params.toString()}`);
+  return items.map(normalizeNewsPost);
+}
+
+export async function getNewsMeta() {
+  const meta = await get('/news/meta');
+  return {
+    total: Number(meta?.total) || 0,
+    categories: Array.isArray(meta?.categories)
+      ? meta.categories.filter((item) => item && typeof item.category === 'string' && item.category.trim())
+      : [],
+  };
+}
+
+export async function getNewsPostBySlug(slug) {
+  try {
+    return normalizeNewsPost(await get(`/news/${encodeURIComponent(slug)}`));
+  } catch {
+    return null;
+  }
+}
+
 export async function getGalleryImages() {
   const items = await get('/gallery');
   return items.map(normalizeGalleryImage);
@@ -217,7 +263,7 @@ export async function getPageHeroes(page) {
     const sections = await getPageSections(page);
     if (!Array.isArray(sections)) return [];
     return sections
-      .filter(s => String(s.section_key || '').trim().toLowerCase().startsWith('hero'))
+      .filter(s => s.published !== false && String(s.section_key || '').trim().toLowerCase().startsWith('hero'))
       .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
   } catch {
     return [];

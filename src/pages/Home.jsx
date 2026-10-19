@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 
 import {
   getProducts,
@@ -15,7 +15,6 @@ import PullToRefresh from '@/components/PullToRefresh';
 
 import HeroSlider from '@/components/HeroSlider';
 import HomeVideoShowcase from '@/components/home/HomeVideoShowcase';
-import HomeVisualGallery from '@/components/home/HomeVisualGallery';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
@@ -156,18 +155,96 @@ export default function Home() {
   const sec = (key) => sectionMap[key] || {};
 
   const sectionImages = {
-    capacity:
-      sec('capacity').image ||
-      DEFAULT_SECTION_IMAGES.capacity,
-
-    products:
-      sec('products').image ||
-      DEFAULT_SECTION_IMAGES.products,
+    capacity: sec('capacity').image || DEFAULT_SECTION_IMAGES.capacity,
+    products: sec('products').image || DEFAULT_SECTION_IMAGES.products,
   };
+  const sectionVisible = (key) => sec(key).published !== false;
+  const homeMediaSections = Object.values(sectionMap).filter((section) =>
+    String(section.section_key || '').startsWith('media-item-'),
+  );
 
   if (loading) {
     return <LogoLoader />;
   }
+
+  const homepageSections = [
+    {
+      key: 'capacity', defaultOrder: 20,
+      content: (
+        <section className="chapter">
+          <div className="chapter-shell">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              <ParallaxMedia src={sectionImages.capacity} alt="محصولات و توانمندی‌های ۷ گلدن" ratio="aspect-[4/3]" className="rounded-3xl" />
+              <div>
+                <StoryChapter index="02" eyebrow={sec('capacity').badge_fa || 'توانمندی‌های ۷ گلدن'} title={sec('capacity').title_fa || 'فرآوری خشکبار در قزوین'} lead={sec('capacity').subtitle_fa || 'فعالیت فرآوری هفت طلایی از سال ۱۳۷۷ آغاز شده است. فهرست محصولات مجموعه شامل مغز فندق، خمیر و گرانول فندق، مغز و خلال پسته و شکل‌های مختلف بادام است.'} />
+                <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
+                  {CAPACITY_STATS.map((stat, index) => (
+                    <Reveal key={stat.label} delay={index * 90}>
+                      <div className="flex items-baseline gap-1.5">
+                        <CountUp value={stat.value} className="display-md" style={{ color: 'var(--gold-2)' }} />
+                        <span className="font-body text-xs" style={{ color: 'var(--fg-muted)' }}>{stat.unit}</span>
+                      </div>
+                      <span className="font-body text-xs block mt-1.5" style={{ color: 'var(--fg-muted)' }}>{stat.label}</span>
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      ),
+    },
+    { key: 'origin', defaultOrder: 30, content: <HomeOrigin section={sec('origin')} /> },
+    {
+      key: 'products', defaultOrder: 40,
+      content: (
+        <>
+          <MaskText image={sectionImages.products} text="7GOLDEN" eyebrow="از ۱۳۷۷ · قزوین" />
+          {products.length > 0 && (
+            <section className="chapter pt-4 pb-2">
+              <div className="chapter-shell mb-6">
+                <StoryChapter index="04" eyebrow={sec('products').badge_fa || 'مجموعه محصولات'} title={sec('products').title_fa || 'محصولات هفت طلایی'} lead={sec('products').subtitle_fa || 'در فهرست محصولات، پسته، بادام و فندق در شکل‌های مختلف آماده‌سازی عرضه می‌شوند؛ از مغز و خلال تا پرک، خمیر، گرانول و پودر.'} />
+              </div>
+              {pistachioProducts.length > 0 && <ProductLineRow title="محصولات پسته" products={pistachioProducts} duration={90} />}
+              {almondProducts.length > 0 && <ProductLineRow title="محصولات بادام" products={almondProducts} duration={85} />}
+              {hazelnutProducts.length > 0 && <ProductLineRow title="محصولات فندق" products={hazelnutProducts} duration={100} reverse />}
+            </section>
+          )}
+        </>
+      ),
+    },
+    { key: 'visual-gallery', defaultOrder: 50, content: <HomeVideoShowcase section={sec('visual-gallery')} mediaSections={homeMediaSections} /> },
+    { key: 'news', defaultOrder: 60, content: <HomeNews section={sec('news')} /> },
+    { key: 'magazine', defaultOrder: 70, content: <HomeMagazine section={sec('magazine')} /> },
+    {
+      key: 'order', defaultOrder: 80,
+      content: (
+        <section className="chapter">
+          <div className="chapter-shell">
+            <StoryChapter index="09" eyebrow={sec('order').badge_fa || 'فرایند همکاری'} title={sec('order').title_fa || 'از انتخاب محصول تا آماده‌سازی سفارش'} lead={sec('order').subtitle_fa || 'هر سفارش با شناخت نیاز مجموعه شما آغاز می‌شود. مشخصات محصول، مقدار و نوع بسته‌بندی در کنار هم بررسی می‌شوند تا مسیر سفارش بر مبنای نیاز واقعی شما شکل بگیرد.'} align="center" className="mb-12 md:mb-16" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              {ORDER_STEPS.map((step, index) => (
+                <Reveal key={step.number} delay={index * 90}>
+                  <article className="fact-card h-full">
+                    <span className="block font-body text-sm mb-6" style={{ color: 'var(--gold-2)' }}>{step.number}</span>
+                    <h3 className="display-sm mb-4" style={{ color: '#fff' }}>{step.title}</h3>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: '#fff' }}>{step.text}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ),
+    },
+    { key: 'awards', defaultOrder: 90, content: <HomeAwardsSlider section={sec('awards')} /> },
+    { key: 'clients', defaultOrder: 100, content: <HomeClients section={sec('clients')} /> },
+    { key: 'contact', defaultOrder: 110, content: <HomeContactForm section={sec('contact')} /> },
+  ].filter((section) => sectionVisible(section.key)).sort((a, b) => {
+    const aOrder = Number(sec(a.key).sort_order) || a.defaultOrder;
+    const bOrder = Number(sec(b.key).sort_order) || b.defaultOrder;
+    return aOrder - bOrder;
+  });
 
   return (
     <div
@@ -197,178 +274,11 @@ export default function Home() {
 
         {/* 01 — معرفی برند */}
 
-        <HeroSlider cmsHero={heroConfig} />
+        {sectionVisible('hero') && <HeroSlider cmsHero={heroConfig} />}
 
-        {/* 02 — توانمندی‌ها */}
-
-        <section className="chapter">
-          <div className="chapter-shell">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-              <ParallaxMedia
-                src={sectionImages.capacity}
-                alt="محصولات و توانمندی‌های ۷ گلدن"
-                ratio="aspect-[4/3]"
-                className="rounded-3xl"
-              />
-
-              <div>
-                <StoryChapter
-                  index="02"
-                  eyebrow="توانمندی‌های ۷ گلدن"
-                  title="فرآوری خشکبار در قزوین"
-                  lead="فعالیت فرآوری هفت طلایی از سال ۱۳۷۷ آغاز شده است. فهرست محصولات مجموعه شامل مغز فندق، خمیر و گرانول فندق، مغز و خلال پسته و شکل‌های مختلف بادام است."
-                />
-
-                <div className="grid grid-cols-2 gap-x-6 gap-y-8 mt-10">
-                  {CAPACITY_STATS.map((stat, index) => (
-                    <Reveal
-                      key={stat.label}
-                      delay={index * 90}
-                    >
-                      <div className="flex items-baseline gap-1.5">
-                        <CountUp
-                          value={stat.value}
-                          className="display-md"
-                          style={{
-                            color: 'var(--gold-2)',
-                          }}
-                        />
-
-                        <span
-                          className="font-body text-xs"
-                          style={{
-                            color: 'var(--fg-muted)',
-                          }}
-                        >
-                          {stat.unit}
-                        </span>
-                      </div>
-
-                      <span
-                        className="font-body text-xs block mt-1.5"
-                        style={{
-                          color: 'var(--fg-muted)',
-                        }}
-                      >
-                        {stat.label}
-                      </span>
-                    </Reveal>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 03 — نگاه برند */}
-
-        <HomeOrigin />
-
-        {/* امضای بصری برند */}
-
-        <MaskText
-          image={sectionImages.products}
-          text="7GOLDEN"
-          eyebrow="از ۱۳۷۷ · قزوین"
-        />
-
-        {products.length > 0 && (
-          <section className="chapter pt-4 pb-2">
-            <div className="chapter-shell mb-6">
-              <StoryChapter
-                index="04"
-                eyebrow="مجموعه محصولات"
-                title="محصولات هفت طلایی"
-                lead="در فهرست محصولات، پسته، بادام و فندق در شکل‌های مختلف آماده‌سازی عرضه می‌شوند؛ از مغز و خلال تا پرک، خمیر، گرانول و پودر."
-              />
-            </div>
-
-            {pistachioProducts.length > 0 && (
-              <ProductLineRow title="محصولات پسته" products={pistachioProducts} duration={90} />
-            )}
-            {almondProducts.length > 0 && (
-              <ProductLineRow title="محصولات بادام" products={almondProducts} duration={85} />
-            )}
-            {hazelnutProducts.length > 0 && (
-              <ProductLineRow title="محصولات فندق" products={hazelnutProducts} duration={100} reverse />
-            )}
-          </section>
-        )}
-
-        <HomeVideoShowcase />
-
-        <HomeVisualGallery />
-
-        {/* 07 — اخبار و اطلاعیه‌ها */}
-
-        <HomeNews />
-
-        <HomeMagazine />
-
-        {/* 09 — فرایند همکاری */}
-
-        <section className="chapter">
-          <div className="chapter-shell">
-            <StoryChapter
-              index="09"
-              eyebrow="فرایند همکاری"
-              title="از انتخاب محصول تا آماده‌سازی سفارش"
-              lead="هر سفارش با شناخت نیاز مجموعه شما آغاز می‌شود. مشخصات محصول، مقدار و نوع بسته‌بندی در کنار هم بررسی می‌شوند تا مسیر سفارش بر مبنای نیاز واقعی شما شکل بگیرد."
-              align="center"
-              className="mb-12 md:mb-16"
-            />
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-              {ORDER_STEPS.map((step, index) => (
-                <Reveal
-                  key={step.number}
-                  delay={index * 90}
-                >
-                  <article className="fact-card h-full">
-                    <span
-                      className="block font-body text-sm mb-6"
-                      style={{
-                        color: 'var(--gold-2)',
-                      }}
-                    >
-                      {step.number}
-                    </span>
-
-                    <h3
-                      className="display-sm mb-4"
-                      style={{
-                        color: '#fff',
-                      }}
-                    >
-                      {step.title}
-                    </h3>
-
-                    <p
-                      className="font-body text-sm leading-relaxed"
-                      style={{
-                        color: '#fff',
-                      }}
-                    >
-                      {step.text}
-                    </p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* افتخارات و دستاوردها */}
-
-        <HomeAwardsSlider />
-
-        {/* مجموعه‌های همکار */}
-
-        <HomeClients />
-
-        {/* ارتباط با ۷ گلدن */}
-
-        <HomeContactForm />
+        {homepageSections.map((section) => (
+          <Fragment key={section.key}>{section.content}</Fragment>
+        ))}
 
       </PullToRefresh>
     </div>

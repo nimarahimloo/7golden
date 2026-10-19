@@ -18,7 +18,8 @@ const SECTIONS = [
   { id: 'dashboard', label: 'داشبورد', icon: BarChart3 },
   { id: 'products', label: 'محصولات', icon: Package },
   { id: 'categories', label: 'دسته‌بندی', icon: Tags },
-  { id: 'gallery', label: 'اخبار', icon: ImageIcon },
+  { id: 'gallery', label: 'گالری تصاویر', icon: ImageIcon },
+  { id: 'news', label: 'اخبار و اطلاعیه‌ها', icon: FileText },
   { id: 'blog', label: 'مجله / بلاگ', icon: FileText },
   { id: 'awards', label: 'مجوزها و جوایز', icon: Award },
   { id: 'testimonials', label: 'نظرات مشتریان', icon: MessageSquareQuote },
@@ -68,6 +69,7 @@ export default function Admin() {
         {active === 'products' && <ProductsSection />}
         {active === 'categories' && <CategoriesSection />}
         {active === 'gallery' && <MediaSection />}
+      {active === 'news' && <NewsAdminSection />}
         {active === 'blog' && <BlogSection />}
         {active === 'awards' && <AwardsAdminSection />}
         {active === 'testimonials' && <TestimonialsSection />}
@@ -319,6 +321,40 @@ function MediaSection() {
   );
 }
 
+function NewsAdminSection() {
+  return (
+    <EntityCrud
+      entityName="NewsPost"
+      title="خبر و اطلاعیه"
+      defaultSort="sort_order"
+      columns={[
+        { key: 'image', label: 'کاور', render: (row) => row.image ? <img src={row.image} alt="" className="w-12 h-10 rounded object-cover" /> : '—' },
+        { key: 'title_fa', label: 'عنوان' },
+        { key: 'slug', label: 'شناسه URL' },
+        { key: 'category', label: 'دسته‌بندی' },
+        { key: 'published', label: 'منتشر', toggleBool: true },
+      ]}
+      fields={[
+        { key: 'slug', label: 'شناسه URL', placeholder: 'product-catalog-update', required: true },
+        { key: 'title_fa', label: 'عنوان خبر', required: true },
+        { key: 'excerpt_fa', label: 'خلاصه', type: 'textarea' },
+        { key: 'content', label: 'متن کامل', type: 'richtext' },
+        { key: 'category', label: 'دسته‌بندی', type: 'select', default: 'announcement', options: [
+          { value: 'announcement', label: 'اطلاعیه' },
+          { value: 'product', label: 'محصولات' },
+          { value: 'company', label: 'درباره مجموعه' },
+          { value: 'ordering', label: 'راهنمای سفارش' },
+          { value: 'media', label: 'آرشیو تصویری' },
+        ] },
+        { key: 'date_fa', label: 'تاریخ نمایش', placeholder: '۱۴۰۵/۰۷/۲۱' },
+        { key: 'image', label: 'تصویر کاور', type: 'image', required: true },
+        { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
+        { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
+      ]}
+    />
+  );
+}
+
 function BlogSection() {
   return (
     <EntityCrud
@@ -496,7 +532,9 @@ function PageSectionsSection() {
         { key: 'title_fa', label: 'عنوان' },
         { key: 'subtitle_fa', label: 'زیرعنوان', type: 'textarea' },
         { key: 'badge_fa', label: 'بج / برچسب' },
-        { key: 'image', label: 'تصویر هیرو / پس‌زمینه', type: 'image' },
+        { key: 'image', label: 'تصویر هیرو / پس‌زمینه یا پوستر ویدیو', type: 'image' },
+        { key: 'media_type', label: 'نوع رسانه (برای آیتم‌های موزاییک)', type: 'select', default: 'image', options: [{ value: 'image', label: 'تصویر' }, { value: 'video', label: 'ویدیو' }] },
+        { key: 'media_url', label: 'مسیر رسانه (مثلاً /video/processing-1.mp4)', placeholder: 'برای آیتم‌های گالری: media-item-video-processing-1' },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
         { key: 'sort_order', label: 'ترتیب', type: 'number', default: 0 },
       ]}

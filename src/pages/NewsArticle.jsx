@@ -7,10 +7,26 @@ import NewsCard from '@/components/news/NewsCard';
 import MediaLightbox from '@/components/news/MediaLightbox';
 import { PhotoGroup, VideoBlock } from '@/components/news/ArticleMedia';
 import { NEWS_ITEMS, NEWS_CATEGORIES } from '@/lib/news-content';
+import { getNewsPostBySlug } from '@/lib/api/content';
 import { SITE_SEO } from '@/lib/seo';
 
 // Each article body is its own module so a reader only downloads the one they open.
 const LOADERS = import.meta.glob('../lib/news-articles/*.js');
+
+function contentToParagraphs(value) {
+  const text = String(value || '')
+    .replace(/<br\s*\/?\s*>/gi, '\n')
+    .replace(/<\/(?:p|h[1-6]|li|div|section)>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '• ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '\"')
+    .replace(/&#39;/gi, "'");
+  return text.split(/\n+/).map((part) => part.trim()).filter(Boolean);
+}
 
 const wordsOf = (sections) =>
   sections.reduce(
@@ -20,32 +36,58 @@ const wordsOf = (sections) =>
 
 export default function NewsArticle() {
   const { slug } = useParams();
-  const item = NEWS_ITEMS.find((n) => n.id === slug);
+  const staticItem = NEWS_ITEMS.find((n) => n.id === slug);
+  const [cmsItem, setCmsItem] = useState(null);
+  const [cmsChecked, setCmsChecked] = useState(false);
   const [sections, setSections] = useState(null);
-  const [lightbox, setLightbox] = useState(null); // index into item.photos
+  const [lightbox, setLightbox] = useState(null);
+  const item = cmsItem ? {
+    ...(staticItem || {}),
+    ...cmsItem,
+    photos: cmsItem.photos?.length ? cmsItem.photos : (staticItem?.photos || []),
+    videos: cmsItem.videos?.length ? cmsItem.videos : (staticItem?.videos || []),
+    body: staticItem?.body || [],
+  } : staticItem;
 
   useEffect(() => {
+    let active = true;
+    setCmsChecked(false);
+    setCmsItem(null);
+    getNewsPostBySlug(slug)
+      .then((row) => { if (active) setCmsItem(row); })
+      .catch(() => { if (active) setCmsItem(null); })
+      .finally(() => { if (active) setCmsChecked(true); });
+    return () => { active = false; };
+  }, [slug]);
+
+  useEffect(() => {
+    let active = true;
     setSections(null);
     setLightbox(null);
-    const load = LOADERS[`../lib/news-articles/${slug}.js`];
-    if (!item || !load) {
-      // The published newsroom entries own their copy in news-content.js.
-      // Use it when there is no dedicated long-form module instead of rendering
-      // an empty article page.
-      setSections(item?.body?.length ? [{ p: item.body }] : []);
-      return undefined;
+    if (cmsItem) {
+      const paragraphs = contentToParagraphs(cmsItem.content);
+      if (paragraphs.length) setSections([{ p: paragraphs }]);
+      else setSections(staticItem?.body?.length ? [{ p: staticItem.body }] : []);
+      return () => { active = false; };
     }
-    let active = true;
+
+    const load = LOADERS[`../lib/news-articles/${slug}.js`];
+    if (!staticItem || !load) {
+      setSections(staticItem?.body?.length ? [{ p: staticItem.body }] : []);
+      return () => { active = false; };
+    }
     load()
-      .then((m) => { if (active) setSections(m.default); })
-      .catch(() => { if (active) setSections(item?.body?.length ? [{ p: item.body }] : []); });
+      .then((module) => { if (active) setSections(module.default); })
+      .catch(() => { if (active) setSections(staticItem?.body?.length ? [{ p: staticItem.body }] : []); });
     return () => { active = false; };
-  }, [slug, item]);
+  }, [slug, cmsItem, staticItem]);
 
   const closeLightbox = useCallback(() => setLightbox(null), []);
-  const openPhoto = useCallback((src) => setLightbox(Math.max(0, item.photos.indexOf(src))), [item]);
+  const openPhoto = useCallback((src) => setLightbox(Math.max(0, (item?.photos || []).indexOf(src))), [item]);
 
   const minutes = useMemo(() => (sections?.length ? Math.max(1, Math.round(wordsOf(sections) / 190)) : null), [sections]);
+
+  if (!item && !cmsChecked) return <div className="min-h-[70vh] flex items-center justify-center" style={{ background: 'var(--bg)', color: 'var(--fg-muted)' }}>در حال بارگذاری خبر…</div>;
 
   if (!item) {
     return (
@@ -58,10 +100,11 @@ export default function NewsArticle() {
     );
   }
 
-  const cat = NEWS_CATEGORIES[item.category];
+  const cat = NEWS_CATEGORIES[item.category] || { label: item.categoryLabel || item.category || 'خبر', tone: 'var(--gold-2)' };
+  const photos = item.photos || [];
   const usedPhotos = new Set();
-  (sections || []).forEach((s) => (s.media?.photos || []).forEach((i) => usedPhotos.add(item.photos[i])));
-  const restPhotos = item.photos.filter((p) => !usedPhotos.has(p));
+  (sections || []).forEach((s) => (s.media?.photos || []).forEach((i) => usedPhotos.add(photos[i])));
+  const restPhotos = photos.filter((p) => !usedPhotos.has(p));
   const related = NEWS_ITEMS.filter((n) => n.id !== item.id).slice(0, 3);
   const url = `${SITE_SEO.baseUrl}/news/${item.id}`;
 
@@ -71,7 +114,7 @@ export default function NewsArticle() {
       '@type': 'NewsArticle',
       headline: item.title,
       description: item.excerpt,
-      image: `${SITE_SEO.baseUrl}${item.image}`,
+      image: `${SITE_SEO.baseUrl}${item.image || '/banner/banner-four-bowls.webp'}`,
       inLanguage: 'fa-IR',
       author: { '@type': 'Organization', name: '7Golden', url: SITE_SEO.baseUrl },
       publisher: { '@type': 'Organization', name: '7Golden', logo: { '@type': 'ImageObject', url: `${SITE_SEO.baseUrl}/logo.webp` } },
@@ -94,7 +137,7 @@ export default function NewsArticle() {
 
       {/* ===== HERO ===== */}
       <header className="relative w-full overflow-hidden" style={{ height: 'clamp(340px, 62svh, 560px)' }}>
-        <img src={item.image} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: 'brightness(0.6)' }} fetchpriority="high" decoding="async" />
+        <img src={item.image || '/banner/banner-four-bowls.webp'} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ filter: 'brightness(0.6)' }} fetchpriority="high" decoding="async" />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(7,6,4,0.45) 0%, rgba(7,6,4,0.25) 40%, rgba(7,6,4,0.96) 100%)' }} />
         <div className="absolute inset-0 flex items-end">
           <div className="reading-shell pb-10 md:pb-14 w-full text-center">
@@ -154,7 +197,7 @@ export default function NewsArticle() {
                 ))}
               </ul>
             )}
-            {s.media?.photos && <PhotoGroup srcs={s.media.photos.map((k) => item.photos[k]).filter(Boolean)} onOpen={openPhoto} />}
+            {s.media?.photos && <PhotoGroup srcs={s.media.photos.map((k) => photos[k]).filter(Boolean)} onOpen={openPhoto} />}
             {s.media?.video !== undefined && <VideoBlock video={item.videos[s.media.video]} />}
           </section>
         ))}
@@ -199,7 +242,7 @@ export default function NewsArticle() {
       </section>
 
       {lightbox !== null && (
-        <MediaLightbox photos={item.photos} index={lightbox} onClose={closeLightbox} onIndex={setLightbox} />
+        <MediaLightbox photos={photos} index={lightbox} onClose={closeLightbox} onIndex={setLightbox} />
       )}
     </div>
   );
