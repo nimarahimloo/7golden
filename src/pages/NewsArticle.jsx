@@ -4,6 +4,7 @@ import { ArrowRight, ChevronLeft, Calendar, Clock } from 'lucide-react';
 import Seo from '@/components/Seo';
 import Reveal from '@/components/story/Reveal';
 import NewsCard from '@/components/news/NewsCard';
+import RichArticleContent from '@/components/content/RichArticleContent';
 import MediaLightbox from '@/components/news/MediaLightbox';
 import { PhotoGroup, VideoBlock } from '@/components/news/ArticleMedia';
 import { NEWS_ITEMS, NEWS_CATEGORIES } from '@/lib/news-content';
@@ -13,26 +14,16 @@ import { SITE_SEO } from '@/lib/seo';
 // Each article body is its own module so a reader only downloads the one they open.
 const LOADERS = import.meta.glob('../lib/news-articles/*.js');
 
-function contentToParagraphs(value) {
-  const text = String(value || '')
-    .replace(/<br\s*\/?\s*>/gi, '\n')
-    .replace(/<\/(?:p|h[1-6]|li|div|section)>/gi, '\n')
-    .replace(/<li[^>]*>/gi, '• ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '\"')
-    .replace(/&#39;/gi, "'");
-  return text.split(/\n+/).map((part) => part.trim()).filter(Boolean);
-}
-
-const wordsOf = (sections) =>
-  sections.reduce(
-    (sum, s) => sum + [s.h, ...(s.p || []), ...(s.ul || [])].join(' ').split(/\s+/).filter(Boolean).length,
-    0,
-  );
+const wordsOf = (sections) => sections.reduce((sum, section) => {
+  const source = [section.h, ...(section.p || []), ...(section.ul || []), section.richContent || ''].filter(Boolean).join(' ');
+  const plain = source
+    .replace(/<br\s*\/?\s*>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&(?:amp;)?nbsp;/gi, ' ')
+    .replace(/\\([#*`-])/g, '$1')
+    .replace(/[#*`]/g, ' ');
+  return sum + plain.split(/\s+/).filter(Boolean).length;
+}, 0);
 
 export default function NewsArticle() {
   const { slug } = useParams();
@@ -65,8 +56,7 @@ export default function NewsArticle() {
     setSections(null);
     setLightbox(null);
     if (cmsItem) {
-      const paragraphs = contentToParagraphs(cmsItem.content);
-      if (paragraphs.length) setSections([{ p: paragraphs }]);
+      if (String(cmsItem.content || '').trim()) setSections([{ richContent: cmsItem.content }]);
       else setSections(staticItem?.body?.length ? [{ p: staticItem.body }] : []);
       return () => { active = false; };
     }
@@ -178,7 +168,8 @@ export default function NewsArticle() {
         )}
 
         {(sections || []).map((s, i) => (
-          <section key={s.h} className={i ? 'mt-10 md:mt-12' : ''}>
+          <section key={s.h || `section-${i}`} className={i ? 'mt-10 md:mt-12' : ''}>
+            {s.richContent ? <RichArticleContent content={s.richContent} title={item.title} /> : <>
             {s.h && (
               <h2 className="font-heading font-extrabold text-xl md:text-2xl leading-snug mb-4" style={{ color: 'var(--ink)' }}>
                 {s.h}
@@ -197,6 +188,7 @@ export default function NewsArticle() {
                 ))}
               </ul>
             )}
+            </>}
             {s.media?.photos && <PhotoGroup srcs={s.media.photos.map((k) => photos[k]).filter(Boolean)} onOpen={openPhoto} />}
             {s.media?.video !== undefined && <VideoBlock video={item.videos[s.media.video]} />}
           </section>

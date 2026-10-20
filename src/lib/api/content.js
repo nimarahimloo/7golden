@@ -79,17 +79,29 @@ function normalizeTestimonial(r) {
 }
 
 function plainText(value) {
-  return String(value || '')
+  let source = String(value || '');
+  source = source.replace(/\\(?=<\/?(?:p|div|h[1-6]|ul|ol|li|strong|br)\b)/gi, '');
+  for (let pass = 0; pass < 2; pass += 1) {
+    source = source.replace(/&amp;lt;/gi, '&lt;').replace(/&amp;gt;/gi, '&gt;');
+    if (/&lt;\/?(?:p|div|h[1-6]|ul|ol|li|strong|br)\b/i.test(source)) {
+      source = source.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>');
+    }
+  }
+  return source
     .replace(/<br\s*\/?\s*>/gi, ' ')
     .replace(/<\/(?:p|h[1-6]|li|div|section)>/gi, ' ')
     .replace(/<[^>]*>/g, ' ')
-    .replace(/&nbsp;/gi, ' ')
+    .replace(/&(?:amp;)?nbsp;/gi, ' ')
     .replace(/&amp;/gi, '&')
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '\"')
+    .replace(/&quot;/gi, '"')
     .replace(/&#39;/gi, "'")
-    .replace(/\s+/g, ' ')
+    .replace(/\\([#*`-])/g, '$1')
+    .replace(/(^|\s)#{1,6}\s+/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/(^|\s)-\s+(?=\S)/g, '$1')
+    .replace(/[\u00a0\s]+/g, ' ')
     .trim();
 }
 
@@ -116,7 +128,7 @@ function normalizeNewsPost(r) {
     id: r.slug || r.id,
     slug: r.slug,
     title: r.title_fa,
-    excerpt: r.excerpt_fa || '',
+    excerpt: plainText(r.excerpt_fa || ''),
     content: r.content || '',
     date: r.date_fa || '',
     category: r.category || 'announcement',
