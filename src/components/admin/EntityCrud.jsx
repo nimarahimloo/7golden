@@ -398,8 +398,8 @@ function ImageUploadField({ field, value, onChange }) {
     const file = e.target.files?.[0];
     if (!file) return;
     setFieldError('');
-    if (file.size > 8 * 1024 * 1024) {
-      setFieldError('حجم فایل حداکثر ۸ مگابایت');
+    if (file.size > 16 * 1024 * 1024) {
+      setFieldError('حجم فایل حداکثر ۱۶ مگابایت');
       return;
     }
     if (!file.type.startsWith('image/')) {
@@ -459,7 +459,13 @@ function ImageUploadField({ field, value, onChange }) {
 function GalleryUploadField({ field, value, onChange }) {
   const [uploading, setUploading] = useState(false);
   const [err, setErr] = useState('');
-  const list = Array.isArray(value) ? value : (typeof value === 'string' && value.startsWith('[') ? JSON.parse(value || '[]') : (value ? [value] : []));
+  const list = Array.isArray(value) ? value : (() => {
+    if (typeof value === 'string' && value.startsWith('[')) {
+      try { const parsed = JSON.parse(value); return Array.isArray(parsed) ? parsed : []; }
+      catch { return []; }
+    }
+    return value ? [value] : [];
+  })();
 
   const setList = (next) => onChange(next);
 
@@ -472,7 +478,10 @@ function GalleryUploadField({ field, value, onChange }) {
       const added = [];
       for (const file of files) {
         if (!file.type.startsWith('image/')) continue;
-        if (file.size > 12 * 1024 * 1024) continue;
+        if (file.size > 16 * 1024 * 1024) {
+          setErr('هر تصویر باید حداکثر ۱۶ مگابایت باشد.');
+          continue;
+        }
         const result = await base44.integrations.Core.UploadFile({ file });
         const url = result.file_url || result.url;
         if (url) added.push(url);

@@ -104,8 +104,8 @@ export default function Admin() {
 
 function AdminShell({ active, setActive, user, onLogout, children }) {
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen">
-      <aside className="lg:w-64 flex-shrink-0" style={{ background: 'hsl(var(--card))', borderLeft: '1px solid var(--border)' }}>
+    <div className="admin-shell flex flex-col lg:flex-row min-h-screen lg:h-screen lg:overflow-hidden">
+      <aside className="admin-sidebar lg:w-64 flex-shrink-0 lg:h-screen lg:overflow-y-auto" style={{ background: 'hsl(var(--card))', borderLeft: '1px solid var(--border)' }}>
         <div className="lg:hidden border-b p-3" style={{ borderColor: 'var(--border)' }}>
           <Select value={active} onValueChange={setActive}>
             <SelectTrigger className="w-full admin-input cursor-pointer"><SelectValue /></SelectTrigger>
@@ -147,7 +147,7 @@ function AdminShell({ active, setActive, user, onLogout, children }) {
           </div>
         </div>
       </aside>
-      <main className="flex-1 p-4 lg:p-8 overflow-auto">
+      <main className="admin-main min-w-0 flex-1 p-4 lg:p-8 lg:h-screen lg:min-h-0 lg:overflow-y-auto overscroll-contain">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-heading font-extrabold text-xl" style={{ color: 'var(--fg)' }}>
             {SECTIONS.find(s => s.id === active)?.label}
@@ -369,7 +369,7 @@ function BlogSection() {
       fields={[
         { key: 'slug', label: 'شناسه URL', placeholder: 'export-quality' },
         { key: 'title_fa', label: 'عنوان' },
-        { key: 'excerpt_fa', label: 'خلاصه', type: 'richtext' },
+        { key: 'excerpt_fa', label: 'خلاصه', type: 'textarea', rows: 3 },
         { key: 'content', label: 'متن کامل', type: 'richtext' },
         { key: 'image', label: 'تصویر کاور', type: 'image', required: true },
         { key: 'published', label: 'منتشر شده', type: 'boolean', default: true },
