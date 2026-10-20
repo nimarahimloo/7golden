@@ -3,6 +3,13 @@ import { ArrowUpLeft, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import StoryChapter from '@/components/story/StoryChapter';
 import { HOME_MEDIA_ITEMS } from '@/lib/home-media';
 
+const HOME_FEATURED_MEDIA_IDS = [
+  'video-facility-1',
+  'photo-AQ8A1640AQ8A1640',
+  'video-processing-1',
+  'photo-AQ8A1665AQ8A1665',
+];
+
 function LazyLoopVideo({ item, title }) {
   const videoRef = useRef(null);
   const [nearViewport, setNearViewport] = useState(false);
@@ -88,7 +95,20 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
   }, [mediaSections, overrideById]);
 
   // Show a deliberately small five-item selection on the homepage; the admin ordering decides which items lead.
-  const visibleMedia = media.slice(0, 5);
+  // HOME_ARTICLE_CONTENT_AND_MOSAIC_FIX_V1: four deliberate editorial picks, not the full archive.
+  const visibleMedia = useMemo(() => {
+    const byId = new Map(media.map((item) => [item.id, item]));
+    const selected = HOME_FEATURED_MEDIA_IDS.map((id) => byId.get(id)).filter(Boolean);
+    const seen = new Set(selected.map((item) => item.id));
+    for (const item of media) {
+      if (selected.length >= 4) break;
+      if (!seen.has(item.id)) { selected.push(item); seen.add(item.id); }
+    }
+    return selected.slice(0, 4).map((item, index) => ({
+      ...item,
+      shape: index === 0 ? 'feature' : (index === 1 ? 'wide' : (index === 2 ? 'standard' : 'wide')),
+    }));
+  }, [media]);
   const activeItem = visibleMedia.find((item) => item.id === activeId) || null;
 
   useEffect(() => {
@@ -109,7 +129,7 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
       document.body.style.overflow = priorOverflow;
       window.removeEventListener('keydown', onKeyDown);
     };
-  }, [activeItem, media]);
+  }, [activeItem, visibleMedia]);
 
   const moveLightbox = (delta) => {
     if (!activeItem || !visibleMedia.length) return;
@@ -130,12 +150,12 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
             index="05"
             eyebrow={section.badge_fa || 'تصاویر واقعی از مجموعه'}
             title={section.title_fa || 'زیبایی در جزئیات است'}
-            lead={section.subtitle_fa || 'روایتی موزاییکی از فضای کارخانه، فرآوری و تصاویر ثبت‌شدهٔ محصولات هفت طلایی؛ ویدیوها بی‌صدا و پیوسته مانند تصویر متحرک نمایش داده می‌شوند.'}
+            lead={section.subtitle_fa || 'گزیده‌ای خلوت از تصاویر منتخب کارخانه، فرآوری و محصولات هفت طلایی؛ ویدیوهای منتخب بی‌صدا و پیوسته نمایش داده می‌شوند.'}
             align="center"
           />
         </div>
 
-        <div className="home-media-mosaic">
+        <div className="home-media-mosaic home-media-mosaic--curated">
           {visibleMedia.map((item, index) => (
             <article key={item.id} className={`home-media-tile home-media-tile--${item.shape || (index % 7 === 0 ? 'wide' : 'standard')}`}>
               <button type="button" className="home-media-trigger group" onClick={() => setActiveId(item.id)} aria-label={`نمایش ${item.title}`}>

@@ -10,84 +10,18 @@ import LogoLoader from '@/components/LogoLoader';
 import PullToRefresh from '@/components/PullToRefresh';
 import { SITE_SEO, articleJsonLd } from '@/lib/seo';
 import ReactMarkdown from 'react-markdown';
+import RichArticleContent from '@/components/content/RichArticleContent';
 import { EDITORIAL_BLOG_POSTS } from '@/lib/editorial-blog-content';
 
-const HTML_CONTENT_TAG = /<(?:!doctype|\/?(?:p|h[1-6]|ul|ol|li|strong|b|em|i|u|s|blockquote|div|span|br|a|img|hr|pre|code|table|thead|tbody|tr|th|td|sup|sub)\b[^>]*>)/i;
-const SAFE_CONTENT_TAGS = new Set([
-  'p', 'br', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li',
-  'strong', 'b', 'em', 'i', 'u', 's', 'blockquote', 'div', 'span', 'a',
-  'img', 'hr', 'pre', 'code', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'sup', 'sub',
-]);
-const DROP_CONTENT_TAGS = new Set(['script', 'style', 'iframe', 'object', 'embed', 'svg', 'math', 'form', 'input', 'button', 'textarea', 'select', 'option', 'meta', 'link']);
-
+const HTML_CONTENT_TAG = /<(?:!doctype|\/?(?:p|h[1-6]|ul|ol|li|strong|b|em|i|u|blockquote|div|span|br|a|img|hr|pre|code)\b[^>]*>)/i;
 function isHtmlContent(value) {
-  return HTML_CONTENT_TAG.test(String(value || ''));
+  const source = String(value || '');
+  return HTML_CONTENT_TAG.test(source)
+    || /&(?:amp;)?lt;\/?(?:p|h[1-6]|ul|ol|li|strong|div|span|br)\b/i.test(source)
+    || /\\<\/?(?:p|h[1-6]|ul|ol|li|strong|div|span|br)\b/i.test(source);
 }
-
-function isSafeContentUrl(value, allowAnchor = false) {
-  const raw = String(value || '').trim();
-  if (!raw || /[\u0000-\u001f]/.test(raw)) return false;
-  if (allowAnchor && raw.startsWith('#')) return true;
-  try {
-    const url = new URL(raw, window.location.origin);
-    return ['http:', 'https:', 'mailto:', 'tel:'].includes(url.protocol);
-  } catch {
-    return false;
-  }
-}
-
-function sanitizeBlogHtml(input) {
-  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') return '';
-  const doc = new DOMParser().parseFromString(String(input || ''), 'text/html');
-
-  const cleanChildren = (parent) => {
-    [...parent.childNodes].forEach((node) => {
-      if (node.nodeType === 8) {
-        node.remove();
-        return;
-      }
-      if (node.nodeType !== 1) return;
-      const tag = node.tagName.toLowerCase();
-      if (DROP_CONTENT_TAGS.has(tag)) {
-        node.remove();
-        return;
-      }
-      cleanChildren(node);
-      if (!SAFE_CONTENT_TAGS.has(tag)) {
-        node.replaceWith(...[...node.childNodes]);
-        return;
-      }
-
-      [...node.attributes].forEach((attribute) => {
-        const name = attribute.name.toLowerCase();
-        if (!['href', 'src', 'alt', 'title', 'colspan', 'rowspan'].includes(name)) {
-          node.removeAttribute(attribute.name);
-        }
-      });
-
-      if (tag === 'a') {
-        const href = node.getAttribute('href');
-        if (href && !isSafeContentUrl(href, true)) node.removeAttribute('href');
-        node.removeAttribute('target');
-        node.removeAttribute('rel');
-      }
-      if (tag === 'img') {
-        const src = node.getAttribute('src');
-        if (src && !isSafeContentUrl(src)) node.removeAttribute('src');
-        node.setAttribute('loading', 'lazy');
-        node.setAttribute('decoding', 'async');
-        if (!node.getAttribute('alt')) node.setAttribute('alt', '');
-      }
-    });
-  };
-
-  cleanChildren(doc.body);
-  return doc.body.innerHTML;
-}
-
-function SafeBlogHtml({ html }) {
-  const safeHtml = sanitizeBlogHtml(html);
-  return <div className="prose-content-html" dangerouslySetInnerHTML={{ __html: safeHtml }} />;
+function SafeBlogHtml({ html, title }) {
+  return <RichArticleContent content={html} title={title} />;
 }
 
 export default function BlogPost() {
@@ -239,7 +173,7 @@ export default function BlogPost() {
             {/* Markdown content */}
             <div className={`prose-content font-body text-[15px] leading-[2] ${isHtmlContent(post?.content) ? 'prose-content-has-html' : ''}`}>
               {isHtmlContent(post?.content) ? (
-                <SafeBlogHtml html={post?.content || ''} />
+                <SafeBlogHtml html={post?.content || ''} title={title} />
               ) : (
               <ReactMarkdown
                 components={{
