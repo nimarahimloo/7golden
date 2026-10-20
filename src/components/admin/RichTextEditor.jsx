@@ -4,11 +4,11 @@ import 'react-quill-new/dist/quill.snow.css';
 
 export default function RichTextEditor({ value, onChange, placeholder }) {
   return (
-    <div dir="rtl" className="rounded-xl overflow-hidden bg-white" style={{ border: '1px solid var(--border)' }}>
+    <div dir="rtl" className="admin-richtext-editor rounded-xl overflow-hidden">
       <ReactQuill
         theme="snow"
         value={value || ''}
-        onChange={(v) => onChange(v)}
+        onChange={(nextValue) => onChange(nextValue)}
         placeholder={placeholder || 'متن را وارد کنید…'}
         modules={{
           toolbar: [

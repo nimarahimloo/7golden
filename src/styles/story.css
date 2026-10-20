@@ -4165,3 +4165,65 @@
   .editorial-card-copy { padding: 1rem; }
   .editorial-card-title { font-size: 1.02rem; }
 }
+
+
+/* ADMIN_RICHTEXT_UPLOAD_SCROLL_AND_BLOG_HTML_FIX_V1 */
+/* The desktop admin has its own dependable vertical scroll regions; mobile stays document-scrollable. */
+@media (min-width: 1024px) {
+  .admin-shell { height: 100vh; min-height: 0; overflow: hidden; }
+  .admin-sidebar, .admin-main { min-height: 0; overscroll-behavior: contain; }
+  .admin-sidebar { scrollbar-gutter: stable; }
+  .admin-main { overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; }
+}
+.admin-sidebar::-webkit-scrollbar, .admin-main::-webkit-scrollbar { width: 9px; }
+.admin-sidebar::-webkit-scrollbar-thumb, .admin-main::-webkit-scrollbar-thumb {
+  background: rgba(214, 178, 94, .55); border: 2px solid transparent; background-clip: padding-box; border-radius: 999px;
+}
+.admin-sidebar, .admin-main { scrollbar-color: rgba(214, 178, 94, .55) transparent; scrollbar-width: thin; }
+
+/* Quill is used as the admin rich-text editor. Explicit colors avoid the light toolbar/editor inheriting white text. */
+.admin-richtext-editor { border: 1px solid #c9c0b1; background: #fff; color: #24211c; }
+.admin-richtext-editor .ql-toolbar.ql-snow { border: 0; border-bottom: 1px solid #d7d0c5; background: #f3f0e9; }
+.admin-richtext-editor .ql-container.ql-snow { border: 0; background: #fff; color: #24211c; font-family: 'Peyda', sans-serif; }
+.admin-richtext-editor .ql-editor { min-height: 220px; padding: 14px 16px; color: #24211c !important; background: #fff; direction: rtl; text-align: right; font-size: .9rem; line-height: 1.95; }
+.admin-richtext-editor .ql-editor p, .admin-richtext-editor .ql-editor li,
+.admin-richtext-editor .ql-editor h1, .admin-richtext-editor .ql-editor h2,
+.admin-richtext-editor .ql-editor h3 { color: #24211c !important; }
+.admin-richtext-editor .ql-editor.ql-blank::before { right: 16px; left: 16px; color: #777067; font-style: normal; text-align: right; }
+.admin-richtext-editor .ql-snow .ql-stroke { stroke: #51483c; }
+.admin-richtext-editor .ql-snow .ql-fill { fill: #51483c; }
+.admin-richtext-editor .ql-snow .ql-picker { color: #51483c; }
+.admin-richtext-editor .ql-snow .ql-picker-options { background: #fff; color: #24211c; }
+.admin-richtext-editor .ql-snow button:hover .ql-stroke,
+.admin-richtext-editor .ql-snow button.ql-active .ql-stroke { stroke: #9b741e; }
+
+/* Rich-text HTML from Quill is sanitized before rendering and styled like editorial article copy. */
+.blog-article-page .prose-content-has-html h1,
+.blog-article-page .prose-content-has-html h2,
+.blog-article-page .prose-content-has-html h3,
+.blog-article-page .prose-content-has-html h4,
+.blog-article-page .prose-content-has-html h5,
+.blog-article-page .prose-content-has-html h6 {
+  display: block; max-width: 100%; min-width: 0; overflow: visible; white-space: normal; text-overflow: clip;
+  margin: 2rem 0 .85rem; color: var(--fg); font-family: 'Peyda', sans-serif; font-weight: 800; line-height: 1.7;
+}
+.blog-article-page .prose-content-has-html h1 { font-size: clamp(1.45rem, 2.4vw, 2rem); }
+.blog-article-page .prose-content-has-html h2 { font-size: clamp(1.25rem, 2vw, 1.65rem); }
+.blog-article-page .prose-content-has-html h3,
+.blog-article-page .prose-content-has-html h4 { font-size: 1.12rem; }
+.blog-article-page .prose-content-has-html p,
+.blog-article-page .prose-content-has-html div,
+.blog-article-page .prose-content-has-html span { white-space: normal; overflow-wrap: anywhere; color: var(--fg-muted); }
+.blog-article-page .prose-content-has-html p { margin: 0 0 1.2rem; }
+.blog-article-page .prose-content-has-html ul,
+.blog-article-page .prose-content-has-html ol { margin: 0 0 1.25rem; padding-inline-start: 1.5rem; }
+.blog-article-page .prose-content-has-html ul { list-style: disc; }
+.blog-article-page .prose-content-has-html ol { list-style: decimal; }
+.blog-article-page .prose-content-has-html li { display: list-item; margin: .35rem 0; }
+.blog-article-page .prose-content-has-html strong,
+.blog-article-page .prose-content-has-html b { color: var(--fg); font-weight: 800; }
+.blog-article-page .prose-content-has-html blockquote { margin: 1.5rem 0; padding: .75rem 1rem; border-inline-start: 3px solid var(--accent); background: rgba(214,178,94,.07); border-radius: .5rem; }
+.blog-article-page .prose-content-has-html a { color: var(--accent-hover); text-decoration: underline; text-underline-offset: .2em; }
+.blog-article-page .prose-content-has-html img { display: block; width: auto; max-width: 100%; height: auto; margin: 1.5rem auto; border-radius: .85rem; }
+.blog-article-page .prose-content-has-html hr { margin: 1.5rem 0; border-color: var(--hairline); }
+.blog-article-page .prose-content-has-html pre { max-width: 100%; overflow-x: auto; padding: 1rem; border-radius: .75rem; background: rgba(255,255,255,.06); direction: ltr; text-align: left; }

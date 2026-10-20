@@ -54,7 +54,7 @@ function entityApi(name) {
 }
 
 const entityNames = [
-  'Product', 'Category', 'BlogPost', 'Award', 'GalleryImage',
+  'Product', 'Category', 'BlogPost', 'NewsPost', 'Award', 'GalleryImage',
   'Testimonial', 'ContactMessage', 'Order', 'SiteSettings', 'User',
   'PageSection',
 ];

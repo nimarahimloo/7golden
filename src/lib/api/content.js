@@ -78,14 +78,29 @@ function normalizeTestimonial(r) {
   };
 }
 
+function plainText(value) {
+  return String(value || '')
+    .replace(/<br\s*\/?\s*>/gi, ' ')
+    .replace(/<\/(?:p|h[1-6]|li|div|section)>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '\"')
+    .replace(/&#39;/gi, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function normalizeBlogPost(r) {
   return {
     id: r.slug || r.id,
     slug: r.slug,
     titleFA: r.title_fa,
     titleEN: r.title_en,
-    excerptFA: r.excerpt_fa,
-    excerptEN: r.excerpt_en,
+    excerptFA: plainText(r.excerpt_fa),
+    excerptEN: plainText(r.excerpt_en),
     content: r.content,
     date: r.date_fa,
     dateEN: r.date_en,

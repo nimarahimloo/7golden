@@ -10,7 +10,7 @@ if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 12 * 1024 * 1024 },
+  limits: { fileSize: 16 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     if (!/^image\//i.test(file.mimetype)) return cb(new Error('فقط تصویر مجاز است'));
     cb(null, true);
