@@ -12,6 +12,7 @@ import { SITE_SEO, productJsonLd } from '@/lib/seo';
 import Eyebrow from '@/components/ui/eyebrow';
 import Reveal from '@/components/story/Reveal';
 import Marquee from '@/components/story/Marquee';
+import RichArticleContent from '@/components/content/RichArticleContent';
 
 const CATEGORY_NAMES = {
   hazelnut: 'فندق',
@@ -40,27 +41,45 @@ export default function ProductDetail() {
   const loadData = async () => {
     try {
       const prod = await getProductBySlug(id);
+
       // @ts-ignore
       setProduct(prod);
+
       if (prod) {
         setMainImage(prod.image);
+
         const allProds = await getProducts();
+
         // @ts-ignore
-        setRelated(allProds.filter(p => p.id !== prod.id && p.category === prod.category).slice(0, 4));
+        setRelated(
+          allProds
+            .filter(
+              (p) => p.id !== prod.id && p.category === prod.category
+            )
+            .slice(0, 4)
+        );
       }
     } catch (e) {
-      // graceful
+      // Keep the existing graceful error handling.
     }
   };
 
   useEffect(() => {
     let active = true;
+
     setLoading(true);
+
     (async () => {
       await loadData();
-      if (active) setLoading(false);
+
+      if (active) {
+        setLoading(false);
+      }
     })();
-    return () => { active = false; };
+
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   if (loading) {
@@ -69,10 +88,25 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-20" style={{ background: 'var(--bg)' }}>
+      <div
+        className="min-h-screen flex items-center justify-center pt-20"
+        style={{ background: 'var(--bg)' }}
+      >
         <div className="text-center">
-          <p className="font-body text-lg mb-4" style={{ color: 'var(--fg-muted)' }}>محصول یافت نشد</p>
-          <Link to="/shop" className="font-body text-sm" style={{ color: 'var(--accent)' }}>بازگشت به محصولات</Link>
+          <p
+            className="font-body text-lg mb-4"
+            style={{ color: 'var(--fg-muted)' }}
+          >
+            محصول یافت نشد
+          </p>
+
+          <Link
+            to="/shop"
+            className="font-body text-sm"
+            style={{ color: 'var(--accent)' }}
+          >
+            بازگشت به محصولات
+          </Link>
         </div>
       </div>
     );
@@ -80,23 +114,35 @@ export default function ProductDetail() {
 
   // @ts-ignore
   const name = isFA ? product.nameFA : product.nameEN;
+
   // @ts-ignore
   const desc = isFA ? product.descFA : product.descEN;
+
   // @ts-ignore
   const origin = isFA ? product.originFA : product.originEN;
+
   // @ts-ignore
-  const gallery = product.gallery?.length > 0 ? product.gallery : [product.image];
+  const gallery =
+    product.gallery?.length > 0
+      ? product.gallery
+      : [product.image];
 
   const seoTitle = isFA
     ? `${name} — ${origin} | ${SITE_SEO.siteNameFA}`
     : `${name} — ${origin} | ${SITE_SEO.siteNameEN}`;
+
   // @ts-ignore
   const seoDesc = isFA ? product.descFA : product.descEN;
 
   return (
     <PullToRefresh onRefresh={loadData}>
-      <div dir="rtl" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-
+      <div
+        dir="rtl"
+        style={{
+          background: 'var(--bg)',
+          minHeight: '100vh',
+        }}
+      >
         <Seo
           title={seoTitle}
           description={seoDesc}
@@ -108,170 +154,290 @@ export default function ProductDetail() {
           jsonLd={productJsonLd(product)}
         />
 
-        {/* Main PDP — starts right under the header so the name, description,
-            specs and quote CTA are all visible without scrolling past a hero. */}
-        <div className="chapter" style={{ paddingTop: 'clamp(7rem, 12vw, 9.5rem)' }}>
+        {/* Main product detail page */}
+        <div
+          className="chapter"
+          style={{
+            paddingTop: 'clamp(7rem, 12vw, 9.5rem)',
+          }}
+        >
           <div className="chapter-shell">
             {/* Breadcrumb */}
-            <nav aria-label="مسیر صفحه" className="flex flex-wrap items-center gap-2 mb-8 font-body text-xs" style={{ color: '#fff' }}>
-              <Link to="/" className="transition-opacity hover:opacity-70">خانه</Link>
-              <ChevronLeft size={12} style={{ color: 'var(--gold-2)' }} />
-              <Link to="/shop" className="transition-opacity hover:opacity-70">محصولات</Link>
-              <ChevronLeft size={12} style={{ color: 'var(--gold-2)' }} />
-              <Link to={`/shop#${product.category}`} className="transition-opacity hover:opacity-70">
+            <nav
+              aria-label="مسیر صفحه"
+              className="flex flex-wrap items-center gap-2 mb-8 font-body text-xs"
+              style={{ color: '#fff' }}
+            >
+              <Link
+                to="/"
+                className="transition-opacity hover:opacity-70"
+              >
+                خانه
+              </Link>
+
+              <ChevronLeft
+                size={12}
+                style={{ color: 'var(--gold-2)' }}
+              />
+
+              <Link
+                to="/shop"
+                className="transition-opacity hover:opacity-70"
+              >
+                محصولات
+              </Link>
+
+              <ChevronLeft
+                size={12}
+                style={{ color: 'var(--gold-2)' }}
+              />
+
+              <Link
+                to={`/shop#${product.category}`}
+                className="transition-opacity hover:opacity-70"
+              >
                 {CATEGORY_NAMES[product.category] || 'محصول'}
               </Link>
-              <ChevronLeft size={12} style={{ color: 'var(--gold-2)' }} />
-              <span style={{ color: 'var(--gold-2)' }}>{name}</span>
+
+              <ChevronLeft
+                size={12}
+                style={{ color: 'var(--gold-2)' }}
+              />
+
+              <span style={{ color: 'var(--gold-2)' }}>
+                {name}
+              </span>
             </nav>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-
               {/* Left: Image Gallery */}
               <div className="lg:sticky lg:top-24 lg:self-start">
                 <div className="flex gap-4">
                   {/* Desktop vertical thumbnails */}
                   {gallery.length > 1 && (
                     <div className="hidden lg:flex flex-col gap-3">
-                      {gallery.map((
-                        // @ts-ignore
-                        img, i) => (
+                      {gallery.map((img, i) => (
                         <button
                           key={i}
                           onClick={() => setMainImage(img)}
                           className="w-20 h-20 rounded-2xl overflow-hidden cursor-pointer transition-all"
                           style={{
-                            // @ts-ignore
-                            border: (mainImage || product.image) === img ? '2px solid var(--accent)' : '1px solid var(--hairline)',
-                            // @ts-ignore
-                            opacity: (mainImage || product.image) === img ? 1 : 0.5,
+                            border:
+                              (mainImage || product.image) === img
+                                ? '2px solid var(--accent)'
+                                : '1px solid var(--hairline)',
+                            opacity:
+                              (mainImage || product.image) === img
+                                ? 1
+                                : 0.5,
                             background: 'rgba(0,0,0,0.2)',
                           }}
                         >
                           <Image
-                            // @ts-ignore
-                            src={img} alt={name} className="w-full h-full object-contain" fittingType="fit" />
+                            src={img}
+                            alt={name}
+                            className="w-full h-full object-contain"
+                            fittingType="fit"
+                          />
                         </button>
                       ))}
                     </div>
                   )}
-                  {/* Main image — large and clean */}
-                  <div
-                    className="flex-1 aspect-square relative"
-                  >
+
+                  {/* Main image */}
+                  <div className="flex-1 aspect-square relative">
                     <div className="absolute inset-0">
                       <Image
-                        // @ts-ignore
-                        src={mainImage || product.image} alt={name} className="w-full h-full object-contain" fittingType="fit" />
+                        src={mainImage || product.image}
+                        alt={name}
+                        className="w-full h-full object-contain"
+                        fittingType="fit"
+                      />
                     </div>
                   </div>
                 </div>
+
                 {/* Mobile horizontal thumbnails */}
                 {gallery.length > 1 && (
-                  <div className="flex lg:hidden gap-3 mt-4 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
-                    {gallery.map((
-                      // @ts-ignore
-                      img, i) => (
+                  <div
+                    className="flex lg:hidden gap-3 mt-4 overflow-x-auto"
+                    style={{ scrollbarWidth: 'none' }}
+                  >
+                    {gallery.map((img, i) => (
                       <button
                         key={i}
                         onClick={() => setMainImage(img)}
                         className="flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden cursor-pointer transition-all"
                         style={{
-                          // @ts-ignore
-                          border: (mainImage || product.image) === img ? '2px solid var(--accent)' : '1px solid var(--hairline)',
-                          // @ts-ignore
-                          opacity: (mainImage || product.image) === img ? 1 : 0.5,
+                          border:
+                            (mainImage || product.image) === img
+                              ? '2px solid var(--accent)'
+                              : '1px solid var(--hairline)',
+                          opacity:
+                            (mainImage || product.image) === img
+                              ? 1
+                              : 0.5,
                           background: 'rgba(0,0,0,0.2)',
                         }}
                       >
                         <Image
-                          // @ts-ignore
-                          src={img} alt={name} className="w-full h-full object-contain" fittingType="fit" />
+                          src={img}
+                          alt={name}
+                          className="w-full h-full object-contain"
+                          fittingType="fit"
+                        />
                       </button>
                     ))}
                   </div>
                 )}
               </div>
 
-              {/* Right: Details */}
+              {/* Right: Product Details */}
               <div className="flex flex-col gap-6">
-                {/* Name + description */}
+                {/* Product name */}
                 <Reveal variant="up">
                   <Eyebrow className="block mb-3">
                     {`${CATEGORY_NAMES[product.category] || 'محصول'} — ${origin}`}
                   </Eyebrow>
-                  <h1 className="display-lg leading-tight" style={{ color: 'var(--ink)' }}>
-                    <span className="gold-text">{name}</span>
+
+                  <h1
+                    className="display-lg leading-tight"
+                    style={{ color: 'var(--ink)' }}
+                  >
+                    <span className="gold-text">
+                      {name}
+                    </span>
                   </h1>
                 </Reveal>
 
-                {/* Full product description — plain markup so it is never hidden */}
+                {/* Product description: render HTML as formatted content */}
                 {desc && (
-                  <p className="font-body text-base md:text-lg leading-loose" style={{ color: '#fff' }}>
-                    {desc}
-                  </p>
+                  <RichArticleContent
+                    content={desc}
+                    title={name}
+                    className="product-rich-description"
+                  />
                 )}
 
                 {/* Business inquiry CTA */}
                 <Reveal variant="up" delay={120}>
                   <div className="p-5 rounded-2xl panel">
                     <div className="flex items-center gap-2 mb-3">
-                      <Phone size={16} style={{ color: 'var(--accent)' }} />
-                      <span className="font-heading font-extrabold text-sm" style={{ color: 'var(--fg)', fontFamily: headingFont, fontWeight: 700 }}>
-                        {isFA ? 'برای دریافت پیش‌فاکتور و نمونه تماس بگیرید' : 'Contact us for a quotation and samples'}
+                      <Phone
+                        size={16}
+                        style={{ color: 'var(--accent)' }}
+                      />
+
+                      <span
+                        className="font-heading font-extrabold text-sm"
+                        style={{
+                          color: 'var(--fg)',
+                          fontFamily: headingFont,
+                          fontWeight: 700,
+                        }}
+                      >
+                        {isFA
+                          ? 'برای دریافت پیش‌فاکتور و نمونه تماس بگیرید'
+                          : 'Contact us for a quotation and samples'}
                       </span>
                     </div>
+
                     <div className="flex flex-wrap gap-3">
                       <a
                         href="tel:+989121823438"
                         className="flex-1 py-3.5 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
-                        style={{ background: 'var(--accent)', color: '#14100A', boxShadow: '0 8px 32px rgba(212,175,55,0.3)' }}
+                        style={{
+                          background: 'var(--accent)',
+                          color: '#14100A',
+                          boxShadow: '0 8px 32px rgba(212,175,55,0.3)',
+                        }}
                       >
                         <Phone size={16} />
-                        {isFA ? 'تماس با بازرگانی' : 'Call the trade desk'}
+
+                        {isFA
+                          ? 'تماس با بازرگانی'
+                          : 'Call the trade desk'}
                       </a>
+
                       <Link
                         to="/contact"
                         className="flex-1 py-3.5 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
-                        style={{ background: 'rgba(0,0,0,0.2)', color: 'var(--fg)', border: '1px solid var(--hairline-strong)' }}
+                        style={{
+                          background: 'rgba(0,0,0,0.2)',
+                          color: 'var(--fg)',
+                          border: '1px solid var(--hairline-strong)',
+                        }}
                       >
-                        {isFA ? 'درخواست همکاری' : 'Send an inquiry'}
+                        {isFA
+                          ? 'درخواست همکاری'
+                          : 'Send an inquiry'}
                       </Link>
                     </div>
                   </div>
                 </Reveal>
 
-
-                <p className="font-body text-xs leading-relaxed py-4" style={{ borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)', color: 'var(--fg-muted)' }}>
+                {/* Packaging note */}
+                <p
+                  className="font-body text-xs leading-relaxed py-4"
+                  style={{
+                    borderTop: '1px solid var(--hairline)',
+                    borderBottom: '1px solid var(--hairline)',
+                    color: 'var(--fg-muted)',
+                  }}
+                >
                   موجودی هر گرید و جزئیات بسته‌بندی باید در زمان استعلام نهایی شود.
                 </p>
               </div>
             </div>
 
-            {/* ===== Per-product facts: uses, pack sizes, taste ===== */}
-{/* ===== Full-bleed origin band with gallery image ===== */}
-{/* Related Products */}
+            {/* Related Products */}
             {related.length > 0 && (
               <div className="mt-16">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="font-heading text-xl md:text-2xl font-black" style={{ color: 'var(--fg)', fontFamily: headingFont, fontWeight: 800 }}>
+                  <h2
+                    className="font-heading text-xl md:text-2xl font-black"
+                    style={{
+                      color: 'var(--fg)',
+                      fontFamily: headingFont,
+                      fontWeight: 800,
+                    }}
+                  >
                     {isFA ? 'سایر محصولات' : 'Other Products'}
                   </h2>
-                  <Link to="/shop" className="font-body text-xs flex items-center gap-1 transition-all hover:gap-2" style={{ color: 'var(--accent)' }}>
+
+                  <Link
+                    to="/shop"
+                    className="font-body text-xs flex items-center gap-1 transition-all hover:gap-2"
+                    style={{ color: 'var(--accent)' }}
+                  >
                     {isFA ? 'مشاهده همه' : 'View All'}
-                    <ChevronLeft size={14} style={{ transform: isFA ? 'scaleX(-1)' : 'none' }} />
+
+                    <ChevronLeft
+                      size={14}
+                      style={{
+                        transform: isFA ? 'scaleX(-1)' : 'none',
+                      }}
+                    />
                   </Link>
                 </div>
+
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-8 md:gap-x-8">
-                  {related.map(p => <ProductTile key={p.slug || p.id} product={p} />)}
+                  {related.map((p) => (
+                    <ProductTile
+                      key={p.slug || p.id}
+                      product={p}
+                    />
+                  ))}
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        <Marquee items={['فندق', 'پسته', 'بادام', 'صنایع غذایی']} />
+        <Marquee
+          items={['فندق', 'پسته', 'بادام', 'صنایع غذایی']}
+        />
       </div>
-    </PullToRefresh >
+    </PullToRefresh>
   );
 }
