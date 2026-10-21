@@ -269,10 +269,7 @@ export default function News() {
                 {usingCms && !loading && hasMore && !loadError && (
                   <div ref={sentinelRef} className="news-load-more-sentinel" aria-hidden="true" />
                 )}
-                {loadingMore && <p className="news-load-more-status" role="status">در حال دریافت خبرهای بیشتر…</p>}
-                {usingCms && !loading && !hasMore && filteredItems.length > 0 && (
-                  <p className="news-load-more-status">همهٔ خبرهای منتشرشده نمایش داده شدند.</p>
-                )}
+                {loadingMore && <p className="news-load-more-status" role="status">در حال دریافت اخباز بیشتر…</p>}
               </main>
 
               <aside className="news-sidebar" aria-label="ابزارها و دسته‌بندی اخبار">
@@ -322,7 +319,6 @@ export default function News() {
                 </section>
 
                 <div className="news-sidebar-cta">
-                  <span className="news-sidebar-kicker">واحد بازرگانی</span>
                   <h2>دربارهٔ محصول یا سفارش سؤال دارید؟</h2>
                   <p>نوع محصول، فرم موردنیاز و حجم تقریبی سفارش را بفرستید تا درخواست شما دقیق‌تر بررسی شود.</p>
                   <Link to="/contact">ارتباط با هفت طلایی <ArrowLeft size={15} /></Link>
