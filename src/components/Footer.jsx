@@ -55,12 +55,12 @@ export default function Footer() {
             <h2 className="mb-5 text-sm font-bold !text-white">ارتباط با هفت طلایی</h2>
             <nav className="flex flex-col items-start gap-4" aria-label="راه‌های تماس">
               {CONTACT_LINKS.map(({ id, label, href, Icon, display }) => (
-                <a key={id} href={href} className="group inline-flex items-center gap-3 text-sm text-white/70 transition-colors hover:text-[#d7b765]">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] transition-colors group-hover:border-[#c9a958]/50">
+                <a key={id} href={href} className="group inline-flex items-center gap-3 text-sm text-white transition-colors hover:text-[#d7b765]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white bg-white/[0.03] transition-colors group-hover:border-[#c9a958]/50">
                     <Icon size={16} aria-hidden="true" />
                   </span>
                   <span>{label}</span>
-                  <span dir="ltr" className="text-xs text-white/45">{display}</span>
+                  <span dir="ltr" className="text-xs text-white">{display}</span>
                 </a>
               ))}
             </nav>
@@ -79,7 +79,7 @@ export default function Footer() {
 
           <div>
             <h2 className="mb-3 text-sm font-bold !text-white">در ارتباط بمانیم</h2>
-            <p className="mb-5 max-w-sm text-xs leading-7 text-white/55">برای گفت‌وگو درباره محصولات و سفارش، از مسیرهای ارتباطی زیر استفاده کنید.</p>
+            <p className="mb-5 max-w-sm text-xs leading-7 text-white">برای گفت‌وگو درباره محصولات و سفارش، از مسیرهای ارتباطی زیر استفاده کنید.</p>
             <nav className="flex flex-wrap items-center gap-3" aria-label="شبکه‌های اجتماعی">
               {SOCIAL_LINKS.map((social) => {
                 const mark = social.icon
