@@ -29,7 +29,7 @@ export default function StoryChapter({
 
       {title && (
         <Reveal variant="blur" delay={80}>
-          <h2 className="display-lg max-w-3xl" style={{ color: 'var(--ink)' }}>{title}</h2>
+          <h2 className="display-lg" style={{ color: 'var(--ink)' }}>{title}</h2>
         </Reveal>
       )}
 
