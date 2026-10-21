@@ -23,14 +23,12 @@ import { usePageHero } from '@/lib/usePageHero';
 import { createContactMessage } from '@/lib/api/content';
 import Eyebrow from '@/components/ui/eyebrow';
 
-// اطلاعات تماس بر اساس صفحه ششم کاتالوگ هفت‌طلایی
 const CONTACT_INFO = {
-  officePhone: '۰۲۸ ۳۳۲۳ ۴۰۰۴',
-  officePhoneLink: 'tel:+982833234004',
+  officePhone: '۰۲۸ ۳۳۳۳ ۴۰۰۴',
+  officePhoneLink: 'tel:+982833334004',
 
   mobile: '۰۹۱۲ ۱۸۲ ۳۴۳۸',
   mobileLink: 'tel:+989121823438',
-
   whatsappLink: 'https://wa.me/989121823438',
 
   email: 'info@7golden.ir',
@@ -39,11 +37,10 @@ const CONTACT_INFO = {
   website: '7Golden.Co',
   websiteLink: 'https://7golden.co',
 
-  instagram: 'goldnuts7',
+  instagram: '@goldnuts7',
   instagramLink: 'https://www.instagram.com/goldnuts7/',
 };
 
-// اطلاعات کارت‌های تماس
 const CONTACT_CARDS = [
   {
     icon: Phone,
@@ -54,7 +51,7 @@ const CONTACT_CARDS = [
   },
   {
     icon: Phone,
-    label: 'موبایل',
+    label: 'موبایل / واتساپ',
     value: CONTACT_INFO.mobile,
     href: CONTACT_INFO.mobileLink,
     dir: 'ltr',
@@ -82,7 +79,6 @@ const CONTACT_CARDS = [
   },
 ];
 
-// آدرس‌های درج‌شده در کاتالوگ
 const CONTACT_ADDRESSES = [
   {
     title: 'دفتر مرکزی قزوین',
@@ -92,12 +88,12 @@ const CONTACT_ADDRESSES = [
   {
     title: 'دفتر تهران',
     address:
-      'مرزداران، فرشتگان، فرشته ۴، پلاک ۱۹',
+      'مرزداران، فرشتگان، فرشتگان ۴، پلاک ۱۹',
   },
   {
     title: 'کارخانه',
     address:
-      'قزوین، آبیک، کاسپین ۲، نبش کوچه ۲',
+      'قزوین، آبیک، شهرک صنعتی کاسپین ۲، نبش کوچه ۲',
   },
 ];
 
@@ -164,7 +160,7 @@ export default function Contact() {
     >
       <Seo
         title={`تماس با ${SITE_SEO.siteNameFA}`}
-        description="راه‌های ارتباط با خشکبار هفت‌طلایی؛ شماره تماس، ایمیل، آدرس دفاتر و کارخانه."
+        description="راه‌های ارتباط با خشکبار هفت‌طلایی؛ شماره تماس دفتر، موبایل، ایمیل، آدرس دفاتر و کارخانه."
         image={SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/contact`}
       />
@@ -195,9 +191,7 @@ export default function Contact() {
                 <a
                   href={card.href}
                   target={
-                    card.href.startsWith('http')
-                      ? '_blank'
-                      : undefined
+                    card.href.startsWith('http') ? '_blank' : undefined
                   }
                   rel={
                     card.href.startsWith('http')
@@ -232,7 +226,6 @@ export default function Contact() {
                     style={{
                       color: 'var(--fg)',
                       fontFamily: 'Peyda, serif',
-                      overflowWrap: 'anywhere',
                     }}
                   >
                     {card.value}
@@ -243,7 +236,7 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* Addresses + Contact Form */}
+        {/* Addresses + Form */}
         <div className="chapter-shell pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
@@ -306,14 +299,14 @@ export default function Contact() {
               <Reveal variant="up" delay={120}>
                 <ParallaxMedia
                   src="/img-6052.webp"
-                  alt="فضای مجموعه هفت‌طلایی"
+                  alt="فضای مجموعه هفت طلایی"
                   ratio="aspect-[16/9]"
                   className="rounded-3xl"
                   speed={0.2}
                 />
               </Reveal>
 
-              {/* Communication Channels */}
+              {/* Social & Contact Links */}
               <Reveal
                 variant="up"
                 delay={200}
@@ -331,11 +324,12 @@ export default function Contact() {
                   </h3>
 
                   <div className="flex flex-wrap gap-3">
+                    {/* WhatsApp */}
                     <a
                       href={CONTACT_INFO.whatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="ارتباط در واتساپ"
+                      aria-label="پیام در واتساپ"
                       title="واتساپ"
                       className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
                       style={{
@@ -349,6 +343,7 @@ export default function Contact() {
                       />
                     </a>
 
+                    {/* Phone */}
                     <a
                       href={CONTACT_INFO.mobileLink}
                       aria-label="تماس تلفنی"
@@ -365,6 +360,7 @@ export default function Contact() {
                       />
                     </a>
 
+                    {/* Email */}
                     <a
                       href={CONTACT_INFO.emailLink}
                       aria-label="ارسال ایمیل"
@@ -381,11 +377,12 @@ export default function Contact() {
                       />
                     </a>
 
+                    {/* Instagram */}
                     <a
                       href={CONTACT_INFO.instagramLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="صفحه اینستاگرام هفت‌طلایی"
+                      aria-label="صفحه اینستاگرام هفت طلایی"
                       title="اینستاگرام"
                       className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
                       style={{
@@ -399,11 +396,12 @@ export default function Contact() {
                       />
                     </a>
 
+                    {/* Website */}
                     <a
                       href={CONTACT_INFO.websiteLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="وب‌سایت هفت‌طلایی"
+                      aria-label="وب‌سایت هفت طلایی"
                       title="وب‌سایت"
                       className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all hover:scale-110"
                       style={{
@@ -474,24 +472,20 @@ export default function Contact() {
                           key: 'name',
                           type: 'text',
                           label: t('name'),
-                          autoComplete: 'name',
                         },
                         {
                           key: 'email',
                           type: 'email',
                           label: t('email'),
-                          autoComplete: 'email',
                         },
                         {
                           key: 'phone',
                           type: 'tel',
                           label: t('phone'),
-                          autoComplete: 'tel',
                         },
                       ].map((field) => (
                         <div key={field.key}>
                           <label
-                            htmlFor={`contact-${field.key}`}
                             className="font-body text-xs font-semibold block mb-1.5"
                             style={{ color: 'var(--fg)' }}
                           >
@@ -499,10 +493,15 @@ export default function Contact() {
                           </label>
 
                           <input
-                            id={`contact-${field.key}`}
-                            name={field.key}
                             type={field.type}
-                            autoComplete={field.autoComplete}
+                            name={field.key}
+                            autoComplete={
+                              field.key === 'name'
+                                ? 'name'
+                                : field.key === 'email'
+                                  ? 'email'
+                                  : 'tel'
+                            }
                             required={field.key === 'name'}
                             value={form[field.key]}
                             onChange={(e) =>
@@ -522,7 +521,6 @@ export default function Contact() {
 
                       <div>
                         <label
-                          htmlFor="contact-message"
                           className="font-body text-xs font-semibold block mb-1.5"
                           style={{ color: 'var(--fg)' }}
                         >
@@ -530,7 +528,6 @@ export default function Contact() {
                         </label>
 
                         <textarea
-                          id="contact-message"
                           name="message"
                           rows={4}
                           required
@@ -625,7 +622,7 @@ export default function Contact() {
                 className="font-body text-sm md:text-base"
                 style={{ color: 'var(--fg-muted)' }}
               >
-                کارخانه: قزوین، آبیک، کاسپین ۲، نبش کوچه ۲
+                کارخانه: قزوین، آبیک، شهرک صنعتی کاسپین ۲، نبش کوچه ۲
               </p>
             </Reveal>
 
@@ -648,15 +645,15 @@ export default function Contact() {
         {/* Factory Map */}
         <section
           className="map-band"
-          aria-label="نقشه موقعیت کارخانه هفت‌طلایی"
+          aria-label="موقعیت کارخانه هفت طلایی در شهرک صنعتی کاسپین ۲"
         >
           <div
             className="map-frame"
             data-loaded={mapLoaded ? 'true' : 'false'}
           >
             <iframe
-              title="موقعیت شهرک صنعتی کاسپین ۲ در قزوین، آبیک"
-              src="https://maps.google.com/maps?q=Caspian%20Industrial%20Park%202%2C%20Abyek%2C%20Qazvin%2C%20Iran&z=13&output=embed"
+              title="موقعیت کارخانه هفت طلایی در قزوین، آبیک، شهرک صنعتی کاسپین ۲"
+              src="https://maps.google.com/maps?q=Qazvin%2C%20Abyek%2C%20Caspian%20Industrial%20Park%202&z=13&output=embed"
               className="map-frame-iframe"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
