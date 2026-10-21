@@ -258,7 +258,6 @@ export default function Blog() {
         </div>
 
         {/* ===== Closing parallax band ===== */}
-        {!loading && posts.length > 0 && (
           <section className="closing-band" style={{ minHeight: '40vh' }}>
             <div className="closing-band-bg">
               <img src="/gallery/AQ8A1547AQ8A1547.webp" alt="" loading="lazy" decoding="async" />
@@ -279,8 +278,7 @@ export default function Blog() {
               </Reveal>
             </div>
           </section>
-        )}
-
+  
         <Marquee items={['پسته', 'بادام', 'فندق', 'فرآوری', 'کاربرد محصول', 'صنایع غذایی']} />
       </PullToRefresh>
     </div>
