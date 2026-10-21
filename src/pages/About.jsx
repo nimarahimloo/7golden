@@ -128,7 +128,7 @@ export default function About() {
           </div>
         </section>
 
-        <MaskText image="/gallery/AQ8A1628AQ8A1628.webp" text="QAZVIN" eyebrow="هفت طلایی · قزوین" />
+        <MaskText image="/peste.webp" text="7Golden" eyebrow="هفت طلایی · قزوین" />
 
         <section className="chapter" style={{ background: 'rgba(7, 6, 4, 0.5)' }}>
           <div className="chapter-shell">
