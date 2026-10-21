@@ -197,16 +197,16 @@ export default function HeroSlider({ cmsHero = null }) {
 
       <div className="luxury-hero-slides absolute bottom-0 left-0 right-0 z-20" aria-label="انتخاب اسلاید">
         <div className="chapter-shell flex gap-2 overflow-x-auto pb-3 sm:gap-3 sm:pb-4">
-        {slides.map((item, index) => (
-          <button key={item.image + '-dot-' + index} type="button" onClick={() => setCurrent(index)}
-            aria-label={'اسلاید ' + (index + 1) + ' از ' + slideCount}
-            aria-current={index === current ? 'true' : undefined}
-            className={'luxury-hero-slide-button ' + (index === current ? 'is-active' : '')}
-          >
-            <img src={item.image} alt="" loading="lazy" decoding="async" />
-            <span><b>{String(index + 1).padStart(2, '0')}</b><em>{item.badge}</em></span>
-          </button>
-        ))}
+          {slides.map((item, index) => (
+            <button key={item.image + '-dot-' + index} type="button" onClick={() => setCurrent(index)}
+              aria-label={'اسلاید ' + (index + 1) + ' از ' + slideCount}
+              aria-current={index === current ? 'true' : undefined}
+              className={'luxury-hero-slide-button ' + (index === current ? 'is-active' : '')}
+            >
+              <img src={item.image} alt="" loading="lazy" decoding="async" />
+              <span><b>{String(index + 1).padStart(2, '0')}</b><em>{item.badge}</em></span>
+            </button>
+          ))}
         </div>
       </div>
     </section>
