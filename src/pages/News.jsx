@@ -183,7 +183,7 @@ export default function News() {
         <DynamicHeroSlider
           pageKey="news"
           fallback={{
-            image: hero?.image || FALLBACK_NEWS_IMAGE,
+            image: hero?.image,
             title: hero?.title || 'اخبار و اطلاعیه‌ها',
             subtitle: hero?.subtitle || 'خبرهای محصولات و اطلاعیه‌های هفت طلایی',
             badge: hero?.badge || 'اخبار',
