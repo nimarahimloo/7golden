@@ -1,0 +1,5818 @@
+{
+  "project_root": "/home/nima/Documents/GitHub/7Golden",
+  "read_only": true,
+  "source_files_found_by_extension": 254,
+  "text_files_scanned": 254,
+  "files_skipped_or_unreadable": 529,
+  "extension_counts": {
+    ".jsx": 158,
+    ".js": 41,
+    ".ts": 13,
+    ".py": 10,
+    ".css": 8,
+    ".json": 7,
+    ".md": 5,
+    ".html": 4,
+    ".yml": 3,
+    ".mjs": 2,
+    ".prisma": 1,
+    ".toml": 1,
+    "[no extension]": 1
+  },
+  "likely_relevant_file_count": 31,
+  "files_with_keyword_matches_count": 127,
+  "likely_relevant_files": [
+    {
+      "path": "apply_7golden_news_api_home_mosaic.py",
+      "classes": [],
+      "bytes": 108179
+    },
+    {
+      "path": "apply_7golden_news_api_home_mosaic_fixed.py",
+      "classes": [],
+      "bytes": 109059
+    },
+    {
+      "path": "apply_7golden_news_api_home_mosaic_fixed2.py",
+      "classes": [],
+      "bytes": 110441
+    },
+    {
+      "path": "audit_7golden_hero_slider.py",
+      "classes": [],
+      "bytes": 14340
+    },
+    {
+      "path": "backend/prisma/schema.prisma",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 5102
+    },
+    {
+      "path": "backend/prisma/seed.ts",
+      "classes": [
+        "likely_backend",
+        "likely_migration_or_seed"
+      ],
+      "bytes": 38304
+    },
+    {
+      "path": "backend/seed-catalog.mjs",
+      "classes": [
+        "likely_backend",
+        "likely_migration_or_seed"
+      ],
+      "bytes": 5059
+    },
+    {
+      "path": "backend/src/lib/prisma.ts",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 294
+    },
+    {
+      "path": "backend/src/routes/auth.ts",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 3093
+    },
+    {
+      "path": "backend/src/routes/content.ts",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 10852
+    },
+    {
+      "path": "backend/src/routes/entities.ts",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 8876
+    },
+    {
+      "path": "backend/src/routes/sitemap.ts",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 2920
+    },
+    {
+      "path": "backend/src/routes/upload.ts",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 2458
+    },
+    {
+      "path": "fix_7golden_admin_blog_upload.py",
+      "classes": [
+        "likely_admin"
+      ],
+      "bytes": 20185
+    },
+    {
+      "path": "src/api/base44Client.js",
+      "classes": [
+        "likely_frontend",
+        "likely_backend"
+      ],
+      "bytes": 4407
+    },
+    {
+      "path": "src/api/content.js",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 4932
+    },
+    {
+      "path": "src/components/CinematicHero.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 6080
+    },
+    {
+      "path": "src/components/DynamicHeroSlider.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 3788
+    },
+    {
+      "path": "src/components/HeroSlider.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 11298
+    },
+    {
+      "path": "src/components/PageHero.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 2095
+    },
+    {
+      "path": "src/components/ProtectedRoute.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 1069
+    },
+    {
+      "path": "src/components/admin/AdminErrorBoundary.jsx",
+      "classes": [
+        "likely_frontend",
+        "likely_admin"
+      ],
+      "bytes": 1056
+    },
+    {
+      "path": "src/components/admin/EntityCrud.jsx",
+      "classes": [
+        "likely_frontend",
+        "likely_admin"
+      ],
+      "bytes": 20511
+    },
+    {
+      "path": "src/components/admin/RichTextEditor.jsx",
+      "classes": [
+        "likely_frontend",
+        "likely_admin"
+      ],
+      "bytes": 756
+    },
+    {
+      "path": "src/components/admin/SiteModeToggle.jsx",
+      "classes": [
+        "likely_frontend",
+        "likely_admin"
+      ],
+      "bytes": 2840
+    },
+    {
+      "path": "src/components/home/HomeAwardsSlider.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 3065
+    },
+    {
+      "path": "src/components/ui/carousel.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 4821
+    },
+    {
+      "path": "src/components/ui/slider.jsx",
+      "classes": [
+        "likely_frontend"
+      ],
+      "bytes": 914
+    },
+    {
+      "path": "src/lib/api/content.js",
+      "classes": [
+        "likely_backend"
+      ],
+      "bytes": 8408
+    },
+    {
+      "path": "src/lib/usePageHero.js",
+      "classes": [],
+      "bytes": 1126
+    },
+    {
+      "path": "src/pages/Admin.jsx",
+      "classes": [
+        "likely_frontend",
+        "likely_admin"
+      ],
+      "bytes": 27517
+    }
+  ],
+  "high_signal_files": [
+    {
+      "path": "audit_7golden_hero_slider.py",
+      "score": 23,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "apply_7golden_news_api_home_mosaic.py",
+      "score": 19,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "apply_7golden_news_api_home_mosaic_fixed.py",
+      "score": 19,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "apply_7golden_news_api_home_mosaic_fixed2.py",
+      "score": 19,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "AGENTS.md",
+      "score": 18,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "apply_7golden_luxury_visual_refinement.py",
+      "score": 18,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "backend/prisma/seed.ts",
+      "score": 18,
+      "categories": [
+        "admin_and_content_management",
+        "database_and_models",
+        "migrations_and_seeders",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/components/HeroSlider.jsx",
+      "score": 15,
+      "categories": [
+        "api_and_routes",
+        "database_and_models",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/components/ui/carousel.jsx",
+      "score": 15,
+      "categories": [
+        "api_and_routes",
+        "database_and_models",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/pages/News.jsx",
+      "score": 14,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "migrations_and_seeders",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/styles/story.css",
+      "score": 14,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "apply_7golden_pagination_sidebar_fix.py",
+      "score": 13,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "backend/README.md",
+      "score": 13,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "docker-compose.base44.yml",
+      "score": 13,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "fix_7golden_admin_blog_upload.py",
+      "score": 12,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "backend/Dockerfile",
+      "score": 11,
+      "categories": [
+        "admin_and_content_management",
+        "database_and_models",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "backend/package.json",
+      "score": 11,
+      "categories": [
+        "admin_and_content_management",
+        "database_and_models",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "backend/src/routes/content.ts",
+      "score": 11,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/src/routes/entities.ts",
+      "score": 11,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "package.json",
+      "score": 11,
+      "categories": [
+        "api_and_routes",
+        "database_and_models",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/components/CinematicHero.jsx",
+      "score": 11,
+      "categories": [
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/components/DynamicHeroSlider.jsx",
+      "score": 11,
+      "categories": [
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/components/admin/EntityCrud.jsx",
+      "score": 11,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/pages/Admin.jsx",
+      "score": 11,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "src/pages/Shop.jsx",
+      "score": 11,
+      "categories": [
+        "api_and_routes",
+        "migrations_and_seeders",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "fix_7golden_rich_content_home_media.py",
+      "score": 10,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "migrations_and_seeders",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "src/pages/Blog.jsx",
+      "score": 10,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/pages/Home.jsx",
+      "score": 10,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "README.md",
+      "score": 9,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "apply_7golden_news_blog_followup.py",
+      "score": 9,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "migrations_and_seeders"
+      ]
+    },
+    {
+      "path": "backend/HOW_TO_RUN.md",
+      "score": 9,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/src/lib/serialize.ts",
+      "score": 9,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "base44Client.js",
+      "score": 9,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/MainProducts.jsx",
+      "score": 9,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/src/routes/auth.ts",
+      "score": 8,
+      "categories": [
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/src/routes/sitemap.ts",
+      "score": 8,
+      "categories": [
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/src/routes/upload.ts",
+      "score": 8,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "index.html",
+      "score": 8,
+      "categories": [
+        "admin_and_content_management",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/components/ui/slider.jsx",
+      "score": 8,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/lib/editorial-blog-content.js",
+      "score": 8,
+      "categories": [
+        "admin_and_content_management",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "apply_7golden_news_blog_fixes.py",
+      "score": 7,
+      "categories": [
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "backend/src/middleware/auth.ts",
+      "score": 7,
+      "categories": [
+        "admin_and_content_management",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/BusinessCTA.jsx",
+      "score": 7,
+      "categories": [
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/pages/Contact.jsx",
+      "score": 7,
+      "categories": [
+        "api_and_routes",
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "backend/prisma/schema.prisma",
+      "score": 6,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/seed-catalog.mjs",
+      "score": 6,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/MobileMenu.jsx",
+      "score": 6,
+      "categories": [
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/Navbar.jsx",
+      "score": 6,
+      "categories": [
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/home/HomeAwardsSlider.jsx",
+      "score": 6,
+      "categories": [
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/components/story/VitrineScroll.jsx",
+      "score": 6,
+      "categories": [
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/lib/seo.js",
+      "score": 6,
+      "categories": [
+        "api_and_routes",
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/lib/usePageHero.js",
+      "score": 6,
+      "categories": [
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/pages/BlogPost.jsx",
+      "score": 6,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "DOCKER.md",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "backend/src/app.ts",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "docker-compose.yml",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/App.jsx",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/api/base44Client.js",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/components/admin/AdminErrorBoundary.jsx",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management"
+      ]
+    },
+    {
+      "path": "src/components/admin/RichTextEditor.jsx",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management"
+      ]
+    },
+    {
+      "path": "src/components/home/HomeMagazine.jsx",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/lib/AppContext.jsx",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/lib/PageNotFound.jsx",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/lib/home-media.js",
+      "score": 5,
+      "categories": [
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/lib/news-content.js",
+      "score": 5,
+      "categories": [
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "src/pages/About.jsx",
+      "score": 5,
+      "categories": [
+        "slide_content_and_frontend"
+      ]
+    },
+    {
+      "path": "vite.config.js",
+      "score": 5,
+      "categories": [
+        "admin_and_content_management",
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "backend/fix-desc.mjs",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/src/lib/prisma.ts",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "backend/tsconfig.json",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/ProtectedRoute.jsx",
+      "score": 4,
+      "categories": [
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/components/admin/SiteModeToggle.jsx",
+      "score": 4,
+      "categories": [
+        "api_and_routes"
+      ]
+    },
+    {
+      "path": "src/components/content/RichArticleContent.jsx",
+      "score": 4,
+      "categories": [
+        "admin_and_content_management",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "src/components/home/HomeVideoShowcase.jsx",
+      "score": 4,
+      "categories": [
+        "admin_and_content_management",
+        "test_and_ci"
+      ]
+    },
+    {
+      "path": "src/components/ui/alert-dialog.jsx",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/ui/context-menu.jsx",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/ui/dialog.jsx",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/ui/dropdown-menu.jsx",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/ui/hover-card.jsx",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    },
+    {
+      "path": "src/components/ui/menubar.jsx",
+      "score": 4,
+      "categories": [
+        "database_and_models"
+      ]
+    }
+  ],
+  "manifest_and_config_files": [
+    {
+      "path": "docker-compose.yml",
+      "bytes": 1566
+    },
+    {
+      "path": "package.json",
+      "bytes": 3168
+    },
+    {
+      "path": "backend/Dockerfile",
+      "bytes": 592
+    },
+    {
+      "path": "backend/package.json",
+      "bytes": 917
+    },
+    {
+      "path": "backend/prisma/schema.prisma",
+      "bytes": 5102
+    }
+  ],
+  "reference_asset_mentions": {
+    "Hero-Banner-main.webp": 4,
+    "HeroBanner-1.webp": 4,
+    "Hero-banner-2.webp": 4,
+    "tray-pistachio-almond.webp": 20,
+    "hazelnut-spoon.webp": 10,
+    "hero-nuts-bowl.webp": 8
+  },
+  "keyword_matches_by_file": {
+    ".github/workflows/deploy.yml": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 50,
+            "text": "- name: Upload build artifact"
+          },
+          {
+            "line": 51,
+            "text": "uses: actions/upload-artifact@v4"
+          }
+        ]
+      }
+    ],
+    "AGENTS.md": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 60,
+            "text": "- The home product band is three separate self-moving rows, one per category (پسته / بادام / فندق), each a `ProductLineRow`. (A single navigable arrow/dot carousel was tried and removed — the user wants per-cat"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 5,
+            "text": "All frontend API calls use relative `/api/*` and `/uploads/*` URLs, proxied to the backend through Vite's `server.proxy` config (single-origin approach). No direct browser-to-backend calls."
+          },
+          {
+            "line": 23,
+            "text": "- Entity routes (admin): `/api/entities/:EntityName` (PascalCase: Product, Category, BlogPost, etc.)"
+          },
+          {
+            "line": 25,
+            "text": "- Admin login: `admin@7golden.co` / `admin123`"
+          },
+          {
+            "line": 47,
+            "text": "- Single-origin wiring: Vite dev server proxies `/api` and `/uploads` to the backend container. Only port 3000 is public."
+          },
+          {
+            "line": 49,
+            "text": "- Admin login: `admin@7golden.co` / `admin123`"
+          },
+          {
+            "line": 66,
+            "text": "- Studio food photography downloaded from the user into `public/banner/` (hero-nuts-bowl, banner-spoons-set, almond-milk, hazelnut-bowl, pistachio-dishes-teal, banner-four-bowls, hero-chopped-scoop, product-nut"
+          },
+          {
+            "line": 69,
+            "text": "Current public home-page structure is defined in `src/pages/Home.jsx`. Product rows appear only when real API products exist; awards come from published CMS records and are omitted if none are available; the ap"
+          },
+          {
+            "line": 100,
+            "text": "## CMS and seed data safety"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 5,
+            "text": "All frontend API calls use relative `/api/*` and `/uploads/*` URLs, proxied to the backend through Vite's `server.proxy` config (single-origin approach). No direct browser-to-backend calls."
+          },
+          {
+            "line": 20,
+            "text": "## Backend API"
+          },
+          {
+            "line": 21,
+            "text": "- Health: `GET /api/health`"
+          },
+          {
+            "line": 22,
+            "text": "- Content routes (public): `/api/products`, `/api/categories`, `/api/testimonials`, `/api/blog`, `/api/gallery`, `/api/awards`, `/api/settings`, `/api/contact`, `/api/orders`"
+          },
+          {
+            "line": 23,
+            "text": "- Entity routes (admin): `/api/entities/:EntityName` (PascalCase: Product, Category, BlogPost, etc.)"
+          },
+          {
+            "line": 24,
+            "text": "- Auth: `/api/auth/login`, `/api/auth/register`"
+          },
+          {
+            "line": 44,
+            "text": "- API health: `curl http://localhost:3000/api/health` (proxied to backend:3001)"
+          },
+          {
+            "line": 47,
+            "text": "- Single-origin wiring: Vite dev server proxies `/api` and `/uploads` to the backend container. Only port 3000 is public."
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 4,
+            "text": "Fullstack app: Vite + React frontend (port 5173 → mapped to host 3000) + Express/Prisma backend (port 3001) + PostgreSQL 16."
+          },
+          {
+            "line": 12,
+            "text": "- **backend**: node:22-alpine, bind-mounts `./backend`, installs deps + `apk add openssl` on startup, runs `prisma generate && prisma db push && seed`, then `tsx watch src/index.ts` (live reload)"
+          },
+          {
+            "line": 16,
+            "text": "1. **Seed/schema mismatch**: `backend/prisma/seed.ts` referenced `_en` fields (site_name_en, name_en, desc_en, etc.) that don't exist in `schema.prisma` (only `_fa` fields exist). Removed all `_en` fields from "
+          },
+          {
+            "line": 23,
+            "text": "- Entity routes (admin): `/api/entities/:EntityName` (PascalCase: Product, Category, BlogPost, etc.)"
+          },
+          {
+            "line": 31,
+            "text": "- `backend/schema.prisma` (root-level copy) is identical to `backend/prisma/schema.prisma`"
+          },
+          {
+            "line": 36,
+            "text": "- **Backend:** Node.js + Express + Prisma + JWT (port 3001, internal only)"
+          },
+          {
+            "line": 53,
+            "text": "- Backend startup: `npm install → prisma generate → prisma db push → seed → tsx watch`"
+          },
+          {
+            "line": 58,
+            "text": "- Home product marquees (`ProductLineRow`) were blank for several seconds and the middle row often lagged: `ProductTile` hardcoded `loading=\"lazy\"`, so the below-the-fold slider images only began downloading on"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 12,
+            "text": "- **backend**: node:22-alpine, bind-mounts `./backend`, installs deps + `apk add openssl` on startup, runs `prisma generate && prisma db push && seed`, then `tsx watch src/index.ts` (live reload)"
+          },
+          {
+            "line": 16,
+            "text": "1. **Seed/schema mismatch**: `backend/prisma/seed.ts` referenced `_en` fields (site_name_en, name_en, desc_en, etc.) that don't exist in `schema.prisma` (only `_fa` fields exist). Removed all `_en` fields from "
+          },
+          {
+            "line": 33,
+            "text": "- `.bak` files exist throughout (seed.ts.bak, content.js.bak, etc.) — safe to ignore"
+          },
+          {
+            "line": 53,
+            "text": "- Backend startup: `npm install → prisma generate → prisma db push → seed → tsx watch`"
+          },
+          {
+            "line": 61,
+            "text": "- `backend/prisma/seed.ts` was out of sync with `schema.prisma` (referenced removed `_en` fields). Fixed to match the current schema (Persian-only fields)."
+          },
+          {
+            "line": 62,
+            "text": "- `backend/prisma/seed.ts` had a syntax error in the testimonial block (a `create({ data: {...} })` was incorrectly extended with extra object literals, causing `Expected identifier but found \"{\"`). Fixed by sw"
+          },
+          {
+            "line": 63,
+            "text": "- `backend/prisma/seed.ts` is now populated with the real 7golden catalog: 20 products (pistachio/almond/hazelnut), 3 categories, and 4 blog posts with Persian content migrated from the old WordPress site expor"
+          },
+          {
+            "line": 100,
+            "text": "## CMS and seed data safety"
+          }
+        ]
+      }
+    ],
+    "AuthContext.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { base44 } from '@/api/base44Client';"
+          }
+        ]
+      }
+    ],
+    "DOCKER.md": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 15,
+            "text": "- ایمیل: `admin@7golden.co`"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 12,
+            "text": "- Health: http://localhost:3001/api/health"
+          },
+          {
+            "line": 44,
+            "text": "Vite درخواست‌های `/api` را به `localhost:3001` پروکسی می‌کند."
+          },
+          {
+            "line": 48,
+            "text": "- **فرانت:** `src/api/base44Client.js` فقط به API محلی متصل است. هیچ پکیج `@base44/*` در پروژه باقی نمانده."
+          }
+        ]
+      }
+    ],
+    "README.md": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 20,
+            "text": "ادمین API: `admin@7golden.co` / `admin123`"
+          },
+          {
+            "line": 59,
+            "text": "- فایل‌های آپلود در `UPLOAD_DIR` (یا S3) ذخیره می‌شوند."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 6,
+            "text": "- **Frontend:** React + Vite (proxy `/api` → backend)"
+          },
+          {
+            "line": 20,
+            "text": "ادمین API: `admin@7golden.co` / `admin123`"
+          },
+          {
+            "line": 53,
+            "text": "- **فرانت:** `src/api/base44Client.js` فقط به API محلی (`/api/*`) وصل می‌شود. هیچ پکیج `@base44/*` باقی نمانده."
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 7,
+            "text": "- **Backend:** Node.js + Express + Prisma + JWT"
+          }
+        ]
+      }
+    ],
+    "apply_7golden_luxury_visual_refinement.py": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 334,
+            "text": "image: '/banner/Hero-Banner-main.webp',"
+          },
+          {
+            "line": 335,
+            "text": "imagePosition: 'center 52%',"
+          },
+          {
+            "line": 342,
+            "text": "image: '/banner/HeroBanner-1.webp',"
+          },
+          {
+            "line": 343,
+            "text": "imagePosition: 'center 52%',"
+          },
+          {
+            "line": 350,
+            "text": "image: '/banner/Hero-banner-2.webp',"
+          },
+          {
+            "line": 351,
+            "text": "imagePosition: 'center 54%',"
+          },
+          {
+            "line": 415,
+            "text": "if \"const BASE_SLIDES\" not in content:"
+          },
+          {
+            "line": 416,
+            "text": "raise RuntimeError(\"Could not find BASE_SLIDES in src/components/HeroSlider.jsx.\")"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 22,
+            "text": "\"public/migrated/https___7golden.co_wp-content_uploads_2023_08_logo-white.webp\","
+          },
+          {
+            "line": 438,
+            "text": "f\"{indent}// Show a deliberately small five-item selection on the homepage; the admin ordering decides which items lead.\\n\""
+          },
+          {
+            "line": 443,
+            "text": "# Navigation and lightbox should only cycle the actually shown selection; other archive assets remain in CMS."
+          },
+          {
+            "line": 465,
+            "text": "# Keep section copy truthful and calmer when no CMS subtitle has been provided."
+          },
+          {
+            "line": 557,
+            "text": "mark_only = root / \"public/migrated/https___7golden.co_wp-content_uploads_2023_08_logo.webp\""
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 5,
+            "text": "No database, seed, generated API, or user content files are touched."
+          },
+          {
+            "line": 25,
+            "text": "EDITORIAL_CARD = r'''import { Link } from 'react-router-dom';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 421,
+            "text": "additions = [slide for slide in SLIDES if slide.split(\"image: '\", 1)[1].split(\"'\", 1)[0] not in body]"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 5,
+            "text": "No database, seed, generated API, or user content files are touched."
+          }
+        ]
+      }
+    ],
+    "apply_7golden_news_api_home_mosaic.py": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 37,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 216,
+            "text": "<DynamicHeroSlider"
+          },
+          {
+            "line": 432,
+            "text": "{ id: 'video-showroom-1', title: 'محصولات از نزدیک', url: '/video/showroom-1.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 435,
+            "text": "{ id: 'video-showroom-2', title: 'نمایشگاه محصولات', url: '/video/showroom-2.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 438,
+            "text": "{ id: 'video-showroom-3', title: 'محصولات و نمایشگاه', url: '/video/showroom-3.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 439,
+            "text": "{ id: 'video-showroom-4', title: 'مجموعه محصولات', url: '/video/showroom-4.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 1178,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          },
+          {
+            "line": 1201,
+            "text": "{ section_key: 'hero', title_fa: 'خشکبار هفت طلایی', subtitle_fa: 'فرآوری فندق، پسته و بادام برای صنایع غذایی؛ با سابقه فعالیت کارگاهی از سال ۱۳۷۷.', badge_fa: 'هفت طلایی · قزوین', image: '/banner/hero-nuts-bow"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Apply the 7Golden newsroom/CMS and homepage media mosaic fix."
+          },
+          {
+            "line": 11,
+            "text": "updates so admin edits are preserved."
+          },
+          {
+            "line": 176,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          },
+          {
+            "line": 740,
+            "text": "<StoryChapter index=\"08\" eyebrow={section.badge_fa || 'MAGAZINE · مجله'} title={section.title_fa || 'دانش کاربردی برای انتخاب بهتر'} lead={section.subtitle_fa || 'مقاله‌های منتشرشدهٔ وبلاگ هفت طلایی؛ بدون جایگز"
+          },
+          {
+            "line": 894,
+            "text": "content = content.replace(\"    if (req.user?.role !== 'admin') where.slug = { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS };\\n\", \"\")"
+          },
+          {
+            "line": 897,
+            "text": "\"    if (req.user?.role !== 'admin' && UNVERIFIED_LEGACY_BLOG_SLUGS.includes(req.params.slug)) {\\n      return res.status(404).json({ error: 'Not found' });\\n    }\\n\","
+          },
+          {
+            "line": 899,
+            "text": "\"public article detail honors CMS publish status\","
+          },
+          {
+            "line": 986,
+            "text": "// homepage can honor an admin's hide toggle without leaking hidden copy/media."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 35,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 45,
+            "text": "import { getNewsMeta, getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 176,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          },
+          {
+            "line": 653,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 657,
+            "text": "import { getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 716,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 720,
+            "text": "import { getBlogPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 887,
+            "text": "content = replace_once(content, \"  serializeGeneric,\\n  normalizeRowMedia,\", \"  serializeGeneric,\\n  serializeNewsPost,\\n  normalizeRowMedia,\", \"NewsPost routes serializer import\")"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 9,
+            "text": "runs Prisma seed, drops tables, deletes records, or bulk-overwrites editorial data."
+          },
+          {
+            "line": 775,
+            "text": "\"model Award {\","
+          },
+          {
+            "line": 776,
+            "text": "\"\"\"model NewsPost {"
+          },
+          {
+            "line": 793,
+            "text": "model Award {\"\"\","
+          },
+          {
+            "line": 794,
+            "text": "\"NewsPost Prisma model\","
+          },
+          {
+            "line": 869,
+            "text": "content = replace_once(content, \"  | 'blogPost'\\n  | 'award'\", \"  | 'blogPost'\\n  | 'newsPost'\\n  | 'award'\", \"NewsPost entity type\")"
+          },
+          {
+            "line": 870,
+            "text": "content = replace_once(content, \"  BlogPost: 'blogPost',\\n  Award:\", \"  BlogPost: 'blogPost',\\n  NewsPost: 'newsPost',\\n  Award:\", \"NewsPost entity map\")"
+          },
+          {
+            "line": 874,
+            "text": "\"  if (entity === 'Product') out = serializeProduct(row);\\n  else if (entity === 'Order') out = serializeOrder(row);\\n  else out = serializeGeneric(row);\","
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 9,
+            "text": "runs Prisma seed, drops tables, deletes records, or bulk-overwrites editorial data."
+          },
+          {
+            "line": 10,
+            "text": "Schema changes are additive. Seed additions use create-if-missing/upsert with empty"
+          },
+          {
+            "line": 175,
+            "text": "// Preserve the seven existing editorial news items until the first database seed"
+          },
+          {
+            "line": 1127,
+            "text": "\"remove legacy slug array from seed\","
+          },
+          {
+            "line": 1132,
+            "text": "\"  // Do not rewrite BlogPost.published during seed. The admin's CMS publish state is authoritative.\\n\","
+          },
+          {
+            "line": 1133,
+            "text": "\"stop seed from undoing manual blog publication\","
+          },
+          {
+            "line": 1135,
+            "text": "seed_insert = r'''  // Seed the existing newsroom archive into its own NewsPost collection."
+          },
+          {
+            "line": 1136,
+            "text": "// Empty updates are deliberate: the seed initializes missing rows but never overwrites"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 507,
+            "text": "{nearViewport && <source src={item.url} type={/\\.mov(?:$|\\?)/i.test(item.url) ? 'video/quicktime' : 'video/mp4'} />}"
+          }
+        ]
+      }
+    ],
+    "apply_7golden_news_api_home_mosaic_fixed.py": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 37,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 216,
+            "text": "<DynamicHeroSlider"
+          },
+          {
+            "line": 432,
+            "text": "{ id: 'video-showroom-1', title: 'محصولات از نزدیک', url: '/video/showroom-1.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 435,
+            "text": "{ id: 'video-showroom-2', title: 'نمایشگاه محصولات', url: '/video/showroom-2.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 438,
+            "text": "{ id: 'video-showroom-3', title: 'محصولات و نمایشگاه', url: '/video/showroom-3.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 439,
+            "text": "{ id: 'video-showroom-4', title: 'مجموعه محصولات', url: '/video/showroom-4.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 1194,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          },
+          {
+            "line": 1217,
+            "text": "{ section_key: 'hero', title_fa: 'خشکبار هفت طلایی', subtitle_fa: 'فرآوری فندق، پسته و بادام برای صنایع غذایی؛ با سابقه فعالیت کارگاهی از سال ۱۳۷۷.', badge_fa: 'هفت طلایی · قزوین', image: '/banner/hero-nuts-bow"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Apply the 7Golden newsroom/CMS and homepage media mosaic fix."
+          },
+          {
+            "line": 11,
+            "text": "updates so admin edits are preserved."
+          },
+          {
+            "line": 176,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          },
+          {
+            "line": 740,
+            "text": "<StoryChapter index=\"08\" eyebrow={section.badge_fa || 'MAGAZINE · مجله'} title={section.title_fa || 'دانش کاربردی برای انتخاب بهتر'} lead={section.subtitle_fa || 'مقاله‌های منتشرشدهٔ وبلاگ هفت طلایی؛ بدون جایگز"
+          },
+          {
+            "line": 899,
+            "text": "r\"^\\s*if \\(req\\.user\\?\\.role !== 'admin'\\) where\\.slug = \\{ notIn: UNVERIFIED_LEGACY_BLOG_SLUGS \\};\\s*$\\n?\","
+          },
+          {
+            "line": 906,
+            "text": "r\"^\\s*if \\(req\\.user\\?\\.role !== 'admin' && UNVERIFIED_LEGACY_BLOG_SLUGS\\.includes\\(req\\.params\\.slug\\)\\) \\{\\s*return res\\.status\\(404\\)\\.json\\(\\{ error: 'Not found' \\}\\);\\s*\\}\\s*$\\n?\","
+          },
+          {
+            "line": 1002,
+            "text": "// homepage can honor an admin's hide toggle without leaking hidden copy/media."
+          },
+          {
+            "line": 1092,
+            "text": "content = replace_once(content, \"{active === 'gallery' && <MediaSection />}\\n\", \"{active === 'gallery' && <MediaSection />}\\n      {active === 'news' && <NewsAdminSection />}\\n\", \"News admin route\")"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 35,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 45,
+            "text": "import { getNewsMeta, getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 176,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          },
+          {
+            "line": 653,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 657,
+            "text": "import { getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 716,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 720,
+            "text": "import { getBlogPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 887,
+            "text": "content = replace_once(content, \"  serializeGeneric,\\n  normalizeRowMedia,\", \"  serializeGeneric,\\n  serializeNewsPost,\\n  normalizeRowMedia,\", \"NewsPost routes serializer import\")"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 9,
+            "text": "runs Prisma seed, drops tables, deletes records, or bulk-overwrites editorial data."
+          },
+          {
+            "line": 775,
+            "text": "\"model Award {\","
+          },
+          {
+            "line": 776,
+            "text": "\"\"\"model NewsPost {"
+          },
+          {
+            "line": 793,
+            "text": "model Award {\"\"\","
+          },
+          {
+            "line": 794,
+            "text": "\"NewsPost Prisma model\","
+          },
+          {
+            "line": 869,
+            "text": "content = replace_once(content, \"  | 'blogPost'\\n  | 'award'\", \"  | 'blogPost'\\n  | 'newsPost'\\n  | 'award'\", \"NewsPost entity type\")"
+          },
+          {
+            "line": 870,
+            "text": "content = replace_once(content, \"  BlogPost: 'blogPost',\\n  Award:\", \"  BlogPost: 'blogPost',\\n  NewsPost: 'newsPost',\\n  Award:\", \"NewsPost entity map\")"
+          },
+          {
+            "line": 874,
+            "text": "\"  if (entity === 'Product') out = serializeProduct(row);\\n  else if (entity === 'Order') out = serializeOrder(row);\\n  else out = serializeGeneric(row);\","
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 9,
+            "text": "runs Prisma seed, drops tables, deletes records, or bulk-overwrites editorial data."
+          },
+          {
+            "line": 10,
+            "text": "Schema changes are additive. Seed additions use create-if-missing/upsert with empty"
+          },
+          {
+            "line": 175,
+            "text": "// Preserve the seven existing editorial news items until the first database seed"
+          },
+          {
+            "line": 1143,
+            "text": "\"remove legacy slug array from seed\","
+          },
+          {
+            "line": 1148,
+            "text": "\"  // Do not rewrite BlogPost.published during seed. The admin's CMS publish state is authoritative.\\n\","
+          },
+          {
+            "line": 1149,
+            "text": "\"stop seed from undoing manual blog publication\","
+          },
+          {
+            "line": 1151,
+            "text": "seed_insert = r'''  // Seed the existing newsroom archive into its own NewsPost collection."
+          },
+          {
+            "line": 1152,
+            "text": "// Empty updates are deliberate: the seed initializes missing rows but never overwrites"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 507,
+            "text": "{nearViewport && <source src={item.url} type={/\\.mov(?:$|\\?)/i.test(item.url) ? 'video/quicktime' : 'video/mp4'} />}"
+          }
+        ]
+      }
+    ],
+    "apply_7golden_news_api_home_mosaic_fixed2.py": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 37,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 216,
+            "text": "<DynamicHeroSlider"
+          },
+          {
+            "line": 432,
+            "text": "{ id: 'video-showroom-1', title: 'محصولات از نزدیک', url: '/video/showroom-1.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 435,
+            "text": "{ id: 'video-showroom-2', title: 'نمایشگاه محصولات', url: '/video/showroom-2.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 438,
+            "text": "{ id: 'video-showroom-3', title: 'محصولات و نمایشگاه', url: '/video/showroom-3.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 439,
+            "text": "{ id: 'video-showroom-4', title: 'مجموعه محصولات', url: '/video/showroom-4.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 1222,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          },
+          {
+            "line": 1245,
+            "text": "{ section_key: 'hero', title_fa: 'خشکبار هفت طلایی', subtitle_fa: 'فرآوری فندق، پسته و بادام برای صنایع غذایی؛ با سابقه فعالیت کارگاهی از سال ۱۳۷۷.', badge_fa: 'هفت طلایی · قزوین', image: '/banner/hero-nuts-bow"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Apply the 7Golden newsroom/CMS and homepage media mosaic fix."
+          },
+          {
+            "line": 11,
+            "text": "updates so admin edits are preserved."
+          },
+          {
+            "line": 176,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          },
+          {
+            "line": 740,
+            "text": "<StoryChapter index=\"08\" eyebrow={section.badge_fa || 'MAGAZINE · مجله'} title={section.title_fa || 'دانش کاربردی برای انتخاب بهتر'} lead={section.subtitle_fa || 'مقاله‌های منتشرشدهٔ وبلاگ هفت طلایی؛ بدون جایگز"
+          },
+          {
+            "line": 902,
+            "text": "# quote style for the admin role, or whether the if body uses braces."
+          },
+          {
+            "line": 1030,
+            "text": "// homepage can honor an admin's hide toggle without leaking hidden copy/media."
+          },
+          {
+            "line": 1120,
+            "text": "content = replace_once(content, \"{active === 'gallery' && <MediaSection />}\\n\", \"{active === 'gallery' && <MediaSection />}\\n      {active === 'news' && <NewsAdminSection />}\\n\", \"News admin route\")"
+          },
+          {
+            "line": 1156,
+            "text": "content = replace_once(content, \"function BlogSection() {\", news_admin + \"function BlogSection() {\", \"insert News admin form\")"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 35,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 45,
+            "text": "import { getNewsMeta, getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 176,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          },
+          {
+            "line": 653,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 657,
+            "text": "import { getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 716,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 720,
+            "text": "import { getBlogPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 887,
+            "text": "content = replace_once(content, \"  serializeGeneric,\\n  normalizeRowMedia,\", \"  serializeGeneric,\\n  serializeNewsPost,\\n  normalizeRowMedia,\", \"NewsPost routes serializer import\")"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 9,
+            "text": "runs Prisma seed, drops tables, deletes records, or bulk-overwrites editorial data."
+          },
+          {
+            "line": 775,
+            "text": "\"model Award {\","
+          },
+          {
+            "line": 776,
+            "text": "\"\"\"model NewsPost {"
+          },
+          {
+            "line": 793,
+            "text": "model Award {\"\"\","
+          },
+          {
+            "line": 794,
+            "text": "\"NewsPost Prisma model\","
+          },
+          {
+            "line": 869,
+            "text": "content = replace_once(content, \"  | 'blogPost'\\n  | 'award'\", \"  | 'blogPost'\\n  | 'newsPost'\\n  | 'award'\", \"NewsPost entity type\")"
+          },
+          {
+            "line": 870,
+            "text": "content = replace_once(content, \"  BlogPost: 'blogPost',\\n  Award:\", \"  BlogPost: 'blogPost',\\n  NewsPost: 'newsPost',\\n  Award:\", \"NewsPost entity map\")"
+          },
+          {
+            "line": 874,
+            "text": "\"  if (entity === 'Product') out = serializeProduct(row);\\n  else if (entity === 'Order') out = serializeOrder(row);\\n  else out = serializeGeneric(row);\","
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 9,
+            "text": "runs Prisma seed, drops tables, deletes records, or bulk-overwrites editorial data."
+          },
+          {
+            "line": 10,
+            "text": "Schema changes are additive. Seed additions use create-if-missing/upsert with empty"
+          },
+          {
+            "line": 175,
+            "text": "// Preserve the seven existing editorial news items until the first database seed"
+          },
+          {
+            "line": 1171,
+            "text": "\"remove legacy slug array from seed\","
+          },
+          {
+            "line": 1176,
+            "text": "\"  // Do not rewrite BlogPost.published during seed. The admin's CMS publish state is authoritative.\\n\","
+          },
+          {
+            "line": 1177,
+            "text": "\"stop seed from undoing manual blog publication\","
+          },
+          {
+            "line": 1179,
+            "text": "seed_insert = r'''  // Seed the existing newsroom archive into its own NewsPost collection."
+          },
+          {
+            "line": 1180,
+            "text": "// Empty updates are deliberate: the seed initializes missing rows but never overwrites"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 507,
+            "text": "{nearViewport && <source src={item.url} type={/\\.mov(?:$|\\?)/i.test(item.url) ? 'video/quicktime' : 'video/mp4'} />}"
+          }
+        ]
+      }
+    ],
+    "apply_7golden_news_blog_fixes.py": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 19,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 80,
+            "text": "<DynamicHeroSlider"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 17,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 504,
+            "text": "/* Never wrap page or card titles on these editorial routes. Excerpts and article"
+          },
+          {
+            "line": 584,
+            "text": "'<Route path=\"/news/:slug\" element={<BlogPost />} />',"
+          },
+          {
+            "line": 585,
+            "text": "'<Route path=\"/news/:slug\" element={<NewsArticle />} />',"
+          },
+          {
+            "line": 586,
+            "text": "\"separate news detail route\","
+          }
+        ]
+      }
+    ],
+    "apply_7golden_news_blog_followup.py": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 10,
+            "text": "CMS content. It only updates frontend/API limits, the newsroom's data source, and"
+          },
+          {
+            "line": 37,
+            "text": "\"news CMS API import\","
+          },
+          {
+            "line": 75,
+            "text": "// Keep the verified newsroom notices visible, but signal a CMS/API failure."
+          },
+          {
+            "line": 84,
+            "text": "\"news CMS loading state\","
+          },
+          {
+            "line": 122,
+            "text": "source: 'cms',"
+          },
+          {
+            "line": 126,
+            "text": "// public CMS blog records. A matching slug is shown once, with CMS content first."
+          },
+          {
+            "line": 163,
+            "text": "content = replace_once(content, start, replacement, \"news items/categories derived from CMS + authored news\")"
+          },
+          {
+            "line": 180,
+            "text": "\"news CMS error status\","
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 10,
+            "text": "CMS content. It only updates frontend/API limits, the newsroom's data source, and"
+          },
+          {
+            "line": 36,
+            "text": "\"import { SITE_SEO } from '@/lib/seo';\\nimport { getBlogPosts } from '@/lib/api/content';\\n\","
+          },
+          {
+            "line": 37,
+            "text": "\"news CMS API import\","
+          },
+          {
+            "line": 75,
+            "text": "// Keep the verified newsroom notices visible, but signal a CMS/API failure."
+          },
+          {
+            "line": 223,
+            "text": "\"router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {\\n  try {\\n    const limit = Math.min(Number(req.query.limit) || 100, 500);\","
+          },
+          {
+            "line": 224,
+            "text": "\"router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {\\n  try {\\n    const limit = Math.min(Number(req.query.limit) || 500, 500);\","
+          },
+          {
+            "line": 417,
+            "text": "\"src/lib/api/content.js\": update_content_api,"
+          },
+          {
+            "line": 418,
+            "text": "\"backend/src/routes/content.ts\": update_backend_content_route,"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 9,
+            "text": "not connect to the database, run the seed, change published records, or overwrite"
+          },
+          {
+            "line": 447,
+            "text": "print(\"\\nNo database records or seed data were modified.\")"
+          }
+        ]
+      }
+    ],
+    "apply_7golden_pagination_sidebar_fix.py": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Safely fix 7Golden blog pagination, CMS-only articles, and editorial responsiveness."
+          },
+          {
+            "line": 10,
+            "text": "for CMS BlogPost records and an IntersectionObserver infinite-scroll loader."
+          },
+          {
+            "line": 36,
+            "text": "\"remove unneeded CMS newsroom hooks\","
+          },
+          {
+            "line": 42,
+            "text": "\"remove incorrect CMS blog import from newsroom\","
+          },
+          {
+            "line": 44,
+            "text": "# The helper was introduced solely to label CMS posts in /news."
+          },
+          {
+            "line": 49,
+            "text": "raise RuntimeError(\"Could not find the end of the temporary newsroom CMS label helper.\")"
+          },
+          {
+            "line": 52,
+            "text": "# Remove the temporary CMS state and fetch effect; keep active category/search state."
+          },
+          {
+            "line": 66,
+            "text": "raise RuntimeError(\"Could not locate the temporary CMS-driven newsroom data block.\")"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 40,
+            "text": "\"import { getBlogPosts } from '@/lib/api/content';\\n\","
+          },
+          {
+            "line": 112,
+            "text": "\"\"\"Do not let BlogPost CMS rows alter newsroom routes or category presentation.\"\"\""
+          },
+          {
+            "line": 159,
+            "text": "return replace_once(content, old, new, \"CMS blog API pagination and metadata\")"
+          },
+          {
+            "line": 164,
+            "text": "router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 180,
+            "text": "router.get('/blog/:slug', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 184,
+            "text": "router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 217,
+            "text": "// Keep this route before /blog/:slug so \"meta\" is not treated as an article slug."
+          },
+          {
+            "line": 218,
+            "text": "router.get('/blog/meta', optionalAuth, async (req: AuthRequest, res) => {"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 169,
+            "text": "const items = await prisma.blogPost.findMany({"
+          },
+          {
+            "line": 204,
+            "text": "const items = await prisma.blogPost.findMany({"
+          },
+          {
+            "line": 224,
+            "text": "prisma.blogPost.count({ where }),"
+          },
+          {
+            "line": 225,
+            "text": "prisma.blogPost.groupBy({"
+          },
+          {
+            "line": 764,
+            "text": "forbidden = [p for p in updated if p.name == \"seed.ts\" or p.name == \"schema.prisma\"]"
+          },
+          {
+            "line": 780,
+            "text": "print(\"Seed, Prisma schema, and existing database records were not modified.\")"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 8,
+            "text": "This patch does NOT run seeds, alter seed/schema files, delete database records, or"
+          },
+          {
+            "line": 763,
+            "text": "# Validate that this remains a frontend + API patch: seed and schema files are deliberately untouched."
+          },
+          {
+            "line": 764,
+            "text": "forbidden = [p for p in updated if p.name == \"seed.ts\" or p.name == \"schema.prisma\"]"
+          },
+          {
+            "line": 766,
+            "text": "raise RuntimeError(f\"Safety check failed; seed/schema files cannot be changed: {forbidden}\")"
+          },
+          {
+            "line": 771,
+            "text": "print(f\"Dry run passed: {len(updated)} files would change. Seed and schema are untouched.\")"
+          },
+          {
+            "line": 780,
+            "text": "print(\"Seed, Prisma schema, and existing database records were not modified.\")"
+          }
+        ]
+      }
+    ],
+    "audit_7golden_hero_slider.py": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Read-only inventory of 7Golden's hero slider/admin/database implementation."
+          },
+          {
+            "line": 5,
+            "text": "python3 audit_7golden_hero_slider.py /path/to/7golden --output hero-slider-audit.md"
+          },
+          {
+            "line": 48,
+            "text": "r\"HeroBanner-1\\.webp\", r\"Hero-banner-2\\.webp\", r\"imagePosition\","
+          },
+          {
+            "line": 49,
+            "text": "r\"hero.?slides?\", r\"hero.?slider\", r\"carousel\", r\"swiper\","
+          },
+          {
+            "line": 63,
+            "text": "r\"\\b(slide|slider|hero_slide|hero_slides)\\b\","
+          },
+          {
+            "line": 157,
+            "text": "path_signal = bool(re.search(r\"hero|slider|slide|carousel|admin|migration|seeder|seed|prisma|schema|route|controller|model|api\", rel, re.I))"
+          },
+          {
+            "line": 180,
+            "text": "\"hero-nuts-bowl.webp\", \"hazelnut-spoon.webp\", \"tray-pistachio-almond.webp\","
+          },
+          {
+            "line": 181,
+            "text": "\"Hero-Banner-main.webp\", \"HeroBanner-1.webp\", \"Hero-banner-2.webp\","
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Read-only inventory of 7Golden's hero slider/admin/database implementation."
+          },
+          {
+            "line": 25,
+            "text": "\".cache\", \"tmp\", \"temp\", \"storage\", \"uploads\", \"public/assets\","
+          },
+          {
+            "line": 51,
+            "text": "\"admin_and_content_management\": ["
+          },
+          {
+            "line": 53,
+            "text": "r\"manage.?slides?\", r\"upload\", r\"multipart/form-data\", r\"multer\","
+          },
+          {
+            "line": 100,
+            "text": "\"likely_admin\": (\"admin\", \"dashboard\", \"cms\", \"backoffice\"),"
+          },
+          {
+            "line": 157,
+            "text": "path_signal = bool(re.search(r\"hero|slider|slide|carousel|admin|migration|seeder|seed|prisma|schema|route|controller|model|api\", rel, re.I))"
+          },
+          {
+            "line": 197,
+            "text": "\"admin_and_content_management\": 3,"
+          },
+          {
+            "line": 205,
+            "text": "if re.search(r\"admin|migration|seeder|seed|schema|model|controller|route\", rel, re.I):"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 56,
+            "text": "r\"\\b(api|router|routes?)\\b\", r\"app\\.(get|post|put|patch|delete)\\s*\\(\","
+          },
+          {
+            "line": 57,
+            "text": "r\"router\\.(get|post|put|patch|delete)\\s*\\(\", r\"createRouter\","
+          },
+          {
+            "line": 58,
+            "text": "r\"NestFactory\", r\"Controller\\(\", r\"Route::(get|post|put|patch|delete)\","
+          },
+          {
+            "line": 101,
+            "text": "\"likely_backend\": (\"backend\", \"server\", \"api/\", \"routes/\", \"controllers\", \"services/\"),"
+          },
+          {
+            "line": 157,
+            "text": "path_signal = bool(re.search(r\"hero|slider|slide|carousel|admin|migration|seeder|seed|prisma|schema|route|controller|model|api\", rel, re.I))"
+          },
+          {
+            "line": 169,
+            "text": "snippet = re.sub(r\"(?i)(password|secret|token|api[_-]?key)\\s*[:=]\\s*[^,;\\s]+\", r\"\\1=[REDACTED]\", line.strip())"
+          },
+          {
+            "line": 205,
+            "text": "if re.search(r\"admin|migration|seeder|seed|schema|model|controller|route\", rel, re.I):"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Read-only inventory of 7Golden's hero slider/admin/database implementation."
+          },
+          {
+            "line": 5,
+            "text": "python3 audit_7golden_hero_slider.py /path/to/7golden --output hero-slider-audit.md"
+          },
+          {
+            "line": 36,
+            "text": "\".java\", \".kt\", \".sql\", \".prisma\", \".graphql\", \".gql\", \".sh\", \".xml\","
+          },
+          {
+            "line": 49,
+            "text": "r\"hero.?slides?\", r\"hero.?slider\", r\"carousel\", r\"swiper\","
+          },
+          {
+            "line": 52,
+            "text": "r\"\\badmin\\b\", r\"\\bCMS\\b\", r\"content.?management\", r\"slider.?management\","
+          },
+          {
+            "line": 61,
+            "text": "r\"\\b(prisma|sequelize|typeorm|mongoose|drizzle|knex)\\b\", r\"\\bmodel\\b\","
+          },
+          {
+            "line": 62,
+            "text": "r\"schema\\.prisma\", r\"CREATE TABLE\", r\"\\bmodels?/\", r\"\\bentity\\b\","
+          },
+          {
+            "line": 63,
+            "text": "r\"\\b(slide|slider|hero_slide|hero_slides)\\b\","
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 62,
+            "text": "r\"schema\\.prisma\", r\"CREATE TABLE\", r\"\\bmodels?/\", r\"\\bentity\\b\","
+          },
+          {
+            "line": 66,
+            "text": "r\"\\bmigrations?\\b\", r\"\\bseeders?\\b\", r\"\\bseed\\b\", r\"prisma\\s+db\\s+seed\","
+          },
+          {
+            "line": 67,
+            "text": "r\"MigrationInterface\", r\"Schema::create\", r\"CREATE TABLE\","
+          },
+          {
+            "line": 102,
+            "text": "\"likely_migration_or_seed\": (\"migration\", \"migrations\", \"seeder\", \"seeders\", \"/seed\", \"prisma/seed\"),"
+          },
+          {
+            "line": 157,
+            "text": "path_signal = bool(re.search(r\"hero|slider|slide|carousel|admin|migration|seeder|seed|prisma|schema|route|controller|model|api\", rel, re.I))"
+          },
+          {
+            "line": 205,
+            "text": "if re.search(r\"admin|migration|seeder|seed|schema|model|controller|route\", rel, re.I):"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 23,
+            "text": "\".next\", \".nuxt\", \".output\", \"coverage\", \"playwright-report\","
+          },
+          {
+            "line": 71,
+            "text": "r\"vitest\", r\"jest\", r\"playwright\", r\"\\.github/workflows\","
+          }
+        ]
+      }
+    ],
+    "backend/Dockerfile": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 15,
+            "text": "RUN mkdir -p /app/uploads"
+          },
+          {
+            "line": 20,
+            "text": "ENV UPLOAD_DIR=\"/app/uploads\""
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 10,
+            "text": "COPY prisma ./prisma"
+          },
+          {
+            "line": 14,
+            "text": "RUN npx prisma generate"
+          },
+          {
+            "line": 26,
+            "text": "CMD [\"sh\", \"-c\", \"npx prisma db push && npx tsx prisma/seed.ts; npx tsx src/index.ts\"]"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 26,
+            "text": "CMD [\"sh\", \"-c\", \"npx prisma db push && npx tsx prisma/seed.ts; npx tsx src/index.ts\"]"
+          }
+        ]
+      }
+    ],
+    "backend/HOW_TO_RUN.md": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 58,
+            "text": "- ایمیل: admin@7golden.co"
+          },
+          {
+            "line": 71,
+            "text": "- POST /api/upload (admin)"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 62,
+            "text": "- GET /api/health"
+          },
+          {
+            "line": 63,
+            "text": "- GET /api/products | /api/products/:slug"
+          },
+          {
+            "line": 64,
+            "text": "- GET /api/categories | /api/blog | /api/blog/:slug"
+          },
+          {
+            "line": 65,
+            "text": "- GET /api/testimonials | /api/gallery | /api/awards"
+          },
+          {
+            "line": 66,
+            "text": "- POST /api/contact"
+          },
+          {
+            "line": 67,
+            "text": "- GET /api/settings"
+          },
+          {
+            "line": 68,
+            "text": "- POST /api/orders | GET /api/orders"
+          },
+          {
+            "line": 69,
+            "text": "- /api/entities/:Entity  (CRUD)"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 41,
+            "text": "در `prisma/schema.prisma` موقتاً:"
+          },
+          {
+            "line": 43,
+            "text": "```prisma"
+          },
+          {
+            "line": 69,
+            "text": "- /api/entities/:Entity  (CRUD)"
+          }
+        ]
+      }
+    ],
+    "backend/README.md": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 14,
+            "text": "## Admin"
+          },
+          {
+            "line": 16,
+            "text": "- Email: `admin@7golden.co`"
+          },
+          {
+            "line": 38,
+            "text": "| GET | `/api/orders` | List (own or admin) |"
+          },
+          {
+            "line": 39,
+            "text": "| GET/POST/PUT/DELETE | `/api/entities/:Entity` | Generic CRUD (admin for writes) |"
+          },
+          {
+            "line": 40,
+            "text": "| POST | `/api/upload` | Admin file upload |"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3,
+            "text": "Standalone Express + Prisma API replacing Base44 for the 7Golden project."
+          },
+          {
+            "line": 23,
+            "text": "| GET | `/api/health` | Health check |"
+          },
+          {
+            "line": 24,
+            "text": "| POST | `/api/auth/register` | Register |"
+          },
+          {
+            "line": 25,
+            "text": "| POST | `/api/auth/login` | Login → `{ access_token, user }` |"
+          },
+          {
+            "line": 26,
+            "text": "| GET | `/api/auth/me` | Bearer token |"
+          },
+          {
+            "line": 27,
+            "text": "| GET | `/api/products` | Public published products |"
+          },
+          {
+            "line": 28,
+            "text": "| GET | `/api/products/:slug` | By slug |"
+          },
+          {
+            "line": 29,
+            "text": "| GET | `/api/categories` | Categories |"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 3,
+            "text": "Standalone Express + Prisma API replacing Base44 for the 7Golden project."
+          },
+          {
+            "line": 39,
+            "text": "| GET/POST/PUT/DELETE | `/api/entities/:Entity` | Generic CRUD (admin for writes) |"
+          },
+          {
+            "line": 45,
+            "text": "See `.env.example`. Default SQLite at `prisma/dev.db`. For production set `DATABASE_URL` to PostgreSQL."
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 10,
+            "text": "npm run db:setup   # generate + push schema + seed"
+          }
+        ]
+      }
+    ],
+    "backend/fix-desc.mjs": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { PrismaClient } from '@prisma/client';"
+          },
+          {
+            "line": 3,
+            "text": "const prisma = new PrismaClient();"
+          },
+          {
+            "line": 31,
+            "text": "const r = await prisma.product.updateMany({ where: { slug }, data: { desc_fa } });"
+          },
+          {
+            "line": 38,
+            "text": "main().catch((e) => { console.error(e); process.exit(1); }).finally(() => prisma.$disconnect());"
+          }
+        ]
+      }
+    ],
+    "backend/package.json": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 21,
+            "text": "\"multer\": \"^2.4.0\","
+          },
+          {
+            "line": 30,
+            "text": "\"@types/multer\": \"^1.4.12\","
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 9,
+            "text": "\"db:generate\": \"prisma generate\","
+          },
+          {
+            "line": 10,
+            "text": "\"db:push\": \"prisma db push\","
+          },
+          {
+            "line": 11,
+            "text": "\"db:seed\": \"tsx prisma/seed.ts\","
+          },
+          {
+            "line": 12,
+            "text": "\"db:setup\": \"prisma generate && prisma db push && tsx prisma/seed.ts\""
+          },
+          {
+            "line": 15,
+            "text": "\"@prisma/client\": \"^6.5.0\","
+          },
+          {
+            "line": 32,
+            "text": "\"prisma\": \"^6.5.0\","
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 11,
+            "text": "\"db:seed\": \"tsx prisma/seed.ts\","
+          },
+          {
+            "line": 12,
+            "text": "\"db:setup\": \"prisma generate && prisma db push && tsx prisma/seed.ts\""
+          }
+        ]
+      }
+    ],
+    "backend/prisma/schema.prisma": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "provider = \"prisma-client-js\""
+          },
+          {
+            "line": 10,
+            "text": "model User {"
+          },
+          {
+            "line": 22,
+            "text": "model Product {"
+          },
+          {
+            "line": 44,
+            "text": "model Category {"
+          },
+          {
+            "line": 55,
+            "text": "model BlogPost {"
+          },
+          {
+            "line": 70,
+            "text": "model NewsPost {"
+          },
+          {
+            "line": 87,
+            "text": "model Award {"
+          },
+          {
+            "line": 98,
+            "text": "model GalleryImage {"
+          }
+        ]
+      }
+    ],
+    "backend/prisma/seed.ts": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 570,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          },
+          {
+            "line": 593,
+            "text": "{ section_key: 'hero', title_fa: 'خشکبار هفت طلایی', subtitle_fa: 'فرآوری فندق، پسته و بادام برای صنایع غذایی؛ با سابقه فعالیت کارگاهی از سال ۱۳۷۷.', badge_fa: 'هفت طلایی · قزوین', image: '/banner/hero-nuts-bow"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 52,
+            "text": "where: { email: 'admin@7golden.co' },"
+          },
+          {
+            "line": 55,
+            "text": "email: 'admin@7golden.co',"
+          },
+          {
+            "line": 57,
+            "text": "name: 'Admin',"
+          },
+          {
+            "line": 58,
+            "text": "role: 'admin',"
+          },
+          {
+            "line": 62,
+            "text": "// ── Site Settings: initialize defaults once; preserve all later CMS edits ──"
+          },
+          {
+            "line": 415,
+            "text": "// Do not rewrite BlogPost.published during seed. The admin's CMS publish state is authoritative."
+          },
+          {
+            "line": 529,
+            "text": "// later title/body/publish edits made in the admin panel."
+          },
+          {
+            "line": 590,
+            "text": "// Create the homepage's editable section records once. Existing admin edits,"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { PrismaClient } from '@prisma/client';"
+          },
+          {
+            "line": 4,
+            "text": "const prisma = new PrismaClient();"
+          },
+          {
+            "line": 51,
+            "text": "await prisma.user.upsert({"
+          },
+          {
+            "line": 63,
+            "text": "const existingSettings = await prisma.siteSettings.findFirst();"
+          },
+          {
+            "line": 65,
+            "text": "await prisma.siteSettings.create({"
+          },
+          {
+            "line": 110,
+            "text": "await prisma.category.upsert({"
+          },
+          {
+            "line": 408,
+            "text": "await prisma.product.upsert({"
+          },
+          {
+            "line": 520,
+            "text": "await prisma.award.upsert({"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 415,
+            "text": "// Do not rewrite BlogPost.published during seed. The admin's CMS publish state is authoritative."
+          },
+          {
+            "line": 527,
+            "text": "// Seed the existing newsroom archive into its own NewsPost collection."
+          },
+          {
+            "line": 528,
+            "text": "// Empty updates are deliberate: the seed initializes missing rows but never overwrites"
+          },
+          {
+            "line": 591,
+            "text": "// including published=false, are never overwritten by this seed."
+          },
+          {
+            "line": 621,
+            "text": "console.log('Seed done. Admin: admin@7golden.co / admin123');"
+          }
+        ]
+      }
+    ],
+    "backend/seed-catalog.mjs": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { PrismaClient } from '@prisma/client';"
+          },
+          {
+            "line": 3,
+            "text": "const prisma = new PrismaClient();"
+          },
+          {
+            "line": 29,
+            "text": "await prisma.product.deleteMany({});"
+          },
+          {
+            "line": 31,
+            "text": "await prisma.product.create({"
+          },
+          {
+            "line": 58,
+            "text": "await prisma.category.upsert({"
+          },
+          {
+            "line": 64,
+            "text": "console.log('TOTAL', await prisma.product.count());"
+          },
+          {
+            "line": 69,
+            "text": ".finally(() => prisma.$disconnect());"
+          }
+        ]
+      }
+    ],
+    "backend/src/app.ts": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 7,
+            "text": "import uploadRoutes from './routes/upload.js';"
+          },
+          {
+            "line": 20,
+            "text": "const uploadsPath = path.resolve(process.env.UPLOAD_DIR || path.join(process.cwd(), 'uploads'));"
+          },
+          {
+            "line": 21,
+            "text": "app.use('/uploads', express.static(uploadsPath, { maxAge: '7d', fallthrough: false }));"
+          },
+          {
+            "line": 22,
+            "text": "console.log('Serving uploads from', uploadsPath);"
+          },
+          {
+            "line": 39,
+            "text": "app.use('/api/upload', uploadRoutes);"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 4,
+            "text": "import authRoutes from './routes/auth.js';"
+          },
+          {
+            "line": 5,
+            "text": "import entitiesRoutes from './routes/entities.js';"
+          },
+          {
+            "line": 6,
+            "text": "import contentRoutes from './routes/content.js';"
+          },
+          {
+            "line": 7,
+            "text": "import uploadRoutes from './routes/upload.js';"
+          },
+          {
+            "line": 8,
+            "text": "import sitemapRoutes from './routes/sitemap.js';"
+          },
+          {
+            "line": 24,
+            "text": "app.get('/api/health', (_req, res) => {"
+          },
+          {
+            "line": 29,
+            "text": "app.get('/api/apps/public/:env/public-settings/by-id/:id', (req, res) => {"
+          },
+          {
+            "line": 32,
+            "text": "app.get('/api/apps/:appId/public-settings', (_req, res) => {"
+          }
+        ]
+      }
+    ],
+    "backend/src/index.ts": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 8,
+            "text": "console.log(`Health: http://localhost:${PORT}/api/health`);"
+          }
+        ]
+      }
+    ],
+    "backend/src/lib/prisma.ts": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { PrismaClient } from '@prisma/client';"
+          },
+          {
+            "line": 3,
+            "text": "const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };"
+          },
+          {
+            "line": 5,
+            "text": "export const prisma = globalForPrisma.prisma ?? new PrismaClient();"
+          },
+          {
+            "line": 7,
+            "text": "if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;"
+          },
+          {
+            "line": 9,
+            "text": "export default prisma;"
+          }
+        ]
+      }
+    ],
+    "backend/src/lib/serialize.ts": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 59,
+            "text": "// corporate site: no shop fields required from admin"
+          },
+          {
+            "line": 102,
+            "text": "// map admin UI fields → schema"
+          },
+          {
+            "line": 118,
+            "text": "/** Force relative upload URLs (never :3001 public) */"
+          },
+          {
+            "line": 124,
+            "text": "if (u.startsWith('/uploads/') || u.startsWith('/product/') || u.startsWith('/banner/') || u.startsWith('/certificates/')) {"
+          },
+          {
+            "line": 128,
+            "text": "if (u.includes('/uploads/')) {"
+          },
+          {
+            "line": 129,
+            "text": "const i = u.indexOf('/uploads/');"
+          },
+          {
+            "line": 145,
+            "text": "/** On read: fix bad absolute upload URLs in API responses */"
+          },
+          {
+            "line": 201,
+            "text": "/** Map aliases from admin UI → schema names */"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "/** Parse JSON string fields back to objects for API responses */"
+          },
+          {
+            "line": 145,
+            "text": "/** On read: fix bad absolute upload URLs in API responses */"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 170,
+            "text": "/** Allowed writable fields per Prisma model (no id/timestamps) */"
+          },
+          {
+            "line": 202,
+            "text": "export function applyFieldAliases(entity: string, body: any) {"
+          },
+          {
+            "line": 204,
+            "text": "if (entity === 'SiteSettings') {"
+          },
+          {
+            "line": 219,
+            "text": "if (entity === 'BlogPost') {"
+          },
+          {
+            "line": 227,
+            "text": "if (entity === 'Testimonial') {"
+          },
+          {
+            "line": 234,
+            "text": "/** Keep only fields that exist on the model */"
+          },
+          {
+            "line": 235,
+            "text": "export function pickAllowedFields(entity: string, body: any) {"
+          },
+          {
+            "line": 236,
+            "text": "const allowed = ENTITY_WRITE_FIELDS[entity];"
+          }
+        ]
+      }
+    ],
+    "backend/src/middleware/auth.ts": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 38,
+            "text": "if (!req.user || req.user.role !== 'admin') {"
+          },
+          {
+            "line": 39,
+            "text": "return res.status(403).json({ error: 'Admin only' });"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import prisma from '../lib/prisma.js';"
+          },
+          {
+            "line": 29,
+            "text": "const user = await prisma.user.findUnique({ where: { id: payload.userId } });"
+          }
+        ]
+      }
+    ],
+    "backend/src/routes/auth.ts": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Router } from 'express';"
+          },
+          {
+            "line": 7,
+            "text": "const router = Router();"
+          },
+          {
+            "line": 15,
+            "text": "router.post('/register', async (req, res) => {"
+          },
+          {
+            "line": 41,
+            "text": "router.post('/login', async (req, res) => {"
+          },
+          {
+            "line": 59,
+            "text": "router.post('/logout', (_req, res) => {"
+          },
+          {
+            "line": 63,
+            "text": "router.get('/me', requireAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 69,
+            "text": "router.patch('/me', requireAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 82,
+            "text": "export default router;"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import prisma from '../lib/prisma.js';"
+          },
+          {
+            "line": 18,
+            "text": "const existing = await prisma.user.findUnique({ where: { email: body.email } });"
+          },
+          {
+            "line": 22,
+            "text": "const user = await prisma.user.create({"
+          },
+          {
+            "line": 44,
+            "text": "const user = await prisma.user.findUnique({ where: { email: body.email } });"
+          },
+          {
+            "line": 64,
+            "text": "const user = await prisma.user.findUnique({ where: { id: req.user!.id } });"
+          },
+          {
+            "line": 72,
+            "text": "const user = await prisma.user.update({"
+          }
+        ]
+      }
+    ],
+    "backend/src/routes/content.ts": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 63,
+            "text": "// Blog: the database/CMS is the source of truth. Pagination is offset-based,"
+          },
+          {
+            "line": 203,
+            "text": "if (req.user?.role !== 'admin') where.name_fa = { notIn: UNVERIFIED_TESTIMONIAL_NAMES };"
+          },
+          {
+            "line": 264,
+            "text": "// homepage can honor an admin's hide toggle without leaking hidden copy/media."
+          },
+          {
+            "line": 326,
+            "text": "if (req.user!.role !== 'admin') where.userId = req.user!.id;"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Router } from 'express';"
+          },
+          {
+            "line": 13,
+            "text": "const router = Router();"
+          },
+          {
+            "line": 24,
+            "text": "router.get('/products', async (req, res) => {"
+          },
+          {
+            "line": 41,
+            "text": "router.get('/products/:slug', async (req, res) => {"
+          },
+          {
+            "line": 54,
+            "text": "router.get('/categories', async (_req, res) => {"
+          },
+          {
+            "line": 65,
+            "text": "router.get('/blog', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 96,
+            "text": "// Keep this route before /blog/:slug so \"meta\" is not treated as an article slug."
+          },
+          {
+            "line": 97,
+            "text": "router.get('/blog/meta', optionalAuth, async (req: AuthRequest, res) => {"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import prisma from '../lib/prisma.js';"
+          },
+          {
+            "line": 30,
+            "text": "const items = await prisma.product.findMany({"
+          },
+          {
+            "line": 43,
+            "text": "const item = await prisma.product.findFirst({"
+          },
+          {
+            "line": 56,
+            "text": "const items = await prisma.category.findMany({ orderBy: { sort_order: 'asc' }, take: 100 });"
+          },
+          {
+            "line": 83,
+            "text": "const items = await prisma.blogPost.findMany({"
+          },
+          {
+            "line": 101,
+            "text": "prisma.blogPost.count({ where }),"
+          },
+          {
+            "line": 102,
+            "text": "prisma.blogPost.groupBy({"
+          },
+          {
+            "line": 123,
+            "text": "const item = await prisma.blogPost.findFirst({"
+          }
+        ]
+      }
+    ],
+    "backend/src/routes/entities.ts": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 129,
+            "text": "const isAdmin = req.user?.role === 'admin';"
+          },
+          {
+            "line": 135,
+            "text": "return res.status(403).json({ error: 'Admin only' });"
+          },
+          {
+            "line": 142,
+            "text": "return res.status(403).json({ error: 'Admin only' });"
+          },
+          {
+            "line": 176,
+            "text": "const isAdmin = req.user?.role === 'admin';"
+          },
+          {
+            "line": 178,
+            "text": "return res.status(403).json({ error: 'Admin only' });"
+          },
+          {
+            "line": 206,
+            "text": "if (HAS_PUBLISHED.has(entity) && !(row as any).published && req.user?.role !== 'admin') {"
+          },
+          {
+            "line": 209,
+            "text": "if (entity === 'ContactMessage' && req.user?.role !== 'admin') {"
+          },
+          {
+            "line": 210,
+            "text": "return res.status(403).json({ error: 'Admin only' });"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Router } from 'express';"
+          },
+          {
+            "line": 20,
+            "text": "const router = Router();"
+          },
+          {
+            "line": 122,
+            "text": "router.get('/entities/:entity', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 170,
+            "text": "router.post('/entities/:entity', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 186,
+            "text": "return res.status(400).json({ error: 'Use /api/auth/register' });"
+          },
+          {
+            "line": 197,
+            "text": "router.get('/entities/:entity/:id', optionalAuth, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 231,
+            "text": "router.put('/entities/:entity/:id', requireAuth, requireAdmin, async (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 251,
+            "text": "router.delete('/entities/:entity/:id', requireAuth, requireAdmin, async (req: AuthRequest, res) => {"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import prisma from '../lib/prisma.js';"
+          },
+          {
+            "line": 56,
+            "text": "return (prisma as any)[name];"
+          },
+          {
+            "line": 90,
+            "text": "function serialize(entity: string, row: any) {"
+          },
+          {
+            "line": 92,
+            "text": "if (entity === 'Product') out = serializeProduct(row);"
+          },
+          {
+            "line": 93,
+            "text": "else if (entity === 'Order') out = serializeOrder(row);"
+          },
+          {
+            "line": 94,
+            "text": "else if (entity === 'NewsPost') out = serializeNewsPost(row);"
+          },
+          {
+            "line": 99,
+            "text": "function prepare(entity: string, body: any) {"
+          },
+          {
+            "line": 100,
+            "text": "let data: any = applyFieldAliases(entity, body || {});"
+          }
+        ]
+      }
+    ],
+    "backend/src/routes/sitemap.ts": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Router } from 'express';"
+          },
+          {
+            "line": 4,
+            "text": "const router = Router();"
+          },
+          {
+            "line": 37,
+            "text": "router.get('/sitemap.xml', async (_req, res) => {"
+          },
+          {
+            "line": 69,
+            "text": "export default router;"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import prisma from '../lib/prisma.js';"
+          },
+          {
+            "line": 40,
+            "text": "prisma.product.findMany({ where: { published: true }, orderBy: { updatedAt: 'desc' }, take: 500 }),"
+          },
+          {
+            "line": 41,
+            "text": "prisma.blogPost.findMany({ where: { published: true, slug: { notIn: UNVERIFIED_LEGACY_BLOG_SLUGS } }, orderBy: { updatedAt: 'desc' }, take: 500 }),"
+          }
+        ]
+      }
+    ],
+    "backend/src/routes/upload.ts": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import multer from 'multer';"
+          },
+          {
+            "line": 8,
+            "text": "const uploadDir = path.resolve(process.env.UPLOAD_DIR || path.join(process.cwd(), 'uploads'));"
+          },
+          {
+            "line": 9,
+            "text": "if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });"
+          },
+          {
+            "line": 11,
+            "text": "const upload = multer({"
+          },
+          {
+            "line": 12,
+            "text": "storage: multer.memoryStorage(),"
+          },
+          {
+            "line": 23,
+            "text": "upload.single('file')(req, res, async (err: any) => {"
+          },
+          {
+            "line": 25,
+            "text": "if (err) return res.status(400).json({ error: err.message || 'Upload failed' });"
+          },
+          {
+            "line": 36,
+            "text": "let outPath = path.join(uploadDir, filename);"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Router } from 'express';"
+          },
+          {
+            "line": 20,
+            "text": "const router = Router();"
+          },
+          {
+            "line": 22,
+            "text": "router.post('/', requireAuth, requireAdmin, (req: AuthRequest, res) => {"
+          },
+          {
+            "line": 68,
+            "text": "export default router;"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 15,
+            "text": "if (!/^image\\//i.test(file.mimetype)) return cb(new Error('فقط تصویر مجاز است'));"
+          }
+        ]
+      }
+    ],
+    "backend/tsconfig.json": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 13,
+            "text": "\"include\": [\"src/**/*\", \"prisma/**/*\"]"
+          }
+        ]
+      }
+    ],
+    "base44Client.js": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 168,
+            "text": "async UploadFile({ file }) {"
+          },
+          {
+            "line": 172,
+            "text": "const res = await fetch(`${API}/upload`, {"
+          },
+          {
+            "line": 178,
+            "text": "if (!res.ok) throw new Error(data.error || `Upload failed (${res.status})`);"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3,
+            "text": "* Talks only to the project's own backend (/api/*). Zero external Base44 dependency."
+          },
+          {
+            "line": 6,
+            "text": "const API = '/api';"
+          },
+          {
+            "line": 33,
+            "text": "const res = await fetch(`${API}${path}`, {"
+          },
+          {
+            "line": 172,
+            "text": "const res = await fetch(`${API}/upload`, {"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 131,
+            "text": "throw new Error(`Entity ${entityName} list failed`);"
+          }
+        ]
+      }
+    ],
+    "content.js": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "* 7Golden content API — talks to local backend (/api/*) via Vite proxy."
+          },
+          {
+            "line": 6,
+            "text": "const API = '/api';"
+          },
+          {
+            "line": 9,
+            "text": "const res = await fetch(`${API}${path}`);"
+          },
+          {
+            "line": 18,
+            "text": "const res = await fetch(`${API}${path}`, {"
+          },
+          {
+            "line": 203,
+            "text": "const res = await fetch(`${API}/orders`, {"
+          }
+        ]
+      }
+    ],
+    "docker-compose.base44.yml": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 27,
+            "text": "- UPLOAD_DIR=/app/uploads"
+          },
+          {
+            "line": 32,
+            "text": "- backend-uploads:/app/uploads"
+          },
+          {
+            "line": 69,
+            "text": "backend-uploads:"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 38,
+            "text": "test: [\"CMD\", \"wget\", \"-qO-\", \"http://127.0.0.1:3001/api/health\"]"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 36,
+            "text": "command: [\"sh\", \"-ec\", \"apk add --no-cache openssl wget && npm install && npx prisma generate --schema=prisma/schema.prisma && npx prisma db push --schema=prisma/schema.prisma && npx tsx prisma/seed.ts && exec "
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 36,
+            "text": "command: [\"sh\", \"-ec\", \"apk add --no-cache openssl wget && npm install && npx prisma generate --schema=prisma/schema.prisma && npx prisma db push --schema=prisma/schema.prisma && npx tsx prisma/seed.ts && exec "
+          }
+        ]
+      }
+    ],
+    "docker-compose.yml": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 31,
+            "text": "UPLOAD_DIR: \"/app/uploads\""
+          },
+          {
+            "line": 34,
+            "text": "- backend-uploads:/app/uploads"
+          },
+          {
+            "line": 64,
+            "text": "backend-uploads:"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 39,
+            "text": "test: [\"CMD\", \"wget\", \"-qO-\", \"http://127.0.0.1:3001/api/health\"]"
+          }
+        ]
+      }
+    ],
+    "fix_7golden_admin_blog_upload.py": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Patch 7Golden admin NewsPost registration, rich text display/editor, scrolling and upload size."
+          },
+          {
+            "line": 44,
+            "text": "\"src/pages/Admin.jsx\","
+          },
+          {
+            "line": 49,
+            "text": "'<div className=\"admin-shell flex flex-col lg:flex-row min-h-screen lg:h-screen lg:overflow-hidden\">',"
+          },
+          {
+            "line": 50,
+            "text": "\"make desktop admin a viewport-height shell with internal scrolling\","
+          },
+          {
+            "line": 51,
+            "text": "\"src/pages/Admin.jsx\","
+          },
+          {
+            "line": 56,
+            "text": "'<aside className=\"admin-sidebar lg:w-64 flex-shrink-0 lg:h-screen lg:overflow-y-auto\"',"
+          },
+          {
+            "line": 57,
+            "text": "\"allow the admin navigation itself to scroll\","
+          },
+          {
+            "line": 58,
+            "text": "\"src/pages/Admin.jsx\","
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 35,
+            "text": "return replace_once(text, old, new, \"register NewsPost in local entity adapter\", \"src/api/base44Client.js\")"
+          },
+          {
+            "line": 104,
+            "text": "\"backend/src/routes/upload.ts\","
+          },
+          {
+            "line": 126,
+            "text": "text = replace_once(text, \"function normalizeBlogPost(r) {\", helper + \"function normalizeBlogPost(r) {\", \"add plain-text normalization for excerpts\", \"src/lib/api/content.js\")"
+          },
+          {
+            "line": 127,
+            "text": "text = replace_once(text, \"    excerptFA: r.excerpt_fa,\", \"    excerptFA: plainText(r.excerpt_fa),\", \"strip HTML from Persian blog excerpts\", \"src/lib/api/content.js\")"
+          },
+          {
+            "line": 128,
+            "text": "text = replace_once(text, \"    excerptEN: r.excerpt_en,\", \"    excerptEN: plainText(r.excerpt_en),\", \"strip HTML from English blog excerpts\", \"src/lib/api/content.js\")"
+          },
+          {
+            "line": 353,
+            "text": "if not (root / \"src/pages/Admin.jsx\").is_file() or not (root / \"backend/src/routes/upload.ts\").is_file():"
+          },
+          {
+            "line": 358,
+            "text": "(\"src/api/base44Client.js\", patch_base44_client),"
+          },
+          {
+            "line": 361,
+            "text": "(\"src/lib/api/content.js\", patch_api_content),"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 35,
+            "text": "return replace_once(text, old, new, \"register NewsPost in local entity adapter\", \"src/api/base44Client.js\")"
+          },
+          {
+            "line": 411,
+            "text": "print(\"If uploads still fail with HTTP 413 / Request Entity Too Large, set the external reverse proxy's request-body limit to at least 20M too.\")"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 175,
+            "text": "return HTML_CONTENT_TAG.test(String(value || ''));"
+          },
+          {
+            "line": 180,
+            "text": "if (!raw || /[\\u0000-\\u001f]/.test(raw)) return false;"
+          }
+        ]
+      }
+    ],
+    "fix_7golden_rich_content_home_media.py": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "\"\"\"Repair mixed HTML/Markdown CMS article content and calm the homepage media grid."
+          },
+          {
+            "line": 35,
+            "text": "// Some CMS records contain escaped tags (\\<p>, &lt;p&gt;, or &amp;lt;p&amp;gt;) rather than real markup."
+          },
+          {
+            "line": 422,
+            "text": "# CMS-authored content should remain rich, rather than being flattened into plain paragraphs."
+          },
+          {
+            "line": 435,
+            "text": "text = replace_once(text, old, new, \"preserve CMS news rich text\", \"src/pages/NewsArticle.jsx\")"
+          },
+          {
+            "line": 437,
+            "text": "raise RuntimeError(\"src/pages/NewsArticle.jsx: CMS content loader is in an unknown form; no files have been written.\")"
+          },
+          {
+            "line": 439,
+            "text": "# Remove the old tag-stripper once the shared renderer owns CMS article content."
+          },
+          {
+            "line": 460,
+            "text": "# Render rich CMS content but keep the legacy article sections/photos/videos exactly as before."
+          },
+          {
+            "line": 599,
+            "text": "print('  - Decodes escaped/double-escaped HTML entities and converts collapsed Markdown headings, bold text, and bullets in CMS article content.')"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 346,
+            "text": "raise RuntimeError(\"src/lib/api/content.js: found plainText but could not replace its body safely.\")"
+          },
+          {
+            "line": 348,
+            "text": "text = replace_once(text, \"function normalizeBlogPost(r) {\", helper + \"function normalizeBlogPost(r) {\", \"insert plain-text normalizer\", \"src/lib/api/content.js\")"
+          },
+          {
+            "line": 359,
+            "text": "raise RuntimeError(\"src/lib/api/content.js: couldn't identify the NewsPost excerpt field.\")"
+          },
+          {
+            "line": 568,
+            "text": "('src/lib/api/content.js', patch_api_content),"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 603,
+            "text": "print('  - Does not modify database records, seed content, or delete media assets.')"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 40,
+            "text": "if (ENCODED_HTML_TAG.test(source)) {"
+          },
+          {
+            "line": 62,
+            "text": "const block = /^(p|div|section|article|h[1-6]|ul|ol|li|blockquote|pre|tr)$/.test(tag);"
+          },
+          {
+            "line": 137,
+            "text": "return /(?:^|\\s)#{1,6}\\s+/u.test(text)"
+          },
+          {
+            "line": 138,
+            "text": "|| /\\*\\*[^*\\n]+\\*\\*/u.test(text)"
+          },
+          {
+            "line": 139,
+            "text": "|| /(?:^|\\s)-\\s+\\*\\*/u.test(text);"
+          },
+          {
+            "line": 144,
+            "text": "if (!raw || /[\\u0000-\\u001f]/u.test(raw)) return false;"
+          },
+          {
+            "line": 191,
+            "text": "if (typeof DOMParser !== 'undefined' && HTML_TAG.test(source)) {"
+          },
+          {
+            "line": 320,
+            "text": "if (/&lt;\\/?(?:p|div|h[1-6]|ul|ol|li|strong|br)\\b/i.test(source)) {"
+          }
+        ]
+      }
+    ],
+    "index.html": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 37,
+            "text": "<!-- Hero image priority is assigned by HeroSlider so a CMS-selected image is respected. -->"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 37,
+            "text": "<!-- Hero image priority is assigned by HeroSlider so a CMS-selected image is respected. -->"
+          }
+        ]
+      }
+    ],
+    "jsconfig.json": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 20,
+            "text": "\"exclude\": [\"node_modules\", \"dist\", \"src/vite-plugins\", \"src/components/ui\", \"src/api\", \"src/lib\"]"
+          }
+        ]
+      }
+    ],
+    "package.json": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 52,
+            "text": "\"embla-carousel-react\": \"^8.5.2\","
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 70,
+            "text": "\"react-router-dom\": \"^7.18.3\","
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 36,
+            "text": "\"@radix-ui/react-slider\": \"^1.2.3\","
+          }
+        ]
+      }
+    ],
+    "src/App.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 22,
+            "text": "const Admin = lazy(() => import('@/pages/Admin'));"
+          },
+          {
+            "line": 66,
+            "text": "<Route path=\"/admin\" element={<Admin />} />"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 5,
+            "text": "import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';"
+          },
+          {
+            "line": 50,
+            "text": "<Routes>"
+          },
+          {
+            "line": 51,
+            "text": "<Route path=\"/\" element={<Home />} />"
+          },
+          {
+            "line": 52,
+            "text": "<Route path=\"/shop\" element={<Shop />} />"
+          },
+          {
+            "line": 53,
+            "text": "<Route path=\"/product/:id\" element={<ProductDetail />} />"
+          },
+          {
+            "line": 54,
+            "text": "{/* Retail routes disabled — 7Golden has no online checkout or customer account area. */}"
+          },
+          {
+            "line": 55,
+            "text": "{/* <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to=\"/login\" replace />} />}>"
+          },
+          {
+            "line": 56,
+            "text": "<Route path=\"/checkout\" element={<Checkout />} />"
+          }
+        ]
+      }
+    ],
+    "src/api/base44Client.js": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 3,
+            "text": "* Public pages use src/lib/api/content.js; admin still calls base44.entities.*"
+          },
+          {
+            "line": 113,
+            "text": "UploadFile: async ({ file }) => {"
+          },
+          {
+            "line": 116,
+            "text": "const res = await fetch('/api/upload', {"
+          },
+          {
+            "line": 122,
+            "text": "if (!res.ok) throw new Error(data.error || 'Upload failed');"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "* Local API adapter — replaces @base44/sdk."
+          },
+          {
+            "line": 3,
+            "text": "* Public pages use src/lib/api/content.js; admin still calls base44.entities.*"
+          },
+          {
+            "line": 13,
+            "text": "const res = await fetch(`/api${path}`, {"
+          },
+          {
+            "line": 70,
+            "text": "fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});"
+          },
+          {
+            "line": 116,
+            "text": "const res = await fetch('/api/upload', {"
+          }
+        ]
+      }
+    ],
+    "src/api/content.js": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "* 7Golden content API — talks to local backend (/api/*) via Vite proxy."
+          },
+          {
+            "line": 6,
+            "text": "const API = '/api';"
+          },
+          {
+            "line": 9,
+            "text": "const res = await fetch(`${API}${path}`);"
+          },
+          {
+            "line": 18,
+            "text": "const res = await fetch(`${API}${path}`, {"
+          },
+          {
+            "line": 204,
+            "text": "const res = await fetch(`${API}/orders`, {"
+          }
+        ]
+      }
+    ],
+    "src/components/AwardsSection.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import { getAwards } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/components/BackButton.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { useNavigate } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/BottomTabBar.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { useNavigate, useLocation } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/BusinessCTA.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 15,
+            "text": "src=\"/banner/tray-pistachio-almond.webp\""
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/CartDrawer.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/CinematicHero.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 18,
+            "text": "image = '/banner/hero-nuts-bowl.webp',"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/DynamicHeroSlider.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 10,
+            "text": "export default function DynamicHeroSlider({"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import { getPageHeroes } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/components/EditorialCard.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/Footer.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/HeroSlider.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 5,
+            "text": "const BASE_SLIDES = ["
+          },
+          {
+            "line": 7,
+            "text": "image: '/banner/hero-nuts-bowl.webp',"
+          },
+          {
+            "line": 8,
+            "text": "imagePosition: 'center 54%',"
+          },
+          {
+            "line": 15,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          },
+          {
+            "line": 16,
+            "text": "imagePosition: 'center 48%',"
+          },
+          {
+            "line": 23,
+            "text": "image: '/banner/tray-pistachio-almond.webp',"
+          },
+          {
+            "line": 24,
+            "text": "imagePosition: 'center 52%',"
+          },
+          {
+            "line": 31,
+            "text": "image: '/banner/Hero-Banner-main.webp',"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 57,
+            "text": "const slides = useMemo(() => BASE_SLIDES.map((slide, index) => {"
+          },
+          {
+            "line": 58,
+            "text": "if (index !== 0 || !cmsHero) return slide;"
+          },
+          {
+            "line": 60,
+            "text": "...slide,"
+          },
+          {
+            "line": 61,
+            "text": "image: typeof cmsHero.image === 'string' && cmsHero.image.trim() ? cmsHero.image.trim() : slide.image,"
+          },
+          {
+            "line": 62,
+            "text": "badge: cmsHero.badge_fa || cmsHero.badge || slide.badge,"
+          },
+          {
+            "line": 63,
+            "text": "title: cmsHero.title_fa || slide.title,"
+          },
+          {
+            "line": 64,
+            "text": "accent: cmsHero.title_fa ? (cmsHero.title_accent_fa || '') : slide.accent,"
+          },
+          {
+            "line": 65,
+            "text": "description: cmsHero.subtitle_fa || slide.description,"
+          }
+        ]
+      }
+    ],
+    "src/components/MainProducts.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 21,
+            "text": "* Images come from the matching Category entity, so they stay editable in the CMS."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 21,
+            "text": "* Images come from the matching Category entity, so they stay editable in the CMS."
+          }
+        ]
+      }
+    ],
+    "src/components/MobileMenu.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link, useLocation } from 'react-router-dom';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 25,
+            "text": "* MobileMenu — slide-in sheet used below the `lg` breakpoint."
+          }
+        ]
+      }
+    ],
+    "src/components/Navbar.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link, useLocation } from 'react-router-dom';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 12,
+            "text": "* collapses into the slide-in sheet. (Retail cart / account controls are"
+          }
+        ]
+      }
+    ],
+    "src/components/PageTransition.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { useLocation } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/ProductCard.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/ProductCardRound.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/ProductTile.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/PromoBanner.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/ProtectedRoute.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Outlet } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/ScrollToTop.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { useLocation, useNavigationType } from \"react-router-dom\";"
+          }
+        ]
+      }
+    ],
+    "src/components/Seo.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { useLocation } from 'react-router-dom';"
+          },
+          {
+            "line": 67,
+            "text": "// trail so every crawlable route carries a BreadcrumbList."
+          }
+        ]
+      }
+    ],
+    "src/components/SiteLoader.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 7,
+            "text": "// late-rendering route content whose images mount a moment after first paint."
+          }
+        ]
+      }
+    ],
+    "src/components/SupportChat.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 8,
+            "text": "* with keyword matching. No external API, no paid AI service and no network"
+          }
+        ]
+      }
+    ],
+    "src/components/admin/AdminErrorBoundary.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 12,
+            "text": "console.error('Admin crash', err, info);"
+          }
+        ]
+      }
+    ],
+    "src/components/admin/EntityCrud.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import RichTextEditor from '@/components/admin/RichTextEditor';"
+          },
+          {
+            "line": 4,
+            "text": "import { UploadCloud, Trash2, Pencil, X, Plus, Loader2, Save } from 'lucide-react';"
+          },
+          {
+            "line": 7,
+            "text": "* Reusable entity CRUD table + form for the admin panel."
+          },
+          {
+            "line": 131,
+            "text": "className=\"admin-input sm:w-64\""
+          },
+          {
+            "line": 150,
+            "text": "<table className=\"admin-table\">"
+          },
+          {
+            "line": 304,
+            "text": "return <ImageUploadField field={field} value={value} onChange={onChange} />;"
+          },
+          {
+            "line": 309,
+            "text": "<label className=\"admin-label\" htmlFor={field.key}>{field.label}{field.required ? ' *' : ''}</label>"
+          },
+          {
+            "line": 315,
+            "text": "return <GalleryUploadField field={field} value={value} onChange={onChange} />;"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { base44 } from '@/api/base44Client';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 7,
+            "text": "* Reusable entity CRUD table + form for the admin panel."
+          }
+        ]
+      }
+    ],
+    "src/components/admin/RichTextEditor.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 7,
+            "text": "<div dir=\"rtl\" className=\"admin-richtext-editor rounded-xl overflow-hidden\">"
+          }
+        ]
+      }
+    ],
+    "src/components/admin/SiteModeToggle.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 4,
+            "text": "import { base44 } from '@/api/base44Client';"
+          }
+        ]
+      }
+    ],
+    "src/components/content/RichArticleContent.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 18,
+            "text": "// Some CMS records contain escaped tags (\\<p>, &lt;p&gt;, or &amp;lt;p&amp;gt;) rather than real markup."
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 23,
+            "text": "if (ENCODED_HTML_TAG.test(source)) {"
+          },
+          {
+            "line": 45,
+            "text": "const block = /^(p|div|section|article|h[1-6]|ul|ol|li|blockquote|pre|tr)$/.test(tag);"
+          },
+          {
+            "line": 120,
+            "text": "return /(?:^|\\s)#{1,6}\\s+/u.test(text)"
+          },
+          {
+            "line": 121,
+            "text": "|| /\\*\\*[^*\\n]+\\*\\*/u.test(text)"
+          },
+          {
+            "line": 122,
+            "text": "|| /(?:^|\\s)-\\s+\\*\\*/u.test(text);"
+          },
+          {
+            "line": 127,
+            "text": "if (!raw || /[\\u0000-\\u001f]/u.test(raw)) return false;"
+          },
+          {
+            "line": 174,
+            "text": "if (typeof DOMParser !== 'undefined' && HTML_TAG.test(source)) {"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeAwardsSlider.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { getAwards } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeClients.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeContactForm.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 6,
+            "text": "import { createContactMessage } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeMagazine.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 26,
+            "text": "<StoryChapter index=\"08\" eyebrow={section.badge_fa || 'MAGAZINE · مجله'} title={section.title_fa || 'دانش کاربردی برای انتخاب بهتر'} lead={section.subtitle_fa || 'مقاله‌های منتشرشدهٔ وبلاگ هفت طلایی؛ بدون جایگز"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 6,
+            "text": "import { getBlogPosts } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeNews.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 6,
+            "text": "import { getNewsPosts } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeOrigin.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/home/HomeVideoShowcase.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 97,
+            "text": "// Show a deliberately small five-item selection on the homepage; the admin ordering decides which items lead."
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 44,
+            "text": "{nearViewport && <source src={item.url} type={/\\.mov(?:$|\\?)/i.test(item.url) ? 'video/quicktime' : 'video/mp4'} />}"
+          }
+        ]
+      }
+    ],
+    "src/components/story/StickyScene.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      }
+    ],
+    "src/components/story/VitrineScroll.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 20,
+            "text": "* vertical scroll drives a horizontal slide of large product panels."
+          }
+        ]
+      }
+    ],
+    "src/components/ui/alert-dialog.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 30,
+            "text": "\"fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out dat"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/carousel.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import useEmblaCarousel from \"embla-carousel-react\";"
+          },
+          {
+            "line": 8,
+            "text": "const CarouselContext = React.createContext(null)"
+          },
+          {
+            "line": 10,
+            "text": "function useCarousel() {"
+          },
+          {
+            "line": 11,
+            "text": "const context = React.useContext(CarouselContext)"
+          },
+          {
+            "line": 14,
+            "text": "throw new Error(\"useCarousel must be used within a <Carousel />\")"
+          },
+          {
+            "line": 20,
+            "text": "const Carousel = React.forwardRef(("
+          },
+          {
+            "line": 32,
+            "text": "const [carouselRef, api] = useEmblaCarousel({"
+          },
+          {
+            "line": 89,
+            "text": "(<CarouselContext.Provider"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 32,
+            "text": "const [carouselRef, api] = useEmblaCarousel({"
+          },
+          {
+            "line": 39,
+            "text": "const onSelect = React.useCallback((api) => {"
+          },
+          {
+            "line": 40,
+            "text": "if (!api) {"
+          },
+          {
+            "line": 44,
+            "text": "setCanScrollPrev(api.canScrollPrev())"
+          },
+          {
+            "line": 45,
+            "text": "setCanScrollNext(api.canScrollNext())"
+          },
+          {
+            "line": 49,
+            "text": "api?.scrollPrev()"
+          },
+          {
+            "line": 50,
+            "text": "}, [api])"
+          },
+          {
+            "line": 53,
+            "text": "api?.scrollNext()"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 140,
+            "text": "aria-roledescription=\"slide\""
+          },
+          {
+            "line": 166,
+            "text": "<span className=\"sr-only\">Previous slide</span>"
+          },
+          {
+            "line": 187,
+            "text": "<span className=\"sr-only\">Next slide</span>"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/context-menu.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 38,
+            "text": "\"z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open"
+          },
+          {
+            "line": 50,
+            "text": "\"z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/dialog.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 34,
+            "text": "\"fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out dat"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/dropdown-menu.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 39,
+            "text": "\"z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open"
+          },
+          {
+            "line": 54,
+            "text": "\"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/eyebrow.jsx": [
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 14,
+            "text": "return `eyebrow${ARABIC_SCRIPT.test(textOf(children)) ? ' eyebrow-fa' : ''}${extra ? ` ${extra}` : ''}`;"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/hover-card.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 18,
+            "text": "\"z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/menubar.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 80,
+            "text": "\"z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open"
+          },
+          {
+            "line": 98,
+            "text": "\"z-50 min-w-[12rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/navigation-menu.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 56,
+            "text": "\"left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/popover.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 19,
+            "text": "\"z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/select.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 57,
+            "text": "\"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 da"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/sheet.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 33,
+            "text": "top: \"inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top\","
+          },
+          {
+            "line": 35,
+            "text": "\"inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom\","
+          },
+          {
+            "line": 36,
+            "text": "left: \"inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm\","
+          },
+          {
+            "line": 38,
+            "text": "\"inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm\","
+          }
+        ]
+      }
+    ],
+    "src/components/ui/slider.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import * as SliderPrimitive from \"@radix-ui/react-slider\""
+          },
+          {
+            "line": 6,
+            "text": "const Slider = React.forwardRef(({ className, ...props }, ref) => ("
+          },
+          {
+            "line": 19,
+            "text": "Slider.displayName = SliderPrimitive.Root.displayName"
+          },
+          {
+            "line": 21,
+            "text": "export { Slider }"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/toast.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 22,
+            "text": "\"group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:tran"
+          }
+        ]
+      }
+    ],
+    "src/components/ui/tooltip.jsx": [
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 20,
+            "text": "\"z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-ou"
+          }
+        ]
+      }
+    ],
+    "src/content.js": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "* 7Golden content API — talks to local backend (/api/*) via Vite proxy."
+          },
+          {
+            "line": 6,
+            "text": "const API = '/api';"
+          },
+          {
+            "line": 9,
+            "text": "const res = await fetch(`${API}${path}`);"
+          },
+          {
+            "line": 18,
+            "text": "const res = await fetch(`${API}${path}`, {"
+          },
+          {
+            "line": 203,
+            "text": "const res = await fetch(`${API}/orders`, {"
+          }
+        ]
+      }
+    ],
+    "src/index.css": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 839,
+            "text": "/* ===== ADMIN PANEL ===== */"
+          },
+          {
+            "line": 840,
+            "text": ".admin-table {"
+          },
+          {
+            "line": 844,
+            "text": ".admin-table th {"
+          },
+          {
+            "line": 854,
+            "text": ".admin-table td {"
+          },
+          {
+            "line": 860,
+            "text": ".admin-table tr:hover td {"
+          },
+          {
+            "line": 863,
+            "text": ".admin-input {"
+          },
+          {
+            "line": 874,
+            "text": ".admin-input:focus {"
+          },
+          {
+            "line": 878,
+            "text": ".admin-label {"
+          }
+        ]
+      }
+    ],
+    "src/lib/AppContext.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 53,
+            "text": "// Kept as a no-op so existing callers (admin toggle, pull-to-refresh) still work."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "// import { getSiteSettings } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/lib/AuthContext.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 6,
+            "text": "async function api(path, options = {}) {"
+          },
+          {
+            "line": 8,
+            "text": "const controller = new AbortController();"
+          },
+          {
+            "line": 12,
+            "text": "const res = await fetch(`/api${path}`, {"
+          },
+          {
+            "line": 52,
+            "text": "const settingsController = new AbortController();"
+          },
+          {
+            "line": 55,
+            "text": "const response = await fetch('/api/settings', { signal: settingsController.signal });"
+          },
+          {
+            "line": 85,
+            "text": "const currentUser = await api('/auth/me');"
+          },
+          {
+            "line": 99,
+            "text": "const data = await api('/auth/login', {"
+          },
+          {
+            "line": 110,
+            "text": "const data = await api('/auth/register', {"
+          }
+        ]
+      }
+    ],
+    "src/lib/PageNotFound.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 42,
+            "text": "{/* Admin Note */}"
+          },
+          {
+            "line": 43,
+            "text": "{isFetched && authData.isAuthenticated && authData.user?.role === 'admin' && ("
+          },
+          {
+            "line": 50,
+            "text": "<p className=\"text-sm font-medium text-slate-700\">Admin Note</p>"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 1,
+            "text": "import { useLocation } from 'react-router-dom';"
+          },
+          {
+            "line": 2,
+            "text": "import { base44 } from '@/api/base44Client';"
+          }
+        ]
+      }
+    ],
+    "src/lib/api/content.js": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "* 7Golden content API — talks to local backend (/api/*) via Vite proxy."
+          },
+          {
+            "line": 6,
+            "text": "const API = '/api';"
+          },
+          {
+            "line": 9,
+            "text": "const res = await fetch(`${API}${path}`);"
+          },
+          {
+            "line": 18,
+            "text": "const res = await fetch(`${API}${path}`, {"
+          },
+          {
+            "line": 311,
+            "text": "const res = await fetch(`${API}/orders`, {"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 86,
+            "text": "if (/&lt;\\/?(?:p|div|h[1-6]|ul|ol|li|strong|br)\\b/i.test(source)) {"
+          }
+        ]
+      }
+    ],
+    "src/lib/corporate-content.js": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 11,
+            "text": "// the Base44 entities so images and links stay in sync with the CMS."
+          }
+        ]
+      }
+    ],
+    "src/lib/editorial-blog-content.js": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 54,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 2,
+            "text": "// These posts supplement, but never replace, CMS-managed posts."
+          }
+        ]
+      }
+    ],
+    "src/lib/home-media.js": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 38,
+            "text": "{ id: 'video-showroom-1', title: 'محصولات از نزدیک', url: '/video/showroom-1.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 41,
+            "text": "{ id: 'video-showroom-2', title: 'نمایشگاه محصولات', url: '/video/showroom-2.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 44,
+            "text": "{ id: 'video-showroom-3', title: 'محصولات و نمایشگاه', url: '/video/showroom-3.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          },
+          {
+            "line": 45,
+            "text": "{ id: 'video-showroom-4', title: 'مجموعه محصولات', url: '/video/showroom-4.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },"
+          }
+        ]
+      }
+    ],
+    "src/lib/news-content.js": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 205,
+            "text": "image: '/banner/hazelnut-spoon.webp',"
+          }
+        ]
+      }
+    ],
+    "src/lib/seo.js": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 115,
+            "text": "// Human labels for the crawlable static routes. Dynamic routes (product /"
+          },
+          {
+            "line": 126,
+            "text": "// the SERP. Returns null for the home page or any route without a known label."
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 4,
+            "text": "// loaded from the SiteSettings entity."
+          }
+        ]
+      }
+    ],
+    "src/lib/usePageHero.js": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { getPageHero } from '@/lib/api/content';"
+          },
+          {
+            "line": 5,
+            "text": "* Fetches the hero section config for a page from the API."
+          }
+        ]
+      }
+    ],
+    "src/pages/About.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 5,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 55,
+            "text": "<DynamicHeroSlider"
+          }
+        ]
+      }
+    ],
+    "src/pages/Account.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 4,
+            "text": "import { base44 } from '@/api/base44Client';"
+          },
+          {
+            "line": 17,
+            "text": "import { getOrders } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/pages/Admin.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 9,
+            "text": "import EntityCrud from '@/components/admin/EntityCrud';"
+          },
+          {
+            "line": 10,
+            "text": "import AdminErrorBoundary from '@/components/admin/AdminErrorBoundary';"
+          },
+          {
+            "line": 33,
+            "text": "export default function Admin() {"
+          },
+          {
+            "line": 52,
+            "text": "if (user?.role !== 'admin') {"
+          },
+          {
+            "line": 89,
+            "text": "{ value: 'admin', label: 'ادمین' },"
+          },
+          {
+            "line": 97,
+            "text": "<p className=\"text-xs\" style={{ color: 'var(--fg-muted)' }}>فعلی seed: admin@7golden.co — حتماً عوض شود.</p>"
+          },
+          {
+            "line": 107,
+            "text": "<div className=\"admin-shell flex flex-col lg:flex-row min-h-screen lg:h-screen lg:overflow-hidden\">"
+          },
+          {
+            "line": 108,
+            "text": "<aside className=\"admin-sidebar lg:w-64 flex-shrink-0 lg:h-screen lg:overflow-y-auto\" style={{ background: 'hsl(var(--card))', borderLeft: '1px solid var(--border)' }}>"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link, useNavigate } from 'react-router-dom';"
+          },
+          {
+            "line": 12,
+            "text": "import { base44 } from '@/api/base44Client';"
+          },
+          {
+            "line": 224,
+            "text": "const { base44 } = await import('@/api/base44Client');"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 97,
+            "text": "<p className=\"text-xs\" style={{ color: 'var(--fg-muted)' }}>فعلی seed: admin@7golden.co — حتماً عوض شود.</p>"
+          }
+        ]
+      }
+    ],
+    "src/pages/Blog.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 7,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 148,
+            "text": "<DynamicHeroSlider pageKey=\"blog\" fallback={{ image: hero?.image, title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 131,
+            "text": "const filtered = posts; // Search and category filtering are applied across the complete CMS dataset by the API."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 4,
+            "text": "import { getBlogMeta, getBlogPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 131,
+            "text": "const filtered = posts; // Search and category filtering are applied across the complete CMS dataset by the API."
+          }
+        ]
+      }
+    ],
+    "src/pages/BlogPost.jsx": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 45,
+            "text": "// Editorial content below remains available without the CMS."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { useParams, Link, useLocation } from 'react-router-dom';"
+          },
+          {
+            "line": 5,
+            "text": "import { getBlogPostBySlug, getBlogPosts } from '@/lib/api/content';"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 19,
+            "text": "return HTML_CONTENT_TAG.test(source)"
+          },
+          {
+            "line": 20,
+            "text": "|| /&(?:amp;)?lt;\\/?(?:p|h[1-6]|ul|ol|li|strong|div|span|br)\\b/i.test(source)"
+          },
+          {
+            "line": 21,
+            "text": "|| /\\\\<\\/?(?:p|h[1-6]|ul|ol|li|strong|div|span|br)\\b/i.test(source);"
+          }
+        ]
+      }
+    ],
+    "src/pages/Checkout.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 16,
+            "text": "import { createOrder } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/pages/Contact.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 5,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 71,
+            "text": "<DynamicHeroSlider pageKey=\"contact\" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />"
+          },
+          {
+            "line": 304,
+            "text": "<img src=\"/hazelnut-spoon.webp\" alt=\"\" loading=\"lazy\" decoding=\"async\" />"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 13,
+            "text": "import { createContactMessage } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/pages/ForgotPassword.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from \"react-router-dom\";"
+          },
+          {
+            "line": 3,
+            "text": "import { base44 } from \"@/api/base44Client\";"
+          }
+        ]
+      }
+    ],
+    "src/pages/Home.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 16,
+            "text": "import HeroSlider from '@/components/HeroSlider';"
+          },
+          {
+            "line": 277,
+            "text": "{sectionVisible('hero') && <HeroSlider cmsHero={heroConfig} />}"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 96,
+            "text": "// The local presentation remains available when CMS data is unavailable."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 8,
+            "text": "} from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/pages/Login.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from \"react-router-dom\";"
+          }
+        ]
+      }
+    ],
+    "src/pages/News.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 4,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 183,
+            "text": "<DynamicHeroSlider"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 143,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from 'react-router-dom';"
+          },
+          {
+            "line": 12,
+            "text": "import { getNewsMeta, getNewsPosts } from '@/lib/api/content';"
+          },
+          {
+            "line": 143,
+            "text": "// has run; once the NewsPost API has records, the CMS is the public source of truth."
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 142,
+            "text": "// Preserve the seven existing editorial news items until the first database seed"
+          }
+        ]
+      }
+    ],
+    "src/pages/NewsArticle.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link, useParams } from 'react-router-dom';"
+          },
+          {
+            "line": 11,
+            "text": "import { getNewsPostBySlug } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/pages/OAuthConsent.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 33,
+            "text": "// route for the signed-out redirect below. Send the session (cookie +"
+          },
+          {
+            "line": 40,
+            "text": "`/api/apps/${appParams.appId}/mcp/consent-info?handle=${encodeURIComponent(ctx)}`,"
+          },
+          {
+            "line": 90,
+            "text": "const res = await fetch(`/api/apps/${appParams.appId}/mcp/authorize-grant`, {"
+          }
+        ]
+      },
+      {
+        "category": "test_and_ci",
+        "hits": [
+          {
+            "line": 124,
+            "text": "if (!/^https?:/i.test(data.redirect_url)) {"
+          }
+        ]
+      }
+    ],
+    "src/pages/ProductDetail.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3,
+            "text": "import { useParams, Link } from 'react-router-dom';"
+          },
+          {
+            "line": 5,
+            "text": "import { getProductBySlug, getProducts } from '@/lib/api/content';"
+          }
+        ]
+      }
+    ],
+    "src/pages/Register.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link } from \"react-router-dom\";"
+          }
+        ]
+      }
+    ],
+    "src/pages/ResetPassword.jsx": [
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link, useSearchParams } from \"react-router-dom\";"
+          },
+          {
+            "line": 3,
+            "text": "import { base44 } from \"@/api/base44Client\";"
+          }
+        ]
+      }
+    ],
+    "src/pages/Shop.jsx": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 7,
+            "text": "import DynamicHeroSlider from '@/components/DynamicHeroSlider';"
+          },
+          {
+            "line": 103,
+            "text": "<DynamicHeroSlider pageKey=\"shop\" fallback={{ image: hero?.image || '/banner/Hero.webp', title: hero?.title || '', subtitle: hero?.subtitle || '', badge: hero?.badge || '' }} />"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 2,
+            "text": "import { Link, useSearchParams } from 'react-router-dom';"
+          },
+          {
+            "line": 5,
+            "text": "import { getProducts, getCategories } from '@/lib/api/content';"
+          }
+        ]
+      },
+      {
+        "category": "migrations_and_seeders",
+        "hits": [
+          {
+            "line": 15,
+            "text": "// Category card art (kept in sync with the Category rows in the DB seed)."
+          }
+        ]
+      }
+    ],
+    "src/styles/story.css": [
+      {
+        "category": "slide_content_and_frontend",
+        "hits": [
+          {
+            "line": 586,
+            "text": ".luxury-hero-slide-button {"
+          },
+          {
+            "line": 604,
+            "text": ".luxury-hero-slide-button img {"
+          },
+          {
+            "line": 613,
+            "text": ".luxury-hero-slide-button span {"
+          },
+          {
+            "line": 624,
+            "text": ".luxury-hero-slide-button b { color: var(--gold-2); font-size: .62rem; font-weight: 600; }"
+          },
+          {
+            "line": 625,
+            "text": ".luxury-hero-slide-button em { overflow: hidden; max-width: 8rem; color: rgba(255,255,255,.8); font-size: .65rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }"
+          },
+          {
+            "line": 626,
+            "text": ".luxury-hero-slide-button:hover { border-color: rgba(218,185,103,.8); }"
+          },
+          {
+            "line": 627,
+            "text": ".luxury-hero-slide-button.is-active { width: min(12.5rem, calc(100vw - 3rem)); border-color: rgba(218,185,103,.85); background: rgba(11, 9, 5, .76); }"
+          },
+          {
+            "line": 628,
+            "text": ".luxury-hero-slide-button.is-active img { opacity: 1; }"
+          }
+        ]
+      },
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 4170,
+            "text": "/* ADMIN_RICHTEXT_UPLOAD_SCROLL_AND_BLOG_HTML_FIX_V1 */"
+          },
+          {
+            "line": 4171,
+            "text": "/* The desktop admin has its own dependable vertical scroll regions; mobile stays document-scrollable. */"
+          },
+          {
+            "line": 4173,
+            "text": ".admin-shell { height: 100vh; min-height: 0; overflow: hidden; }"
+          },
+          {
+            "line": 4174,
+            "text": ".admin-sidebar, .admin-main { min-height: 0; overscroll-behavior: contain; }"
+          },
+          {
+            "line": 4175,
+            "text": ".admin-sidebar { scrollbar-gutter: stable; }"
+          },
+          {
+            "line": 4176,
+            "text": ".admin-main { overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; }"
+          },
+          {
+            "line": 4178,
+            "text": ".admin-sidebar::-webkit-scrollbar, .admin-main::-webkit-scrollbar { width: 9px; }"
+          },
+          {
+            "line": 4179,
+            "text": ".admin-sidebar::-webkit-scrollbar-thumb, .admin-main::-webkit-scrollbar-thumb {"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 3457,
+            "text": "/* Never wrap page or card titles on these editorial routes. Excerpts and article"
+          }
+        ]
+      },
+      {
+        "category": "database_and_models",
+        "hits": [
+          {
+            "line": 516,
+            "text": "slider. All controls remain inside the safe area on narrow screens. */"
+          },
+          {
+            "line": 586,
+            "text": ".luxury-hero-slide-button {"
+          },
+          {
+            "line": 604,
+            "text": ".luxury-hero-slide-button img {"
+          },
+          {
+            "line": 613,
+            "text": ".luxury-hero-slide-button span {"
+          },
+          {
+            "line": 624,
+            "text": ".luxury-hero-slide-button b { color: var(--gold-2); font-size: .62rem; font-weight: 600; }"
+          },
+          {
+            "line": 625,
+            "text": ".luxury-hero-slide-button em { overflow: hidden; max-width: 8rem; color: rgba(255,255,255,.8); font-size: .65rem; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }"
+          },
+          {
+            "line": 626,
+            "text": ".luxury-hero-slide-button:hover { border-color: rgba(218,185,103,.8); }"
+          },
+          {
+            "line": 627,
+            "text": ".luxury-hero-slide-button.is-active { width: min(12.5rem, calc(100vw - 3rem)); border-color: rgba(218,185,103,.85); background: rgba(11, 9, 5, .76); }"
+          }
+        ]
+      }
+    ],
+    "vite.config.js": [
+      {
+        "category": "admin_and_content_management",
+        "hits": [
+          {
+            "line": 37,
+            "text": "'/uploads': {"
+          }
+        ]
+      },
+      {
+        "category": "api_and_routes",
+        "hits": [
+          {
+            "line": 23,
+            "text": "'react-vendor': ['react', 'react-dom', 'react-router-dom'],"
+          },
+          {
+            "line": 33,
+            "text": "'/api': {"
+          }
+        ]
+      }
+    ]
+  },
+  "warnings": [],
+  "notes": [
+    "This is a static text scan, not a complete semantic code review.",
+    "A detected file or keyword does not prove that the feature works or is connected end-to-end.",
+    "No source files were changed; no database, .env, or secrets were accessed."
+  ]
+}
