@@ -6,7 +6,6 @@ import PullToRefresh from '@/components/PullToRefresh';
 import Seo from '@/components/Seo';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
-import Marquee from '@/components/story/Marquee';
 import { usePageHero } from '@/lib/usePageHero';
 import { SITE_SEO } from '@/lib/seo';
 import { getNewsMeta, getNewsPosts } from '@/lib/api/content';
@@ -15,20 +14,21 @@ import NewsCard from '@/components/news/NewsCard';
 
 const PAGE_SIZE = 8;
 const FALLBACK_NEWS_IMAGE = '/banner/banner-four-bowls.webp';
+
 const CMS_CATEGORY_LABELS = {
-  announcement: 'اطلاعیه',
-  product: 'محصولات',
-  company: 'درباره مجموعه',
-  ordering: 'راهنمای سفارش',
-  media: 'آرشیو تصویری',
-  education: 'آموزشی',
-  industry: 'کاربردهای صنعتی',
+  announcement: 'خبرهای مجموعه',
+  product: 'معرفی محصولات',
+  company: 'درباره هفت طلایی',
+  ordering: 'راهنمای انتخاب محصول',
+  media: 'تصاویر و ویدیوها',
+  education: 'دانستنی‌های خشکبار',
+  industry: 'کاربرد در صنایع غذایی',
 };
 
 function categoryLabel(category) {
-  return NEWS_CATEGORIES[category]?.label
-    || CMS_CATEGORY_LABELS[category]
-    || (category ? String(category).replace(/[-_]/g, ' ') : 'خبر');
+  return CMS_CATEGORY_LABELS[category]
+    || NEWS_CATEGORIES[category]?.label
+    || (category ? String(category).replace(/[-_]/g, ' ') : 'مطلب');
 }
 
 function categoryTone(category) {
@@ -45,6 +45,7 @@ export default function News() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
+
   const sentinelRef = useRef(null);
   const skipRef = useRef(0);
   const requestIdRef = useRef(0);
@@ -52,15 +53,19 @@ export default function News() {
 
   const { hero } = usePageHero('news', {
     image: FALLBACK_NEWS_IMAGE,
-    title: 'اخبار و اطلاعیه‌ها',
-    subtitle: 'خبرهای محصولات، اطلاعیه‌های بازرگانی و تازه‌های مجموعه هفت طلایی',
-    badge: 'اخبار',
+    title: 'تازه‌های هفت طلایی',
+    subtitle:
+      'از معرفی محصولات و آشنایی با فرآوری خشکبار تا نکته‌هایی درباره کاربرد فندق، پسته و بادام در صنایع غذایی.',
+    badge: 'تازه‌های مجموعه',
   });
 
   const fetchPage = useCallback(async ({ reset = false } = {}) => {
     if (!reset && loadingMoreRef.current) return;
 
-    const requestId = reset ? requestIdRef.current + 1 : requestIdRef.current;
+    const requestId = reset
+      ? requestIdRef.current + 1
+      : requestIdRef.current;
+
     if (reset) {
       requestIdRef.current = requestId;
       skipRef.current = 0;
@@ -76,6 +81,7 @@ export default function News() {
     }
 
     const skip = reset ? 0 : skipRef.current;
+
     try {
       const items = await getNewsPosts({
         limit: PAGE_SIZE,
@@ -83,14 +89,26 @@ export default function News() {
         category: activeCategory === 'all' ? undefined : activeCategory,
         query: appliedQuery || undefined,
       });
+
       if (requestId !== requestIdRef.current) return;
 
       const page = Array.isArray(items) ? items : [];
+
       setCmsItems((current) => {
         if (reset) return page;
-        const known = new Set(current.map((item) => item.slug).filter(Boolean));
-        return [...current, ...page.filter((item) => item.slug && !known.has(item.slug))];
+
+        const known = new Set(
+          current.map((item) => item.slug).filter(Boolean),
+        );
+
+        return [
+          ...current,
+          ...page.filter(
+            (item) => item.slug && !known.has(item.slug),
+          ),
+        ];
       });
+
       skipRef.current = skip + page.length;
       setHasMore(page.length === PAGE_SIZE);
       setLoadError(false);
@@ -101,8 +119,9 @@ export default function News() {
       }
     } finally {
       if (requestId === requestIdRef.current) {
-        if (reset) setLoading(false);
-        else {
+        if (reset) {
+          setLoading(false);
+        } else {
           setLoadingMore(false);
           loadingMoreRef.current = false;
         }
@@ -110,9 +129,15 @@ export default function News() {
     }
   }, [activeCategory, appliedQuery]);
 
-  const loadData = useCallback(() => fetchPage({ reset: true }), [fetchPage]);
+  const loadData = useCallback(
+    () => fetchPage({ reset: true }),
+    [fetchPage],
+  );
+
   const loadMore = useCallback(() => {
-    if (hasMore && !loading && !loadingMore) void fetchPage();
+    if (hasMore && !loading && !loadingMore) {
+      void fetchPage();
+    }
   }, [fetchPage, hasMore, loading, loadingMore]);
 
   useEffect(() => {
@@ -121,49 +146,99 @@ export default function News() {
 
   useEffect(() => {
     let active = true;
+
     getNewsMeta()
-      .then((value) => { if (active) setMeta(value); })
-      .catch(() => { if (active) setMeta({ total: 0, categories: [] }); });
-    return () => { active = false; };
+      .then((value) => {
+        if (active) setMeta(value);
+      })
+      .catch(() => {
+        if (active) setMeta({ total: 0, categories: [] });
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
-    if (!sentinel || !hasMore || loading || loadingMore || loadError) return undefined;
-    if (typeof IntersectionObserver === 'undefined') return undefined;
 
-    const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) loadMore();
-    }, { rootMargin: '480px 0px' });
+    if (
+      !sentinel
+      || !hasMore
+      || loading
+      || loadingMore
+      || loadError
+    ) {
+      return undefined;
+    }
+
+    if (typeof IntersectionObserver === 'undefined') {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadMore();
+        }
+      },
+      { rootMargin: '480px 0px' },
+    );
+
     observer.observe(sentinel);
+
     return () => observer.disconnect();
   }, [hasMore, loadError, loading, loadingMore, loadMore]);
 
-  // Preserve the seven existing editorial news items until the first database seed
-  // has run; once the NewsPost API has records, the CMS is the public source of truth.
+  // مطالب آرشیوی تا زمانی که داده‌ای در CMS ثبت نشده باشد،
+  // به‌عنوان محتوای جایگزین نمایش داده می‌شوند.
   const usingCms = meta.total > 0 || cmsItems.length > 0;
   const sourceItems = usingCms ? cmsItems : NEWS_ITEMS;
+
   const filteredItems = useMemo(() => {
     const query = appliedQuery.trim().toLocaleLowerCase();
+
     return sourceItems.filter((item) => {
       const label = categoryLabel(item.category);
-      const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
-      const haystack = [item.title, item.excerpt, label, ...(item.body || [])]
-        .filter(Boolean).join(' ').toLocaleLowerCase();
+
+      const matchesCategory =
+        activeCategory === 'all'
+        || item.category === activeCategory;
+
+      const haystack = [
+        item.title,
+        item.excerpt,
+        label,
+        ...(item.body || []),
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLocaleLowerCase();
+
       return matchesCategory && (!query || haystack.includes(query));
     });
   }, [activeCategory, appliedQuery, sourceItems]);
 
   const categories = usingCms
-    ? meta.categories.map((entry) => ({ key: entry.category, label: categoryLabel(entry.category), count: entry.count }))
-    : Object.entries(NEWS_CATEGORIES).map(([key, value]) => ({
-      key,
-      label: value.label,
-      count: NEWS_ITEMS.filter((item) => item.category === key).length,
-    })).filter((entry) => entry.count > 0);
+    ? meta.categories.map((entry) => ({
+        key: entry.category,
+        label: categoryLabel(entry.category),
+        count: entry.count,
+      }))
+    : Object.entries(NEWS_CATEGORIES)
+        .map(([key, value]) => ({
+          key,
+          label: categoryLabel(key),
+          count: NEWS_ITEMS.filter(
+            (item) => item.category === key,
+          ).length,
+        }))
+        .filter((entry) => entry.count > 0);
 
   const featured = filteredItems[0] || null;
   const recentItems = sourceItems.slice(0, 4);
+
   const resetFilters = () => {
     setActiveCategory('all');
     setSearchQuery('');
@@ -171,10 +246,14 @@ export default function News() {
   };
 
   return (
-    <div dir="rtl" className="news-page" style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div
+      dir="rtl"
+      className="news-page"
+      style={{ background: 'var(--bg)', minHeight: '100vh' }}
+    >
       <Seo
-        title={`اخبار و اطلاعیه‌های ${SITE_SEO.siteNameFA}`}
-        description="خبرها و اطلاعیه‌های منتشرشدهٔ هفت طلایی از پایگاه محتوای مجموعه."
+        title={`تازه‌های ${SITE_SEO.siteNameFA}`}
+        description="معرفی محصولات هفت طلایی، آشنایی با فرآوری فندق و پسته و بادام، کاربردهای آن‌ها در صنایع غذایی و تازه‌های مجموعه."
         image={featured?.image || SITE_SEO.ogImage}
         canonical={`${SITE_SEO.baseUrl}/news`}
       />
@@ -183,10 +262,12 @@ export default function News() {
         <DynamicHeroSlider
           pageKey="news"
           fallback={{
-            image: hero?.image,
-            title: hero?.title || 'اخبار و اطلاعیه‌ها',
-            subtitle: hero?.subtitle || 'خبرهای محصولات و اطلاعیه‌های هفت طلایی',
-            badge: hero?.badge || 'اخبار',
+            image: hero?.image || FALLBACK_NEWS_IMAGE,
+            title: hero?.title || 'تازه‌های هفت طلایی',
+            subtitle:
+              hero?.subtitle
+              || 'معرفی محصولات، آشنایی با فرآوری خشکبار و نکته‌هایی درباره کاربرد آن‌ها در صنایع غذایی.',
+            badge: hero?.badge || 'تازه‌های مجموعه',
           }}
         />
 
@@ -194,25 +275,30 @@ export default function News() {
           <div className="chapter-shell">
             <StoryChapter
               index="01"
-              eyebrow="NEWSROOM"
-              title="تازه‌های هفت طلایی"
-              lead="اطلاعیه‌ها و خبرهای منتشرشده از پایگاه محتوای هفت طلایی؛ هر مطلب صفحهٔ مستقل خود را دارد."
+              eyebrow="از مجموعه"
+              title="درباره محصولات و کار ما بیشتر بدانید"
+              lead="در این بخش، مطالبی درباره محصولات فندق، پسته و بادام، شکل‌های مختلف فرآوری و کاربرد آن‌ها در تولید مواد غذایی منتشر می‌کنیم."
               className="mb-10 md:mb-14"
             />
 
             {loadError && (
               <p className="news-source-status" role="status">
-                دریافت اخبار از پایگاه داده با مشکل روبه‌رو شد؛ محتوای آرشیوی موجود حفظ شده است.
+                نمایش مطالب با مشکل روبه‌رو شد. لطفاً کمی بعد دوباره تلاش کنید؛ مطالب موجود در آرشیو همچنان در دسترس‌اند.
               </p>
             )}
 
             <div className="news-page-layout">
-              <main className="news-main" aria-label="فهرست اخبار">
+              <main className="news-main" aria-label="فهرست مطالب">
                 {loading ? (
-                  <div className="news-empty-state" role="status">در حال بارگذاری اخبار…</div>
+                  <div className="news-empty-state" role="status">
+                    در حال بارگذاری مطالب…
+                  </div>
                 ) : featured ? (
                   <Reveal variant="up">
-                    <Link to={`/news/${featured.slug || featured.id}`} className="news-featured-card group">
+                    <Link
+                      to={`/news/${featured.slug || featured.id}`}
+                      className="news-featured-card group"
+                    >
                       <div className="news-featured-media">
                         <img
                           src={featured.image || FALLBACK_NEWS_IMAGE}
@@ -225,40 +311,81 @@ export default function News() {
                             event.currentTarget.src = FALLBACK_NEWS_IMAGE;
                           }}
                         />
-                        <span className="news-featured-image-shade" aria-hidden="true" />
-                        <span className="news-featured-image-label">خبر منتخب</span>
+
+                        <span
+                          className="news-featured-image-shade"
+                          aria-hidden="true"
+                        />
+
+                        <span className="news-featured-image-label">
+                          منتخب هفت طلایی
+                        </span>
                       </div>
+
                       <div className="news-featured-copy">
                         <span className="news-featured-meta">
-                          <i style={{ background: categoryTone(featured.category) }} />
+                          <i
+                            style={{
+                              background: categoryTone(featured.category),
+                            }}
+                          />
                           {categoryLabel(featured.category)}
                           <b aria-hidden="true">·</b>
                           <CalendarDays size={14} />
                           {featured.date || ''}
                         </span>
-                        <h2 className="news-featured-title" title={featured.title}>{featured.title}</h2>
+
+                        <h2
+                          className="news-featured-title"
+                          title={featured.title}
+                        >
+                          {featured.title}
+                        </h2>
+
                         <p>{featured.excerpt}</p>
-                        <span className="news-featured-action">ادامهٔ خبر <ArrowLeft size={16} /></span>
+
+                        <span className="news-featured-action">
+                          مطالعه مطلب <ArrowLeft size={16} />
+                        </span>
                       </div>
                     </Link>
                   </Reveal>
                 ) : (
                   <div className="news-empty-state">
-                    <h2>خبری با این مشخصات پیدا نشد</h2>
-                    <p>عبارت جست‌وجو یا دسته‌بندی انتخاب‌شده را تغییر دهید.</p>
-                    <button type="button" onClick={resetFilters}>نمایش همهٔ خبرها</button>
+                    <h2>مطلبی پیدا نشد</h2>
+                    <p>
+                      عبارت جست‌وجو یا موضوع انتخاب‌شده را تغییر دهید تا
+                      مطالب مرتبط را ببینید.
+                    </p>
+                    <button type="button" onClick={resetFilters}>
+                      دیدن همه مطالب
+                    </button>
                   </div>
                 )}
 
                 {!loading && filteredItems.length > 1 && (
-                  <section className="news-more-section" aria-labelledby="news-more-heading">
+                  <section
+                    className="news-more-section"
+                    aria-labelledby="news-more-heading"
+                  >
                     <div className="news-section-heading">
-                      <h2 id="news-more-heading">سایر خبرها</h2>
-                      <span>{(usingCms ? meta.total : filteredItems.length).toLocaleString('fa-IR')} مطلب</span>
+                      <h2 id="news-more-heading">مطالب بیشتر</h2>
+                      <span>
+                        {(usingCms
+                          ? meta.total
+                          : filteredItems.length
+                        ).toLocaleString('fa-IR')}{' '}
+                        مطلب
+                      </span>
                     </div>
+
                     <div className="news-feed-grid">
                       {filteredItems.slice(1).map((item, index) => (
-                        <Reveal key={item.id || item.slug} delay={(index % 3) * 75} variant="up">
+                        <Reveal
+                          key={item.id || item.slug}
+                          delay={(index % 3) * 75}
+                          variant="up"
+                        >
                           <NewsCard item={item} />
                         </Reveal>
                       ))}
@@ -267,51 +394,105 @@ export default function News() {
                 )}
 
                 {usingCms && !loading && hasMore && !loadError && (
-                  <div ref={sentinelRef} className="news-load-more-sentinel" aria-hidden="true" />
+                  <div
+                    ref={sentinelRef}
+                    className="news-load-more-sentinel"
+                    aria-hidden="true"
+                  />
                 )}
-                {loadingMore && <p className="news-load-more-status" role="status">در حال دریافت اخباز بیشتر…</p>}
+
+                {loadingMore && (
+                  <p className="news-load-more-status" role="status">
+                    در حال بارگذاری مطالب بیشتر…
+                  </p>
+                )}
               </main>
 
-              <aside className="news-sidebar" aria-label="ابزارها و دسته‌بندی اخبار">
-                <form className="news-sidebar-search" onSubmit={(event) => { event.preventDefault(); setAppliedQuery(searchQuery.trim()); }} role="search">
-                  <label htmlFor="news-search">جست‌وجو در اخبار</label>
+              <aside
+                className="news-sidebar"
+                aria-label="جست‌وجو و دسته‌بندی مطالب"
+              >
+                <form
+                  className="news-sidebar-search"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    setAppliedQuery(searchQuery.trim());
+                  }}
+                  role="search"
+                >
+                  <label htmlFor="news-search">
+                    جست‌وجو در مطالب
+                  </label>
+
                   <div className="news-search-control">
                     <input
                       id="news-search"
                       type="search"
                       value={searchQuery}
                       onChange={(event) => setSearchQuery(event.target.value)}
-                      placeholder="مثلاً محصولات یا سفارش"
+                      placeholder="مثلاً فندق، پسته یا فرآوری"
                     />
-                    <button type="submit" aria-label="جست‌وجو"><Search size={17} /></button>
+
+                    <button type="submit" aria-label="جست‌وجو">
+                      <Search size={17} />
+                    </button>
                   </div>
                 </form>
 
                 <section className="news-sidebar-block">
                   <div className="news-sidebar-heading">
-                    <h2>دسته‌بندی خبرها</h2>
-                    <button type="button" onClick={resetFilters}>پاک‌کردن فیلتر</button>
-                  </div>
-                  <div className="news-category-list">
-                    <button type="button" className="news-category-button" data-active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
-                      <span>همهٔ خبرها</span><b>{(usingCms ? meta.total : NEWS_ITEMS.length).toLocaleString('fa-IR')}</b>
+                    <h2>موضوع مطالب</h2>
+                    <button type="button" onClick={resetFilters}>
+                      پاک‌کردن فیلتر
                     </button>
+                  </div>
+
+                  <div className="news-category-list">
+                    <button
+                      type="button"
+                      className="news-category-button"
+                      data-active={activeCategory === 'all'}
+                      onClick={() => setActiveCategory('all')}
+                    >
+                      <span>همه مطالب</span>
+                      <b>
+                        {(usingCms ? meta.total : NEWS_ITEMS.length)
+                          .toLocaleString('fa-IR')}
+                      </b>
+                    </button>
+
                     {categories.map((category) => (
-                      <button type="button" key={category.key} className="news-category-button" data-active={activeCategory === category.key} onClick={() => setActiveCategory(category.key)}>
-                        <span>{category.label}</span><b>{category.count.toLocaleString('fa-IR')}</b>
+                      <button
+                        type="button"
+                        key={category.key}
+                        className="news-category-button"
+                        data-active={activeCategory === category.key}
+                        onClick={() => setActiveCategory(category.key)}
+                      >
+                        <span>{category.label}</span>
+                        <b>{category.count.toLocaleString('fa-IR')}</b>
                       </button>
                     ))}
                   </div>
                 </section>
 
                 <section className="news-sidebar-block">
-                  <h2>خبرهای تازه</h2>
+                  <h2>تازه‌ترین مطالب</h2>
+
                   <ul className="news-recent-list">
                     {recentItems.map((item) => (
                       <li key={item.id || item.slug}>
                         <Link to={`/news/${item.slug || item.id}`}>
-                          <span>{categoryLabel(item.category)} · {item.date || ''}</span>
-                          <strong className="news-recent-title" title={item.title}>{item.title}</strong>
+                          <span>
+                            {categoryLabel(item.category)} · {item.date || ''}
+                          </span>
+
+                          <strong
+                            className="news-recent-title"
+                            title={item.title}
+                          >
+                            {item.title}
+                          </strong>
                         </Link>
                       </li>
                     ))}
@@ -319,13 +500,18 @@ export default function News() {
                 </section>
 
                 <div className="news-sidebar-cta">
-                  <h2>دربارهٔ محصول یا سفارش سؤال دارید؟</h2>
-                  <p>نوع محصول، فرم موردنیاز و حجم تقریبی سفارش را بفرستید تا درخواست شما دقیق‌تر بررسی شود.</p>
-                  <Link to="/contact">ارتباط با هفت طلایی <ArrowLeft size={15} /></Link>
+                  <h2>درباره محصولات پرسشی دارید؟</h2>
+                  <p>
+                    اگر درباره انواع مغز، خلال، پرک، گرانول یا پودرهای فندق،
+                    پسته و بادام می‌خواهید بیشتر بدانید، با ما در ارتباط باشید.
+                  </p>
+                  <Link to="/contact">
+                    ارتباط با هفت طلایی <ArrowLeft size={15} />
+                  </Link>
                 </div>
 
                 <Link to="/blog" className="news-sidebar-crosslink">
-                  راهنمای تخصصی و مطالب وبلاگ <ArrowLeft size={15} />
+                  نکته‌ها و راهنماهای بیشتر <ArrowLeft size={15} />
                 </Link>
               </aside>
             </div>
@@ -334,15 +520,40 @@ export default function News() {
 
         <section className="chapter news-video-section">
           <div className="chapter-shell">
-            <StoryChapter index="02" eyebrow="تصاویر واقعی از مجموعه" title="هفت طلایی، از نزدیک" lead="بخش تصویری صفحهٔ اصلی، شامل ویدیوهای کارخانه و گالری کامل تصاویر، در ادامه قابل مشاهده است." align="center" className="mb-8" />
+            <StoryChapter
+              index="02"
+              eyebrow="نگاهی از نزدیک"
+              title="فرآوری و محصولات هفت طلایی"
+              lead="در این بخش می‌توانید گوشه‌هایی از فضای مجموعه، مراحل آماده‌سازی محصولات و نمونه‌هایی از فرآورده‌های فندق، پسته و بادام را ببینید."
+              align="center"
+              className="mb-8"
+            />
+
             <div className="news-video-grid">
               {[
-                { src: '/video/processing-1.mp4', label: 'فرآوری و تولید' },
-                { src: '/video/facility-1.mp4', label: 'فضای کارخانه' },
-                { src: '/video/showroom-1.mp4', label: 'محصولات از نزدیک' },
+                {
+                  src: '/video/processing-1.mp4',
+                  label: 'فرآوری و تولید',
+                },
+                {
+                  src: '/video/facility-1.mp4',
+                  label: 'فضای کارخانه',
+                },
+                {
+                  src: '/video/showroom-1.mp4',
+                  label: 'محصولات از نزدیک',
+                },
               ].map((video) => (
                 <div key={video.src} className="news-media-card">
-                  <video src={video.src} muted autoPlay loop playsInline preload="metadata" aria-label={video.label} />
+                  <video
+                    src={video.src}
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label={video.label}
+                  />
                   <span>{video.label}</span>
                 </div>
               ))}
