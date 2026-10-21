@@ -4,7 +4,7 @@ import { Mail, Phone } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
 const CONTACT_LINKS = [
-  { id: 'phone', label: 'تماس تلفنی', href: 'tel:+989121823438', Icon: Phone, display: '۰۹۱۲ ۱۸۲ ۳۴۳۸' },
+  { id: 'phone', label: 'تماس تلفنی', href: 'tel:+989121823438', Icon: Phone, display: '09121823438' },
   { id: 'email', label: 'ایمیل', href: 'mailto:info@7golden.co', Icon: Mail, display: 'info@7golden.co' },
 ];
 
@@ -47,39 +47,39 @@ export default function Footer() {
           <div>
             <img src="/logo-symbol.webp" alt="هفت طلایی" className="mb-5 h-14 w-auto object-contain object-right" />
             <div className="mb-5 h-px w-14" style={{ background: 'var(--gold-2)' }} />
-            <p className="max-w-sm text-sm leading-8 text-white/75">{t('footer_tagline')}</p>
-            <p className="mt-3 text-xs tracking-wide text-white/45">قزوین <span className="px-2 text-[#c9a958]">·</span> از ۱۳۷۷</p>
+            <p className="max-w-sm text-sm leading-8 !text-white">{t('footer_tagline')}</p>
+            <p className="mt-3 text-xs tracking-wide !text-white">قزوین <span className="px-2 text-[#c9a958]">·</span> از 1377</p>
           </div>
 
           <div>
-            <h2 className="mb-5 text-sm font-bold text-white">ارتباط با هفت طلایی</h2>
+            <h2 className="mb-5 text-sm font-bold !text-white">ارتباط با هفت طلایی</h2>
             <nav className="flex flex-col items-start gap-4" aria-label="راه‌های تماس">
               {CONTACT_LINKS.map(({ id, label, href, Icon, display }) => (
-                <a key={id} href={href} className="group inline-flex items-center gap-3 text-sm text-white/70 transition-colors hover:text-[#d7b765]">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] transition-colors group-hover:border-[#c9a958]/50">
+                <a key={id} href={href} className="group inline-flex items-center gap-3 text-sm text-white transition-colors hover:text-[#d7b765]">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white bg-white/[0.03] transition-colors group-hover:border-[#c9a958]/50">
                     <Icon size={16} aria-hidden="true" />
                   </span>
                   <span>{label}</span>
-                  <span dir="ltr" className="text-xs text-white/45">{display}</span>
+                  <span dir="ltr" className="text-xs text-white">{display}</span>
                 </a>
               ))}
             </nav>
           </div>
 
           <div>
-            <h2 className="mb-5 text-sm font-bold text-white">دسترسی سریع</h2>
-            <nav className="footer-nav-list" aria-label="دسترسی سریع">
-              <Link to="/shop" className="footer-nav-link">محصولات</Link>
-              <Link to="/about" className="footer-nav-link">درباره هفت طلایی</Link>
-              <Link to="/news" className="footer-nav-link">اخبار و اطلاعیه‌ها</Link>
-              <Link to="/blog" className="footer-nav-link">مجله تخصصی</Link>
-              <Link to="/contact" className="footer-nav-link">تماس با ما</Link>
+            <h2 className="mb-5 text-sm font-bold !text-white">دسترسی سریع</h2>
+            <nav className="footer-nav-list !text-white" aria-label="دسترسی سریع">
+              <Link to="/shop" className="footer-nav-link !text-white">محصولات</Link>
+              <Link to="/about" className="footer-nav-link !text-white">درباره هفت طلایی</Link>
+              <Link to="/news" className="footer-nav-link !text-white">اخبار و اطلاعیه‌ها</Link>
+              <Link to="/blog" className="footer-nav-link !text-white">مجله تخصصی</Link>
+              <Link to="/contact" className="footer-nav-link !text-white">تماس با ما</Link>
             </nav>
           </div>
 
           <div>
-            <h2 className="mb-3 text-sm font-bold text-white">در ارتباط بمانیم</h2>
-            <p className="mb-5 max-w-sm text-xs leading-7 text-white/55">برای گفت‌وگو درباره محصولات و سفارش، از مسیرهای ارتباطی زیر استفاده کنید.</p>
+            <h2 className="mb-3 text-sm font-bold !text-white">در ارتباط بمانیم</h2>
+            <p className="mb-5 max-w-sm text-xs leading-7 text-white">برای گفت‌وگو درباره محصولات و سفارش، از مسیرهای ارتباطی زیر استفاده کنید.</p>
             <nav className="flex flex-wrap items-center gap-3" aria-label="شبکه‌های اجتماعی">
               {SOCIAL_LINKS.map((social) => {
                 const mark = social.icon
@@ -105,9 +105,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} هفت طلایی · تمامی حقوق محفوظ است.</span>
-          <a href="https://7golden.co" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#d7b765]">7golden.co</a>
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-5 text-xs !text-white sm:flex-row sm:items-center sm:justify-between">
+          <span className="!text-white">© {new Date().getFullYear()} هفت طلایی · تمامی حقوق محفوظ است.</span>
+          <a href="https://7golden.co" target="_blank" rel="noopener noreferrer" className="!text-white transition-colors hover:text-[#d7b765]">7golden.co</a>
         </div>
       </div>
     </footer>
