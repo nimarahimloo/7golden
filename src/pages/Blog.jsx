@@ -260,7 +260,7 @@ export default function Blog() {
         {/* ===== Closing parallax band ===== */}
           <section className="closing-band" style={{ minHeight: '40vh' }}>
             <div className="closing-band-bg">
-              <img src="/gallery/AQ8A1547AQ8A1547.webp" alt="" loading="lazy" decoding="async" />
+              <img src="/banner/tray-pistachio-almond.webp" alt="" loading="lazy" decoding="async" />
             </div>
             <div className="relative z-10 chapter-shell py-20 text-center">
               <Reveal variant="up">
