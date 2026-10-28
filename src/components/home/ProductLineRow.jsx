@@ -2,12 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import ProductTile from '@/components/ProductTile';
 
 /**
- * ردیف مارکی افقی — حرکت پیوسته با transform (نه scrollLeft).
- * کارت نزدیک مرکز صفحه نور می‌گیرد (spotlight) تا ردیف‌ها زنده و هماهنگ دیده شوند.
- * درگ برای عقب/جلو، توقف روی هاور.
- *
- * تعداد کپی‌ها به‌صورت خودکار محاسبه می‌شود تا ردیف همیشه از عرض صفحه
- * سرریز کند و هیچ‌وقت فضای خالی در انتهای لوپ دیده نشود.
+ * Horizontal product marquee — continuous transform loop (not scrollLeft).
+ * Minimal-luxury: larger cards, more air, calm hover, clear category title.
+ * Drag to scrub; pause on hover. Auto-copies so the loop never shows a gap.
  */
 export default function ProductLineRow({
   title,
@@ -24,8 +21,6 @@ export default function ProductLineRow({
 
   const hasProducts = products.length > 0;
 
-  // چند نسخه از محصولات لازم است تا ردیف حداقل دو برابر عرض صفحه شود.
-  // این تضمین می‌کند حتی با چند محصول کم یا مانیتور خیلی پهن، لوپ بی‌درز بماند.
   useEffect(() => {
     if (!hasProducts) return;
     const vp = viewportRef.current;
@@ -51,11 +46,9 @@ export default function ProductLineRow({
     const step = (now) => {
       if (!dragRef.current.on && !paused) {
         const half = el.scrollWidth / copies || 1;
-        // یک دور کامل در `duration` ثانیه
         const pxPerMs = half / (duration * 1000);
         const dt = Math.min(now - last, 64);
         offsetRef.current += (reverse ? -1 : 1) * pxPerMs * dt;
-        // نرمال‌سازی در بازه [0, half)
         while (offsetRef.current >= half) offsetRef.current -= half;
         while (offsetRef.current < 0) offsetRef.current += half;
         el.style.transform = `translate3d(${-offsetRef.current}px,0,0)`;
@@ -106,15 +99,25 @@ export default function ProductLineRow({
   if (!hasProducts) return null;
 
   return (
-    <div className="w-full mb-5 md:mb-7" dir="rtl">
+    <div className="w-full mb-10 md:mb-14" dir="rtl">
       {title ? (
-        <div className="chapter-shell mb-2">
-          <h3
-            className="text-base md:text-lg font-semibold"
-            style={{ fontFamily: 'Peyda, serif', color: 'var(--fg)' }}
-          >
-            {title}
-          </h3>
+        <div className="chapter-shell mb-5 md:mb-6">
+          <div className="flex items-center gap-3">
+            <span
+              className="h-px w-8 shrink-0"
+              style={{ background: 'var(--hairline-strong)' }}
+              aria-hidden="true"
+            />
+            <h3
+              className="text-sm md:text-base font-medium tracking-wide"
+              style={{
+                fontFamily: 'Peyda, serif',
+                color: 'var(--fg-muted)',
+              }}
+            >
+              {title}
+            </h3>
+          </div>
         </div>
       ) : null}
 
@@ -145,8 +148,8 @@ export default function ProductLineRow({
               key={`${p.slug || p.id}-${i}`}
               product={p}
               loading={i < products.length ? 'eager' : 'lazy'}
-              className="flex-shrink-0 px-3 md:px-4 box-content"
-              style={{ width: 'min(46vw, 210px)' }}
+              className="flex-shrink-0 px-4 md:px-5 box-content"
+              style={{ width: 'min(52vw, 240px)' }}
             />
           ))}
         </div>
