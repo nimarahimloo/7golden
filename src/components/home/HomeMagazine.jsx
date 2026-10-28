@@ -43,7 +43,7 @@ export default function HomeMagazine({ section = {} }) {
       <div className="chapter-shell">
         <div className="home-magazine-heading">
           <StoryChapter
-            index="08"
+            index="05"
             eyebrow={eyebrow}
             title={title}
             lead={lead}

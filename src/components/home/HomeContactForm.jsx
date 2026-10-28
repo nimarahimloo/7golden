@@ -4,6 +4,7 @@ import { Send, CheckCircle, Phone, Mail, MessageCircle } from 'lucide-react';
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import { createContactMessage } from '@/lib/api/content';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 const FIELDS = [
   { key: 'name', type: 'text', label: 'نام و نام خانوادگی', required: true, autoComplete: 'name' },
@@ -60,26 +61,26 @@ export default function HomeContactForm({ section = {} }) {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-10 items-start">
           <Reveal variant="left" className="lg:col-span-2">
             <div className="flex flex-col gap-3">
-              <a href="tel:+989121823438" className="p-5 rounded-2xl panel gold-frame flex items-center gap-4 transition-all hover:scale-[1.01]">
+              <a href={CONTACT_INFO.mobileLink} className="p-5 rounded-2xl panel gold-frame flex items-center gap-4 transition-all hover:scale-[1.01]">
                 <span className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}>
                   <Phone size={18} style={{ color: 'var(--accent)' }} />
                 </span>
                 <span>
                   <span className="font-body text-xs block mb-1" style={{ color: 'var(--fg-muted)' }}>تماس مستقیم</span>
                   <span className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', direction: 'ltr', display: 'block' }}>
-                    ۰۹۱۲۱۸۲۳۴۳۸
+                    {CONTACT_INFO.mobile}
                   </span>
                 </span>
               </a>
 
-              <a href="mailto:info@7golden.co" className="p-5 rounded-2xl panel gold-frame flex items-center gap-4 transition-all hover:scale-[1.01]">
+              <a href={CONTACT_INFO.emailLink} className="p-5 rounded-2xl panel gold-frame flex items-center gap-4 transition-all hover:scale-[1.01]">
                 <span className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(212,175,55,0.12)', border: '1px solid var(--hairline-strong)' }}>
                   <Mail size={18} style={{ color: 'var(--accent)' }} />
                 </span>
                 <span>
                   <span className="font-body text-xs block mb-1" style={{ color: 'var(--fg-muted)' }}>ایمیل</span>
                   <span className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif', direction: 'ltr', display: 'block' }}>
-                    info@7golden.co
+                    {CONTACT_INFO.email}
                   </span>
                 </span>
               </a>
@@ -113,7 +114,7 @@ export default function HomeContactForm({ section = {} }) {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="home-contact-form flex flex-col gap-4">
                   <div className="mb-2">
                     <h3 className="font-heading font-black text-lg mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
                       فرم استعلام محصول

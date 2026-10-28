@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X, Phone, Mail, ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 const LINKS = [
   { href: '/', label: t('home'), desc: 'صفحه اصلی' },
@@ -28,19 +29,59 @@ function isActivePath(pathname, href) {
  */
 export default function MobileMenu({ open, onClose }) {
   const location = useLocation();
+  const sheetRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const onCloseRef = useRef(onClose);
 
-  // Lock page scroll and close on Escape while the sheet is open.
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  // Treat the sheet as a modal: keep keyboard focus inside, close on Escape,
+  // lock background scrolling, and return focus to the menu trigger afterwards.
   useEffect(() => {
     if (!open) return undefined;
-    const prev = document.body.style.overflow;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousActiveElement = document.activeElement;
+    const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
     document.body.style.overflow = 'hidden';
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKey);
+    closeButtonRef.current?.focus();
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onCloseRef.current?.();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const focusable = Array.from(sheetRef.current?.querySelectorAll(focusableSelector) || [])
+        .filter((element) => !element.hasAttribute('disabled') && element.getAttribute('aria-hidden') !== 'true');
+      if (!focusable.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const focusIsOutside = !sheetRef.current?.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || focusIsOutside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || focusIsOutside)) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-  }, [open, onClose]);
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+      if (previousActiveElement instanceof HTMLElement) previousActiveElement.focus();
+    };
+  }, [open]);
 
   return (
     <div className="lg:hidden">
@@ -61,6 +102,7 @@ export default function MobileMenu({ open, onClose }) {
 
       {/* Sheet */}
       <aside
+        ref={sheetRef}
         dir="rtl"
         role="dialog"
         aria-modal="true"
@@ -73,7 +115,10 @@ export default function MobileMenu({ open, onClose }) {
           borderRight: '1px solid var(--hairline-strong)',
           boxShadow: '24px 0 80px rgba(0,0,0,0.6)',
           transform: open ? 'translateX(0)' : 'translateX(-105%)',
-          transition: 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)',
+          visibility: open ? 'visible' : 'hidden',
+          transition: open
+            ? 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s linear'
+            : 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1), visibility 0s linear 0.45s',
           paddingTop: 'var(--safe-area-top)',
           paddingBottom: 'var(--safe-area-bottom)',
         }}
@@ -86,6 +131,7 @@ export default function MobileMenu({ open, onClose }) {
             className="w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-90"
             style={{ color: '#fff', border: '1px solid var(--hairline-strong)', background: 'rgba(227,194,99,0.07)' }}
             aria-label="بستن منو"
+            ref={closeButtonRef}
           >
             <X size={20} />
           </button>
@@ -128,13 +174,13 @@ export default function MobileMenu({ open, onClose }) {
             درخواست قیمت و نمونه
           </Link>
           <div className="flex items-center justify-between gap-3 mt-4 text-sm" style={{ color: '#fff' }}>
-            <a href="tel:+989121823438" className="inline-flex items-center gap-2" style={{ direction: 'ltr', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+            <a href={CONTACT_INFO.mobileLink} className="inline-flex items-center gap-2" style={{ direction: 'ltr', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
               <Phone size={15} style={{ color: 'var(--gold-2)' }} />
-              ۰۹۱۲ ۱۸۲ ۳۴۳۸
+              {CONTACT_INFO.mobile}
             </a>
-            <a href="mailto:info@7golden.co" className="inline-flex items-center gap-2" style={{ fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+            <a href={CONTACT_INFO.emailLink} className="inline-flex items-center gap-2" style={{ fontFamily: 'Peyda, serif', fontWeight: 600 }}>
               <Mail size={15} style={{ color: 'var(--gold-2)' }} />
-              info@7golden.co
+              {CONTACT_INFO.email}
             </a>
           </div>
         </div>

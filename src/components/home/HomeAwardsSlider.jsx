@@ -1,45 +1,50 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Award, ChevronLeft } from 'lucide-react';
 import { getAwards } from '@/lib/api/content';
 import StoryChapter from '@/components/story/StoryChapter';
 
-const FALLBACK_AWARDS = [
-  { id: 'award-01', image: '/awards/award-01-tabriz-exhibition.webp', alt: 'حضور در نمایشگاه تبریز' },
-  { id: 'award-02', image: '/awards/award-02-qazvin-appreciation.webp', alt: 'تقدیر از مجموعه هفت طلایی در قزوین' },
-  { id: 'award-03', image: '/awards/award-03-tabriz-university.webp', alt: 'لوح تقدیر دانشگاه تبریز' },
-  { id: 'award-04', image: '/awards/award-04-training-ut.webp', alt: 'مدرک آموزشی' },
-  { id: 'award-05', image: '/awards/award-05-coaching-ut.webp', alt: 'مدرک آموزشی' },
-  { id: 'award-06', image: '/awards/award-06-membership.webp', alt: 'مدرک عضویت' },
-];
-
 export default function HomeAwardsSlider({ section = {} }) {
   const [awards, setAwards] = useState([]);
+  const [status, setStatus] = useState('loading');
 
   useEffect(() => {
     let active = true;
+
     const loadAwards = async () => {
       try {
         const items = await getAwards();
-        if (!active || !Array.isArray(items)) return;
-        const validItems = items.filter(
-          (item) => item && typeof item.image === 'string' && item.image.trim().length > 0,
-        );
-        if (validItems.length > 0) setAwards(validItems);
+        if (!active) return;
+
+        const publishedItems = Array.isArray(items)
+          ? items.filter((item) =>
+              item &&
+              item.published !== false &&
+              typeof item.image === 'string' &&
+              item.image.trim().length > 0,
+            )
+          : [];
+
+        setAwards(publishedItems);
+        setStatus('ready');
       } catch {
-        // Keep local fallback data available.
+        if (active) setStatus('error');
       }
     };
+
     void loadAwards();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, []);
 
-  const list = awards.length > 0 ? awards : FALLBACK_AWARDS;
-  const loop = [...list, ...list];
+  const loop = [...awards, ...awards];
 
   return (
     <section className="chapter relative overflow-hidden" style={{ background: 'rgba(7, 6, 4, 0.55)' }}>
       <div className="chapter-shell">
         <StoryChapter
-          index="۰۶"
+          index="۰۷"
           eyebrow={section.badge_fa || 'افتخارات و مدارک'}
           title={section.title_fa || 'مروری بر سوابق هفت طلایی'}
           lead={section.subtitle_fa || undefined}
@@ -47,34 +52,65 @@ export default function HomeAwardsSlider({ section = {} }) {
         />
       </div>
 
-      <div className="awards-marquee" aria-label="تصاویر مدارک و تقدیرنامه‌های هفت طلایی">
-        <div className="awards-marquee-track">
-          {loop.map((award, index) => {
-            const isDuplicate = index >= list.length;
-            const title =
-              award.title_fa ||
-              award.titleFA ||
-              award.title ||
-              award.alt ||
-              'از مدارک و تقدیرنامه‌های هفت طلایی';
-
-            return (
-              <figure
-                key={`${award.id || title}-${index}`}
-                className="award-frame"
-                aria-hidden={isDuplicate ? true : undefined}
-              >
-                <img
-                  src={award.image}
-                  alt={isDuplicate ? '' : title}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </figure>
-            );
-          })}
+      {status === 'loading' ? (
+        <div className="chapter-shell">
+          <div className="home-catalog-status" role="status" aria-live="polite">
+            <span className="home-catalog-status-icon" aria-hidden="true"><Award size={23} /></span>
+            <div className="min-w-0 flex-1">
+              <strong>در حال دریافت مدارک منتشرشده…</strong>
+              <p>تصاویر این بخش از سوابق تأییدشدهٔ سامانه خوانده می‌شوند.</p>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : status === 'error' ? (
+        <div className="chapter-shell">
+          <div className="home-catalog-status" role="alert" aria-live="polite">
+            <span className="home-catalog-status-icon" aria-hidden="true"><Award size={23} /></span>
+            <div className="min-w-0 flex-1">
+              <strong>بارگذاری مدارک با مشکل روبه‌رو شد.</strong>
+              <p>برای دریافت اطلاعات بیشتر با مجموعه تماس بگیرید.</p>
+            </div>
+            <Link to="/contact" className="home-catalog-contact">
+              تماس با ما
+              <ChevronLeft size={15} />
+            </Link>
+          </div>
+        </div>
+      ) : awards.length === 0 ? (
+        <div className="chapter-shell">
+          <p className="home-content-status" role="status" aria-live="polite">
+            در حال حاضر مدرک منتشرشده‌ای برای نمایش وجود ندارد.
+          </p>
+        </div>
+      ) : (
+        <div className="awards-marquee" role="region" aria-label="تصاویر مدارک منتشرشدهٔ هفت طلایی">
+          <div className="awards-marquee-track">
+            {loop.map((award, index) => {
+              const isDuplicate = index >= awards.length;
+              const title =
+                award.title_fa ||
+                award.titleFA ||
+                award.title ||
+                'از مدارک و تقدیرنامه‌های هفت طلایی';
+
+              return (
+                <figure
+                  key={`${award.id || title}-${index}`}
+                  className="award-frame"
+                  aria-hidden={isDuplicate ? true : undefined}
+                >
+                  <img
+                    src={award.image}
+                    alt={isDuplicate ? '' : title}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

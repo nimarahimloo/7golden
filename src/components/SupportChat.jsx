@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 /**
  * SupportChat — the 7Golden trade-desk assistant.
@@ -10,7 +11,7 @@ import { MessageCircle, X, Send } from 'lucide-react';
  * Keep the copy in sync with the brand's verified facts (corporate-content.js).
  */
 
-const CONTACT = 'تلفن: ۰۲۸۳۳۲۳۴۰۰۴ و ۰۹۱۲۱۸۲۳۴۳۸ · ایمیل: info@7golden.co';
+const CONTACT = `تلفن دفتر: ${CONTACT_INFO.officePhone} و موبایل: ${CONTACT_INFO.mobile} · ایمیل: ${CONTACT_INFO.email}`;
 
 const KNOWLEDGE = [
   {
@@ -135,7 +136,7 @@ export default function SupportChat() {
             color: 'hsl(var(--accent-foreground))',
             boxShadow: '0 8px 32px rgba(212,175,55,0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
           }}
-          aria-label="پشتیبانی آنلاین"
+          aria-label="باز کردن راهنمای خودکار محصولات"
         >
           <MessageCircle size={24} />
           <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full" style={{ background: '#22c55e', border: '2px solid var(--bg)' }} />
@@ -162,19 +163,19 @@ export default function SupportChat() {
                 <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <h3 className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>پشتیبانی هفت‌طلایی</h3>
-                <p className="font-body text-xs flex items-center gap-1" style={{ color: '#22c55e' }}>
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} /> پاسخگویی محلی و بدون وقفه
+                <h3 className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>راهنمای هفت‌طلایی</h3>
+                <p className="font-body text-xs flex items-center gap-1" style={{ color: 'var(--gold-2)' }}>
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gold-2)' }} /> راهنمای خودکار · قیمت و موجودی با واحد فروش
                 </p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="w-8 h-8 rounded-full flex items-center justify-center glass-pill transition-all hover:scale-110" style={{ color: 'var(--fg)' }}>
+            <button type="button" onClick={() => setOpen(false)} aria-label="بستن راهنمای هفت‌طلایی" className="w-8 h-8 rounded-full flex items-center justify-center glass-pill transition-all hover:scale-110" style={{ color: 'var(--fg)' }}>
               <X size={16} />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3">
+          <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3" role="log" aria-live="polite" aria-relevant="additions text">
             {messages.length === 0 && (
               <div className="flex flex-col items-center text-center py-6 gap-3">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(212,175,55,0.08)', border: '1px solid rgba(212,175,55,0.15)' }}>
@@ -240,6 +241,7 @@ export default function SupportChat() {
             <div className="flex items-center gap-2">
               <input
                 type="text"
+                aria-label="پیام شما"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
@@ -253,7 +255,9 @@ export default function SupportChat() {
                 }}
               />
               <button
+                type="button"
                 onClick={sendMessage}
+                aria-label="ارسال پیام"
                 disabled={!input.trim()}
                 className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 disabled:opacity-40"
                 style={{ background: 'var(--accent)', color: 'hsl(var(--accent-foreground))', boxShadow: '0 4px 16px rgba(212,175,55,0.2)' }}

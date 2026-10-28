@@ -1,3 +1,5 @@
+import { CONTACT_INFO, CONTACT_ADDRESSES } from '@/lib/contact-info';
+
 export const translations = {
   fa: {
     // Nav
@@ -110,11 +112,11 @@ export const translations = {
     contact_title: "با هفت طلایی در ارتباط باشید",
     contact_sub: "برای اطلاع از محصولات و استعلام قیمت با دفتر هفت طلایی تماس بگیرید.",
     hq_title: "دفتر مرکزی — قزوین",
-    hq_address: "قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰ — روبروی بانک کشاورزی",
+    hq_address: CONTACT_ADDRESSES[0].address,
     factory_title: "کارخانه — شهرک صنعتی کاسپین ۲",
-    factory_address: "قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲",
-    support_phone: "۰۲۸۳۳۲۳۴۰۰۴",
-    support_mobile: "۰۹۱۲۱۸۲۳۴۳۸",
+    factory_address: CONTACT_ADDRESSES[1].address,
+    support_phone: CONTACT_INFO.officePhone.replace(/\s/g, ''),
+    support_mobile: CONTACT_INFO.mobile.replace(/\s/g, ''),
     working_hours: "برای اطلاع از ساعات پاسخگویی، با دفتر مجموعه تماس بگیرید.",
     send_message: "بفرست پیام",
     message: "محصول و جزئیات درخواست",
