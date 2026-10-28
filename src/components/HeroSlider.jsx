@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+const HeroNutScene = lazy(() => import('@/components/home/HeroNutScene'));
 
 const BASE_SLIDES = [
   {
@@ -147,9 +148,11 @@ export default function HeroSlider({ cmsHero = null }) {
         />
       </div>
 
+      <Suspense fallback={null}><HeroNutScene /></Suspense>
+
       {/* Warm cinematic vignette */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[2]"
         aria-hidden="true"
         style={{
           background:
@@ -158,7 +161,7 @@ export default function HeroSlider({ cmsHero = null }) {
       />
 
       <div
-        className="absolute inset-x-0 top-0 h-36"
+        className="absolute inset-x-0 top-0 z-[2] h-36"
         aria-hidden="true"
         style={{
           background: 'linear-gradient(180deg, rgba(10,9,7,.5), transparent)',
@@ -182,7 +185,7 @@ export default function HeroSlider({ cmsHero = null }) {
 
         <div
           key={current}
-          className="luxury-hero-copy hero-copy-entrance max-w-4xl"
+          className="luxury-hero-copy hero-copy-entrance max-w-4xl lg:max-w-[54%]"
         >
           <h1
             className="mb-5 font-extrabold leading-[1.12] sm:mb-6"

@@ -84,13 +84,21 @@ jobs:
               exit 1
             fi
           done
+          # The checked-in deploy script serves the Vite build at "$ROOT/dist".
+          # Accept the project directory as a legacy shorthand, but always rsync
+          # into its dedicated build output directory rather than overwriting source files.
+          case "$FRONTEND_WEB_ROOT" in
+            /var/www/7golden|/var/www/7golden/)
+              FRONTEND_WEB_ROOT="/var/www/7golden/dist"
+              ;;
+          esac
           if [[ ! "$FRONTEND_WEB_ROOT" =~ ^/[a-zA-Z0-9._/-]+$ ]] || [[ "$FRONTEND_WEB_ROOT" == *"/../"* ]] || [[ "$FRONTEND_WEB_ROOT" == */.. ]]; then
             echo "::error::FRONTEND_WEB_ROOT must be a safe absolute path without shell metacharacters or parent-directory traversal"
             exit 1
           fi
           case "$FRONTEND_WEB_ROOT" in
             /|/var/www|/var/www/html|/var/www/7golden|/var/www/7golden/)
-              echo "::error::Refusing generic web roots and the project source directory; target the exact frontend document root (for example, a dedicated dist directory)"
+              echo "::error::Refusing generic web roots and the project source directory; target the exact frontend document root (for example, /var/www/7golden/dist)"
               exit 1
               ;;
           esac
@@ -114,6 +122,12 @@ jobs:
           FRONTEND_WEB_ROOT: ${{ secrets.FRONTEND_WEB_ROOT }}
         run: |
           set -euo pipefail
+          # Keep target resolution identical to the validation step.
+          case "$FRONTEND_WEB_ROOT" in
+            /var/www/7golden|/var/www/7golden/)
+              FRONTEND_WEB_ROOT="/var/www/7golden/dist"
+              ;;
+          esac
           export RSYNC_RSH="ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
           ssh -i "$HOME/.ssh/deploy_key" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$SSH_USER@$SSH_HOST" \
             "mkdir -p -- '$FRONTEND_WEB_ROOT'"
@@ -121,12 +135,12 @@ jobs:
 
       - name: Verify deployed frontend responds
         env:
-          DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+          DEPLOY_URL: ${{ vars.DEPLOY_URL || 'http://46.34.163.95/' }}
         run: |
           set -euo pipefail
           if [ -z "$DEPLOY_URL" ]; then
-            echo "DEPLOY_URL repository variable is not set; skipping HTTP smoke check."
-            exit 0
+            echo "::error::DEPLOY_URL must be set so production deployment cannot pass without an HTTP smoke check."
+            exit 1
           fi
           for attempt in $(seq 1 10); do
             if curl --fail --silent --show-error --location --max-time 10 "$DEPLOY_URL" >/dev/null; then
