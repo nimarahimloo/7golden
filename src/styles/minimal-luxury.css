@@ -564,3 +564,50 @@ footer, .site-footer { border-top: 1px solid var(--hairline); }
   .home-catalog-retry,
   .home-catalog-contact { transition: none; }
 }
+
+
+/* ---------- Form focus states and assistive-technology affordances ---------- */
+.contact-page-form input:focus-visible,
+.contact-page-form textarea:focus-visible,
+.home-contact-form input:focus-visible,
+.home-contact-form textarea:focus-visible,
+.support-fab input:focus-visible,
+.contact-page-form button:focus-visible,
+.home-contact-form button:focus-visible,
+.support-fab button:focus-visible {
+  outline: 2px solid var(--gold-1) !important;
+  outline-offset: 3px;
+  border-color: var(--gold-1) !important;
+}
+.contact-page-form input:focus,
+.contact-page-form textarea:focus,
+.home-contact-form input:focus,
+.home-contact-form textarea:focus,
+.support-fab input:focus {
+  box-shadow: 0 0 0 3px rgba(214, 178, 94, 0.13), inset 0 1px 2px rgba(0,0,0,.2) !important;
+}
+.contact-page-form input,
+.contact-page-form textarea,
+.home-contact-form input,
+.home-contact-form textarea {
+  min-height: 2.8rem;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.contact-page-form textarea,
+.home-contact-form textarea {
+  min-height: 7rem;
+  line-height: 1.8;
+}
+.contact-page-form button:focus-visible,
+.home-contact-form button:focus-visible,
+.support-fab button:focus-visible {
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-page-form input,
+  .contact-page-form textarea,
+  .home-contact-form input,
+  .home-contact-form textarea {
+    transition: none;
+  }
+}
