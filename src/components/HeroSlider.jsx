@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import HeroNutScene from '@/components/home/HeroNutScene';
+const HeroNutScene = lazy(() => import('@/components/home/HeroNutScene'));
 
 const BASE_SLIDES = [
   {
@@ -148,7 +148,7 @@ export default function HeroSlider({ cmsHero = null }) {
         />
       </div>
 
-      <HeroNutScene />
+      <Suspense fallback={null}><HeroNutScene /></Suspense>
 
       {/* Warm cinematic vignette */}
       <div
