@@ -49,7 +49,6 @@
   --panel: rgba(14, 13, 11, 0.78);
   --panel-strong: rgba(10, 9, 7, 0.92);
 
-  /* shadcn tokens kept in sync */
   --background: 40 8% 3%;
   --foreground: 40 30% 95%;
   --card: 40 10% 6%;
@@ -90,11 +89,11 @@ body {
 }
 
 .chapter {
-  padding-block: clamp(4.5rem, 9vw, 8.5rem) !important;
+  padding-block: clamp(5rem, 10vw, 9.5rem) !important;
 }
 
 .chapter-shell {
-  max-width: 1180px;
+  max-width: 1120px;
 }
 
 /* ---------- Surfaces: flatter, less glass ---------- */
@@ -133,9 +132,11 @@ body {
 .fact-card {
   background: var(--panel-strong) !important;
   border: 1px solid var(--hairline) !important;
-  border-radius: 1rem !important;
+  border-radius: 1.125rem !important;
+  padding: 1.75rem 1.5rem !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
 .fact-card:hover {
@@ -154,27 +155,69 @@ body {
   color: var(--gold-2) !important;
 }
 
-/* ---------- Hero: remove decorative noise ---------- */
+/* Soften global ambient effects — they were reading as "template luxury" */
+.scroll-aura {
+  opacity: 0.1 !important;
+}
+.cursor-spotlight {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* ---------- Hero: editorial, less chrome ---------- */
 .luxury-hero-orbit {
   display: none !important;
 }
 .luxury-hero-grain {
-  opacity: 0.3;
+  opacity: 0.22;
+}
+.luxury-hero::before,
+.luxury-hero::after {
+  border-color: rgba(201, 168, 75, 0.1) !important;
+  opacity: 0.7;
+}
+.luxury-hero-kicker {
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+.luxury-hero-slide-button {
+  border-radius: 0.75rem;
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.35);
+}
+.luxury-hero-slide-button.is-active {
+  border-color: rgba(201, 168, 75, 0.55);
+  background: rgba(10, 9, 7, 0.82);
 }
 
 /* ---------- Header: flatter chrome ---------- */
 .site-header.is-scrolled {
-  background: rgba(7, 7, 6, 0.9) !important;
-  backdrop-filter: blur(14px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+  background: rgba(7, 7, 6, 0.92) !important;
+  backdrop-filter: blur(12px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(130%) !important;
   border-bottom: 1px solid var(--hairline) !important;
   box-shadow: none !important;
 }
 .nav-gold-sheen {
-  opacity: 0.45;
+  opacity: 0.35;
 }
 .nav-gold-sheen::after {
-  animation-duration: 8s;
+  animation-duration: 10s;
+}
+.site-header .nav-link {
+  font-weight: 500;
+  opacity: 0.82;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+.site-header .nav-link:hover,
+.site-header .nav-link.is-active {
+  opacity: 1;
+  color: var(--gold-2);
+}
+.site-header .nav-link::after {
+  height: 1px;
+  background: var(--gold-2);
 }
 
 /* ---------- Buttons ---------- */
@@ -188,17 +231,79 @@ body {
 .btn-gold:hover {
   transform: translateY(-1px);
 }
+.btn-gold.btn-sm {
+  padding-inline: 1.15rem;
+}
+
+/* ---------- Product marquee — larger, calmer, more expensive ---------- */
+.plr-viewport {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  padding-block: 0.5rem;
+}
+
+/* Product tiles in home rows get more air and a quieter hover */
+.plr-viewport .group img {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  opacity: 0.92;
+}
+.plr-viewport .group:hover img {
+  transform: scale(1.03);
+  opacity: 1;
+}
+.plr-viewport .group span {
+  margin-top: 0.85rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.88;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+.plr-viewport .group:hover span {
+  opacity: 1;
+  color: var(--gold-2);
+}
+
+/* Legacy plr-card styles if still used elsewhere */
+.plr-card {
+  transform: scale(0.96);
+  opacity: 0.72;
+  border-color: transparent;
+  box-shadow: none;
+}
+.plr-card.is-spotlight,
+.plr-card:hover {
+  transform: scale(1.02);
+  opacity: 1;
+  border-color: var(--hairline);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+.plr-card.is-spotlight .plr-img,
+.plr-card:hover .plr-img {
+  transform: scale(1.03);
+}
+.plr-card:hover .plr-shine {
+  animation: none;
+}
 
 /* ---------- Gallery ---------- */
+.gallery-item {
+  border-radius: 0.875rem;
+}
 .gallery-item:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 .gallery-item:hover img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 .gallery-item:hover .gallery-gold-ring {
-  box-shadow: inset 0 0 0 1px rgba(201, 168, 75, 0.4),
-    0 12px 36px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(201, 168, 75, 0.35),
+    0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------- Footer quieter ---------- */
+footer,
+.site-footer {
+  border-top: 1px solid var(--hairline);
 }
 
 /* ---------- Scrollbar ---------- */
@@ -206,18 +311,33 @@ body {
   width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 75, 0.32);
+  background: rgba(201, 168, 75, 0.28);
   border-radius: 3px;
+}
+
+/* ---------- Eyebrow labels — tighter, more editorial ---------- */
+.eyebrow {
+  letter-spacing: 0.28em;
+  font-size: 0.6875rem;
+  opacity: 0.9;
 }
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .fact-card:hover,
   .luxury-card:hover,
-  .gallery-item:hover {
+  .gallery-item:hover,
+  .plr-viewport .group:hover img {
     transform: none;
   }
   .nav-gold-sheen::after {
     animation: none;
+  }
+}
+
+/* ---------- Mobile bottom bar — cleaner ---------- */
+@media (max-width: 767px) {
+  .chapter {
+    padding-block: clamp(3.5rem, 12vw, 5.5rem) !important;
   }
 }
