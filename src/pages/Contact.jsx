@@ -430,7 +430,7 @@ export default function Contact() {
                   ) : (
                     <form
                       onSubmit={handleSubmit}
-                      className="flex flex-col gap-4"
+                      className="contact-page-form flex flex-col gap-4"
                     >
                       {[
                         {
@@ -451,6 +451,7 @@ export default function Contact() {
                       ].map((field) => (
                         <div key={field.key}>
                           <label
+                            htmlFor={`contact-${field.key}`}
                             className="font-body text-xs font-semibold block mb-1.5"
                             style={{ color: 'var(--fg)' }}
                           >
@@ -458,6 +459,7 @@ export default function Contact() {
                           </label>
 
                           <input
+                            id={`contact-${field.key}`}
                             type={field.type}
                             name={field.key}
                             autoComplete={
@@ -486,6 +488,7 @@ export default function Contact() {
 
                       <div>
                         <label
+                          htmlFor="contact-message"
                           className="font-body text-xs font-semibold block mb-1.5"
                           style={{ color: 'var(--fg)' }}
                         >
@@ -493,6 +496,7 @@ export default function Contact() {
                         </label>
 
                         <textarea
+                          id="contact-message"
                           name="message"
                           rows={4}
                           required
