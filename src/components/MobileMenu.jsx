@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X, Phone, Mail, ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 const LINKS = [
   { href: '/', label: t('home'), desc: 'صفحه اصلی' },
@@ -128,13 +129,13 @@ export default function MobileMenu({ open, onClose }) {
             درخواست قیمت و نمونه
           </Link>
           <div className="flex items-center justify-between gap-3 mt-4 text-sm" style={{ color: '#fff' }}>
-            <a href="tel:+989121823438" className="inline-flex items-center gap-2" style={{ direction: 'ltr', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+            <a href={CONTACT_INFO.mobileLink} className="inline-flex items-center gap-2" style={{ direction: 'ltr', fontFamily: 'Peyda, serif', fontWeight: 600 }}>
               <Phone size={15} style={{ color: 'var(--gold-2)' }} />
-              ۰۹۱۲ ۱۸۲ ۳۴۳۸
+              {CONTACT_INFO.mobile}
             </a>
-            <a href="mailto:info@7golden.co" className="inline-flex items-center gap-2" style={{ fontFamily: 'Peyda, serif', fontWeight: 600 }}>
+            <a href={CONTACT_INFO.emailLink} className="inline-flex items-center gap-2" style={{ fontFamily: 'Peyda, serif', fontWeight: 600 }}>
               <Mail size={15} style={{ color: 'var(--gold-2)' }} />
-              info@7golden.co
+              {CONTACT_INFO.email}
             </a>
           </div>
         </div>
