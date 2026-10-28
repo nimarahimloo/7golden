@@ -35,19 +35,19 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to top, var(--bg) 0%, rgba(7,6,4,0.72) 25%, rgba(7,6,4,0.25) 65%, rgba(7,6,4,0.5) 100%)',
+            'linear-gradient(to top, rgba(26, 20, 12, 0.92) 0%, rgba(26, 20, 12, 0.78) 30%, rgba(26, 20, 12, 0.3) 68%, rgba(26, 20, 12, 0.55) 100%)',
         }}
       />
 
       <div className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-14 md:pb-20">
         {badge && (
-          <Eyebrow className="block mb-5">{badge}</Eyebrow>
+          <Eyebrow className="block mb-5" style={{ color: 'var(--gold-3)' }}>{badge}</Eyebrow>
         )}
-        <h1 className="display-xl max-w-4xl" style={{ color: 'var(--ink)' }}>
-          <span className="gold-text">{title}</span>
+        <h1 className="display-xl max-w-4xl" style={{ color: '#F8F4EA' }}>
+          {title}
         </h1>
         {subtitle && (
-          <p className="font-body text-sm md:text-base mt-6 max-w-xl leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
+          <p className="font-body text-sm md:text-base mt-6 max-w-xl leading-relaxed" style={{ color: 'rgba(248, 244, 234, 0.78)' }}>
             {subtitle}
           </p>
         )}
