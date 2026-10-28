@@ -1,0 +1,41 @@
+From f037c9f3d1d41c89d012cfbf65568a1e18dcc41d Mon Sep 17 00:00:00 2001
+From: Claude <claude@users.noreply.github.com>
+Date: Wed, 28 Oct 2026 18:47:40 +0000
+Subject: [PATCH 1/2] fix(footer): reserve bottom clearance for floating
+ support button at 768px+
+
+---
+ src/components/Footer.jsx | 2 +-
+ src/styles/story.css      | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/components/Footer.jsx b/src/components/Footer.jsx
+index 1fc027c..6dfa75b 100644
+--- a/src/components/Footer.jsx
++++ b/src/components/Footer.jsx
+@@ -40,7 +40,7 @@ export default function Footer() {
+   return (
+     <footer
+       dir="rtl"
+-      className="relative overflow-hidden border-t py-14 sm:py-16 lg:py-20"
++      className="site-footer relative overflow-hidden border-t py-14 sm:py-16 lg:py-20"
+       style={{ background: 'var(--bg)', borderColor: 'var(--hairline)' }}
+     >
+       <div className="chapter-shell relative z-10">
+@@ -1917,6 +1917,14 @@
+ /* ===================================================================
+    SITE FOOTER
+    =================================================================== */
++/* The floating support button sits bottom-left from 768px up (see .support-fab).
++   Reserve bottom space so the last footer row never sits underneath it. */
++@media (min-width: 768px) {
++  .site-footer {
++    padding-bottom: calc(6.5rem + var(--safe-area-bottom));
++  }
++}
++
+ .footer-cta {
+   position: relative;
+   overflow: hidden;
+-- 
+2.43.0
