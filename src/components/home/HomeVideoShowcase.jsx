@@ -10,6 +10,27 @@ const HOME_FEATURED_MEDIA_IDS = [
   'photo-AQ8A1665AQ8A1665',
 ];
 
+/** Customer-facing copy — never show developer/CMS notes on the homepage. */
+const GALLERY_COPY = {
+  eyebrow: 'از نزدیک',
+  title: 'نگاهی به فضای تولید',
+  lead: 'تصاویری از کارخانه، خطوط فرآوری و محصولات هفت طلایی در قزوین.',
+};
+
+const BAD_GALLERY_LEADS = [
+  'روایتی موزاییکی از فضای کارخانه، فرآوری و تصاویر ثبت‌شدهٔ محصولات هفت طلایی؛ ویدیوها بی‌صدا و پیوسته مانند تصویر متحرک نمایش داده می‌شوند.',
+  'گزیده‌ای خلوت از تصاویر منتخب کارخانه، فرآوری و محصولات هفت طلایی؛ ویدیوهای منتخب بی‌صدا و پیوسته نمایش داده می‌شوند.',
+  'گزیده‌ای کنترل‌شده از تصاویر باکیفیت کارخانه، فرآوری و محصولات هفت طلایی؛ ویدیوهای منتخب به‌صورت بی‌صدا و پیوسته نمایش داده می‌شوند.',
+];
+
+function resolveLead(subtitle) {
+  const value = typeof subtitle === 'string' ? subtitle.trim() : '';
+  if (!value) return GALLERY_COPY.lead;
+  if (BAD_GALLERY_LEADS.includes(value)) return GALLERY_COPY.lead;
+  if (/بی‌صدا|موزاییک|تصویر متحرک|CMS|پایگاه محتوا/i.test(value)) return GALLERY_COPY.lead;
+  return value;
+}
+
 function LazyLoopVideo({ item, title }) {
   const videoRef = useRef(null);
   const [nearViewport, setNearViewport] = useState(false);
@@ -94,8 +115,6 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
     return [...base, ...custom].sort((a, b) => a.order - b.order);
   }, [mediaSections, overrideById]);
 
-  // Show a deliberately small five-item selection on the homepage; the admin ordering decides which items lead.
-  // HOME_ARTICLE_CONTENT_AND_MOSAIC_FIX_V1: four deliberate editorial picks, not the full archive.
   const visibleMedia = useMemo(() => {
     const byId = new Map(media.map((item) => [item.id, item]));
     const selected = HOME_FEATURED_MEDIA_IDS.map((id) => byId.get(id)).filter(Boolean);
@@ -139,18 +158,26 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
 
   if (!visibleMedia.length) return null;
 
+  const eyebrow = section.badge_fa && !/تصاویر واقعی/i.test(section.badge_fa)
+    ? section.badge_fa
+    : GALLERY_COPY.eyebrow;
+  const title = section.title_fa && section.title_fa !== 'زیبایی در جزئیات است'
+    ? section.title_fa
+    : GALLERY_COPY.title;
+  const lead = resolveLead(section.subtitle_fa);
+
   return (
-    <section className="chapter relative overflow-hidden home-media-section" aria-label="گالری ویدیو و تصاویر هفت طلایی">
+    <section className="chapter relative overflow-hidden home-media-section" aria-label="گالری تصاویر هفت طلایی">
       {section.image && <img src={section.image} alt="" aria-hidden="true" loading="lazy" decoding="async" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.055]" />}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80" aria-hidden="true"
-        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(190,151,62,.10), transparent 70%)' }} />
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(190,151,62,.08), transparent 70%)' }} />
       <div className="chapter-shell relative">
         <div className="mb-10 md:mb-14">
           <StoryChapter
             index="05"
-            eyebrow={section.badge_fa || 'تصاویر واقعی از مجموعه'}
-            title={section.title_fa || 'زیبایی در جزئیات است'}
-            lead={section.subtitle_fa || 'گزیده‌ای خلوت از تصاویر منتخب کارخانه، فرآوری و محصولات هفت طلایی؛ ویدیوهای منتخب بی‌صدا و پیوسته نمایش داده می‌شوند.'}
+            eyebrow={eyebrow}
+            title={title}
+            lead={lead}
             align="center"
           />
         </div>
@@ -166,7 +193,7 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
                 )}
                 <span className="home-media-shade" aria-hidden="true" />
                 <span className="home-media-meta">
-                  <span className="home-media-kind">{item.type === 'video' ? 'ویدیو · تولید و فرآوری' : 'تصویر · 7GOLDEN'}</span>
+                  <span className="home-media-kind">{item.type === 'video' ? 'ویدیو' : 'تصویر'}</span>
                   <strong title={item.title}>{item.title}</strong>
                   <span className="home-media-open"><ArrowUpLeft size={17} /></span>
                 </span>
@@ -177,7 +204,7 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
 
         <div className="mt-8 flex items-center justify-between gap-4 border-t pt-5" style={{ borderColor: 'var(--hairline)' }}>
           <span className="text-xs" style={{ color: 'var(--fg-muted)' }}>هفت طلایی · قزوین</span>
-          <span className="text-xs tracking-[.12em]" style={{ color: 'var(--gold-2)' }}>PRODUCT · PROCESS · DETAIL</span>
+          <span className="text-xs" style={{ color: 'var(--gold-2)' }}>فندق · پسته · بادام</span>
         </div>
       </div>
 
