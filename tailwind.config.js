@@ -62,28 +62,25 @@ module.exports = {
   			}
   		},
   		fontFamily: {
-  			heading: ['Peyda', 'Georgia', 'serif'],
-  			subheading: ['Kalameh', 'Georgia', 'serif'],
+  			sans: ['YekanBakh', 'system-ui', 'sans-serif'],
+  			heading: ['Peyda', 'system-ui', 'sans-serif'],
+  			subheading: ['Kalameh', 'system-ui', 'sans-serif'],
   			body: ['YekanBakh', 'system-ui', 'sans-serif'],
-  			display: ['Peyda', 'Georgia', 'serif'],
+  			display: ['Peyda', 'system-ui', 'sans-serif'],
+  			ui: ['Kalameh', 'system-ui', 'sans-serif'],
+  			peyda: ['Peyda', 'system-ui', 'sans-serif'],
+  			kalameh: ['Kalameh', 'system-ui', 'sans-serif'],
+  			yekan: ['YekanBakh', 'system-ui', 'sans-serif'],
   			mono: ['ui-monospace', 'SFMono-Regular', 'monospace']
   		},
   		keyframes: {
   			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
+  				from: { height: '0' },
+  				to: { height: 'var(--radix-accordion-content-height)' }
   			},
   			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
+  				from: { height: 'var(--radix-accordion-content-height)' },
+  				to: { height: '0' }
   			}
   		},
   		animation: {
