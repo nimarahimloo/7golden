@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import HeroNutScene from '@/components/home/HeroNutScene';
 
 const BASE_SLIDES = [
   {
@@ -146,6 +147,8 @@ export default function HeroSlider({ cmsHero = null }) {
           style={{ objectPosition: slide.imagePosition }}
         />
       </div>
+
+      <HeroNutScene />
 
       {/* Warm cinematic vignette */}
       <div
