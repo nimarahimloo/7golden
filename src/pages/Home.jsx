@@ -2,6 +2,7 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 
 import {
   getProducts,
+  getCategories,
   getPageHero,
   getPageSections,
 } from '@/lib/api/content';
@@ -15,7 +16,7 @@ import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 import ParallaxMedia from '@/components/story/ParallaxMedia';
 import CountUp from '@/components/story/CountUp';
-import HomeOrigin from '@/components/home/HomeOrigin';
+import HomeClients from '@/components/home/HomeClients';
 import HomeFeaturedProducts from '@/components/home/HomeFeaturedProducts';
 import HomeAwardsSlider from '@/components/home/HomeAwardsSlider';
 import HomeContactForm from '@/components/home/HomeContactForm';
@@ -36,21 +37,54 @@ const DEFAULT_SECTION_IMAGES = {
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [productsStatus, setProductsStatus] = useState('loading');
+  const [categoriesStatus, setCategoriesStatus] = useState('loading');
   const [heroConfig, setHeroConfig] = useState(null);
   const [sectionMap, setSectionMap] = useState({});
 
   const loadData = useCallback(async (isActive = () => true) => {
     let timeoutId;
+    if (isActive()) {
+      setProductsStatus('loading');
+      setCategoriesStatus('loading');
+    }
+
     try {
       const timeout = new Promise((_, reject) => {
-        timeoutId = setTimeout(() => reject(new Error('Product request timed out')), 6000);
+        timeoutId = window.setTimeout(() => reject(new Error('Catalog request timed out')), 6000);
       });
-      const result = await Promise.race([getProducts(), timeout]);
-      if (isActive()) setProducts(Array.isArray(result) ? result : []);
+      const [productResult, categoryResult] = await Promise.race([
+        Promise.allSettled([getProducts(), getCategories()]),
+        timeout,
+      ]);
+
+      if (!isActive()) return;
+
+      if (productResult.status === 'fulfilled' && Array.isArray(productResult.value)) {
+        setProducts(productResult.value.filter((product) => product && product.published !== false));
+        setProductsStatus('ready');
+      } else {
+        setProducts([]);
+        setProductsStatus('error');
+      }
+
+      if (categoryResult.status === 'fulfilled' && Array.isArray(categoryResult.value)) {
+        setCategories(categoryResult.value.filter((category) => category && category.slug));
+        setCategoriesStatus('ready');
+      } else {
+        setCategories([]);
+        setCategoriesStatus('error');
+      }
     } catch {
-      if (isActive()) setProducts([]);
+      if (isActive()) {
+        setProducts([]);
+        setCategories([]);
+        setProductsStatus('error');
+        setCategoriesStatus('error');
+      }
     } finally {
-      if (timeoutId !== undefined) clearTimeout(timeoutId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     }
   }, []);
 
@@ -97,16 +131,20 @@ export default function Home() {
     {
       key: 'products',
       defaultOrder: 20,
-      content: <HomeFeaturedProducts section={sec('products')} products={products} />,
-    },
-    {
-      key: 'origin',
-      defaultOrder: 30,
-      content: <HomeOrigin section={sec('origin')} />,
+      content: (
+        <HomeFeaturedProducts
+          section={sec('products')}
+          categories={categories}
+          products={products}
+          categoryStatus={categoriesStatus}
+          productStatus={productsStatus}
+          onRetry={() => loadData()}
+        />
+      ),
     },
     {
       key: 'capacity',
-      defaultOrder: 40,
+      defaultOrder: 30,
       content: (
         <section className="chapter">
           <div className="chapter-shell">
@@ -144,6 +182,11 @@ export default function Home() {
           </div>
         </section>
       ),
+    },
+    {
+      key: 'clients',
+      defaultOrder: 40,
+      content: <HomeClients section={sec('clients')} />,
     },
     {
       key: 'visual-gallery',

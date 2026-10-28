@@ -174,7 +174,7 @@ export default function HomeVideoShowcase({ section = {}, mediaSections = [] }) 
       <div className="chapter-shell relative">
         <div className="mb-10 md:mb-14">
           <StoryChapter
-            index="05"
+            index="04"
             eyebrow={eyebrow}
             title={title}
             lead={lead}

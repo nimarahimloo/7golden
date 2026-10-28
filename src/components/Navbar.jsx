@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, Phone, ChevronLeft } from 'lucide-react';
 import { t } from '@/lib/i18n';
 import MobileMenu from '@/components/MobileMenu';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 /**
  * Navbar — the site header.
@@ -80,9 +81,9 @@ export default function Navbar() {
 
           {/* Trade desk actions */}
           <div className="header-actions">
-            <a href="tel:+989121823438" className="header-phone hidden xl:inline-flex" aria-label="تماس با واحد بازرگانی">
+            <a href={CONTACT_INFO.mobileLink} className="header-phone hidden xl:inline-flex" aria-label="تماس با واحد بازرگانی">
               <span className="header-phone-icon"><Phone size={16} /></span>
-              <span>۰۹۱۲ ۱۸۲ ۳۴۳۸</span>
+              <span>{CONTACT_INFO.mobile}</span>
             </a>
 
             <Link to="/contact" className="btn-gold btn-sm hidden md:inline-flex">

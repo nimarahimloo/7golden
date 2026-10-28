@@ -22,24 +22,7 @@ import ParallaxMedia from '@/components/story/ParallaxMedia';
 import { usePageHero } from '@/lib/usePageHero';
 import { createContactMessage } from '@/lib/api/content';
 import Eyebrow from '@/components/ui/eyebrow';
-
-const CONTACT_INFO = {
-  officePhone: '۰۲۸ ۳۳۳۳ ۴۰۰۴',
-  officePhoneLink: 'tel:+982833334004',
-
-  mobile: '۰۹۱۲ ۱۸۲ ۳۴۳۸',
-  mobileLink: 'tel:+989121823438',
-  whatsappLink: 'https://wa.me/989121823438',
-
-  email: 'info@7golden.ir',
-  emailLink: 'mailto:info@7golden.ir',
-
-  website: '7Golden.Co',
-  websiteLink: 'https://7golden.co',
-
-  instagram: '@goldnuts7',
-  instagramLink: 'https://www.instagram.com/goldnuts7/',
-};
+import { CONTACT_INFO, CONTACT_ADDRESSES } from '@/lib/contact-info';
 
 const CONTACT_CARDS = [
   {
@@ -76,24 +59,6 @@ const CONTACT_CARDS = [
     value: CONTACT_INFO.instagram,
     href: CONTACT_INFO.instagramLink,
     dir: 'ltr',
-  },
-];
-
-const CONTACT_ADDRESSES = [
-  {
-    title: 'دفتر مرکزی قزوین',
-    address:
-      'قزوین، خیابان سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰',
-  },
-  {
-    title: 'دفتر تهران',
-    address:
-      'مرزداران، فرشتگان، فرشتگان ۴، پلاک ۱۹',
-  },
-  {
-    title: 'کارخانه',
-    address:
-      'قزوین، آبیک، شهرک صنعتی کاسپین ۲، نبش کوچه ۲',
   },
 ];
 
@@ -465,7 +430,7 @@ export default function Contact() {
                   ) : (
                     <form
                       onSubmit={handleSubmit}
-                      className="flex flex-col gap-4"
+                      className="contact-page-form flex flex-col gap-4"
                     >
                       {[
                         {
@@ -486,6 +451,7 @@ export default function Contact() {
                       ].map((field) => (
                         <div key={field.key}>
                           <label
+                            htmlFor={`contact-${field.key}`}
                             className="font-body text-xs font-semibold block mb-1.5"
                             style={{ color: 'var(--fg)' }}
                           >
@@ -493,6 +459,7 @@ export default function Contact() {
                           </label>
 
                           <input
+                            id={`contact-${field.key}`}
                             type={field.type}
                             name={field.key}
                             autoComplete={
@@ -521,6 +488,7 @@ export default function Contact() {
 
                       <div>
                         <label
+                          htmlFor="contact-message"
                           className="font-body text-xs font-semibold block mb-1.5"
                           style={{ color: 'var(--fg)' }}
                         >
@@ -528,6 +496,7 @@ export default function Contact() {
                         </label>
 
                         <textarea
+                          id="contact-message"
                           name="message"
                           rows={4}
                           required

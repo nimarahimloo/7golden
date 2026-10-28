@@ -72,7 +72,7 @@ export default function HomeClients({ section = {} }) {
       <div className="relative" style={{ zIndex: 2 }}>
         <div className="chapter-shell pt-16 md:pt-20">
           <StoryChapter
-            index="۰۷"
+            index="۰۳"
             eyebrow={section.badge_fa || 'نمونه کاربردها'}
             title={section.title_fa || 'کاربرد محصولات در صنایع غذایی'}
             lead={section.subtitle_fa || 'این موارد، نمونه‌هایی از کاربرد رایج فرآورده‌های فندق، پسته و بادام هستند؛ استفاده دقیق هر محصول به مشخصات آن و فرمول تولیدکننده بستگی دارد.'}
