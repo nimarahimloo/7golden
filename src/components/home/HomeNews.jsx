@@ -6,6 +6,19 @@ import StoryChapter from '@/components/story/StoryChapter';
 import { getNewsPosts } from '@/lib/api/content';
 import { NEWS_CATEGORIES } from '@/lib/news-content';
 
+const NEWS_COPY = {
+  eyebrow: 'اخبار و اطلاعیه‌ها',
+  title: 'از هفت طلایی',
+  lead: 'آخرین خبرها و اطلاعیه‌های مجموعه درباره محصولات و فعالیت‌ها.',
+};
+
+function resolveLead(subtitle) {
+  const value = typeof subtitle === 'string' ? subtitle.trim() : '';
+  if (!value) return NEWS_COPY.lead;
+  if (/پایگاه محتوا|CMS|منتشرشده در/i.test(value)) return NEWS_COPY.lead;
+  return value;
+}
+
 function NewsTile({ item, featured = false }) {
   const category = NEWS_CATEGORIES[item.category];
   const label = category?.label || item.categoryLabel || item.category || 'خبر';
@@ -38,11 +51,20 @@ export default function HomeNews({ section = {} }) {
   }, []);
 
   const [featured, ...rest] = items;
+  const eyebrow = section.badge_fa || NEWS_COPY.eyebrow;
+  const title = section.title_fa || NEWS_COPY.title;
+  const lead = resolveLead(section.subtitle_fa);
+
   return (
     <section className="chapter home-news-section" aria-label="اخبار و اطلاعیه‌های هفت طلایی">
       <div className="chapter-shell">
         <div className="mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
-          <StoryChapter index="07" eyebrow={section.badge_fa || 'اخبار و اطلاعیه‌ها'} title={section.title_fa || 'از هفت طلایی، نزدیک‌تر'} lead={section.subtitle_fa || 'روایت‌هایی از محصولات و فرآوری، برگرفته از اخبار منتشرشده در پایگاه محتوای مجموعه.'} />
+          <StoryChapter
+            index="07"
+            eyebrow={eyebrow}
+            title={title}
+            lead={lead}
+          />
           <Link to="/news" className="home-news-all">همه اخبار <ArrowLeft size={16} /></Link>
         </div>
         {loading ? <p className="home-content-status" role="status">در حال بارگذاری خبرها…</p> : items.length > 0 ? (
@@ -53,7 +75,7 @@ export default function HomeNews({ section = {} }) {
             </div>
           </div>
         ) : (
-          <p className="home-content-status" role="status">{loadError ? 'خبرها از پایگاه داده دریافت نشدند.' : 'در حال حاضر خبر منتشرشده‌ای برای نمایش نیست.'}</p>
+          <p className="home-content-status" role="status">{loadError ? 'بارگذاری خبرها با مشکل روبه‌رو شد.' : 'در حال حاضر خبر منتشرشده‌ای برای نمایش نیست.'}</p>
         )}
       </div>
     </section>
