@@ -152,7 +152,7 @@ export default function HeroSlider({ cmsHero = null }) {
 
       {/* Warm cinematic vignette */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[2]"
         aria-hidden="true"
         style={{
           background:
@@ -161,7 +161,7 @@ export default function HeroSlider({ cmsHero = null }) {
       />
 
       <div
-        className="absolute inset-x-0 top-0 h-36"
+        className="absolute inset-x-0 top-0 z-[2] h-36"
         aria-hidden="true"
         style={{
           background: 'linear-gradient(180deg, rgba(10,9,7,.5), transparent)',
