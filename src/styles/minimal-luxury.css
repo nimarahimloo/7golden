@@ -54,10 +54,10 @@
   --ring: 42 50% 54%;
 }
 
-/* ---------- Container: 30% wider than original 105rem ---------- */
+/* ---------- Container: +15% vs original 105rem (was +30%) ---------- */
 .chapter-shell,
 .reading-shell {
-  max-width: 136.5rem !important; /* 105rem × 1.3 */
+  max-width: 120.75rem !important; /* 105rem × 1.15 */
 }
 
 @media (min-width: 1024px) {
