@@ -1,7 +1,6 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
-const HeroNutScene = lazy(() => import('@/components/home/HeroNutScene'));
 
 const BASE_SLIDES = [
   {
@@ -148,15 +147,13 @@ export default function HeroSlider({ cmsHero = null }) {
         />
       </div>
 
-      <Suspense fallback={null}><HeroNutScene /></Suspense>
-
       {/* Warm cinematic vignette */}
       <div
         className="absolute inset-0 z-[2]"
         aria-hidden="true"
         style={{
           background:
-            'linear-gradient(270deg, rgba(10,9,7,.96) 0%, rgba(10,9,7,.82) 28%, rgba(10,9,7,.4) 55%, rgba(10,9,7,.15) 100%), linear-gradient(0deg, rgba(10,9,7,.92) 0%, rgba(10,9,7,0) 48%), radial-gradient(ellipse at 70% 40%, rgba(214,178,94,.08), transparent 55%)',
+            'linear-gradient(270deg, rgba(33,26,16,.96) 0%, rgba(33,26,16,.82) 28%, rgba(33,26,16,.4) 55%, rgba(33,26,16,.15) 100%), linear-gradient(0deg, rgba(33,26,16,.92) 0%, rgba(33,26,16,0) 48%), radial-gradient(ellipse at 70% 40%, rgba(214,178,94,.08), transparent 55%)',
         }}
       />
 
@@ -164,7 +161,7 @@ export default function HeroSlider({ cmsHero = null }) {
         className="absolute inset-x-0 top-0 z-[2] h-36"
         aria-hidden="true"
         style={{
-          background: 'linear-gradient(180deg, rgba(10,9,7,.5), transparent)',
+          background: 'linear-gradient(180deg, rgba(33,26,16,.5), transparent)',
         }}
       />
 

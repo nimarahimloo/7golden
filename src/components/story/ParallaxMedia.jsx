@@ -37,6 +37,12 @@ export default function ParallaxMedia({
             alt={alt}
             loading="lazy"
             style={{ willChange: 'transform' }}
+            onError={(event) => {
+              // A missing asset should never leave a hollow gradient frame.
+              if (event.currentTarget.dataset.fallbackApplied) return;
+              event.currentTarget.dataset.fallbackApplied = 'true';
+              event.currentTarget.src = '/banner/img-6052-split.webp';
+            }}
           />
         )}
         {overlay && <div className="media-scrim" />}

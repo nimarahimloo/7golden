@@ -64,7 +64,7 @@ export default function HomeClients({ section = {} }) {
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, var(--bg) 0%, rgba(7,6,4,0.92) 40%, rgba(7,6,4,0.92) 60%, var(--bg) 100%)',
+              'linear-gradient(to bottom, var(--bg) 0%, rgba(242, 236, 223, 0.96) 40%, rgba(242, 236, 223, 0.96) 60%, var(--bg) 100%)',
           }}
         />
       </div>
