@@ -4,10 +4,13 @@
 **Remote:** https://github.com/nimarahimloo/7golden/tree/redesign/golden-orchard-editorial
 **Art direction:** Golden Orchard Editorial
 **Status:** Implementation complete; NOT merged to `main`, NOT deployed (per instruction)
+**Final verified remote tip hash is stated in the delivery message, not here, to avoid a self-referential update loop.**
 
 ---
 
-## 1. Research Summary (16 candidates; 11 inspected in depth)
+## 1. Research Summary (15 external candidates + production baseline)
+
+**10 external references were loaded, screenshotted, and analyzed in depth** (within the mission's 8–12 range). 4 more were candidates that could not be inspected (blocked by maintenance/bot walls), 1 loaded but with rendering not verified.
 
 | # | Site | URL | Status | Decision |
 |---|------|-----|--------|----------|
@@ -21,14 +24,12 @@
 | 8 | Zarinpal | https://www.zarinpal.com/ | Loaded, analyzed | **Adapt** — Persian light-theme readability |
 | 9 | Alibaba.ir | https://alibaba.ir/ | Loaded, analyzed | **Adapt** — Persian UI density |
 | 10 | Chobani | https://www.chobani.com/ | Loaded, analyzed | **Adapt** — warm photography-led storytelling |
-| 11 | 7Golden production | http://46.34.163.95/ | Loaded (baseline) | **Baseline** — dark gold theme |
-| 12 | Jacquemus | https://www.jacquemus.com/ | **Maintenance mode** (limited) | **Avoid** — unavailable during research |
-| 13 | Cargill | https://www.cargill.com/ | **Access Denied** (bot wall) | Candidate only; not inspected |
-| 14 | Barilla | https://www.barilla.com/en-en | **Cloudflare blocked** | Candidate only; not inspected |
-| 15 | Active Theory | https://activetheory.net/ | **"Not Supported"** (geo-blocked) | Candidate only; not inspected |
-| 16 | Lusion | https://lusion.co/ | Loaded; **canvas present, rendering not verified** | **Reference** — motion/WebGL precedent (dark scene) |
-
-**Depth:** 11 references were loaded, screenshotted, and analyzed in depth (within the mission's 8–12 range). 4 more were candidates only (blocked by maintenance/bot walls/geo). 1 (Lusion) loaded but its WebGL rendering was not visually verified — noted honestly.
+| 11 | Jacquemus | https://www.jacquemus.com/ | Unavailable — returned "Our website is currently undergoing brief maintenance" | **Avoid** — not inspectable during research |
+| 12 | Cargill | https://www.cargill.com/ | Unavailable — returned "Access Denied" | Candidate only; not inspected |
+| 13 | Barilla | https://www.barilla.com/en-en | Unavailable — Cloudflare "Attention Required!" page | Candidate only; not inspected |
+| 14 | Active Theory | https://activetheory.net/ | Unavailable — returned "Not Supported" | Candidate only; not inspected |
+| 15 | Lusion | https://lusion.co/ | Loaded; canvas element present; **rendering not visually verified** | **Reference** — motion/WebGL candidate (observed only as a loading state) |
+| — | 7Golden production | http://46.34.163.95/ | Loaded (baseline) | **Baseline** — dark gold theme (counted separately, not as an external reference) |
 
 **Screenshots:** `/home/user/workspace/refs/*.jpeg`
 
@@ -36,13 +37,15 @@
 
 ## 2. Art Direction Rationale — Three Directions Compared
 
+Three directions were explored before implementation (archived in the session research turns): refined-dark, industrial-light, and golden-orchard-editorial.
+
 | Direction | Palette | Feel | Why not chosen |
 |-----------|---------|------|----------------|
 | **Refined Dark** | Near-black bg, gold accents | Luxury, cinematic | B2B food buyers need trust/transparency; dark can read as exclusive rather than credible for a pistachio/saffron exporter |
 | **Industrial Light** | Cool white, steel gray | Corporate, efficient | Felt cold/sterile for a food brand; lacked warmth and editorial personality |
 | **Golden Orchard Editorial** ✅ | Warm cream #FAF6EE, ink-brown #292114, pistachio green #3E6B35, brass gold #8A6A24; dark cinematic scrims over photography heroes | Warm, editorial, trustworthy, premium | — (chosen) |
 
-**Three.js decision:** Removed the hero's 3D integration (HeroNutScene was no longer imported by HeroSlider; photography-led hero with warm vignette judged more premium/trustworthy for B2B food buyers). **Note:** the `three` dependency remains in `package.json` (now unreferenced by any live component — `HeroNutScene.jsx` and `GoldDustField.jsx` are orphaned files). Deliberate, documented — not fashionable WebGL. Lusion.co was the functioning WebGL reference candidate; photography was chosen instead for this brand.
+**Three.js decision:** Removed the hero's 3D integration (HeroNutScene is no longer imported by HeroSlider; photography-led hero with warm vignette judged more premium/trustworthy for B2B food buyers). **Note:** the `three` dependency remains in `package.json` (now unreferenced by any live component — `HeroNutScene.jsx` and `GoldDustField.jsx` are orphaned files). Deliberate, documented — not fashionable WebGL.
 
 ---
 
@@ -77,10 +80,13 @@ HeroSlider, PageHero, BusinessCTA, AuthLayout, HomeClients, HomeAwardsSlider, Ho
 - Gold CTA darkened to #8A6A24 with cream text (~4.9:1)
 - RTL horizontal overflow clamp (768px fixed)
 - Article hero titles (News + Blog): dark ink → cream on darkened photo heroes
+- Blog hero pills: `--accent`/`--fg-muted` → gold-3 / near-white (readable on dark hero)
+- Active header nav link: gold-2 → gold-3 (~7:1 on the dark glass header)
+- Article reading columns: desktop inline-start padding clears the fixed chat FAB
 
 ---
 
-## 5. Files Changed (24 files, 505+/325-)
+## 5. Files Changed
 
 ```
 REDESIGN-DELIVERABLES.md
@@ -109,6 +115,8 @@ src/styles/story.css
 tailwind.config.js
 ```
 
+(See the remote branch for exact per-file diffs.)
+
 ---
 
 ## 6. Dependencies
@@ -120,7 +128,7 @@ tailwind.config.js
 ## 7. Lint / Test / Build Results
 
 - **Lint:** `npx eslint src --quiet` → exit 0, zero errors (verified with `set -euo pipefail`) ✓
-- **Build:** `npx vite build` → success (11.82s) ✓
+- **Build:** `npx vite build` → success ✓
 - **Tests:** The repo has **no test script** — verified `package.json` scripts: `dev`, `build`, `lint`, `lint:fix`, `typecheck`, `preview`, `deploy`. No `*.test.*` files exist. Verification was manual via Playwright (see §8).
 
 ---
@@ -130,20 +138,19 @@ tailwind.config.js
 **Viewports:** 1440×900 (desktop), 768×1024 (tablet), 390×844 and 375×812 (mobile)
 
 ### Visually inspected (screenshots reviewed)
-- 1440px: `/`, `/shop` (category section), `/contact` (cards + form), `/news/product-catalog-update` (headline fix verified), `/admin` (authed, real data), `/login`, `/register`, 404
+- 1440px: `/`, `/shop` (category section + clicked category → product tiles), `/contact` (cards + form), `/news/product-catalog-update` (headline fix verified), `/blog/:slug` (verified via a temporary, clearly-labeled QA fixture post, deleted after inspection), `/admin` (authed, real data), `/login`, `/register`, 404, product detail
 - 375/390px: `/` (hero + mid-page + lower-page + true-bottom footer clearance), mobile menu cycle
 - 768px: `/` (mid-page layout, no clipped text)
 
 ### Functionally exercised (Playwright)
-- Contact form POST → verified in DB (contactMessage, marker `MARKER-QA-FINAL-8271`)
+- Contact form POST → verified in DB (contactMessage, marker `MARKER-QA-FINAL-8271` — archived in the session record)
 - Admin login (admin@7golden.co) → panel with real data (20 products, 7 news)
-- Shop → category → product → inquiry click-through
+- Shop → category click → product grid (7 product links) → product detail → inquiry click-through
 - Hero slider button
 - Reduced motion: marquee animation disabled (computed style verified)
-- No `pageerror` events on any inspected route
+- Chat FAB: measured no text overlap on the news article after the reading-column fix (victims: none)
 
 ### Not verified
-- `/blog/:slug` (BlogPost) — **0 seeded blog posts**, so the detail page could not be visually verified with real data. The title-color fix was applied by code symmetry with NewsArticle (same pattern), which was verified.
 - `/checkout`, `/account` — intentionally disabled (see §3); renders the 404 catch-all by design.
 - Mid-scroll fixed-nav overlay on mobile is standard fixed-nav behavior (content scrolls under the translucent bar); the true-bottom clearance was verified — footer clears the bottom tab bar.
 
@@ -159,6 +166,7 @@ tailwind.config.js
 - `backend/package-lock.json` intentionally untracked (local SQLite setup; production uses PostgreSQL)
 - `backend/.env` local-only with SQLite dev.db
 - No automated test suite exists in the repo (manual Playwright QA only)
+- Duplicate product imagery in seed data (e.g., two pistachio products share a photo) — a data/seed observation, not a code defect
 
 ---
 
@@ -166,5 +174,6 @@ tailwind.config.js
 
 **Branch:** `redesign/golden-orchard-editorial` (pushed to origin)
 **Remote:** https://github.com/nimarahimloo/7golden/tree/redesign/golden-orchard-editorial
-**Commits (6):** 6d81a39, f39d943, 824ee20, 06eaf9a, c8df5c6, 42a343f
 **Preview:** Local dev servers only (frontend :5173, backend :3001). Not deployed. **Do NOT merge or deploy without explicit authorization.**
+
+The full commit lineage is on the remote branch; the final verified tip hash is stated in the delivery message.
