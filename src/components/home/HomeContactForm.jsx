@@ -15,16 +15,23 @@ const FIELDS = [
 export default function HomeContactForm({ section = {} }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
+  const [contactError, setContactError] = useState('');
 
   const setField = (key, value) => {
     setForm((current) => ({ ...current, [key]: value }));
     if (status === 'error') setStatus('idle');
+    if ((key === 'phone' || key === 'email') && value.trim()) setContactError('');
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!form.name.trim() || !form.message.trim() || status === 'sending') return;
+    if (!form.phone.trim() && !form.email.trim()) {
+      setContactError('برای پیگیری درخواست، شماره تماس یا ایمیل را وارد کنید.');
+      return;
+    }
 
+    setContactError('');
     setStatus('sending');
     try {
       await createContactMessage({
@@ -120,7 +127,7 @@ export default function HomeContactForm({ section = {} }) {
                       فرم استعلام محصول
                     </h3>
                     <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      نام، راه تماس و جزئیات محصول را وارد کنید.
+                      برای پیگیری درخواست، شماره تماس یا ایمیل را وارد کنید.
                     </p>
                   </div>
 
@@ -137,6 +144,8 @@ export default function HomeContactForm({ section = {} }) {
                         value={form[field.key]}
                         onChange={(event) => setField(field.key, event.target.value)}
                         required={field.required}
+                        aria-invalid={(field.key === 'phone' || field.key === 'email') && Boolean(contactError)}
+                        aria-describedby={(field.key === 'phone' || field.key === 'email') && contactError ? 'contact-method-error' : undefined}
                         autoComplete={field.autoComplete}
                         dir={field.key === 'phone' || field.key === 'email' ? 'ltr' : 'rtl'}
                         className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none transition-all"
@@ -144,6 +153,12 @@ export default function HomeContactForm({ section = {} }) {
                       />
                     </div>
                   ))}
+
+                  {contactError && (
+                    <p id="contact-method-error" className="font-body text-xs leading-relaxed" style={{ color: '#fbbf24' }} role="alert">
+                      {contactError}
+                    </p>
+                  )}
 
                   <div>
                     <label htmlFor="contact-message" className="font-body text-xs font-semibold block mb-2" style={{ color: 'var(--fg)' }}>
