@@ -15,8 +15,8 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
 
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ height, minHeight: '440px' }}
+      className="relative w-full overflow-hidden page-hero-frame"
+      style={{ height: 'var(--page-hero-h, 72svh)', minHeight: '440px' }}
       dir="rtl"
     >
       <div className="absolute inset-0">
@@ -41,7 +41,7 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
 
       <div className="relative z-10 h-full chapter-shell flex flex-col justify-end pb-14 md:pb-20">
         {badge && (
-          <Eyebrow className="block mb-5" style={{ color: 'var(--gold-3)' }}>{badge}</Eyebrow>
+          <Eyebrow className="block mb-5" style={{ color: '#E3C57E' }}>{badge}</Eyebrow>
         )}
         <h1 className="display-xl max-w-4xl" style={{ color: '#F8F4EA' }}>
           {title}

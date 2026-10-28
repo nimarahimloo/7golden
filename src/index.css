@@ -79,7 +79,7 @@
   --secondary-foreground: 33 30% 11%;
   --muted: 43 30% 92%;
   --muted-foreground: 35 21% 37%;
-  --accent: 43 36% 88%;
+  --accent-hsl: 43 36% 88%;
   --accent-foreground: 33 30% 11%;
   --destructive: 8 74% 42%;
   --destructive-foreground: 45 60% 97%;
@@ -288,5 +288,15 @@ textarea::placeholder {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile: shorter page heroes so the content surfaces sooner */
+@media (max-width: 767px) {
+  :root {
+    --page-hero-h: 56svh;
+  }
+  .page-hero-frame {
+    min-height: 380px;
   }
 }
