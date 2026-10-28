@@ -22,7 +22,7 @@ const BASE_SLIDES = [
       'مغز فندق، خمیر، گرانول و پودر؛ شکل محصول و مشخصات سفارش را متناسب با کاربرد نهایی بررسی کنید.',
   },
   {
-    image: '/banner/IMG_2437.webp',
+    image: '/banner/pistachio-triple-bowls.webp',
     imagePosition: 'center 52%',
     badge: 'گروه پسته و بادام',
     title: 'پسته و بادام',
