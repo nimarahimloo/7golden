@@ -1,3 +1,5 @@
+import { CONTACT_INFO } from '@/lib/contact-info';
+
 export const translations = {
   fa: {
     // Nav
@@ -113,8 +115,8 @@ export const translations = {
     hq_address: "قزوین، انتهای سعدی جنوبی، نرسیده به چهارراه بازار، پلاک ۲۱۰ — روبروی بانک کشاورزی",
     factory_title: "کارخانه — شهرک صنعتی کاسپین ۲",
     factory_address: "قزوین، شهرک صنعتی کاسپین ۲، نبش کوشش ۲",
-    support_phone: "۰۲۸۳۳۲۳۴۰۰۴",
-    support_mobile: "۰۹۱۲۱۸۲۳۴۳۸",
+    support_phone: CONTACT_INFO.officePhone.replace(/\\s/g, ''),
+    support_mobile: CONTACT_INFO.mobile.replace(/\\s/g, ''),
     working_hours: "برای اطلاع از ساعات پاسخگویی، با دفتر مجموعه تماس بگیرید.",
     send_message: "بفرست پیام",
     message: "محصول و جزئیات درخواست",
