@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 /**
  * SupportChat — the 7Golden trade-desk assistant.
@@ -10,7 +11,7 @@ import { MessageCircle, X, Send } from 'lucide-react';
  * Keep the copy in sync with the brand's verified facts (corporate-content.js).
  */
 
-const CONTACT = 'تلفن: ۰۲۸۳۳۲۳۴۰۰۴ و ۰۹۱۲۱۸۲۳۴۳۸ · ایمیل: info@7golden.co';
+const CONTACT = `تلفن دفتر: ${CONTACT_INFO.officePhone} و موبایل: ${CONTACT_INFO.mobile} · ایمیل: ${CONTACT_INFO.email}`;
 
 const KNOWLEDGE = [
   {
@@ -135,7 +136,7 @@ export default function SupportChat() {
             color: 'hsl(var(--accent-foreground))',
             boxShadow: '0 8px 32px rgba(212,175,55,0.4), inset 0 1px 1px rgba(255,255,255,0.2)',
           }}
-          aria-label="پشتیبانی آنلاین"
+          aria-label="باز کردن راهنمای خودکار محصولات"
         >
           <MessageCircle size={24} />
           <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full" style={{ background: '#22c55e', border: '2px solid var(--bg)' }} />
@@ -162,9 +163,9 @@ export default function SupportChat() {
                 <MessageCircle size={18} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
-                <h3 className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>پشتیبانی هفت‌طلایی</h3>
-                <p className="font-body text-xs flex items-center gap-1" style={{ color: '#22c55e' }}>
-                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} /> پاسخگویی محلی و بدون وقفه
+                <h3 className="font-heading font-black text-sm" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>راهنمای هفت‌طلایی</h3>
+                <p className="font-body text-xs flex items-center gap-1" style={{ color: 'var(--gold-2)' }}>
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--gold-2)' }} /> راهنمای خودکار · قیمت و موجودی با واحد فروش
                 </p>
               </div>
             </div>
