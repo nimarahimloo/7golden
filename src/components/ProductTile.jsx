@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 
 /**
- * The one product card used everywhere (home rows, shop grid, related
- * products): the product photo on a plain surface — no background, border or
- * crop — with the Persian name underneath. The photo is always a square shown
- * whole (`object-contain`) so every card looks identical.
+ * Shared product card (home rows, shop grid, related):
+ * photo on a plain surface — no border or crop — Persian name below.
+ * Square image, always shown whole (`object-contain`).
  */
 export default function ProductTile({ product, className = '', style, loading = 'lazy' }) {
   const id = product.slug || product.id;
@@ -16,16 +15,18 @@ export default function ProductTile({ product, className = '', style, loading = 
       style={style}
       draggable={false}
     >
-      <img
-        src={product.image || '/logo-symbol.webp'}
-        alt={name}
-        loading={loading}
-        decoding="async"
-        draggable={false}
-        className="block w-full aspect-square object-contain transition-transform duration-500 group-hover:scale-[1.04]"
-      />
+      <div className="relative overflow-hidden rounded-sm">
+        <img
+          src={product.image || '/logo-symbol.webp'}
+          alt={name}
+          loading={loading}
+          decoding="async"
+          draggable={false}
+          className="block w-full aspect-square object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+        />
+      </div>
       <span
-        className="block mt-3 text-sm md:text-base font-semibold leading-snug"
+        className="block mt-3.5 text-sm md:text-[0.9375rem] font-medium leading-snug transition-colors duration-300"
         style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}
       >
         {name}
