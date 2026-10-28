@@ -1,182 +1,257 @@
 /* ============================================================
-   Antic font package — Peyda + Kalameh + YekanBakh
-   Place files under:
-     public/fonts/peyda/*.woff2
-     public/fonts/kalameh/*.woff2
-     public/fonts/yekan-bakh/*.woff2
-   Legacy root paths remain as fallbacks.
+   7GOLDEN Typography — Antic package ONLY
+   Peyda      → عناوین و display
+   Kalameh    → UI، لیبل، ناو، دکمه، eyebrow
+   YekanBakh  → متن بدنه و پاراگراف
+
+   Files:
+     /fonts/peyda/*.woff2
+     /fonts/kalameh/*.woff2
+     /fonts/yekan-bakh/*.woff2
    ============================================================ */
 
-/* --- Peyda (headings) --- */
+/* ---------- Peyda ---------- */
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-Thin.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-ExtraLight.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-ExtraLight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-Light.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-Regular.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-Medium.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Medium.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-SemiBold.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-SemiBold.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-Bold.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Bold.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-ExtraBold.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-ExtraBold.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-ExtraBold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Peyda';
-  src: url('/fonts/peyda/Peyda-Black.woff2') format('woff2'),
-       url('/fonts/PeydaWeb-Black.woff2') format('woff2');
+  src: url('/fonts/peyda/Peyda-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* --- Kalameh (subheadings / UI) --- */
+/* ---------- Kalameh ---------- */
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-Thin.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-ExtraLight.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-ExtraLight.woff2') format('woff2');
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-Light.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-Regular.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-Medium.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Medium.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-SemiBold.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-SemiBold.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-Bold.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-ExtraBold.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-ExtraBold.woff2') format('woff2');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Kalameh';
-  src: url('/fonts/kalameh/Kalameh-Black.woff2') format('woff2'),
-       url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
+  src: url('/fonts/kalameh/Kalameh-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* --- YekanBakh (body) --- */
+/* ---------- YekanBakh ---------- */
 @font-face {
   font-family: 'YekanBakh';
-  src: url('/fonts/yekan-bakh/YekanBakh-Regular.woff2') format('woff2'),
-       url('/fonts/YekanBakhFaNum-Regular.woff2') format('woff2');
+  src: url('/fonts/yekan-bakh/YekanBakh-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'YekanBakh';
-  src: url('/fonts/yekan-bakh/YekanBakh-SemiBold.woff2') format('woff2'),
-       url('/fonts/YekanBakhFaNum-SemiBold.woff2') format('woff2');
+  src: url('/fonts/yekan-bakh/YekanBakh-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'YekanBakh';
-  src: url('/fonts/yekan-bakh/YekanBakh-Bold.woff2') format('woff2'),
-       url('/fonts/YekanBakhFaNum-Bold.woff2') format('woff2');
+  src: url('/fonts/yekan-bakh/YekanBakh-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
+
+/* ============================================================
+   Type system — force all three families into the UI
+   ============================================================ */
+
+:root {
+  --font-display: 'Peyda', system-ui, sans-serif;
+  --font-ui: 'Kalameh', system-ui, sans-serif;
+  --font-body: 'YekanBakh', system-ui, sans-serif;
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body) !important;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: 0;
+}
+
+/* Display / major titles → Peyda */
+h1, h2, h3,
+.display-xl, .display-lg, .display-md,
+.story-title, .section-title,
+.luxury-hero h1, .luxury-hero h2 {
+  font-family: var(--font-display) !important;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+h1, .display-xl { font-weight: 900; line-height: 1.12; }
+h2, .display-lg { font-weight: 800; line-height: 1.18; }
+h3, .display-md { font-weight: 700; line-height: 1.25; }
+
+/* UI / labels / nav / buttons → Kalameh */
+h4, h5, h6,
+.display-sm,
+.eyebrow, .nav-link, .site-header a,
+button, .btn, .btn-accent, .btn-gold,
+label, .label, input, select, textarea,
+.home-media-kind, .home-news-meta,
+.client-logo-sector {
+  font-family: var(--font-ui) !important;
+}
+
+.eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+button, .btn, .btn-accent, .btn-gold {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.nav-link {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Body copy / leads / paragraphs → YekanBakh */
+p, .lead, .story-lead, li, td, th,
+.home-magazine-copy p,
+.home-news-tile em,
+.home-content-status {
+  font-family: var(--font-body) !important;
+  font-weight: 400;
+  line-height: 1.85;
+}
+
+.lead, .story-lead {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  font-weight: 400;
+}
+
+/* Utility classes */
+.font-peyda,
+.font-display { font-family: var(--font-display) !important; }
+.font-kalameh,
+.font-ui { font-family: var(--font-ui) !important; }
+.font-yekan,
+.font-body { font-family: var(--font-body) !important; }
