@@ -112,7 +112,7 @@ export default function HeroSlider({ cmsHero = null }) {
       return undefined;
     }
 
-    const timerId = window.setInterval(next, 6800);
+    const timerId = window.setInterval(next, 7200);
     return () => window.clearInterval(timerId);
   }, [isPaused, next]);
 
@@ -143,10 +143,10 @@ export default function HeroSlider({ cmsHero = null }) {
       aria-label="اسلایدر معرفی هفت طلایی"
       aria-roledescription="carousel"
       role="region"
-      className="luxury-hero relative isolate w-full overflow-hidden bg-[#100f0c] text-white"
+      className="luxury-hero relative isolate w-full overflow-hidden bg-[#070706] text-white"
       style={{
-        minHeight: 'min(800px, max(100svh, 680px))',
-        height: 'max(100svh, 680px)',
+        minHeight: 'min(780px, max(100svh, 640px))',
+        height: 'max(100svh, 640px)',
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -168,7 +168,7 @@ export default function HeroSlider({ cmsHero = null }) {
             loading={index === 0 ? 'eager' : 'lazy'}
             fetchPriority={index === 0 ? 'high' : 'low'}
             decoding="async"
-            className="hero-kenburns absolute inset-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-in-out"
+            className="hero-kenburns absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out"
             style={{
               objectPosition: item.imagePosition,
               opacity: index === current ? 1 : 0,
@@ -177,127 +177,108 @@ export default function HeroSlider({ cmsHero = null }) {
         ))}
       </div>
 
-      <div
-        className="luxury-hero-grain absolute inset-0"
-        aria-hidden="true"
-      />
-
-      <div
-        className="luxury-hero-orbit luxury-hero-orbit-one"
-        aria-hidden="true"
-      />
-
-      <div
-        className="luxury-hero-orbit luxury-hero-orbit-two"
-        aria-hidden="true"
-      />
-
+      {/* Soft editorial vignette — no decorative orbits */}
       <div
         className="absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            'linear-gradient(270deg, rgba(8,7,5,.93) 0%, rgba(8,7,5,.79) 28%, rgba(8,7,5,.42) 58%, rgba(8,7,5,.15) 100%), linear-gradient(0deg, rgba(8,7,5,.92) 0%, rgba(8,7,5,0) 43%)',
+            'linear-gradient(270deg, rgba(7,7,6,.94) 0%, rgba(7,7,6,.78) 30%, rgba(7,7,6,.35) 58%, rgba(7,7,6,.12) 100%), linear-gradient(0deg, rgba(7,7,6,.88) 0%, rgba(7,7,6,0) 45%)',
         }}
       />
 
       <div
-        className="absolute inset-x-0 top-0 h-40"
+        className="absolute inset-x-0 top-0 h-32"
         aria-hidden="true"
         style={{
-          background:
-            'linear-gradient(180deg, rgba(8,7,5,.40), transparent)',
+          background: 'linear-gradient(180deg, rgba(7,7,6,.45), transparent)',
         }}
       />
 
-      <div className="chapter-shell relative z-10 flex h-full flex-col justify-end pb-32 pt-28 sm:pb-36 md:pb-40">
-        <div className="mb-6 flex items-center gap-3 text-[11px] text-white/75 sm:mb-8 sm:text-xs">
+      <div className="chapter-shell relative z-10 flex h-full flex-col justify-end pb-24 pt-28 sm:pb-28 md:pb-32">
+        <div className="mb-5 flex items-center gap-3 text-[11px] text-white/65 sm:mb-7 sm:text-xs">
           <span
-            className="h-px w-10 bg-[#c7a75b]"
+            className="h-px w-8"
+            style={{ background: 'var(--gold-2)' }}
             aria-hidden="true"
           />
-
           <span>{slide.badge}</span>
-
-          <span
-            className="hidden h-1 w-1 rounded-full bg-[#c7a75b] sm:block"
-            aria-hidden="true"
-          />
-
-          <span className="hidden text-white/50 sm:block">
-            فرآوری از ۱۳۷۷
-          </span>
+          <span className="hidden text-white/40 sm:inline">·</span>
+          <span className="hidden text-white/45 sm:inline">از ۱۳۷۷</span>
         </div>
 
         <div
           key={current}
-          className="luxury-hero-copy hero-copy-entrance max-w-4xl"
+          className="luxury-hero-copy hero-copy-entrance max-w-3xl"
         >
-          <p className="luxury-hero-kicker">
-            از انتخاب مواد اولیه تا فرآوری
-          </p>
-
           <h1
-            className="mb-5 font-black leading-[1.18] tracking-normal sm:mb-6"
+            className="mb-5 font-extrabold leading-[1.15] tracking-normal sm:mb-6"
             style={{
               fontFamily: 'Peyda, serif',
-              fontSize: 'clamp(2.45rem, 6.1vw, 5.7rem)',
+              fontSize: 'clamp(2.35rem, 5.8vw, 5.1rem)',
             }}
           >
             <span className="block text-white">{slide.title}</span>
-
             {slide.accent && (
-              <span className="mt-1 block text-[#d7b765]">
+              <span
+                className="mt-1.5 block font-semibold"
+                style={{ color: 'var(--gold-2)' }}
+              >
                 {slide.accent}
               </span>
             )}
           </h1>
 
-          <p className="mb-7 max-w-xl text-sm leading-8 text-white/80 sm:text-base sm:leading-9 md:mb-9 md:text-lg">
+          <p className="mb-8 max-w-lg text-sm leading-8 text-white/72 sm:text-base sm:leading-9 md:mb-10">
             {slide.description}
           </p>
 
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <Link
               to="/shop"
-              className="group inline-flex min-h-12 items-center gap-3 rounded-full border border-[#d7b765] bg-[#d7b765] px-6 py-3 text-sm font-bold text-[#16130b] transition-colors hover:bg-[#f0d995] sm:px-7"
+              className="group inline-flex min-h-12 items-center gap-2.5 rounded-full px-7 py-3 text-sm font-semibold transition-colors"
+              style={{
+                background: 'var(--gold-2)',
+                color: 'var(--on-gold)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'var(--accent-hover)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--gold-2)';
+              }}
             >
               مشاهده محصولات
-
               <ChevronLeft
-                size={17}
-                className="transition-transform group-hover:-translate-x-1"
+                size={16}
+                className="transition-transform group-hover:-translate-x-0.5"
               />
             </Link>
 
             <Link
               to="/contact"
-              className="inline-flex min-h-12 items-center gap-3 rounded-full border border-white/35 bg-white/[0.04] px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white/70 hover:bg-white/10 sm:px-7"
+              className="inline-flex min-h-12 items-center gap-2.5 rounded-full border border-white/25 bg-transparent px-7 py-3 text-sm font-medium text-white/90 transition-colors hover:border-white/55 hover:bg-white/[0.06]"
             >
-              گفت‌وگو درباره سفارش
-
-              <ChevronLeft size={17} />
+              درخواست قیمت
+              <ChevronLeft size={16} />
             </Link>
           </div>
         </div>
 
-        <div className="luxury-hero-details absolute bottom-20 left-4 right-4 flex items-end justify-between gap-5 sm:bottom-24 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
-          <div className="hidden flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70 sm:flex sm:gap-x-7 sm:text-sm">
-            <span>از ۱۳۷۷</span>
-
-            <span className="h-1 w-1 rounded-full bg-[#d7b765]" />
-
-            <span>قزوین</span>
-
-            <span className="h-1 w-1 rounded-full bg-[#d7b765]" />
-
-            <span>فندق · پسته · بادام</span>
+        {/* Minimal controls: counter + arrows + thin progress */}
+        <div className="absolute bottom-8 left-4 right-4 flex items-center justify-between gap-4 sm:bottom-10 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
+          <div className="hidden items-center gap-x-5 text-xs text-white/50 sm:flex">
+            <span>فندق</span>
+            <span className="h-px w-3 bg-white/25" aria-hidden="true" />
+            <span>پسته</span>
+            <span className="h-px w-3 bg-white/25" aria-hidden="true" />
+            <span>بادام</span>
           </div>
 
-          <div className="mr-auto flex shrink-0 items-center gap-2 sm:gap-3">
-            <span className="text-xs tabular-nums text-white/70">
-              {String(current + 1).padStart(2, '0')}{' '}
-              <span className="text-white/35">/</span>{' '}
+          <div className="mr-auto flex items-center gap-3">
+            <span className="text-xs tabular-nums text-white/55">
+              {String(current + 1).padStart(2, '0')}
+              <span className="text-white/30"> / </span>
               {String(slideCount).padStart(2, '0')}
             </span>
 
@@ -305,64 +286,57 @@ export default function HeroSlider({ cmsHero = null }) {
               type="button"
               onClick={previous}
               aria-label="اسلاید قبلی"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/20 text-white transition-colors hover:border-[#d7b765] hover:text-[#d7b765] sm:h-12 sm:w-12"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-[var(--gold-2)] hover:text-[var(--gold-2)]"
             >
-              <ChevronRight size={19} />
+              <ChevronRight size={18} />
             </button>
 
             <button
               type="button"
               onClick={next}
               aria-label="اسلاید بعدی"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-black/20 text-white transition-colors hover:border-[#d7b765] hover:text-[#d7b765] sm:h-12 sm:w-12"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-[var(--gold-2)] hover:text-[var(--gold-2)]"
             >
-              <ChevronLeft size={19} />
+              <ChevronLeft size={18} />
             </button>
           </div>
         </div>
 
+        {/* Slim progress line */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/10"
+          className="absolute bottom-0 left-0 right-0 h-px bg-white/10"
           aria-hidden="true"
         >
           <div
-            className="h-full bg-[#d7b765] transition-all duration-500"
+            className="h-full transition-all duration-500 ease-out"
             style={{
               width: ((current + 1) / slideCount) * 100 + '%',
+              background: 'var(--gold-2)',
             }}
           />
         </div>
-      </div>
 
-      <div
-        className="luxury-hero-slides absolute bottom-0 left-0 right-0 z-20"
-        aria-label="انتخاب اسلاید"
-      >
-        <div className="chapter-shell flex gap-2 overflow-x-auto pb-3 sm:gap-3 sm:pb-4">
+        {/* Simple dot indicators (replaces heavy thumbnail strip) */}
+        <div
+          className="absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 gap-2 md:flex"
+          aria-label="انتخاب اسلاید"
+        >
           {slides.map((item, index) => (
             <button
               key={item.image + '-dot-' + index}
               type="button"
               onClick={() => setCurrent(index)}
-              aria-label={'اسلاید ' + (index + 1) + ' از ' + slideCount}
+              aria-label={'اسلاید ' + (index + 1)}
               aria-current={index === current ? 'true' : undefined}
-              className={
-                'luxury-hero-slide-button ' +
-                (index === current ? 'is-active' : '')
-              }
-            >
-              <img
-                src={item.image}
-                alt=""
-                loading="lazy"
-                decoding="async"
-              />
-
-              <span>
-                <b>{String(index + 1).padStart(2, '0')}</b>
-                <em>{item.badge}</em>
-              </span>
-            </button>
+              className="h-1.5 rounded-full transition-all duration-300"
+              style={{
+                width: index === current ? '1.75rem' : '0.4rem',
+                background:
+                  index === current
+                    ? 'var(--gold-2)'
+                    : 'rgba(255,255,255,0.28)',
+              }}
+            />
           ))}
         </div>
       </div>
