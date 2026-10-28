@@ -41,7 +41,7 @@ export default function HomeOrigin({ section = {} }) {
           src={section.image || '/banner/banner-spoons-set.webp'}
           alt="فرآورده‌های فندق، پسته و بادام هفت طلایی"
           ratio="aspect-[4/3] md:aspect-[21/9]"
-          className="rounded-3xl"
+          className="rounded-2xl"
         >
           <div>
             <Eyebrow className="block mb-2">محصولات هفت طلایی</Eyebrow>
@@ -51,23 +51,26 @@ export default function HomeOrigin({ section = {} }) {
           </div>
         </DepthParallax>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mt-10 md:mt-12">
           {PRODUCT_GROUPS.map((item, index) => (
-            <Reveal key={item.title} delay={index * 90}>
+            <Reveal key={item.title} delay={index * 80}>
               <div className="fact-card h-full">
                 <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5"
+                  className="w-11 h-11 rounded-full flex items-center justify-center mb-5"
                   style={{
-                    background: 'rgba(227,194,99,0.1)',
-                    border: '1px solid var(--hairline-strong)',
+                    background: 'rgba(201, 168, 75, 0.08)',
+                    border: '1px solid var(--hairline)',
                   }}
                 >
-                  <item.icon size={20} style={{ color: 'var(--gold-2)' }} />
+                  <item.icon size={18} style={{ color: 'var(--gold-2)' }} />
                 </div>
-                <h3 className="display-sm mb-3" style={{ color: '#fff' }}>
+                <h3 className="display-sm mb-3" style={{ color: 'var(--fg)' }}>
                   {item.title}
                 </h3>
-                <p className="font-body text-sm leading-relaxed" style={{ color: '#fff' }}>
+                <p
+                  className="font-body text-sm leading-relaxed"
+                  style={{ color: 'var(--fg-muted)' }}
+                >
                   {item.text}
                 </p>
               </div>
@@ -75,7 +78,7 @@ export default function HomeOrigin({ section = {} }) {
           ))}
         </div>
 
-        <Reveal delay={120} className="mt-12 flex flex-wrap items-center justify-center gap-3">
+        <Reveal delay={100} className="mt-12 flex flex-wrap items-center justify-center gap-3">
           <Link to="/shop" className="btn-gold">
             مشاهده محصولات
             <ChevronLeft size={16} />
