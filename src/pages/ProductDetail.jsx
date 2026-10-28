@@ -166,7 +166,7 @@ export default function ProductDetail() {
             <nav
               aria-label="مسیر صفحه"
               className="flex flex-wrap items-center gap-2 mb-8 font-body text-xs"
-              style={{ color: '#fff' }}
+              style={{ color: 'var(--fg-muted)' }}
             >
               <Link
                 to="/"
@@ -363,7 +363,7 @@ export default function ProductDetail() {
                         to="/contact"
                         className="flex-1 py-3.5 rounded-2xl font-body font-semibold text-sm flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
                         style={{
-                          background: 'rgba(0,0,0,0.2)',
+                          background: 'var(--bg-secondary)',
                           color: 'var(--fg)',
                           border: '1px solid var(--hairline-strong)',
                         }}

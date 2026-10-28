@@ -33,19 +33,19 @@ const GALLERY_PHOTOS = [
 ];
 
 const FACTORY_VIDEOS = [
-  { id: 'video-facility-1', title: 'فضای کارخانه', url: '/video/facility-1.mp4', type: 'video', poster: '/banner/about-real.webp' },
-  { id: 'video-processing-1', title: 'فرآوری و آماده‌سازی', url: '/video/processing-1.mp4', type: 'video', poster: '/banner/hero-chopped-scoop.webp' },
-  { id: 'video-showroom-1', title: 'محصولات از نزدیک', url: '/video/showroom-1.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },
-  { id: 'video-facility-2', title: 'محیط تولید', url: '/video/facility-2.mp4', type: 'video', poster: '/banner/about-real.webp' },
-  { id: 'video-processing-2', title: 'خط فرآوری', url: '/video/processing-2.mp4', type: 'video', poster: '/banner/hero-chopped-scoop.webp' },
-  { id: 'video-showroom-2', title: 'نمایشگاه محصولات', url: '/video/showroom-2.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },
-  { id: 'video-facility-3', title: 'تور کارخانه', url: '/video/facility-3.mp4', type: 'video', poster: '/banner/about-real.webp' },
-  { id: 'video-processing-3', title: 'جزئیات فرآوری', url: '/video/processing-3.mp4', type: 'video', poster: '/banner/hero-chopped-scoop.webp' },
-  { id: 'video-showroom-3', title: 'محصولات و نمایشگاه', url: '/video/showroom-3.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },
-  { id: 'video-showroom-4', title: 'مجموعه محصولات', url: '/video/showroom-4.mp4', type: 'video', poster: '/banner/tray-pistachio-almond.webp' },
-  { id: 'video-facility-5384', title: 'روایت تصویری کارخانه', url: '/video/facility-5384.mov', type: 'video', poster: '/banner/about-real.webp' },
-  { id: 'video-facility-5387', title: 'جزئیات محیط تولید', url: '/video/facility-5387.mov', type: 'video', poster: '/banner/about-real.webp' },
-  { id: 'video-facility-7a8d', title: 'نگاهی به مجموعه', url: '/video/facility-7a8d.mov', type: 'video', poster: '/banner/about-real.webp' },
+  { id: 'video-facility-1', title: 'فضای کارخانه', url: '/video/facility-1.mp4', type: 'video', poster: '/video-posters/facility-1.webp' },
+  { id: 'video-processing-1', title: 'فرآوری و آماده‌سازی', url: '/video/processing-1.mp4', type: 'video', poster: '/video-posters/processing-1.webp' },
+  { id: 'video-showroom-1', title: 'محصولات از نزدیک', url: '/video/showroom-1.mp4', type: 'video', poster: '/video-posters/showroom-1.webp' },
+  { id: 'video-facility-2', title: 'محیط تولید', url: '/video/facility-2.mp4', type: 'video', poster: '/video-posters/facility-1.webp' },
+  { id: 'video-processing-2', title: 'خط فرآوری', url: '/video/processing-2.mp4', type: 'video', poster: '/video-posters/processing-1.webp' },
+  { id: 'video-showroom-2', title: 'نمایشگاه محصولات', url: '/video/showroom-2.mp4', type: 'video', poster: '/video-posters/showroom-1.webp' },
+  { id: 'video-facility-3', title: 'تور کارخانه', url: '/video/facility-3.mp4', type: 'video', poster: '/video-posters/facility-1.webp' },
+  { id: 'video-processing-3', title: 'جزئیات فرآوری', url: '/video/processing-3.mp4', type: 'video', poster: '/video-posters/processing-1.webp' },
+  { id: 'video-showroom-3', title: 'محصولات و نمایشگاه', url: '/video/showroom-3.mp4', type: 'video', poster: '/video-posters/showroom-1.webp' },
+  { id: 'video-showroom-4', title: 'مجموعه محصولات', url: '/video/showroom-4.mp4', type: 'video', poster: '/video-posters/showroom-1.webp' },
+  { id: 'video-facility-5384', title: 'روایت تصویری کارخانه', url: '/video/facility-5384.mov', type: 'video', poster: '/video-posters/facility-1.webp' },
+  { id: 'video-facility-5387', title: 'جزئیات محیط تولید', url: '/video/facility-5387.mov', type: 'video', poster: '/video-posters/facility-1.webp' },
+  { id: 'video-facility-7a8d', title: 'نگاهی به مجموعه', url: '/video/facility-7a8d.mov', type: 'video', poster: '/video-posters/facility-1.webp' },
 ];
 
 const GALLERY_ITEMS = GALLERY_PHOTOS.map((url, index) => ({

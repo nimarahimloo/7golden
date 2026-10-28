@@ -476,11 +476,11 @@ export default function Contact() {
                             }
                             className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none transition-all"
                             style={{
-                              background: 'rgba(0,0,0,0.2)',
+                              background: '#FFFFFF',
                               border: '1px solid var(--hairline)',
                               color: 'var(--fg)',
                               boxShadow:
-                                'inset 0 1px 2px rgba(0,0,0,0.3)',
+                                'none',
                             }}
                           />
                         </div>
@@ -506,11 +506,11 @@ export default function Contact() {
                           }
                           className="w-full px-4 py-3 rounded-xl font-body text-sm outline-none resize-none transition-all"
                           style={{
-                            background: 'rgba(0,0,0,0.2)',
+                            background: '#FFFFFF',
                             border: '1px solid var(--hairline)',
                             color: 'var(--fg)',
                             boxShadow:
-                              'inset 0 1px 2px rgba(0,0,0,0.3)',
+                              'none',
                           }}
                         />
                       </div>

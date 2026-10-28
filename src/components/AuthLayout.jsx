@@ -26,15 +26,13 @@ export default function AuthLayout({ icon: Icon, title, subtitle, footer, childr
           {subtitle && <p className="font-body text-sm mt-2" style={{ color: 'var(--fg-muted)' }}>{subtitle}</p>}
         </div>
 
-        {/* Glass card */}
+        {/* Card */}
         <div
           className="rounded-3xl p-8"
           style={{
-            background: 'rgba(13,13,13,0.52)',
-            backdropFilter: 'blur(56px) saturate(260%)',
-            WebkitBackdropFilter: 'blur(56px) saturate(260%)',
-            border: '1px solid rgba(255,255,255,0.08)',
-            boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.15), 0 24px 64px rgba(0,0,0,0.4)',
+            background: 'var(--card-bg)',
+            border: '1px solid var(--hairline)',
+            boxShadow: 'var(--shadow-lg)',
           }}
         >
           {children}

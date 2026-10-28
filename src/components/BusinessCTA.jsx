@@ -17,7 +17,7 @@ export default function BusinessCTA() {
         className="absolute inset-0 w-full h-full object-cover"
         style={{ animation: 'kenBurns 10s ease-out forwards' }}
       />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 50%, rgba(0,0,0,0.92) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(30,24,14,0.92) 0%, rgba(30,24,14,0.72) 50%, rgba(30,24,14,0.92) 100%)' }} />
 
       <div className="relative z-10 py-14 md:py-20 text-center px-4">
         <span className="font-subheading text-sm uppercase block mb-3 tracking-wider" style={{ color: '#D4AF37', fontFamily: 'Kalameh, serif' }}>

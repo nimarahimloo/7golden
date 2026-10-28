@@ -144,7 +144,7 @@ export default function NewsArticle() {
                 </span>
               )}
             </div>
-            <h1 className="display-lg news-article-title" title={item.title} style={{ color: 'var(--ink)' }}>{item.title}</h1>
+            <h1 className="display-lg news-article-title" title={item.title} style={{ color: 'var(--on-gold)' }}>{item.title}</h1>
           </div>
         </div>
       </header>

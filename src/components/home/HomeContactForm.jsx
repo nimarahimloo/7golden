@@ -48,10 +48,10 @@ export default function HomeContactForm({ section = {} }) {
   };
 
   const inputStyle = {
-    background: 'rgba(0,0,0,0.2)',
+    background: '#FFFFFF',
     border: '1px solid var(--hairline)',
     color: 'var(--fg)',
-    boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)',
+    boxShadow: 'none',
   };
 
   return (

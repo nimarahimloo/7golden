@@ -38,6 +38,10 @@ export default function HomeMagazine({ section = {} }) {
   const title = section.title_fa || MAGAZINE_COPY.title;
   const lead = resolveLead(section.subtitle_fa);
 
+  // An empty blog (nothing published yet) should not leave a hollow chapter on
+  // the homepage — the section simply waits for real content.
+  if (!loading && !posts.length && !loadError) return null;
+
   return (
     <section className="chapter home-magazine-section" aria-label="مجله هفت طلایی">
       <div className="chapter-shell">

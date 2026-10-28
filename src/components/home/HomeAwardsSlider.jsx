@@ -41,7 +41,7 @@ export default function HomeAwardsSlider({ section = {} }) {
   const loop = [...awards, ...awards];
 
   return (
-    <section className="chapter relative overflow-hidden" style={{ background: 'rgba(7, 6, 4, 0.55)' }}>
+    <section className="chapter relative overflow-hidden" style={{ background: 'var(--bg-secondary)' }}>
       <div className="chapter-shell">
         <StoryChapter
           index="۰۷"
