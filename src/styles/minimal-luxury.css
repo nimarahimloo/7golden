@@ -1,63 +1,89 @@
 /* ============================================================
-   7GOLDEN — MINIMAL LUXURY LAYER (direction D)
-   Visual polish only — does NOT override font families or body type scale.
+   7GOLDEN — Maison de Noix
+   خانهٔ خشکبار ممتاز قزوین
+   طلا = نور و هایلایت | پس‌زمینهٔ گرم لایه‌لایه | محصولات ستاره
    ============================================================ */
 
 :root {
-  --bg: #070706;
-  --bg-secondary: #0E0D0B;
-  --fg: #F7F4EE;
-  --fg-muted: #A8A094;
-  --accent: #C9A84B;
-  --accent-hover: #E2C56A;
-  --accent-gold: #C9A84B;
-  --on-gold: #12100A;
+  /* Warm black stack — not flat pure black */
+  --bg: #0A0907;
+  --bg-secondary: #12100C;
+  --bg-elevated: #16140F;
+  --fg: #F8F4EC;
+  --fg-muted: #B5AD9C;
 
-  --gold-1: #F3E6C0;
-  --gold-2: #C9A84B;
-  --gold-3: #8F6E28;
-  --gold-4: #4A3A18;
+  /* Gold as light, not paint */
+  --accent: #D6B25E;
+  --accent-hover: #E8C97A;
+  --accent-gold: #D6B25E;
+  --on-gold: #14110A;
 
-  --border: rgba(201, 168, 75, 0.14);
-  --card-bg: rgba(14, 13, 11, 0.92);
-  --glass: rgba(7, 6, 5, 0.55);
-  --glass-strong: rgba(7, 6, 5, 0.72);
-  --liquid-glass-bg: rgba(8, 7, 5, 0.38);
-  --liquid-glass-border: rgba(255, 255, 255, 0.05);
-  --liquid-glass-strong-bg: rgba(5, 4, 3, 0.52);
-  --liquid-glass-strong-border: rgba(255, 255, 255, 0.07);
+  --gold-1: #F5E6C4;
+  --gold-2: #D6B25E;
+  --gold-3: #A07A2E;
+  --gold-4: #5C4418;
+
+  --border: rgba(214, 178, 94, 0.12);
+  --card-bg: rgba(18, 16, 12, 0.88);
+  --glass: rgba(10, 9, 7, 0.52);
+  --glass-strong: rgba(10, 9, 7, 0.72);
+  --liquid-glass-bg: rgba(12, 10, 7, 0.4);
+  --liquid-glass-border: rgba(255, 248, 230, 0.06);
+  --liquid-glass-strong-bg: rgba(8, 7, 5, 0.58);
+  --liquid-glass-strong-border: rgba(255, 248, 230, 0.08);
   --glass-input-bg: rgba(0, 0, 0, 0.28);
   --glass-input-border: rgba(255, 255, 255, 0.06);
-  --glass-pill-bg: rgba(255, 255, 255, 0.04);
-  --glass-pill-border: rgba(201, 168, 75, 0.16);
-  --surface-subtle: rgba(255, 255, 255, 0.025);
-  --surface-border: rgba(255, 255, 255, 0.05);
-  --bottom-bar-bg: rgba(3, 2, 1, 0.82);
-  --bottom-bar-border: rgba(255, 255, 255, 0.06);
+  --glass-pill-bg: rgba(255, 248, 230, 0.04);
+  --glass-pill-border: rgba(214, 178, 94, 0.14);
+  --surface-subtle: rgba(255, 248, 230, 0.03);
+  --surface-border: rgba(255, 248, 230, 0.05);
+  --bottom-bar-bg: rgba(6, 5, 4, 0.88);
+  --bottom-bar-border: rgba(255, 248, 230, 0.06);
 
-  --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 28px 80px rgba(0, 0, 0, 0.55);
+  --shadow: 0 16px 48px rgba(0, 0, 0, 0.42);
+  --shadow-lg: 0 32px 80px rgba(0, 0, 0, 0.5);
 
-  --ink: #F7F4EE;
-  --brass: #C9A84B;
-  --hairline: rgba(201, 168, 75, 0.16);
-  --hairline-strong: rgba(201, 168, 75, 0.36);
-  --soft-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  --ink: #F8F4EC;
+  --brass: #D6B25E;
+  --hairline: rgba(214, 178, 94, 0.14);
+  --hairline-strong: rgba(214, 178, 94, 0.32);
+  --soft-shadow: 0 24px 56px rgba(0, 0, 0, 0.38);
 
-  --panel: rgba(14, 13, 11, 0.78);
-  --panel-strong: rgba(10, 9, 7, 0.92);
+  --panel: rgba(18, 16, 12, 0.82);
+  --panel-strong: rgba(14, 12, 9, 0.94);
 
-  --background: 40 8% 3%;
-  --foreground: 40 30% 95%;
-  --card: 40 10% 6%;
-  --primary: 42 50% 54%;
-  --ring: 42 50% 54%;
+  --background: 36 12% 3.5%;
+  --foreground: 40 35% 95%;
+  --card: 36 14% 7%;
+  --primary: 42 55% 60%;
+  --ring: 42 55% 60%;
 }
 
-/* ---------- Container: +15% vs original 105rem (was +30%) ---------- */
+/* ---------- Warm layered canvas ---------- */
+body {
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -10%, rgba(214, 178, 94, 0.045), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(90, 60, 20, 0.06), transparent 50%),
+    radial-gradient(ellipse 50% 35% at 0% 80%, rgba(60, 45, 20, 0.05), transparent 45%),
+    var(--bg) !important;
+}
+
+/* Subtle paper grain (CSS-only, very quiet) */
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Container + breath ---------- */
 .chapter-shell,
 .reading-shell {
-  max-width: 120.75rem !important; /* 105rem × 1.15 */
+  max-width: 120.75rem !important;
 }
 
 @media (min-width: 1024px) {
@@ -67,55 +93,77 @@
   }
 }
 
-/* ---------- Surfaces ---------- */
+.chapter {
+  padding-block: clamp(4.5rem, 9vw, 8.5rem) !important;
+  position: relative;
+}
+
+/* Chapter separator — soft gold hairline as story beats */
+.chapter + .chapter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(12rem, 30vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hairline), transparent);
+}
+
+/* ---------- Surfaces: stone-warm, not glass carnival ---------- */
 .glass {
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+  background: var(--glass);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  border-color: var(--liquid-glass-border);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
 }
 
 .glass-strong {
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+  background: var(--glass-strong);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.28);
 }
 
 .glass-card {
   background: var(--card-bg);
-  backdrop-filter: blur(12px) saturate(130%);
-  -webkit-backdrop-filter: blur(12px) saturate(130%);
-  border-radius: 1rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  border-radius: 1.125rem;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
 }
 
 .luxury-card {
   backdrop-filter: none;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s ease,
+  border: 1px solid var(--hairline);
+  border-radius: 1.25rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease,
     border-color 0.35s ease;
 }
 .luxury-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   border-color: var(--hairline-strong);
-  box-shadow: var(--shadow);
+  box-shadow: var(--soft-shadow);
 }
 
 .fact-card {
-  background: var(--panel-strong) !important;
+  background: linear-gradient(165deg, rgba(22, 20, 15, 0.95), rgba(12, 11, 8, 0.98)) !important;
   border: 1px solid var(--hairline) !important;
-  border-radius: 1.125rem !important;
-  padding: 1.75rem 1.5rem !important;
-  box-shadow: none !important;
+  border-radius: 1.25rem !important;
+  padding: 1.85rem 1.6rem !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
 }
 .fact-card:hover {
   border-color: var(--hairline-strong) !important;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* ---------- Motion: quiet ---------- */
+/* ---------- Gold = light only ---------- */
 .gold-shimmer,
 .gold-text {
   animation: none !important;
@@ -127,30 +175,67 @@
 }
 
 .scroll-aura {
-  opacity: 0.1 !important;
+  opacity: 0.08 !important;
 }
 .cursor-spotlight {
   display: none !important;
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero: cinematic entry ---------- */
+.luxury-hero {
+  background: #0A0907 !important;
+}
 .luxury-hero-orbit {
   display: none !important;
 }
 .luxury-hero-grain {
-  opacity: 0.22;
+  opacity: 0.18;
+}
+.luxury-hero::before,
+.luxury-hero::after {
+  border-color: rgba(214, 178, 94, 0.08) !important;
+  opacity: 0.55;
 }
 
-/* ---------- Header ---------- */
+.hero-kenburns {
+  transform: scale(1.04);
+  transition: opacity 1.4s ease, transform 12s ease-out;
+}
+.luxury-hero img.hero-kenburns[style*='opacity: 1'],
+.luxury-hero img.hero-kenburns[style*='opacity:1'] {
+  transform: scale(1);
+}
+
+.luxury-hero-copy h1 {
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45);
+}
+.luxury-hero-copy p {
+  color: rgba(248, 244, 236, 0.72) !important;
+  max-width: 32rem;
+}
+
+/* CTA — primary is product, secondary is inquiry */
+.luxury-hero a[href='/shop'] {
+  box-shadow: 0 8px 28px rgba(214, 178, 94, 0.28);
+  letter-spacing: 0.02em;
+}
+.luxury-hero a[href='/shop']:hover {
+  box-shadow: 0 12px 36px rgba(214, 178, 94, 0.38);
+}
+.luxury-hero a[href='/contact'] {
+  backdrop-filter: blur(8px);
+}
+
+/* ---------- Header: maison quiet chrome ---------- */
 .site-header.is-scrolled {
-  background: rgba(7, 7, 6, 0.92) !important;
-  backdrop-filter: blur(12px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(130%) !important;
+  background: rgba(10, 9, 7, 0.9) !important;
+  backdrop-filter: blur(14px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(130%) !important;
   border-bottom: 1px solid var(--hairline) !important;
-  box-shadow: none !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25) !important;
 }
 .nav-gold-sheen {
-  opacity: 0.35;
+  opacity: 0.28;
 }
 .site-header .nav-link:hover,
 .site-header .nav-link.is-active {
@@ -162,26 +247,126 @@
 .btn-gold {
   border-radius: 999px;
   font-weight: 600;
+  box-shadow: 0 6px 20px rgba(214, 178, 94, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.btn-accent:hover,
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(214, 178, 94, 0.32);
 }
 
-/* ---------- Product marquee ---------- */
+/* ---------- Products as stars (marquee) ---------- */
 .plr-viewport {
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+  padding-block: 0.75rem;
+}
+
+.plr-viewport .group {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.plr-viewport .group img {
+  border-radius: 1rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, opacity 0.35s ease;
+  opacity: 0.9;
 }
 .plr-viewport .group:hover img {
-  transform: scale(1.03);
+  transform: scale(1.05);
+  opacity: 1;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(214, 178, 94, 0.2);
+}
+.plr-viewport .group span {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.88;
+  transition: opacity 0.3s ease, color 0.3s ease;
 }
 .plr-viewport .group:hover span {
+  opacity: 1;
   color: var(--gold-2);
 }
 
-/* ---------- Gallery ---------- */
+.plr-card {
+  transform: scale(0.94);
+  opacity: 0.7;
+  border-color: transparent;
+  box-shadow: none;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.4s ease;
+}
+.plr-card.is-spotlight,
+.plr-card:hover {
+  transform: scale(1.04);
+  opacity: 1;
+  border-color: var(--hairline);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+}
+.plr-card.is-spotlight .plr-img,
+.plr-card:hover .plr-img {
+  transform: scale(1.04);
+}
+.plr-card:hover .plr-shine {
+  animation: none;
+}
+
+/* Main product bands — larger presence */
+.main-products article,
+.main-products a {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ---------- Gallery mosaic ---------- */
+.home-media-tile {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.home-media-trigger {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.home-media-tile:hover .home-media-trigger {
+  transform: scale(1.02);
+}
+.home-media-meta strong {
+  font-family: var(--font-ui, 'Kalameh', system-ui, sans-serif);
+}
+
+.gallery-item {
+  border-radius: 1rem;
+  overflow: hidden;
+}
 .gallery-item:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 .gallery-item:hover img {
-  transform: scale(1.03);
+  transform: scale(1.04);
+}
+.gallery-item:hover .gallery-gold-ring {
+  box-shadow: inset 0 0 0 1px rgba(214, 178, 94, 0.35),
+    0 16px 40px rgba(0, 0, 0, 0.32);
+}
+
+/* ---------- Story chapter rhythm ---------- */
+.story-chapter .eyebrow,
+.eyebrow {
+  color: var(--gold-2);
+  opacity: 0.85;
+}
+
+/* Persian digits feel tighter tracking */
+.tabular-nums,
+[class*='counter'],
+.home-magazine-number {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Footer quieter maison close ---------- */
+footer,
+.site-footer {
+  border-top: 1px solid var(--hairline);
+  background: linear-gradient(180deg, transparent, rgba(8, 7, 5, 0.6));
 }
 
 /* ---------- Scrollbar ---------- */
@@ -189,15 +374,31 @@
   width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 75, 0.28);
+  background: rgba(214, 178, 94, 0.28);
   border-radius: 3px;
+}
+
+@media (max-width: 767px) {
+  .chapter {
+    padding-block: clamp(3.25rem, 11vw, 5.25rem) !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fact-card:hover,
   .luxury-card:hover,
   .gallery-item:hover,
-  .plr-viewport .group:hover img {
+  .plr-viewport .group:hover img,
+  .plr-card:hover,
+  .btn-accent:hover,
+  .btn-gold:hover {
     transform: none;
+  }
+  .hero-kenburns {
+    transition: opacity 0.6s ease;
+    transform: none;
+  }
+  body::before {
+    display: none;
   }
 }
