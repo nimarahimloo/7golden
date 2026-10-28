@@ -127,7 +127,8 @@ export default function HeroNutScene() {
     let disposed = false;
     let inView = true;
     let pageVisible = !document.hidden;
-    let reducedMotion = window.matchMedia(REDUCED_MOTION_QUERY).matches;
+    const motionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+    let reducedMotion = motionQuery.matches;
     let previousTime = 0;
 
     const scene = new THREE.Scene();
@@ -270,7 +271,7 @@ export default function HeroNutScene() {
     resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(host);
     document.addEventListener('visibilitychange', onVisibilityChange);
-    window.matchMedia(REDUCED_MOTION_QUERY).addEventListener?.('change', onMotionChange);
+    motionQuery.addEventListener?.('change', onMotionChange);
 
     resize();
     start();
@@ -281,7 +282,7 @@ export default function HeroNutScene() {
       observer?.disconnect();
       resizeObserver?.disconnect();
       document.removeEventListener('visibilitychange', onVisibilityChange);
-      window.matchMedia(REDUCED_MOTION_QUERY).removeEventListener?.('change', onMotionChange);
+      motionQuery.removeEventListener?.('change', onMotionChange);
       scene.traverse((object) => {
         if (object.geometry) object.geometry.dispose();
         if (object.material) {
