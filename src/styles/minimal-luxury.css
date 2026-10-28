@@ -73,6 +73,24 @@ body::before {
 
 .scroll-aura { opacity: 0.08 !important; }
 .cursor-spotlight { display: none !important; }
+
+/* Blog article hero title sits on a darkened photo — the global gold-text
+   fill (gold-2) is too dim there. Cream reads at ~13:1 on the dark scrim. */
+.blog-article-title .gold-text {
+  -webkit-text-fill-color: var(--on-gold) !important;
+  color: var(--on-gold) !important;
+  background: none !important;
+}
+
+/* Article reading columns are near full width (reading-shell), so body text
+   flows under the fixed chat FAB at the viewport corner. Extra inline-start
+   padding (the RIGHT side in RTL) keeps article text clear of the FAB. */
+@media (min-width: 1024px) {
+  .news-article-page .reading-shell,
+  .blog-article-page .reading-shell {
+    padding-inline-start: 5.5rem !important;
+  }
+}
 .luxury-hero-orbit { display: none !important; }
 
 .btn-accent,

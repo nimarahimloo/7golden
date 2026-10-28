@@ -128,11 +128,11 @@ export default function BlogPost() {
           <div className="absolute inset-0 flex items-end">
             <div className="reading-shell pb-12 w-full text-center">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm font-semibold" style={{ color: 'var(--accent)' }}>
+                <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm font-semibold" style={{ color: 'var(--gold-3)' }}>
                   <Tag size={11} />
                   {category}
                 </span>
-                <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm" style={{ color: 'var(--fg-muted)' }}>
+                <span className="glass-pill inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full font-body text-sm" style={{ color: 'rgba(255,255,255,0.8)' }}>
                   <Calendar size={11} />
                   {date}
                 </span>
