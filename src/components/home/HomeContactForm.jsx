@@ -114,7 +114,7 @@ export default function HomeContactForm({ section = {} }) {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="home-contact-form flex flex-col gap-4">
                   <div className="mb-2">
                     <h3 className="font-heading font-black text-lg mb-2" style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}>
                       فرم استعلام محصول
