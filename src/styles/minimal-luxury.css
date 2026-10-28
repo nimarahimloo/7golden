@@ -611,3 +611,15 @@ footer, .site-footer { border-top: 1px solid var(--hairline); }
     transition: none;
   }
 }
+
+
+/* ---------- Final interaction polish ---------- */
+.luxury-hero .hero-kenburns {
+  animation: heroKenBurns 20s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .luxury-hero .hero-kenburns {
+    animation: none !important;
+    transform: none !important;
+  }
+}
