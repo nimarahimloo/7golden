@@ -22,7 +22,7 @@ const BASE_SLIDES = [
       'مغز فندق، خمیر، گرانول و پودر؛ شکل محصول و مشخصات سفارش را متناسب با کاربرد نهایی بررسی کنید.',
   },
   {
-    image: '/banner/pistachio-triple-bowls.webp',
+    image: '/banner/pistachio-bowl-green.webp',
     imagePosition: 'center 52%',
     badge: 'گروه پسته و بادام',
     title: 'پسته و بادام',
@@ -64,7 +64,7 @@ export default function HeroSlider({ cmsHero = null }) {
 
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [manuallyPaused, setManuallyPaused] = useState(false);
+  const [manuallyPaused, setManuallyPaused] = useState(true);
   const shouldPause = isPaused || manuallyPaused;
   const touchStart = useRef(null);
   const slideCount = slides.length;
@@ -120,8 +120,8 @@ export default function HeroSlider({ cmsHero = null }) {
       role="region"
       className="luxury-hero relative isolate w-full overflow-hidden text-white"
       style={{
-        minHeight: 'min(820px, max(100svh, 560px))',
-        height: 'max(100svh, 560px)',
+        minHeight: '560px',
+        height: 'clamp(560px, 82svh, 780px)',
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -139,8 +139,8 @@ export default function HeroSlider({ cmsHero = null }) {
           key={slide.image}
           src={slide.image}
           alt=""
-          loading="eager"
-          fetchPriority="high"
+          loading={current === 0 ? "eager" : "lazy"}
+          fetchPriority={current === 0 ? "high" : "auto"}
           decoding="async"
           className="hero-kenburns absolute inset-0 h-full w-full object-cover"
           style={{ objectPosition: slide.imagePosition }}

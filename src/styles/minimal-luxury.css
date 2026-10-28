@@ -613,14 +613,19 @@ footer, .site-footer { border-top: 1px solid var(--hairline); }
 }
 
 
-/* Smooth, lightweight hero transitions when only the active image is mounted. */
-@keyframes heroImageEnter {
-  from { opacity: 0.72; }
-  to { opacity: 1; }
-}
+/* ---------- Final interaction polish ---------- */
 .luxury-hero .hero-kenburns {
-  animation: heroKenBurns 20s ease-in-out infinite, heroImageEnter .72s ease-out both;
+  animation: heroKenBurns 20s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .luxury-hero .hero-kenburns { animation: none !important; }
+  .luxury-hero .hero-kenburns {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* Keep the homepage editorial hierarchy clean when CMS sections are reordered. */
+.home-page .outline-num {
+  display: none;
 }
