@@ -32,7 +32,7 @@ const ORDER_STEPS = [
 ];
 
 const DEFAULT_SECTION_IMAGES = {
-  capacity: '/banner/img-6052.webp',
+  capacity: '/banner/img-6052-split.webp',
 };
 
 export default function Home() {
@@ -232,13 +232,17 @@ export default function Home() {
   ]
     .filter((section) => sectionVisible(section.key))
     .sort((a, b) => {
+      // B2B visitors should reach the product catalogue immediately after the hero.
+      // CMS order remains respected for the other homepage sections.
+      if (a.key === 'products') return -1;
+      if (b.key === 'products') return 1;
       const aOrder = Number(sec(a.key).sort_order) || a.defaultOrder;
       const bOrder = Number(sec(b.key).sort_order) || b.defaultOrder;
       return aOrder - bOrder;
     });
 
   return (
-    <div dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
+    <div className="home-page" dir="rtl" style={{ position: 'relative', zIndex: 1 }}>
       <Seo
         title={SITE_SEO.defaultTitleFA}
         description={SITE_SEO.defaultDescriptionFA}
