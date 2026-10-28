@@ -623,3 +623,9 @@ footer, .site-footer { border-top: 1px solid var(--hairline); }
     transform: none !important;
   }
 }
+
+
+/* Keep the homepage editorial hierarchy clean when CMS sections are reordered. */
+.home-page .outline-num {
+  display: none;
+}
