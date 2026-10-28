@@ -15,6 +15,29 @@ const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 const toPersianDigits = (value) =>
   String(value).replace(/[0-9]/g, (digit) => FA_DIGITS[Number(digit)]);
 
+// Product descriptions are sometimes stored as HTML-escaped rich text. Cards need
+// short plain-text summaries, not raw markup or an entire article.
+function cleanCardDescription(value, maxLength = 150) {
+  if (typeof value !== 'string') return '';
+
+  const plainText = value
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/&#x([\da-f]+);/gi, (_, code) => String.fromCodePoint(parseInt(code, 16)))
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;|&#160;/gi, ' ')
+    .replace(/&quot;|&#34;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&amp;/gi, '&')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (plainText.length <= maxLength) return plainText;
+  const clipped = plainText.slice(0, maxLength).replace(/\s+\S*$/, '').trim();
+  return `${clipped || plainText.slice(0, maxLength).trim()}…`;
+}
+
 function CatalogStatus({ kind, onRetry }) {
   const content = {
     loading: {
@@ -143,7 +166,7 @@ export default function HomeFeaturedProducts({
                     <div className="home-cat-copy">
                       <span className="home-cat-eyebrow">گروه محصول</span>
                       <h3>{category.nameFA || 'محصولات'}</h3>
-                      <p>{category.descFA || 'برای مشاهده کالاهای منتشرشده و بررسی مشخصات سفارش وارد این گروه شوید.'}</p>
+                      <p>{cleanCardDescription(category.descFA) || 'برای مشاهده کالاهای منتشرشده و بررسی مشخصات سفارش وارد این گروه شوید.'}</p>
                       <span className="home-cat-cta">
                         مشاهده گروه
                         <ArrowUpLeft size={15} />
@@ -203,7 +226,7 @@ export default function HomeFeaturedProducts({
                     <div className="home-specialty-body">
                       <span>{product.badge || CATEGORY_LABELS[product.category] || 'محصول منتشرشده'}</span>
                       <strong>{product.nameFA || 'مشاهده محصول'}</strong>
-                      <p>{product.descFA || 'برای بررسی مشخصات و دریافت قیمت، جزئیات این محصول را مشاهده کنید.'}</p>
+                      <p>{cleanCardDescription(product.descFA) || 'برای بررسی مشخصات و دریافت قیمت، جزئیات این محصول را مشاهده کنید.'}</p>
                       <span className="home-product-link-label">
                         جزئیات محصول
                         <ChevronLeft size={14} />
