@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone } from 'lucide-react';
 import { t } from '@/lib/i18n';
+import { CONTACT_INFO } from '@/lib/contact-info';
 
 const CONTACT_LINKS = [
-  { id: 'phone', label: 'تماس تلفنی', href: 'tel:+989121823438', Icon: Phone, display: '09121823438' },
-  { id: 'email', label: 'ایمیل', href: 'mailto:info@7golden.co', Icon: Mail, display: 'info@7golden.co' },
+  { id: 'phone', label: 'تماس تلفنی', href: CONTACT_INFO.mobileLink, Icon: Phone, display: CONTACT_INFO.mobile },
+  { id: 'email', label: 'ایمیل', href: CONTACT_INFO.emailLink, Icon: Mail, display: CONTACT_INFO.email },
 ];
 
 const SOCIAL_CANDIDATES = [
