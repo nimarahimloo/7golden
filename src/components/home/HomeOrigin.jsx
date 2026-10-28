@@ -1,89 +1,101 @@
 import { Link } from 'react-router-dom';
-import { ChevronLeft, Factory, PackageCheck, Layers } from 'lucide-react';
+import { ChevronLeft, ArrowUpLeft } from 'lucide-react';
 
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
-import DepthParallax from '@/components/story/DepthParallax';
-import Eyebrow from '@/components/ui/eyebrow';
 
-const PRODUCT_GROUPS = [
+const PILLARS = [
   {
-    icon: Factory,
-    title: 'فرآورده‌های فندق',
-    text: 'مغز فندق خام و برشته، خمیر، گرانول و پودر فندق؛ برای استفاده در شکلات، کرم فندق، کیک و بستنی.',
+    key: 'hazelnut',
+    label: '۰۱',
+    title: 'فندق',
+    subtitle: 'مغز · خمیر · گرانول · پودر',
+    text: 'مغز خام و برشته، خمیر، گرانول و پودر فندق برای شکلات، کرم فندق، کیک و بستنی.',
+    image: '/banner/hazelnut-chopped-dark.webp',
+    href: '/shop?category=hazelnut',
   },
   {
-    icon: PackageCheck,
-    title: 'مغز و خلال پسته',
-    text: 'مغز پسته، مغز پوست‌کنده، خلال و پودر پسته؛ برای کاربردهایی مانند شکلات، بستنی، قنادی و حلوا ارده.',
+    key: 'pistachio',
+    label: '۰۲',
+    title: 'پسته',
+    subtitle: 'مغز · خلال · پودر',
+    text: 'مغز پسته، مغز پوست‌کنده، خلال و پودر برای شکلات، بستنی، قنادی و حلوا ارده.',
+    image: '/banner/pistachio-kernels.webp',
+    href: '/shop?category=pistachio',
   },
   {
-    icon: Layers,
-    title: 'محصولات بادام',
-    text: 'مغز، خلال و پرک بادام برای تهیه کیک، شیرینی و دیگر فرآورده‌های غذایی.',
+    key: 'almond',
+    label: '۰۳',
+    title: 'بادام',
+    subtitle: 'مغز · خلال · پرک',
+    text: 'مغز، خلال و پرک بادام برای کیک، شیرینی، شکلات و دیگر خطوط تولید غذایی.',
+    image: '/banner/tray-pistachio-almond.webp',
+    href: '/shop?category=almond',
   },
 ];
 
+/**
+ * Section 03 — three product pillars as editorial image panels.
+ * No icon cards, no corporate feature grid.
+ */
 export default function HomeOrigin({ section = {} }) {
   return (
-    <section className="chapter">
+    <section className="chapter home-origin" aria-label="سه گروه محصول هفت طلایی">
       <div className="chapter-shell">
         <StoryChapter
           index="03"
           eyebrow={section.badge_fa || 'محصولات هفت طلایی'}
-          title={section.title_fa || 'سه گروه محصول؛ کاربردهای متنوع'}
-          lead={section.subtitle_fa || 'فهرست محصولات هفت طلایی بر فندق، پسته و بادام متمرکز است. هر گروه در شکل‌های مختلف فرآوری عرضه می‌شود تا برای کاربردهای متفاوت در صنایع غذایی قابل انتخاب باشد.'}
-          align="center"
-          className="mb-12 md:mb-16"
+          title={section.title_fa || 'سه ستون تولید'}
+          lead={
+            section.subtitle_fa ||
+            'تمرکز مجموعه روی فندق، پسته و بادام است؛ هر گروه در شکل‌های مختلف فرآوری برای صنایع غذایی عرضه می‌شود.'
+          }
+          className="mb-10 md:mb-14"
         />
 
-        <DepthParallax
-          src={section.image || '/banner/banner-spoons-set.webp'}
-          alt="فرآورده‌های فندق، پسته و بادام هفت طلایی"
-          ratio="aspect-[4/3] md:aspect-[21/9]"
-          className="rounded-2xl"
-        >
-          <div>
-            <Eyebrow className="block mb-2">محصولات هفت طلایی</Eyebrow>
-            <span className="display-md" style={{ color: 'var(--ink)' }}>
-              پسته، بادام و فندق
-            </span>
-          </div>
-        </DepthParallax>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mt-10 md:mt-12">
-          {PRODUCT_GROUPS.map((item, index) => (
-            <Reveal key={item.title} delay={index * 80}>
-              <div className="fact-card h-full">
-                <div
-                  className="w-11 h-11 rounded-full flex items-center justify-center mb-5"
-                  style={{
-                    background: 'rgba(201, 168, 75, 0.08)',
-                    border: '1px solid var(--hairline)',
-                  }}
-                >
-                  <item.icon size={18} style={{ color: 'var(--gold-2)' }} />
+        <div className="home-pillars">
+          {PILLARS.map((item, index) => (
+            <Reveal key={item.key} delay={index * 90} className="home-pillar">
+              <Link to={item.href} className="home-pillar-link group">
+                <div className="home-pillar-media">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                  />
+                  <span className="home-pillar-scrim" aria-hidden="true" />
                 </div>
-                <h3 className="display-sm mb-3" style={{ color: 'var(--fg)' }}>
-                  {item.title}
-                </h3>
-                <p
-                  className="font-body text-sm leading-relaxed"
-                  style={{ color: 'var(--fg-muted)' }}
-                >
-                  {item.text}
-                </p>
-              </div>
+
+                <div className="home-pillar-body">
+                  <span className="home-pillar-index">{item.label}</span>
+                  <h3>{item.title}</h3>
+                  <span className="home-pillar-sub">{item.subtitle}</span>
+                  <p>{item.text}</p>
+                  <span className="home-pillar-cta">
+                    مشاهده گروه
+                    <ArrowUpLeft size={15} />
+                  </span>
+                </div>
+              </Link>
             </Reveal>
           ))}
         </div>
 
-        <Reveal delay={100} className="mt-12 flex flex-wrap items-center justify-center gap-3">
+        <Reveal delay={120} className="mt-12 flex flex-wrap items-center justify-center gap-3 md:mt-14">
           <Link to="/shop" className="btn-gold">
-            مشاهده محصولات
+            فهرست کامل محصولات
             <ChevronLeft size={16} />
           </Link>
-          <Link to="/contact" className="btn-ghost">
+          <Link
+            to="/contact"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border px-6 py-2.5 text-sm transition-colors"
+            style={{
+              borderColor: 'var(--hairline)',
+              color: 'var(--fg)',
+              fontFamily: "'Kalameh', system-ui, sans-serif",
+            }}
+          >
             استعلام قیمت
           </Link>
         </Reveal>
