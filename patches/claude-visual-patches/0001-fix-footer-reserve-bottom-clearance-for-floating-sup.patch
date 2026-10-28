@@ -22,6 +22,11 @@ index 1fc027c..6dfa75b 100644
        style={{ background: 'var(--bg)', borderColor: 'var(--hairline)' }}
      >
        <div className="chapter-shell relative z-10">
+
+diff --git a/src/styles/story.css b/src/styles/story.css
+index 8e63f7c..2122ccb 100644
+--- a/src/styles/story.css
++++ b/src/styles/story.css
 @@ -1917,6 +1917,14 @@
  /* ===================================================================
     SITE FOOTER
