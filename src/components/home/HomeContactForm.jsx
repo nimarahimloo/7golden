@@ -27,7 +27,7 @@ export default function HomeContactForm({ section = {} }) {
     event.preventDefault();
     if (!form.name.trim() || !form.message.trim() || status === 'sending') return;
     if (!form.phone.trim() && !form.email.trim()) {
-      setContactError('نام، جزئیات محصول و حداقل یک راه تماس را وارد کنید.');
+      setContactError('برای پیگیری درخواست، شماره تماس یا ایمیل را وارد کنید.');
       return;
     }
 
@@ -127,7 +127,7 @@ export default function HomeContactForm({ section = {} }) {
                       فرم استعلام محصول
                     </h3>
                     <p className="font-body text-xs leading-relaxed" style={{ color: 'var(--fg-muted)' }}>
-                      برای پیگیری درخواست، شماره تماس یا ایمیل را وارد کنید.
+                      نام، جزئیات محصول و حداقل یک راه تماس را وارد کنید.
                     </p>
                   </div>
 
