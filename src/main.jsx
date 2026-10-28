@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from '@/App.jsx'
 import '@/index.css'
+import '@/styles/fonts-antic.css'
 import '@/styles/story.css'
 import '@/styles/minimal-luxury.css'
 
