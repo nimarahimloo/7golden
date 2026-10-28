@@ -137,7 +137,7 @@ export default function BlogPost() {
                   {date}
                 </span>
               </div>
-              <h1 className="display-lg leading-tight blog-article-title" title={title} style={{ color: 'var(--ink)' }}>
+              <h1 className="display-lg leading-tight blog-article-title" title={title} style={{ color: 'var(--on-gold)' }}>
                 <span className="gold-text">{title}</span>
               </h1>
               {excerpt && (
