@@ -32,7 +32,7 @@ const ORDER_STEPS = [
 ];
 
 const DEFAULT_SECTION_IMAGES = {
-  capacity: '/banner/img-6052.webp',
+  capacity: '/banner/img-6052-split.webp',
 };
 
 export default function Home() {
