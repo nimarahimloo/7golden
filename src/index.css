@@ -1,1 +1,351 @@
-PLACEHOLDER
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== FONT IMPORTS (local — served from /public/fonts) ===== */
+
+/* --- Peyda --- */
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Thin.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-ExtraLight.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Light.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Regular.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Medium.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-SemiBold.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Bold.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-ExtraBold.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Peyda';
+  src: url('/fonts/peyda/Peyda-Black.woff2') format('woff2'),
+       url('/fonts/PeydaWeb-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Kalameh --- */
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-Thin.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-ExtraLight.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-Light.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-Regular.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-Medium.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-SemiBold.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-Bold.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-ExtraBold.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Kalameh';
+  src: url('/fonts/kalameh/Kalameh-Black.woff2') format('woff2'),
+       url('/fonts/KalamehWebFaNum-Bold.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- YekanBakh --- */
+@font-face {
+  font-family: 'YekanBakh';
+  src: url('/fonts/yekan-bakh/YekanBakh-Regular.woff2') format('woff2'),
+       url('/fonts/YekanBakhFaNum-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YekanBakh';
+  src: url('/fonts/yekan-bakh/YekanBakh-SemiBold.woff2') format('woff2'),
+       url('/fonts/YekanBakhFaNum-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YekanBakh';
+  src: url('/fonts/yekan-bakh/YekanBakh-Bold.woff2') format('woff2'),
+       url('/fonts/YekanBakhFaNum-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== CSS VARIABLES (dark-only — single theme) ===== */
+@layer base {
+  :root {
+    --bg: #090806;
+    --bg-secondary: #12100B;
+    --fg: #FBF7EF;
+    --fg-muted: #C9C1B3;
+    --accent: #D6B25E;
+    --accent-hover: #F0D38D;
+    --accent-gold: #D6B25E;
+    --on-gold: #181207;
+
+    --gold-1: #FFF2C7;
+    --gold-2: #D6B25E;
+    --gold-3: #A77A2A;
+    --gold-4: #5E431B;
+    --border: rgba(214, 178, 94, 0.22);
+    --card-bg: rgba(18, 15, 9, 0.9);
+    --glass: rgba(6, 4, 2, 0.5);
+    --glass-strong: rgba(6, 4, 2, 0.65);
+    --liquid-glass-bg: rgba(8, 6, 3, 0.42);
+    --liquid-glass-border: rgba(255, 255, 255, 0.07);
+    --liquid-glass-strong-bg: rgba(4, 3, 1, 0.56);
+    --liquid-glass-strong-border: rgba(255, 255, 255, 0.09);
+    --glass-input-bg: rgba(0, 0, 0, 0.25);
+    --glass-input-border: rgba(255, 255, 255, 0.07);
+    --glass-pill-bg: rgba(255, 255, 255, 0.05);
+    --glass-pill-border: rgba(214, 178, 94, 0.2);
+    --surface-subtle: rgba(255, 255, 255, 0.03);
+    --surface-border: rgba(255, 255, 255, 0.06);
+    --bottom-bar-bg: rgba(2, 1, 0, 0.78);
+    --bottom-bar-border: rgba(255, 255, 255, 0.08);
+    --track-bg: rgba(0, 0, 0, 0.35);
+    --overlay-footer-bg: rgba(0, 0, 0, 0.3);
+    --shadow: 0 8px 40px rgba(0,0,0,0.6);
+    --shadow-lg: 0 24px 80px rgba(0,0,0,0.8);
+
+    --ink: #FBF7EF;
+    --brass: #D6B25E;
+    --hairline: rgba(214, 178, 94, 0.22);
+    --hairline-strong: rgba(214, 178, 94, 0.45);
+    --soft-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+
+    --panel: rgba(18, 15, 9, 0.78);
+    --panel-strong: rgba(12, 10, 6, 0.92);
+
+    --background: 40 8% 3%;
+    --foreground: 40 30% 95%;
+    --card: 40 10% 6%;
+    --card-foreground: 40 30% 95%;
+    --popover: 40 10% 6%;
+    --popover-foreground: 40 30% 95%;
+    --primary: 42 55% 60%;
+    --primary-foreground: 40 20% 8%;
+    --secondary: 40 10% 12%;
+    --secondary-foreground: 40 30% 95%;
+    --muted: 40 8% 14%;
+    --muted-foreground: 40 10% 70%;
+    --accent-foreground: 40 20% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border-hsl: 40 20% 20%;
+    --input: 40 15% 18%;
+    --ring: 42 55% 60%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'YekanBakh', 'Peyda', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Peyda', 'YekanBakh', system-ui, sans-serif;
+  }
+}
+
+/* Utility helpers used across the site */
+.font-peyda { font-family: 'Peyda', system-ui, sans-serif; }
+.font-kalameh { font-family: 'Kalameh', system-ui, sans-serif; }
+.font-yekan { font-family: 'YekanBakh', system-ui, sans-serif; }
+
+.display-xl {
+  font-family: 'Peyda', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.display-lg {
+  font-family: 'Peyda', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.section-padding {
+  padding-block: 4rem;
+}
+@media (min-width: 768px) {
+  .section-padding { padding-block: 6rem; }
+}
+@media (min-width: 1280px) {
+  .section-padding { padding-block: 8rem; }
+}
+
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--liquid-glass-border);
+}
+.glass-strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--liquid-glass-strong-border);
+}
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+}
+
+.btn-accent,
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-gold);
+  font-weight: 600;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.btn-accent:hover,
+.btn-gold:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.gold-text {
+  color: var(--gold-2);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(214, 178, 94, 0.35);
+  border-radius: 3px;
+}
