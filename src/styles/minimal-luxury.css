@@ -611,3 +611,16 @@ footer, .site-footer { border-top: 1px solid var(--hairline); }
     transition: none;
   }
 }
+
+
+/* Slide changes keep the image cinematic without loading every frame at once. */
+@keyframes heroImageEnter {
+  from { opacity: 0.72; }
+  to { opacity: 1; }
+}
+.luxury-hero .hero-kenburns {
+  animation: heroKenBurns 20s ease-in-out infinite, heroImageEnter .72s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .luxury-hero .hero-kenburns { animation: none !important; }
+}
