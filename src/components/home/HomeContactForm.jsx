@@ -27,7 +27,7 @@ export default function HomeContactForm({ section = {} }) {
     event.preventDefault();
     if (!form.name.trim() || !form.message.trim() || status === 'sending') return;
     if (!form.phone.trim() && !form.email.trim()) {
-      setContactError('برای پیگیری درخواست، شماره تماس یا ایمیل را وارد کنید.');
+      setContactError('نام، جزئیات محصول و حداقل یک راه تماس را وارد کنید.');
       return;
     }
 
