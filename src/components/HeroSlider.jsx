@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const BASE_SLIDES = [
@@ -7,55 +7,28 @@ const BASE_SLIDES = [
     image: '/banner/tray-pistachio-almond.webp',
     imagePosition: 'center 54%',
     badge: 'هفت طلایی · قزوین',
-    title: 'خانهٔ خشکبار ممتاز',
-    accent: 'از قزوین تا صنایع غذایی',
+    title: 'مواد اولیه برای تولید غذایی',
+    accent: 'فرآورده‌های فندق، پسته و بادام',
     description:
-      'فرآوری فندق، پسته و بادام برای قنادی، شکلات‌سازی و تولیدکنندگان غذایی — با سابقه‌ای که از سال ۱۳۷۷ در قزوین ریشه دارد.',
+      'فرآوری خشکبار برای قنادی، شکلات‌سازی و تولیدکنندگان غذایی؛ با پیشینه‌ای که از سال ۱۳۷۷ در قزوین آغاز شده است.',
   },
   {
     image: '/banner/hazelnut-chopped-dark.webp',
     imagePosition: 'center 48%',
-    badge: 'محصولات فندق',
+    badge: 'گروه فندق',
     title: 'فندق، از مغز تا فرآورده',
-    accent: 'برای شکلات و قنادی',
+    accent: 'برای شکلات، کرم و قنادی',
     description:
-      'از مغز فندق خام و رست‌شده تا خمیر، گرانول و پودر فندق؛ محصولاتی برای تهیه شکلات، کرم فندق، شیرینی و بستنی.',
+      'مغز فندق، خمیر، گرانول و پودر؛ شکل محصول و مشخصات سفارش را متناسب با کاربرد نهایی بررسی کنید.',
   },
   {
     image: '/banner/IMG_2437.webp',
     imagePosition: 'center 52%',
-    badge: 'پسته و بادام',
+    badge: 'گروه پسته و بادام',
     title: 'پسته و بادام',
-    accent: 'در شکل‌های موردنیاز تولید',
+    accent: 'در شکل‌های مختلف فرآوری',
     description:
-      'مغز و خلال پسته، همراه با مغز، خلال و پرک بادام؛ برای تهیه و تزئین شیرینی، دسر و فرآورده‌های غذایی.',
-  },
-  {
-    image: '/banner/IMG_2448.webp',
-    imagePosition: 'center 52%',
-    badge: 'دقت در جزئیات',
-    title: 'جزئیات مهم‌اند',
-    accent: 'از انتخاب تا فرآوری',
-    description:
-      'اندازه برش، بافت و شکل نهایی مواد اولیه در تولید اهمیت دارند. نوع فرآوری را بر اساس کاربرد محصول نهایی انتخاب می‌کنیم.',
-  },
-  {
-    image: '/banner/IMG_2335.webp',
-    imagePosition: 'center 52%',
-    badge: 'فرآورده‌های خشکبار',
-    title: 'از مغز تا محصول آماده',
-    accent: 'متناسب با نیاز تولید',
-    description:
-      'مغز کامل، خلال، پرک، گرانول، خمیر و پودر؛ هرکدام برای کاربردی متفاوت در خطوط تولید غذایی.',
-  },
-  {
-    image: '/banner/IMG_2371.webp',
-    imagePosition: 'center 54%',
-    badge: 'از سال ۱۳۷۷',
-    title: 'میراثی که ادامه دارد',
-    accent: 'خانواده و کارخانه در قزوین',
-    description:
-      'فرآوری خشکبار از سال ۱۳۷۷ در قزوین آغاز شد. امروز تمرکز هفت طلایی بر فندق، پسته و بادام برای صنایع غذایی است.',
+      'مغز و خلال پسته، همراه با مغز، خلال و پرک بادام؛ برای بررسی مشخصات و قیمت روز با واحد فروش در ارتباط باشید.',
   },
 ];
 
@@ -91,6 +64,8 @@ export default function HeroSlider({ cmsHero = null }) {
 
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [manuallyPaused, setManuallyPaused] = useState(false);
+  const shouldPause = isPaused || manuallyPaused;
   const touchStart = useRef(null);
   const slideCount = slides.length;
 
@@ -106,7 +81,7 @@ export default function HeroSlider({ cmsHero = null }) {
 
   useEffect(() => {
     if (
-      isPaused ||
+      shouldPause ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) {
       return undefined;
@@ -114,7 +89,7 @@ export default function HeroSlider({ cmsHero = null }) {
 
     const timerId = window.setInterval(next, 7200);
     return () => window.clearInterval(timerId);
-  }, [isPaused, next]);
+  }, [shouldPause, next]);
 
   const handleTouchStart = (event) => {
     touchStart.current = event.touches[0]?.clientX ?? null;
@@ -145,8 +120,8 @@ export default function HeroSlider({ cmsHero = null }) {
       role="region"
       className="luxury-hero relative isolate w-full overflow-hidden text-white"
       style={{
-        minHeight: 'min(820px, max(100svh, 660px))',
-        height: 'max(100svh, 660px)',
+        minHeight: 'min(820px, max(100svh, 560px))',
+        height: 'max(100svh, 560px)',
       }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -160,21 +135,16 @@ export default function HeroSlider({ cmsHero = null }) {
       onTouchEnd={handleTouchEnd}
     >
       <div className="absolute inset-0" aria-hidden="true">
-        {slides.map((item, index) => (
-          <img
-            key={item.image + index}
-            src={item.image}
-            alt=""
-            loading={index === 0 ? 'eager' : 'lazy'}
-            fetchPriority={index === 0 ? 'high' : 'low'}
-            decoding="async"
-            className="hero-kenburns absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out"
-            style={{
-              objectPosition: item.imagePosition,
-              opacity: index === current ? 1 : 0,
-            }}
-          />
-        ))}
+        <img
+          key={slide.image}
+          src={slide.image}
+          alt=""
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="hero-kenburns absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: slide.imagePosition }}
+        />
       </div>
 
       {/* Warm cinematic vignette */}
@@ -278,7 +248,7 @@ export default function HeroSlider({ cmsHero = null }) {
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-4 right-4 flex items-center justify-between gap-4 sm:bottom-10 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
+        <div className="hero-slider-controls absolute left-4 right-4 flex items-center justify-between gap-4 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
           <div
             className="hidden items-center gap-x-5 text-xs text-white/45 sm:flex"
             style={{ fontFamily: "'Kalameh', system-ui, sans-serif" }}
@@ -296,6 +266,20 @@ export default function HeroSlider({ cmsHero = null }) {
               <span className="text-white/25"> / </span>
               {String(slideCount).padStart(2, '0')}
             </span>
+
+            <button
+              type="button"
+              onClick={() => {
+                setManuallyPaused((paused) => !paused);
+                setIsPaused(false);
+              }}
+              aria-label={manuallyPaused ? 'ادامه پخش خودکار اسلایدها' : 'توقف پخش خودکار اسلایدها'}
+              aria-pressed={manuallyPaused}
+              title={manuallyPaused ? 'ادامه پخش خودکار' : 'توقف پخش خودکار'}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/18 text-white/80 transition-colors hover:border-[var(--gold-2)] hover:text-[var(--gold-2)]"
+            >
+              {manuallyPaused ? <Play size={16} /> : <Pause size={16} />}
+            </button>
 
             <button
               type="button"
