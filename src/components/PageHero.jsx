@@ -16,7 +16,7 @@ export default function PageHero({ image, title, subtitle, badge, height = '72sv
   return (
     <section
       className="relative w-full overflow-hidden page-hero-frame"
-      style={{ height: 'var(--page-hero-h, 72svh)', minHeight: '440px' }}
+      style={{ height: height || 'var(--page-hero-h, 72svh)' }}
       dir="rtl"
     >
       <div className="absolute inset-0">

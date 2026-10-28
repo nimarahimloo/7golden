@@ -23,14 +23,14 @@
   --fg-faint: #9C8E77;
   --on-gold: #FFFCF3;
 
-  /* Brand ramp — gold-1 is the readable accent, gold-2 the CTA gold */
-  --gold-1: #7A5A22;
-  --gold-2: #9C7A2E;
+  /* Brand ramp — gold-1 is the readable accent, gold-2 the CTA gold (4.9:1 with cream text) */
+  --gold-1: #6E5020;
+  --gold-2: #8A6A24;
   --gold-3: #C8A25C;
   --gold-4: #E7D6AE;
-  --accent: #9C7A2E;
-  --accent-hover: #7A5A22;
-  --accent-gold: #9C7A2E;
+  --accent: #8A6A24;
+  --accent-hover: #6E5020;
+  --accent-gold: #8A6A24;
   --pistachio: #3E6B35;
   --pistachio-soft: #EAF0DF;
 
@@ -60,7 +60,7 @@
 
   /* Ink aliases (kept for legacy rules) */
   --ink: #292114;
-  --brass: #9C7A2E;
+  --brass: #8A6A24;
   --hairline: rgba(122, 90, 34, 0.18);
   --hairline-strong: rgba(122, 90, 34, 0.38);
   --panel: rgba(255, 254, 250, 0.82);
@@ -105,6 +105,7 @@
 
 html {
   @apply antialiased;
+  overflow-x: clip;
 }
 
 body {
@@ -112,6 +113,7 @@ body {
   color: var(--fg);
   font-feature-settings: 'ss01';
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
   background-image:
     radial-gradient(ellipse 90% 50% at 50% -10%, rgba(200, 162, 92, 0.08), transparent 60%),
     radial-gradient(ellipse 60% 40% at 100% 100%, rgba(62, 107, 53, 0.04), transparent 55%);
@@ -292,6 +294,10 @@ textarea::placeholder {
 }
 
 /* Mobile: shorter page heroes so the content surfaces sooner */
+.page-hero-frame {
+  min-height: 440px;
+}
+
 @media (max-width: 767px) {
   :root {
     --page-hero-h: 56svh;

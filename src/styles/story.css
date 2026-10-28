@@ -379,7 +379,7 @@
   font-size: 0.875rem;
   font-weight: 700;
   background: linear-gradient(120deg, var(--gold-2), var(--gold-1));
-  color: #14100A;
+  color: var(--on-gold);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
 }
 
