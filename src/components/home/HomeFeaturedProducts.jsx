@@ -3,6 +3,8 @@ import { ChevronLeft, ArrowUpLeft, RefreshCw, PackageSearch } from 'lucide-react
 import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 
+const CATEGORY_LABELS = { pistachio: 'پسته', hazelnut: 'فندق', almond: 'بادام' };
+
 const CATEGORY_IMAGES = {
   pistachio: '/product/pistachio-category.webp',
   hazelnut: '/product/hazelnut-category.webp',
@@ -199,7 +201,7 @@ export default function HomeFeaturedProducts({
                       )}
                     </div>
                     <div className="home-specialty-body">
-                      <span>{product.badge || product.category || 'محصول منتشرشده'}</span>
+                      <span>{product.badge || CATEGORY_LABELS[product.category] || 'محصول منتشرشده'}</span>
                       <strong>{product.nameFA || 'مشاهده محصول'}</strong>
                       <p>{product.descFA || 'برای بررسی مشخصات و دریافت قیمت، جزئیات این محصول را مشاهده کنید.'}</p>
                       <span className="home-product-link-label">
