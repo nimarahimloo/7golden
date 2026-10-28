@@ -1,0 +1,129 @@
+From 87cbbe3535fd07e8b090dfbf76cb6e09bdd9f15b Mon Sep 17 00:00:00 2001
+From: Claude <claude@users.noreply.github.com>
+Date: Wed, 28 Oct 2026 18:51:11 +0000
+Subject: [PATCH 2/2] feat(home): verified proof strip in hero; consistent
+ product card surface
+
+---
+ src/components/HeroSlider.jsx  | 18 +++++++++++++++++-
+ src/components/ProductTile.jsx | 11 +++++++----
+ src/styles/minimal-luxury.css  | 31 +++++++++++++++++++++++++++++++
+ 3 files changed, 55 insertions(+), 5 deletions(-)
+
+diff --git a/src/components/HeroSlider.jsx b/src/components/HeroSlider.jsx
+index 4019215..318cdf7 100644
+--- a/src/components/HeroSlider.jsx
++++ b/src/components/HeroSlider.jsx
+@@ -1,6 +1,10 @@
+ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+ import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+ import { Link } from 'react-router-dom';
++import { CAPACITY_STATS } from '@/lib/corporate-content';
++
++// Verified company facts (see corporate-content.js), shown as a quiet proof strip.
++const PROOF_POINTS = [CAPACITY_STATS[1], CAPACITY_STATS[2], CAPACITY_STATS[3]];
+ 
+ const BASE_SLIDES = [
+   {
+@@ -208,7 +212,7 @@ export default function HeroSlider({ cmsHero = null }) {
+           </h1>
+ 
+           <p
+-            className="mb-9 max-w-xl text-[0.95rem] leading-8 text-white/72 sm:text-base sm:leading-9 md:mb-11"
++            className="mb-9 max-w-xl text-[0.95rem] leading-8 text-white/82 sm:text-base sm:leading-9 md:mb-9"
+             style={{ fontFamily: "'YekanBakh', system-ui, sans-serif" }}
+           >
+             {slide.description}
+@@ -246,6 +250,18 @@ export default function HeroSlider({ cmsHero = null }) {
+               <ChevronLeft size={16} />
+             </Link>
+           </div>
++
++          <dl className="hero-proof" aria-label="نکات کلیدی شرکت">
++            {PROOF_POINTS.map((item) => (
++              <div key={item.value} className="hero-proof-item">
++                <dt className="hero-proof-value">
++                  {item.value}
++                  {item.unit ? ` ${item.unit}` : ''}
++                </dt>
++                <dd className="hero-proof-label">{item.label}</dd>
++              </div>
++            ))}
++          </dl>
+         </div>
+ 
+         <div className="hero-slider-controls absolute left-4 right-4 flex items-center justify-between gap-4 sm:left-8 sm:right-8 lg:left-10 lg:right-10">
+
+diff --git a/src/components/ProductTile.jsx b/src/components/ProductTile.jsx
+index 9549a7a..53171d6 100644
+--- a/src/components/ProductTile.jsx
++++ b/src/components/ProductTile.jsx
+@@ -15,19 +15,22 @@ export default function ProductTile({ product, className = '', style, loading =
+       style={style}
+       draggable={false}
+     >
+-      <div className="relative overflow-hidden rounded-sm">
++      <div
++        className="relative overflow-hidden rounded-2xl border p-4 transition-[border-color,box-shadow] duration-500 ease-out group-hover:shadow-[var(--soft-shadow)] md:p-5"
++        style={{ background: 'var(--bg-elevated)', borderColor: 'var(--hairline)' }}
++      >
+         <img
+           src={product.image || '/logo-symbol.webp'}
+           alt={name}
+           loading={loading}
+           decoding="async"
+           draggable={false}
+-          className="block w-full aspect-square object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03]"
++          className="block w-full aspect-square object-contain transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+         />
+       </div>
+       <span
+-        className="block mt-3.5 text-sm md:text-[0.9375rem] font-medium leading-snug transition-colors duration-300"
+-        style={{ color: 'var(--fg)', fontFamily: 'Peyda, serif' }}
++        className="block mt-4 px-1 text-sm md:text-[0.9375rem] font-medium leading-snug text-[var(--fg)] transition-colors duration-300 group-hover:text-[var(--gold-2)]"
++        style={{ fontFamily: 'Peyda, serif' }}
+       >
+         {name}
+       </span>
+
+diff --git a/src/styles/minimal-luxury.css b/src/styles/minimal-luxury.css
+index 75e6ff2..8295277 100644
+--- a/src/styles/minimal-luxury.css
++++ b/src/styles/minimal-luxury.css
+@@ -587,3 +587,34 @@ footer, .site-footer { border-top: 1px solid var(--hairline); }
+ 
+ 
+ /* ---------- Three.js scene removed — photography-led hero ---------- */
++
++/* ---------- Hero proof strip (verified company facts) ---------- */
++.hero-proof {
++  display: none;
++  margin: 0;
++  margin-top: 2.25rem;
++  max-width: 36rem;
++  grid-template-columns: repeat(3, minmax(0, 1fr));
++  gap: 1.5rem;
++  padding-top: 1.25rem;
++  border-top: 1px solid rgba(255, 255, 255, 0.16);
++}
++.hero-proof-item { min-width: 0; }
++.hero-proof-value {
++  font-family: 'Peyda', system-ui, sans-serif;
++  font-weight: 700;
++  font-size: 1.125rem;
++  line-height: 1.4;
++  color: #fff;
++}
++.hero-proof-label {
++  margin-top: 0.25rem;
++  font-family: 'Kalameh', system-ui, sans-serif;
++  font-size: 0.75rem;
++  line-height: 1.7;
++  color: rgba(255, 255, 255, 0.62);
++}
++/* Only on tall viewports: short landscape screens have no room for it. */
++@media (min-width: 768px) and (min-height: 760px) {
++  .hero-proof { display: grid; }
++}
+-- 
+2.43.0
