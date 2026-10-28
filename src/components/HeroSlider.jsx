@@ -185,7 +185,7 @@ export default function HeroSlider({ cmsHero = null }) {
 
         <div
           key={current}
-          className="luxury-hero-copy hero-copy-entrance max-w-4xl"
+          className="luxury-hero-copy hero-copy-entrance max-w-4xl lg:max-w-[54%]"
         >
           <h1
             className="mb-5 font-extrabold leading-[1.12] sm:mb-6"
