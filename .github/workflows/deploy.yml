@@ -135,12 +135,12 @@ jobs:
 
       - name: Verify deployed frontend responds
         env:
-          DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+          DEPLOY_URL: ${{ vars.DEPLOY_URL || 'http://46.34.163.95/' }}
         run: |
           set -euo pipefail
           if [ -z "$DEPLOY_URL" ]; then
-            echo "DEPLOY_URL repository variable is not set; skipping HTTP smoke check."
-            exit 0
+            echo "::error::DEPLOY_URL must be set so production deployment cannot pass without an HTTP smoke check."
+            exit 1
           fi
           for attempt in $(seq 1 10); do
             if curl --fail --silent --show-error --location --max-time 10 "$DEPLOY_URL" >/dev/null; then
