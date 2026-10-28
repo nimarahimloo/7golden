@@ -116,7 +116,7 @@ export const translations = {
     factory_title: "کارخانه — شهرک صنعتی کاسپین ۲",
     factory_address: CONTACT_ADDRESSES[1].address,
     support_phone: CONTACT_INFO.officePhone.replace(/\s/g, ''),
-    support_mobile: CONTACT_INFO.mobile.replace(/\\s/g, ''),
+    support_mobile: CONTACT_INFO.mobile.replace(/\s/g, ''),
     working_hours: "برای اطلاع از ساعات پاسخگویی، با دفتر مجموعه تماس بگیرید.",
     send_message: "بفرست پیام",
     message: "محصول و جزئیات درخواست",
