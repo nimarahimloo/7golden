@@ -21,6 +21,7 @@ function cleanCardDescription(value, maxLength = 150) {
   if (typeof value !== 'string') return '';
 
   const plainText = value
+    .replace(/&amp;/gi, '&')
     .replace(/&lt;/gi, '<')
     .replace(/&gt;/gi, '>')
     .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
@@ -29,7 +30,6 @@ function cleanCardDescription(value, maxLength = 150) {
     .replace(/&nbsp;|&#160;/gi, ' ')
     .replace(/&quot;|&#34;/gi, '"')
     .replace(/&#39;|&apos;/gi, "'")
-    .replace(/&amp;/gi, '&')
     .replace(/\s+/g, ' ')
     .trim();
 
