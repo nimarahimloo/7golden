@@ -5,6 +5,19 @@ import Reveal from '@/components/story/Reveal';
 import StoryChapter from '@/components/story/StoryChapter';
 import { getBlogPosts } from '@/lib/api/content';
 
+const MAGAZINE_COPY = {
+  eyebrow: 'مجله',
+  title: 'دانش کاربردی برای انتخاب بهتر',
+  lead: 'مقاله‌هایی درباره انتخاب و کاربرد فرآورده‌های فندق، پسته و بادام در صنایع غذایی.',
+};
+
+function resolveLead(subtitle) {
+  const value = typeof subtitle === 'string' ? subtitle.trim() : '';
+  if (!value) return MAGAZINE_COPY.lead;
+  if (/CMS|محتوای ثابت|بدون جایگزینی/i.test(value)) return MAGAZINE_COPY.lead;
+  return value;
+}
+
 export default function HomeMagazine({ section = {} }) {
   const [posts, setPosts] = useState([]);
   const [loadError, setLoadError] = useState(false);
@@ -19,11 +32,22 @@ export default function HomeMagazine({ section = {} }) {
     return () => { active = false; };
   }, []);
 
+  const eyebrow = section.badge_fa && !/MAGAZINE/i.test(section.badge_fa)
+    ? section.badge_fa
+    : MAGAZINE_COPY.eyebrow;
+  const title = section.title_fa || MAGAZINE_COPY.title;
+  const lead = resolveLead(section.subtitle_fa);
+
   return (
     <section className="chapter home-magazine-section" aria-label="مجله هفت طلایی">
       <div className="chapter-shell">
         <div className="home-magazine-heading">
-          <StoryChapter index="08" eyebrow={section.badge_fa || 'MAGAZINE · مجله'} title={section.title_fa || 'دانش کاربردی برای انتخاب بهتر'} lead={section.subtitle_fa || 'مقاله‌های منتشرشدهٔ وبلاگ هفت طلایی؛ بدون جایگزینی محتوای ثابت در نبود دادهٔ CMS.'} />
+          <StoryChapter
+            index="08"
+            eyebrow={eyebrow}
+            title={title}
+            lead={lead}
+          />
           <Link to="/blog" className="home-news-all">ورود به مجله <ArrowLeft size={16} /></Link>
         </div>
         {loading ? <p className="home-content-status" role="status">در حال بارگذاری مقاله‌ها…</p> : posts.length > 0 ? (
@@ -46,7 +70,7 @@ export default function HomeMagazine({ section = {} }) {
             ))}
           </div>
         ) : (
-          <p className="home-content-status" role="status">{loadError ? 'مقاله‌ها از پایگاه داده دریافت نشدند.' : 'در حال حاضر مقالهٔ منتشرشده‌ای برای نمایش نیست.'}</p>
+          <p className="home-content-status" role="status">{loadError ? 'بارگذاری مقاله‌ها با مشکل روبه‌رو شد.' : 'در حال حاضر مقالهٔ منتشرشده‌ای برای نمایش نیست.'}</p>
         )}
       </div>
     </section>
