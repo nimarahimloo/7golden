@@ -4,9 +4,9 @@ import StoryChapter from '@/components/story/StoryChapter';
 import Reveal from '@/components/story/Reveal';
 
 const CATEGORY_IMAGES = {
-  pistachio: '/product/qazvin-pistachio-nuts.webp',
-  almond: '/banner/tray-pistachio-almond.webp',
-  hazelnut: '/product/brain-hazelnut.webp',
+  pistachio: '/product/pistachio-category.webp',
+  hazelnut: '/product/hazelnut-category.webp',
+  almond: '/product/almond-category.webp',
 };
 
 const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
@@ -114,7 +114,7 @@ export default function HomeFeaturedProducts({
               const slug = category.slug || category.id;
               const image = category.image || CATEGORY_IMAGES[slug];
               const count = publishedProducts.filter((product) => product.category === slug).length;
-              const href = `/shop?category=${encodeURIComponent(slug)}`;
+              const href = `/shop?line=${encodeURIComponent(slug)}`;
               const sizeClass =
                 index === 0
                   ? 'home-cat-card home-cat-card--hero'
