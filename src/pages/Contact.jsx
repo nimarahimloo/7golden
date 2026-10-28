@@ -22,24 +22,7 @@ import ParallaxMedia from '@/components/story/ParallaxMedia';
 import { usePageHero } from '@/lib/usePageHero';
 import { createContactMessage } from '@/lib/api/content';
 import Eyebrow from '@/components/ui/eyebrow';
-
-const CONTACT_INFO = {
-  officePhone: '۰۲۸ ۳۳۳۳ ۴۰۰۴',
-  officePhoneLink: 'tel:+982833334004',
-
-  mobile: '۰۹۱۲ ۱۸۲ ۳۴۳۸',
-  mobileLink: 'tel:+989121823438',
-  whatsappLink: 'https://wa.me/989121823438',
-
-  email: 'info@7golden.ir',
-  emailLink: 'mailto:info@7golden.ir',
-
-  website: '7Golden.Co',
-  websiteLink: 'https://7golden.co',
-
-  instagram: '@goldnuts7',
-  instagramLink: 'https://www.instagram.com/goldnuts7/',
-};
+import { CONTACT_INFO, CONTACT_ADDRESSES } from '@/lib/contact-info';
 
 const CONTACT_CARDS = [
   {
@@ -76,24 +59,6 @@ const CONTACT_CARDS = [
     value: CONTACT_INFO.instagram,
     href: CONTACT_INFO.instagramLink,
     dir: 'ltr',
-  },
-];
-
-const CONTACT_ADDRESSES = [
-  {
-    title: 'دفتر مرکزی قزوین',
-    address:
-      'قزوین، خیابان سعدی جنوبی، نرسیده به بازار، پلاک ۲۱۰',
-  },
-  {
-    title: 'دفتر تهران',
-    address:
-      'مرزداران، فرشتگان، فرشتگان ۴، پلاک ۱۹',
-  },
-  {
-    title: 'کارخانه',
-    address:
-      'قزوین، آبیک، شهرک صنعتی کاسپین ۲، نبش کوچه ۲',
   },
 ];
 
